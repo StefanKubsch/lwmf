@@ -40,9 +40,10 @@
 #include "./DemoSources/Moiree.hpp"
 #include "./DemoSources/Julia.hpp"
 #include "./DemoSources/Bobs.hpp"
+#include "DemoSources/PerlinNoise.hpp"
 
 inline std::int_fast32_t DemoPart{ 1 };
-constexpr std::int_fast32_t MaxDemoPart{ 17 };
+constexpr std::int_fast32_t MaxDemoPart{ 18 };
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -154,6 +155,11 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 17:
 			{
 				Bobs::Draw();
+				break;
+			}
+			case 18:
+			{
+				PerlinNoise::Draw();
 				break;
 			}
 			default: {}

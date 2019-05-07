@@ -30,6 +30,7 @@
     <ClInclude Include="DemoSources\Metaballs.hpp" />
     <ClInclude Include="DemoSources\Moiree.hpp" />
     <ClInclude Include="DemoSources\Morph.hpp" />
+    <ClInclude Include="DemoSources\PerlinNoise.hpp" />
     <ClInclude Include="DemoSources\Plasma.hpp" />
     <ClInclude Include="DemoSources\RotoZoom.hpp" />
     <ClInclude Include="DemoSources\Starfield.hpp" />

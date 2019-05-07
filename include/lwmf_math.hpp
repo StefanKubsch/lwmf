@@ -36,5 +36,11 @@ namespace lwmf
 		return Value < 0 ? -Value : Value;
 	}
 
+	template<typename T>T Lerp(const T t, const T a, const T b)
+	{
+		return a + t * (b - a);
+	}
+
+
 
 } // namespace lwmf
