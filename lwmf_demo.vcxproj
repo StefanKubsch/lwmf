@@ -30,7 +30,7 @@
     <ClInclude Include="DemoSources\Metaballs.hpp" />
     <ClInclude Include="DemoSources\Moiree.hpp" />
     <ClInclude Include="DemoSources\Morph.hpp" />
-    <ClInclude Include="DemoSources\PerlinNoise.hpp" />
+    <ClInclude Include="DemoSources\PerlinGFX.hpp" />
     <ClInclude Include="DemoSources\Plasma.hpp" />
     <ClInclude Include="DemoSources\RotoZoom.hpp" />
     <ClInclude Include="DemoSources\Starfield.hpp" />
@@ -43,6 +43,7 @@
     <ClInclude Include="include\lwmf_general.hpp" />
     <ClInclude Include="include\lwmf_math.hpp" />
     <ClInclude Include="include\lwmf_opengl.hpp" />
+    <ClInclude Include="include\lwmf_PerlinNoise.hpp" />
     <ClInclude Include="include\lwmf_primitives.hpp" />
     <ClInclude Include="include\lwmf_text.hpp" />
   </ItemGroup>

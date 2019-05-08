@@ -40,7 +40,7 @@
 #include "./DemoSources/Moiree.hpp"
 #include "./DemoSources/Julia.hpp"
 #include "./DemoSources/Bobs.hpp"
-#include "DemoSources/PerlinNoise.hpp"
+#include "./DemoSources/PerlinGFX.hpp"
 
 inline std::int_fast32_t DemoPart{ 1 };
 constexpr std::int_fast32_t MaxDemoPart{ 18 };
@@ -159,7 +159,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 18:
 			{
-				PerlinNoise::Draw();
+				PerlinGFX::Draw();
 				break;
 			}
 			default: {}

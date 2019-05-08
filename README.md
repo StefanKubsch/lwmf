@@ -42,6 +42,10 @@ Images:
 Text:
 
   - simple 8x8 hardcoded bitmap font, standard ASCII
+  
+Procedural:
+
+  - Perlin noise generator
 
 My intention of this library:
 
