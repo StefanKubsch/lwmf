@@ -90,10 +90,10 @@
     <ClInclude Include="include\lwmf_text.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="include\lwmf_PerlinNoise.hpp">
+    <ClInclude Include="DemoSources\PerlinGFX.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="DemoSources\PerlinGFX.hpp">
+    <ClInclude Include="include\lwmf_perlinnoise.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

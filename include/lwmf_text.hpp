@@ -22,7 +22,7 @@ namespace lwmf
 	// Font characters
 	//
 	// Author: Marcel Sondaar
-	// std::int_fast32_ternational Business Machines (public domain VGA fonts)
+	// International Business Machines (public domain VGA fonts)
 	// License: Public Domain
 
 	inline const std::vector<std::vector<std::int_fast32_t>> ASCIIFont8x8

@@ -16,7 +16,7 @@ namespace lwmf
 {
 
 
-	inline const float PI{ std::atan(1.0F) * 4.0F };
+	inline const float PI{ std::atanf(1.0F) * 4.0F };
 	inline const float DoublePI{ PI * 2.0F };
 	inline const float OneQrtPI{ PI / 4.0F };
 	inline const float RAD2DEG{ PI / 180.0F };
