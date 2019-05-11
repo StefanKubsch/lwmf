@@ -5,7 +5,7 @@ You need a simple header-only library which allows you to draw pixel-based graph
 
 With lwmf, you can easily:
 
-  - create a resizeable window 
+  - create a resizeable window or fullscreen mode
   - create an OpenGL context
   - load OpenGL extensions (no need for glew or glad!)
   - use vsync, or not

@@ -48,7 +48,7 @@ constexpr std::int_fast32_t MaxDemoPart{ 18 };
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	// Create window and OpenGL context
-	lwmf::CreateOpenGLWindow(hInstance, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!");
+	lwmf::CreateOpenGLWindow(hInstance, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 	// Set VSync: 0 = off, 1 = on
 	lwmf::SetVSync(1);
 	// Load OpenGL/wgl extensions
@@ -70,6 +70,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 	while (!Quit)
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
 		switch (DemoPart)
 		{
 			case 1:

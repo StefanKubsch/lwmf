@@ -89,7 +89,7 @@ namespace lwmf
 		PixelBuffer.resize(static_cast<size_t>(ViewportWidth) * static_cast<size_t>(ViewportHeight), 0);
 	}
 
-	inline void CreateOpenGLWindow(const HINSTANCE hInstance, const std::int_fast32_t Width, const std::int_fast32_t Height, const LPCSTR WindowName)
+	inline void CreateOpenGLWindow(const HINSTANCE hInstance, const std::int_fast32_t Width, const std::int_fast32_t Height, const LPCSTR WindowName, const bool Fullscreen)
 	{
 		// Create window
 
@@ -97,12 +97,32 @@ namespace lwmf
 		WindowClass.lpfnWndProc = WndProc;
 		WindowClass.hInstance = hInstance;
 		WindowClass.lpszClassName = "lwmf";
-		WindowClass.style = CS_OWNDC;
 		RegisterClass(&WindowClass);
 
+		DWORD dwExStyle{ WS_EX_APPWINDOW | WS_EX_WINDOWEDGE };
+		DWORD dwStyle{ WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN };
+
+		if (Fullscreen)
+		{
+			DEVMODE ScreenSettings;
+			memset(&ScreenSettings, 0, sizeof(ScreenSettings));
+			ScreenSettings.dmSize = sizeof(ScreenSettings);
+			ScreenSettings.dmPelsWidth = Width;
+			ScreenSettings.dmPelsHeight = Height;
+			ScreenSettings.dmBitsPerPel = 32;
+			ScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
+
+			if (ChangeDisplaySettings(&ScreenSettings, CDS_FULLSCREEN) == DISP_CHANGE_SUCCESSFUL)
+			{
+				dwExStyle = WS_EX_APPWINDOW;
+				dwStyle = WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+				ShowCursor(FALSE);
+			}
+		}
+
 		RECT WinRect{ 0, 0, Width, Height };
-		AdjustWindowRect(&WinRect, WS_OVERLAPPEDWINDOW, FALSE);
-		MainWindow = CreateWindow(WindowClass.lpszClassName, WindowName, WS_OVERLAPPEDWINDOW, 0, 0, WinRect.right - WinRect.left, WinRect.bottom - WinRect.top, nullptr, nullptr, hInstance, nullptr);
+		AdjustWindowRectEx(&WinRect, dwStyle, FALSE, dwExStyle);
+		MainWindow = CreateWindowEx(dwExStyle, WindowClass.lpszClassName, WindowName, dwStyle, 0, 0, WinRect.right - WinRect.left, WinRect.bottom - WinRect.top, nullptr, nullptr, hInstance, nullptr);
 
 		// Create OpenGL context
 
@@ -259,6 +279,7 @@ namespace lwmf
 
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_BLEND);
+		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
 	}
 
 	//
