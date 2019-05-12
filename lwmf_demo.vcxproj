@@ -40,6 +40,7 @@
     <ClInclude Include="include\lwmf.hpp" />
     <ClInclude Include="include\lwmf_bmp.hpp" />
     <ClInclude Include="include\lwmf_color.hpp" />
+    <ClInclude Include="include\lwmf_fpscounter.hpp" />
     <ClInclude Include="include\lwmf_general.hpp" />
     <ClInclude Include="include\lwmf_math.hpp" />
     <ClInclude Include="include\lwmf_opengl.hpp" />

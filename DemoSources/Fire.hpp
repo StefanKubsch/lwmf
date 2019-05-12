@@ -67,7 +67,7 @@ namespace Fire
 			}
 		}
 
-		lwmf::FilledRectangle(0, 0, 210, 20, 0);
+		lwmf::FilledRectangle(0, 0, 210, 40, 0);
 		lwmf::RenderText("Realtime fullscreen fire", 10, 10, 0xFFFFFFFF);
 	}
 

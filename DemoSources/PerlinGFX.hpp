@@ -20,7 +20,7 @@ namespace PerlinGFX
 				const float x{ static_cast<float>(j) / lwmf::ViewportWidth };
 				const float n{ (15.0F * PGFX.Noise(x, y, NoiseFactor)) - PGFX.Noise(15.0F * x, 15.0F * y, NoiseFactor) };
 
-				lwmf::PixelBuffer[Offset++] = lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(1.0F * n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n));
+				lwmf::PixelBuffer[Offset++] = lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n));
 			}
 		}
 

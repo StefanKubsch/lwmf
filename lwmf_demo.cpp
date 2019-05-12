@@ -167,6 +167,9 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			default: {}
 		}
 
+		// Show FPS counter
+		lwmf::DisplayFPSCounter(10, 20, 0xFFFFFFFF);
+
 		// Bring the pixelbuffer to screen
 		lwmf::RenderPixelBuffer();
 		lwmf::SwapPixelBuffer();

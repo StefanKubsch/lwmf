@@ -25,7 +25,7 @@ namespace lwmf
 {
 
 
-	inline bool FullscreenFlag{};
+	inline std::int_fast32_t FullscreenFlag{};
 	inline GLuint TextureID{};
 
 	inline HDC WindowHandle;
@@ -122,7 +122,7 @@ namespace lwmf
 				dwStyle = WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 				ShowCursor(FALSE);
 
-				FullscreenFlag = true;
+				FullscreenFlag = 1;
 			}
 		}
 
@@ -282,7 +282,7 @@ namespace lwmf
 		glGenTextures(1, &TextureID);
 		glBindTexture(GL_TEXTURE_2D, TextureID);
 
-		if (FullscreenFlag)
+		if (FullscreenFlag == 1)
 		{
 			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA, ViewportWidth, ViewportHeight);
 		}
@@ -303,16 +303,17 @@ namespace lwmf
 	{
 		switch (FullscreenFlag)
 		{
-			case true:
+			case 1:
 			{
 				glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, ViewportWidth, ViewportHeight, GL_RGBA, GL_UNSIGNED_BYTE, PixelBuffer.data());
 				break;
 			}
-			case false:
+			case 0:
 			{
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ViewportWidth, ViewportHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, PixelBuffer.data());
 				break;
 			}
+			default: {};
 		}
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
