@@ -25,6 +25,9 @@ namespace lwmf
 {
 
 
+	inline bool FullscreenFlag{};
+	inline GLuint TextureID{};
+
 	inline HDC WindowHandle;
 	inline HWND MainWindow;
 
@@ -61,6 +64,7 @@ namespace lwmf
 		OG(void,	glGenVertexArrays,			GLsizei n, GLuint *arrays) \
 		OG(void,	glLinkProgram,				GLuint program) \
 		OG(void,	glShaderSource,				GLuint shader, GLsizei count, const GLchar* const *string, const GLint *length) \
+		OG(void,	glTexStorage2D,				GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height) \
 		OG(void,	glUseProgram,				GLuint program) \
 		OG(void,	glVertexAttribPointer,		GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid * pointer)
 
@@ -117,6 +121,8 @@ namespace lwmf
 				dwExStyle = WS_EX_APPWINDOW;
 				dwStyle = WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 				ShowCursor(FALSE);
+
+				FullscreenFlag = true;
 			}
 		}
 
@@ -273,7 +279,14 @@ namespace lwmf
 		glDeleteShader(VertexShader);
 
 		// Bind a texture
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glGenTextures(1, &TextureID);
+		glBindTexture(GL_TEXTURE_2D, TextureID);
+
+		if (FullscreenFlag)
+		{
+			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA, ViewportWidth, ViewportHeight);
+		}
+
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
@@ -288,7 +301,20 @@ namespace lwmf
 
 	inline void RenderPixelBuffer()
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ViewportWidth, ViewportHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, PixelBuffer.data());
+		switch (FullscreenFlag)
+		{
+			case true:
+			{
+				glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, ViewportWidth, ViewportHeight, GL_RGBA, GL_UNSIGNED_BYTE, PixelBuffer.data());
+				break;
+			}
+			case false:
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ViewportWidth, ViewportHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, PixelBuffer.data());
+				break;
+			}
+		}
+
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}
 
