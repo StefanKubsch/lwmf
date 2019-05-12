@@ -109,7 +109,7 @@ namespace lwmf
 		if (Fullscreen)
 		{
 			DEVMODE ScreenSettings;
-			memset(&ScreenSettings, 0, sizeof(ScreenSettings));
+			std::memset(&ScreenSettings, 0, sizeof(ScreenSettings));
 			ScreenSettings.dmSize = sizeof(ScreenSettings);
 			ScreenSettings.dmPelsWidth = Width;
 			ScreenSettings.dmPelsHeight = Height;

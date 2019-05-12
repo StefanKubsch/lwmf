@@ -13,17 +13,18 @@
 #include <cstdint>
 #include <string>
 
+#include "lwmf_text.hpp"
+
 namespace lwmf
 {
 
 
 	inline std::uint_fast32_t FPSUpdate{};
 	inline std::int_fast32_t FPSFrames{};
+	inline std::int_fast32_t FPS{};
 
-	inline void DisplayFPSCounter(const std::int_fast32_t PosX, const std::int_fast32_t PosY, const std::int_fast32_t Color)
+	inline void FPSCounter()
 	{
-		static std::int_fast32_t FPS{};
-
 		if (const std::uint_fast32_t SystemTime{ GetTickCount() }; SystemTime - FPSUpdate >= 1000)
 		{
 			FPS = FPSFrames;
@@ -32,7 +33,10 @@ namespace lwmf
 		}
 
 		++FPSFrames;
+	}
 
+	inline void DisplayFPSCounter(const std::int_fast32_t PosX, const std::int_fast32_t PosY, const std::int_fast32_t Color)
+	{
 		RenderText("fps:" + std::to_string(FPS), PosX, PosY, Color);
 	}
 

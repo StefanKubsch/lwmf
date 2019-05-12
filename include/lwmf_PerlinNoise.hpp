@@ -13,6 +13,8 @@
 #include <cstdint>
 #include <vector>
 
+#include "lwmf_math.hpp"
+
 namespace lwmf
 {
 

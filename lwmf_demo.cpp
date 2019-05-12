@@ -18,6 +18,7 @@
 
 #include <Windows.h>
 #include <cstdint>
+#include <string>
 
 // Including "lwmf.hpp" is mandatory - this is the main library file!
 #include "./include/lwmf.hpp"
@@ -43,7 +44,7 @@
 #include "./DemoSources/PerlinGFX.hpp"
 
 inline std::int_fast32_t DemoPart{ 1 };
-constexpr std::int_fast32_t MaxDemoPart{ 18 };
+constexpr std::int_fast32_t MaxDemoPart{ 19 };
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -70,8 +71,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 	while (!Quit)
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
 		switch (DemoPart)
 		{
 			case 1:
@@ -164,10 +163,17 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 				PerlinGFX::Draw();
 				break;
 			}
+			case 19:
+			{
+				lwmf::ClearPixelBuffer(0xFFFF00FF);
+				lwmf::RenderText("Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame", 10, 10, 0xFFFFFFFF);
+				break;
+			}
 			default: {}
 		}
 
 		// Show FPS counter
+		lwmf::FPSCounter();
 		lwmf::DisplayFPSCounter(10, 20, 0xFFFFFFFF);
 
 		// Bring the pixelbuffer to screen
