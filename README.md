@@ -46,6 +46,10 @@ Text:
 Procedural:
 
   - Perlin noise generator
+  
+Other stuff:
+
+  - fps counter
 
 My intention of this library:
 
