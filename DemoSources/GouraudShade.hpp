@@ -168,7 +168,7 @@ namespace GouraudShade
 			ColourCalc2 += ColourDiff2;
 
 			const std::int_fast32_t ColourIncSign{ EndColour > StartColour ? 1 : -1 };
-			const std::int_fast32_t ColourDiff{ lwmf::Abs<std::int_fast32_t>(StartColour - EndColour) };
+			const std::int_fast32_t ColourDiff{ std::abs(StartColour - EndColour) };
 			const std::int_fast32_t LineWidth{ X2 - X1 };
 			std::int_fast32_t ColourIncCount{ ColourDiff - (LineWidth >> 1) };
 

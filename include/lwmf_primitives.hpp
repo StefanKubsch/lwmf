@@ -116,7 +116,7 @@ namespace lwmf
 		else if (x1 >= 0 && x1 <= ViewportWidth && y1 >= 0 && y1 < ViewportHeight && x2 >= 0 && x2 <= ViewportWidth && y2 >= 0 && y2 < ViewportHeight)
 		{
 			const IntPointStruct d{ x2 - x1, y2 - y1 };
-			const IntPointStruct d1{ Abs<std::int_fast32_t>(d.x), Abs<std::int_fast32_t>(d.y) };
+			const IntPointStruct d1{ std::abs(d.x), std::abs(d.y) };
 
 			if (std::int_fast32_t x{}, y{}; d1.y <= d1.x)
 			{
@@ -173,7 +173,7 @@ namespace lwmf
 		else
 		{ //-V523
 			const IntPointStruct d{ x2 - x1, y2 - y1 };
-			const IntPointStruct d1{ Abs<std::int_fast32_t>(d.x), Abs<std::int_fast32_t>(d.y) };
+			const IntPointStruct d1{ std::abs(d.x), std::abs(d.y) };
 
 			if (std::int_fast32_t x{}, y{}; d1.y <= d1.x)
 			{
@@ -371,7 +371,7 @@ namespace lwmf
 		{
 			IntPointStruct Point2{ Points[i & (NumberOfPoints - 1)] };
 
-			if ((Point.y > Min(Point1.y, Point2.y)) && (Point.y <= Max(Point1.y, Point2.y)) && (Point.x <= Max(Point1.x, Point2.x)))
+			if ((Point.y > (std::min)(Point1.y, Point2.y)) && (Point.y <= (std::max)(Point1.y, Point2.y)) && (Point.x <= (std::max)(Point1.x, Point2.x)))
 			{
 				if ((Point1.y != Point2.y) && (Point1.x == Point2.x || Point.x <= (Point.y - Point1.y) * (Point2.x - Point1.x) / (Point2.y - Point1.y) + Point1.x))
 				{
