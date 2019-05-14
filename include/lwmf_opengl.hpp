@@ -1,11 +1,11 @@
 /*
-********************************************************************
-*                                                                  *
-* lwmf_opengl - lightweight media framework - OpenGL library       *
-*                                                                  *
-* (C) 2019 - present by Stefan Kubsch                              *
-*                                                                  *
-********************************************************************
+****************************************************
+*                                                  *
+* lwmf_opengl - lightweight media framework        *
+*                                                  *
+* (C) 2019 - present by Stefan Kubsch              *
+*                                                  *
+****************************************************
 */
 
 #pragma once

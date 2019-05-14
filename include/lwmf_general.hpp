@@ -1,11 +1,11 @@
 /*
-********************************************************************
-*                                                                  *
-* lwmf_general - lightweight media framework - general defs        *
-*                                                                  *
-* (C) 2019 - present by Stefan Kubsch                              *
-*                                                                  *
-********************************************************************
+******************************************************
+*                                                    *
+* lwmf_general - lightweight media framework         *
+*                                                    *
+* (C) 2019 - present by Stefan Kubsch                *
+*                                                    *
+******************************************************
 */
 
 #pragma once

@@ -36,3 +36,4 @@ x64/Release/lwmf_demo.nativecodeanalysis.xml
 x64/Release/NativeCodeAnalysis.read.1.tlog
 x64/Release/vc.nativecodeanalysis.all.xml
 .vs/lwmf_demo/v16/ipch/AutoPCH/e38d5ad7fed5e6ba/LWMF_FPSCOUNTER.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/832888a2874ea91c/LWMF_MULTITHREADING.ipch

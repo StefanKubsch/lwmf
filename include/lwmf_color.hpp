@@ -1,11 +1,11 @@
 /*
-********************************************************************
-*                                                                  *
-* lwmf_color - lightweight media framework - color handling        *
-*                                                                  *
-* (C) 2019 - present by Stefan Kubsch                              *
-*                                                                  *
-********************************************************************
+****************************************************
+*                                                  *
+* lwmf_color - lightweight media framework         *
+*                                                  *
+* (C) 2019 - present by Stefan Kubsch              *
+*                                                  *
+****************************************************
 */
 
 #pragma once

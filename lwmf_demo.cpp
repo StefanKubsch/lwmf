@@ -160,12 +160,12 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 18:
 			{
-				PerlinGFX::Draw();
+				PerlinGFX::DrawParts();
 				break;
 			}
 			case 19:
 			{
-				lwmf::ClearPixelBuffer(0xFFFF00FF);
+				lwmf::ClearPixelBuffer(rand() % 0XFFFFFFFF);
 				lwmf::RenderText("Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame", 10, 10, 0xFFFFFFFF);
 				break;
 			}

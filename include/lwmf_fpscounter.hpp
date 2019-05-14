@@ -1,11 +1,11 @@
 /*
-********************************************************************
-*                                                                  *
-* lwmf_fpscounter - lightweight media framework - FPS counter      *
-*                                                                  *
-* (C) 2019 - present by Stefan Kubsch                              *
-*                                                                  *
-********************************************************************
+*******************************************************
+*                                                     *
+* lwmf_fpscounter - lightweight media framework       *
+*                                                     *
+* (C) 2019 - present by Stefan Kubsch                 *
+*                                                     *
+*******************************************************
 */
 
 #pragma once

@@ -1,11 +1,11 @@
 /*
-********************************************************************
-*                                                                  *
-* lwmf_primitives - lightweight media framework - gfx primitives   *
-*                                                                  *
-* (C) 2019 - present by Stefan Kubsch                              *
-*                                                                  *
-********************************************************************
+****************************************************
+*                                                  *
+* lwmf_primitives - lightweight media framework    *
+*                                                  *
+* (C) 2019 - present by Stefan Kubsch              *
+*                                                  *
+****************************************************
 */
 
 #pragma once

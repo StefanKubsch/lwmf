@@ -6,27 +6,84 @@ namespace PerlinGFX
 {
 
 
-	inline void Draw()
+	enum class Renderpart : std::int_fast32_t
 	{
-		static lwmf::PerlinNoise PGFX;
-		static float NoiseFactor{ 0.4F };
+		TopLeft,
+		TopRight,
+		DownLeft,
+		DownRight
+	};
 
-		for (std::int_fast32_t Offset{}, i{}; i < lwmf::ViewportHeight; ++i)
+	inline lwmf::Multithreading Threadpool;
+	inline lwmf::PerlinNoise PGFX;
+	inline float NoiseFactor{ 0.4F };
+
+	inline void Draw(const Renderpart Part)
+	{
+		std::int_fast32_t StartX{};
+		std::int_fast32_t EndX{};
+		std::int_fast32_t StartY{};
+		std::int_fast32_t EndY{};
+
+		switch (Part)
 		{
-			const float y{ static_cast<float>(i) / lwmf::ViewportHeight };
-
-			for (std::int_fast32_t j{}; j < lwmf::ViewportWidth; ++j)
+			case Renderpart::TopLeft:
 			{
-				const float x{ static_cast<float>(j) / lwmf::ViewportWidth };
-				const float n{ (15.0F * PGFX.Noise(x, y, NoiseFactor)) - PGFX.Noise(15.0F * x, 15.0F * y, NoiseFactor) };
-
-				lwmf::PixelBuffer[Offset++] = lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n));
+				EndX = lwmf::ViewportWidthMid;
+				EndY = lwmf::ViewportHeightMid;
+				break;
 			}
+			case Renderpart::TopRight:
+			{
+				StartX = lwmf::ViewportWidthMid;
+				EndX = lwmf::ViewportWidth;
+				EndY = lwmf::ViewportHeightMid;
+				break;
+			}
+			case Renderpart::DownLeft:
+			{
+				EndX = lwmf::ViewportWidthMid;
+				StartY = lwmf::ViewportHeightMid;
+				EndY = lwmf::ViewportHeight;
+				break;
+			}
+			case Renderpart::DownRight:
+			{
+				StartX = lwmf::ViewportWidthMid;
+				EndX = lwmf::ViewportWidth;
+				StartY = lwmf::ViewportHeightMid;
+				EndY = lwmf::ViewportHeight;
+				break;
+			}
+
+			default: {}
 		}
 
-		NoiseFactor += 0.005F;
+		for (std::int_fast32_t y{ StartY }; y < EndY; ++y)
+		{
+			const float PosY{ static_cast<float>(y) / lwmf::ViewportHeight };
 
-		lwmf::RenderText("Perlin noise generated gfx", 10, 10, 0xFFFFFFFF);
+			for (std::int_fast32_t x{ StartX }; x < EndX; ++x)
+			{
+				const float PosX{ static_cast<float>(x) / lwmf::ViewportWidth };
+				const float n{ (15.0F * PGFX.Noise(PosX, PosY, NoiseFactor)) - PGFX.Noise(15.0F * PosX, 15.0F * PosY, NoiseFactor) };
+
+				lwmf::SetPixel(x, y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n)));
+			}
+		}
+	}
+
+	inline void DrawParts()
+	{
+		Threadpool.AddThread(&Draw, Renderpart::TopLeft);
+		Threadpool.AddThread(&Draw, Renderpart::TopRight);
+		Threadpool.AddThread(&Draw, Renderpart::DownLeft);
+		Threadpool.AddThread(&Draw, Renderpart::DownRight);
+		Threadpool.WaitForThreads();
+
+		NoiseFactor += 0.002F;
+
+		lwmf::RenderText("Multithreaded, Perlin noise generated gfx", 10, 10, 0xFFFFFFFF);
 	}
 
 

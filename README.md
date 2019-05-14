@@ -1,18 +1,12 @@
 # lwmf
-lightweight media framework - C++ OpenGL/graphics and media lib for windows
-
-You need a simple header-only library which allows you to draw pixel-based graphics and media in Windows, but in a better, easier and more performant way than using GDI+ ?
+lightweight media framework - graphics, math, multithreading and more for games and gfx
 
 With lwmf, you can easily:
 
-  - create a resizeable window or fullscreen mode
-  - create an OpenGL context
-  - load OpenGL extensions (no need for glew or glad!)
-  - use vsync, or not
-  - setup some vertex and fragment shaders
-  - use primitives
-  - copy a pixelbuffer to an OpenGL texture
-  - and render it to the window
+	- create windowed or fullscreen, OpenGL-accelerated games or demos
+	- use primitives, load and manipulate bitmaps
+	- run everything multithreaded
+	- and more
 
 Inplemented primitives:
 
@@ -50,6 +44,8 @@ Procedural:
 Other stuff:
 
   - fps counter
+  - graphics related math functions
+  - a multithread class with a threadpool
 
 My intention of this library:
 

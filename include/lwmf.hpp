@@ -21,3 +21,4 @@
 #include "lwmf_text.hpp"
 #include "lwmf_perlinnoise.hpp"
 #include "lwmf_fpscounter.hpp"
+#include "lwmf_multithreading.hpp"

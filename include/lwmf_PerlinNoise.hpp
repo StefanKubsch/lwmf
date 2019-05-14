@@ -1,11 +1,11 @@
 /*
-********************************************************************
-*                                                                  *
-* lwmf_perlinnoise - lightweight media framework - Perlin noise    *
-*                                                                  *
-* (C) 2019 - present by Stefan Kubsch                              *
-*                                                                  *
-********************************************************************
+******************************************************
+*                                                    *
+* lwmf_perlinnoise - lightweight media framework     *
+*                                                    *
+* (C) 2019 - present by Stefan Kubsch                *
+*                                                    *
+******************************************************
 */
 
 #pragma once
