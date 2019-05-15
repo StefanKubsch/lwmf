@@ -14,12 +14,12 @@ namespace PerlinGFX
 		DownRight
 	};
 
-	inline lwmf::Multithreading Threadpool;
-	inline lwmf::PerlinNoise PGFX;
 	inline float NoiseFactor{ 0.4F };
 
 	inline void Draw(const Renderpart Part)
 	{
+		static lwmf::PerlinNoise PGFX;
+
 		std::int_fast32_t StartX{};
 		std::int_fast32_t EndX{};
 		std::int_fast32_t StartY{};
@@ -68,13 +68,15 @@ namespace PerlinGFX
 				const float PosX{ static_cast<float>(x) / lwmf::ViewportWidth };
 				const float n{ (15.0F * PGFX.Noise(PosX, PosY, NoiseFactor)) - PGFX.Noise(15.0F * PosX, 15.0F * PosY, NoiseFactor) };
 
-				lwmf::SetPixel(x, y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n)));
+				lwmf::PixelBuffer[y * lwmf::ViewportWidth + x] = lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n));
 			}
 		}
 	}
 
 	inline void DrawParts()
 	{
+		static lwmf::Multithreading Threadpool;
+
 		Threadpool.AddThread(&Draw, Renderpart::TopLeft);
 		Threadpool.AddThread(&Draw, Renderpart::TopRight);
 		Threadpool.AddThread(&Draw, Renderpart::DownLeft);

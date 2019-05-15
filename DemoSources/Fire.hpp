@@ -51,7 +51,7 @@ namespace Fire
 			{
 				if ((Distrib1(Engine) & 31) == 0)
 				{
-					lwmf::SetPixel(x, y, 0);
+					lwmf::PixelBuffer[y * lwmf::ViewportWidth + x] = 0;
 				}
 				else
 				{
@@ -60,9 +60,9 @@ namespace Fire
 					const lwmf::ColorStruct Point3{ lwmf::INTtoRGBA(lwmf::GetPixel(x - 1, y)) };
 					const lwmf::ColorStruct Point4{ lwmf::INTtoRGBA(lwmf::GetPixel(x + 1, y - 1)) };
 
-					lwmf::SetPixel(x, y - 1, lwmf::RGBAtoINT((Point1.Red + Point2.Red + Point3.Red + Point4.Red) >> 2,
+					lwmf::PixelBuffer[(y - 1) * lwmf::ViewportWidth + x] = lwmf::RGBAtoINT((Point1.Red + Point2.Red + Point3.Red + Point4.Red) >> 2,
 						(Point1.Green + Point2.Green + Point3.Green + Point4.Green) >> 2,
-						(Point1.Blue + Point2.Blue + Point3.Blue + Point4.Blue) >> 2, 255));
+						(Point1.Blue + Point2.Blue + Point3.Blue + Point4.Blue) >> 2, 255);
 				}
 			}
 		}

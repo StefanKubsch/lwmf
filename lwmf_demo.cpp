@@ -43,6 +43,7 @@
 #include "./DemoSources/Bobs.hpp"
 #include "./DemoSources/PerlinGFX.hpp"
 
+inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{ 1 };
 constexpr std::int_fast32_t MaxDemoPart{ 19 };
 
@@ -66,6 +67,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	GouraudShade::Init();
 	RotoZoom::Init();
 	Bobs::Init();
+
+	FillrateTestString = "Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame";
 
 	bool Quit{};
 
@@ -166,7 +169,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 19:
 			{
 				lwmf::ClearPixelBuffer(rand() % 0XFFFFFFFF);
-				lwmf::RenderText("Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame", 10, 10, 0xFFFFFFFF);
+				lwmf::RenderText(FillrateTestString, 10, 10, 0xFFFFFFFF);
 				break;
 			}
 			default: {}
@@ -205,6 +208,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_SIZE:
 		{
 			lwmf::ResizeOpenGLWindow();
+			FillrateTestString = "Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame";
 			break;
 		}
 		case WM_KEYDOWN:
