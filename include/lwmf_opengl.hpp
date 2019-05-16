@@ -38,11 +38,11 @@ namespace lwmf
 	inline std::int_fast32_t ViewportHeightMid{};
 
 	// Stuff for OpenGL Loader
-	constexpr std::int_fast32_t GL_ARRAY_BUFFER				{ 0x8892 };
-	constexpr std::int_fast32_t GL_ELEMENT_ARRAY_BUFFER		{ 0x8893 };
-	constexpr std::int_fast32_t GL_FRAGMENT_SHADER			{ 0x8B30 };
-	constexpr std::int_fast32_t GL_STATIC_DRAW				{ 0x88E4 };
-	constexpr std::int_fast32_t GL_VERTEX_SHADER			{ 0x8B31 };
+	#define GL_ARRAY_BUFFER				0x8892
+	#define GL_ELEMENT_ARRAY_BUFFER		0x8893
+	#define GL_FRAGMENT_SHADER			0x8B30
+	#define GL_STATIC_DRAW				0x88E4
+	#define GL_VERTEX_SHADER			0x8B31
 
 	using GLchar = char;
 	using GLsizeiptr = std::ptrdiff_t;
@@ -290,9 +290,7 @@ namespace lwmf
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_BLEND);
-		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
 	}
 
 	//
