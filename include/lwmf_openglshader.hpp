@@ -13,8 +13,6 @@
 #include <cstdint>
 #include <GL/gl.h>
 
-
-
 namespace lwmf
 {
 
@@ -120,6 +118,12 @@ namespace lwmf
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		glDisable(GL_BLEND);
+	}
+
+	inline void ClearBuffer()
+	{
+		glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 
