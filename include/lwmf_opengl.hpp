@@ -284,7 +284,7 @@ namespace lwmf
 
 		if (FullscreenFlag == 1)
 		{
-			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA, ViewportWidth, ViewportHeight);
+			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, ViewportWidth, ViewportHeight);
 		}
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -308,7 +308,7 @@ namespace lwmf
 			}
 			case 0:
 			{
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ViewportWidth, ViewportHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, PixelBuffer.data());
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, ViewportWidth, ViewportHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, PixelBuffer.data());
 				break;
 			}
 			default: {};
