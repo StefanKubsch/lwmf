@@ -48,7 +48,7 @@ namespace lwmf
 	using GLsizeiptr = std::ptrdiff_t;
 	using GLintptr = std::ptrdiff_t;
 
-	#define OGLIST \
+	#define OGL \
 		OG(void,	glAttachShader,				GLuint program, GLuint shader) \
 		OG(void,	glBindBuffer,				GLenum target, GLuint buffer) \
 		OG(void,	glBindFragDataLocation,		GLuint program, GLuint colorNumber,	const char * name) \
@@ -69,11 +69,11 @@ namespace lwmf
 		OG(void,	glVertexAttribPointer,		GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid * pointer)
 
 	#define OG(Return, Name, ...) typedef Return WINAPI Name##proc(__VA_ARGS__); extern Name##proc * Name;
-		OGLIST
+		OGL
 	#undef OG
 
 	#define OG(Return, Name, ...) Name##proc * Name;
-		OGLIST
+		OGL
 	#undef OG
 
 	//
@@ -177,7 +177,7 @@ namespace lwmf
 		wglGetProcAddressproc* wglGetProcAddress{ reinterpret_cast<wglGetProcAddressproc*>(GetProcAddress(OpenGLDLL, "wglGetProcAddress")) };
 
 		#define OG(Return, Name, ...) Name = (Name##proc *)wglGetProcAddress(#Name);
-			OGLIST
+			OGL
 		#undef OG
 	}
 
