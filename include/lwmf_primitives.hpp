@@ -16,7 +16,7 @@
 
 #include "lwmf_general.hpp"
 #include "lwmf_math.hpp"
-#include "lwmf_opengl.hpp"
+#include "lwmf_pixelbuffer.hpp"
 
 namespace lwmf
 {

@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "Windows.h"
 #include <cstdint>
 
 namespace lwmf
@@ -27,6 +28,16 @@ namespace lwmf
 		float x{};
 		float y{};
 	};
+
+	inline std::int_fast32_t FullscreenFlag{};
+
+	inline std::int_fast32_t ViewportWidth{};
+	inline std::int_fast32_t ViewportHeight{};
+	inline std::int_fast32_t ViewportWidthMid{};
+	inline std::int_fast32_t ViewportHeightMid{};
+
+	inline HDC WindowHandle;
+	inline HWND MainWindow;
 
 
 } // namespace lwmf

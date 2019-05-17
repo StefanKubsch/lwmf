@@ -37,3 +37,7 @@ x64/Release/NativeCodeAnalysis.read.1.tlog
 x64/Release/vc.nativecodeanalysis.all.xml
 .vs/lwmf_demo/v16/ipch/AutoPCH/e38d5ad7fed5e6ba/LWMF_FPSCOUNTER.ipch
 .vs/lwmf_demo/v16/ipch/AutoPCH/832888a2874ea91c/LWMF_MULTITHREADING.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/547aaba05babbffd/LWMF_OPENGLLOADER.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/a43a8f1d7ffa3ae3/LWMF_PIXELBUFFER.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/afb99eb9548c57d/LWMF_OPENGLSHADER.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/b8379b0322bbdc58/LWMF_OPENGLWINDOW.ipch

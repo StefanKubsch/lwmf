@@ -13,7 +13,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "lwmf_opengl.hpp"
+#include "lwmf_pixelbuffer.hpp"
 
 namespace lwmf
 {
