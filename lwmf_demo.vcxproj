@@ -50,6 +50,7 @@
     <ClInclude Include="include\lwmf_perlinnoise.hpp" />
     <ClInclude Include="include\lwmf_pixelbuffer.hpp" />
     <ClInclude Include="include\lwmf_primitives.hpp" />
+    <ClInclude Include="include\lwmf_rawinput.hpp" />
     <ClInclude Include="include\lwmf_text.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -111,6 +111,9 @@
     <ClInclude Include="include\lwmf_openglshader.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="include\lwmf_rawinput.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp">

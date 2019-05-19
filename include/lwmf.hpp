@@ -19,6 +19,7 @@
 #include "lwmf_openglloader.hpp"
 #include "lwmf_openglwindow.hpp"
 #include "lwmf_openglshader.hpp"
+#include "lwmf_rawinput.hpp"
 #include "lwmf_primitives.hpp"
 #include "lwmf_bmp.hpp"
 #include "lwmf_text.hpp"

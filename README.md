@@ -46,6 +46,7 @@ Other stuff:
   - fps counter
   - graphics related math functions
   - a multithread class with a threadpool
+  - raw input device handling (mouse and keyboard)
 
 My intention of this library:
 

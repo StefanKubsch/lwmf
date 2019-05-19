@@ -58,6 +58,10 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	// Init the shaders used for rendering
 	lwmf::InitShader();
 
+	// Init raw devices
+	lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_MOUSE);
+	lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_KEYBOARD);
+
 	// Init the demoparts if neccessary...
 	Landscape::Init();
 	Lens::Init();
@@ -74,6 +78,20 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 	while (!Quit)
 	{
+		static MSG Message{};
+
+		while (PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
+		{
+			if (Message.message == WM_QUIT)
+			{
+				Quit = true;
+				break;
+			}
+
+			TranslateMessage(&Message);
+			DispatchMessage(&Message);
+		}
+
 		switch (DemoPart)
 		{
 			case 1:
@@ -182,21 +200,10 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Bring the pixelbuffer to screen
 		lwmf::RenderPixelBuffer();
 		lwmf::SwapPixelBuffer();
-
-		MSG Message{};
-
-		while (PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
-		{
-			if (Message.message == WM_QUIT)
-			{
-				Quit = true;
-				break;
-			}
-
-			TranslateMessage(&Message);
-			DispatchMessage(&Message);
-		}
 	}
+
+	lwmf::UnregisterRawInputDevice(lwmf::HID_MOUSE);
+	lwmf::UnregisterRawInputDevice(lwmf::HID_KEYBOARD);
 
 	return 0;
 }
@@ -211,29 +218,40 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			FillrateTestString = "Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame";
 			break;
 		}
-		case WM_KEYDOWN:
+		case WM_INPUT:
 		{
-			switch (wParam)
-			{
-				case VK_RIGHT:
-				{
-					DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 1;
-					lwmf::ClearPixelBuffer(0);
-					break;
-				}
-				case VK_LEFT:
-				{
-					DemoPart > 1 ? --DemoPart :	DemoPart = MaxDemoPart;
-					lwmf::ClearPixelBuffer(0);
-					break;
-				}
-				case VK_ESCAPE:
-				{
-					PostQuitMessage(0);
-					break;
-				}
+			// Variables for RAW INPUT Buffer
+			// RawInputBuffer will be max. 40bytes on 32bit, and 48bytes on 64bit applications
+			static std::uint_fast32_t Size{ sizeof(RAWINPUT) };
+			static RAWINPUT RawDev[sizeof(RAWINPUT)];
+			GetRawInputData((HRAWINPUT)lParam, RID_INPUT, RawDev, &Size, sizeof(RAWINPUTHEADER));
 
-				default: {}
+			switch (RawDev->header.dwType)
+			{
+				case RIM_TYPEKEYBOARD:
+				{
+					if (RawDev->data.keyboard.Message == WM_KEYDOWN || RawDev->data.keyboard.Message == WM_SYSKEYDOWN)
+					{
+						if (RawDev->data.keyboard.VKey == VK_ESCAPE)
+						{
+							PostQuitMessage(0);
+							break;
+						}
+
+						if (RawDev->data.keyboard.VKey == VK_RIGHT)
+						{
+							DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 1;
+							lwmf::ClearPixelBuffer(0);
+							break;
+						}
+
+						if (RawDev->data.keyboard.VKey == VK_LEFT)
+						{
+							DemoPart > 1 ? --DemoPart : DemoPart = MaxDemoPart;
+							lwmf::ClearPixelBuffer(0);
+						}
+					}
+				}
 			}
 			break;
 		}
