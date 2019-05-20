@@ -22,6 +22,24 @@ namespace lwmf
 {
 
 
+	void SetPixel(std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Color);
+	void SetPixelSafe(std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Color);
+	std::int_fast32_t GetPixel(std::int_fast32_t x, std::int_fast32_t y);
+	void BoundaryFill(IntPointStruct& CenterPoints, std::int_fast32_t BorderColor, std::int_fast32_t FillColor);
+	void Line(std::int_fast32_t x1, std::int_fast32_t y1, std::int_fast32_t x2, std::int_fast32_t y2, std::int_fast32_t Color);
+	void Rectangle(std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t Color);
+	void FilledRectangle(std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t Color);
+	void Circle(std::int_fast32_t CenterX, std::int_fast32_t CenterY, std::int_fast32_t Radius, std::int_fast32_t Color);
+	void FilledCircle(std::int_fast32_t CenterX, std::int_fast32_t CenterY, std::int_fast32_t Radius, std::int_fast32_t BorderColor, std::int_fast32_t FillColor);
+	IntPointStruct GetPolygonCentroid(const std::vector<IntPointStruct>& Points);
+	bool PointInsidePolygon(const std::vector<IntPointStruct>& Points, const IntPointStruct& Point);
+	void Polygon(const std::vector<IntPointStruct>& Points, std::int_fast32_t BorderColor);
+	void FilledPolygon(const std::vector<IntPointStruct>& Points, std::int_fast32_t BorderColor, std::int_fast32_t FillColor);
+
+	//
+	// Functions
+	//
+
 	//
 	// Pixel operations
 	//

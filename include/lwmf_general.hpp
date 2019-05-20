@@ -17,6 +17,10 @@ namespace lwmf
 {
 
 
+	//
+	// Variables and constants
+	//
+
 	struct IntPointStruct final
 	{
 		std::int_fast32_t x{};

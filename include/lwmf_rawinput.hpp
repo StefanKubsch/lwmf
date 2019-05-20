@@ -16,9 +16,21 @@ namespace lwmf
 {
 
 
+	void RegisterRawInputDevice(HWND hWnd, USHORT Device);
+	void UnregisterRawInputDevice(USHORT Device);
+	void CatchMouse(HWND hWnd);
+
+	//
+	// Variables and constants
+	//
+
 	// Device identifier
 	constexpr USHORT HID_MOUSE{ 2 };
 	constexpr USHORT HID_KEYBOARD{ 6 };
+
+	//
+	// Functions
+	//
 
 	inline void RegisterRawInputDevice(const HWND hWnd, const USHORT Device)
 	{
@@ -47,15 +59,10 @@ namespace lwmf
 
 	inline void CatchMouse(const HWND hWnd)
 	{
-		RECT WindowRect{};
+		static RECT WindowRect{};
 
-		// Get focus
-		SetCapture(hWnd);
+		//SetCapture(hWnd);
 
-		// Hide mouse cursor
-		ShowCursor(FALSE);
-
-		// Get & set window boundaries (used for ClipCursor)
 		GetClientRect(hWnd, &WindowRect);
 
 		POINT UpperLeft{ WindowRect.left, WindowRect.top };
@@ -69,7 +76,6 @@ namespace lwmf
 		WindowRect.right = LowerRight.x;
 		WindowRect.bottom = LowerRight.y;
 
-		// "catch" mousepointer in window
 		ClipCursor(&WindowRect);
 	}
 

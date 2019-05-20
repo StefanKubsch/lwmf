@@ -19,6 +19,12 @@ namespace lwmf
 {
 
 
+	void RenderText(const std::string& Text, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Color);
+
+	//
+	// Variables and constants
+	//
+
 	// Font characters
 	//
 	// Author: Marcel Sondaar
@@ -124,6 +130,10 @@ namespace lwmf
 		{ 0x6E, 0x3B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},   // U+007E (~)
 		{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}    // U+007F
 	};
+
+	//
+	// Functions
+	//
 
 	inline void RenderText(const std::string& Text, std::int_fast32_t PosX, const std::int_fast32_t PosY, const std::int_fast32_t Color)
 	{

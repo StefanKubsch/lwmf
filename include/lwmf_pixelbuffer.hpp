@@ -22,7 +22,18 @@ namespace lwmf
 {
 
 
+	void RenderPixelBuffer();
+	void ClearPixelBuffer(std::int_fast32_t Color);
+
+	//
+	// Variables and constants
+	//
+
 	inline std::vector<std::int_fast32_t> PixelBuffer;
+
+	//
+	// Functions
+	//
 
 	inline void RenderPixelBuffer()
 	{
@@ -42,11 +53,6 @@ namespace lwmf
 		}
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-	}
-
-	inline void SwapPixelBuffer()
-	{
-		SwapBuffers(WindowHandle);
 	}
 
 	inline void ClearPixelBuffer(const std::int_fast32_t Color)

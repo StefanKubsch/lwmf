@@ -33,9 +33,24 @@ namespace lwmf
 		size_t Stride{};
 	};
 
+	void SetBMPMetrics(BitmapStruct& Bitmap, std::int_fast32_t Width, std::int_fast32_t Height);
+	void LoadBMP(BitmapStruct& Bitmap, const std::string& Filename);
+	void CropBMP(BitmapStruct& Bitmap, std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Width, std::int_fast32_t Height);
+	void ResizeBMP(BitmapStruct& Bitmap, std::int_fast32_t TargetWidth, std::int_fast32_t TargetHeight, std::int_fast32_t FilterMode);
+	void BlitBMP(const BitmapStruct& Bitmap, std::int_fast32_t PosX, std::int_fast32_t PosY);
+	void BlitTransBMP(const BitmapStruct& Bitmap, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t TransparentColor);
+
+	//
+	// Variables and constants
+	//
+
 	// Define Filtermodes for ResizeBMP
 	constexpr std::int_fast32_t NEAREST{ 1 };
 	constexpr std::int_fast32_t BILINEAR{ 2 };
+
+	//
+	// Functions
+	//
 
 	inline void SetBMPMetrics(BitmapStruct& Bitmap, const std::int_fast32_t Width, const std::int_fast32_t Height)
 	{

@@ -17,7 +17,18 @@ namespace lwmf
 {
 
 
+	void InitShader();
+	void ClearBuffer();
+
+	//
+	// Variables and constants
+	//
+
 	inline GLuint TextureID{};
+
+	//
+	// Functions
+	//
 
 	inline void InitShader()
 	{

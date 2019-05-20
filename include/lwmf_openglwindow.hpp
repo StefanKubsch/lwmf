@@ -20,6 +20,14 @@ namespace lwmf
 {
 
 
+	void ResizeViewportAndPixelBuffer(std::int_fast32_t Width, std::int_fast32_t Height);
+	void CreateOpenGLWindow(HINSTANCE hInstance, std::int_fast32_t Width, std::int_fast32_t Height, LPCSTR WindowName, bool Fullscreen);
+	void ResizeOpenGLWindow();
+
+	//
+	// Functions
+	//
+
 	inline void ResizeViewportAndPixelBuffer(const std::int_fast32_t Width, const std::int_fast32_t Height)
 	{
 		ViewportWidth = Width;
@@ -96,6 +104,8 @@ namespace lwmf
 		SetPixelFormat(WindowHandle, ChoosePixelFormat(WindowHandle, &PFD), &PFD);
 		wglMakeCurrent(WindowHandle, wglCreateContext(WindowHandle));
 		ShowWindow(MainWindow, SW_SHOW);
+		SetForegroundWindow(MainWindow);
+		SetFocus(MainWindow);
 		ResizeViewportAndPixelBuffer(Width, Height);
 	}
 
