@@ -16,12 +16,9 @@ namespace lwmf
 {
 
 
-	// Init device identifier
+	// Device identifier
 	constexpr USHORT HID_MOUSE{ 2 };
 	constexpr USHORT HID_KEYBOARD{ 6 };
-
-	// WindowRect is used to catch mouse in window
-	inline RECT WindowRect;
 
 	inline void RegisterRawInputDevice(const HWND hWnd, const USHORT Device)
 	{
@@ -50,6 +47,8 @@ namespace lwmf
 
 	inline void CatchMouse(const HWND hWnd)
 	{
+		RECT WindowRect{};
+
 		// Get focus
 		SetCapture(hWnd);
 
