@@ -20,29 +20,29 @@ namespace Fire
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 
 		// Draw cube
-		lwmf::Line(CubePos.x, CubePos.y, CubePos.x + CubeHalf, CubePos.y - CubeHalf, CubeRed);
-		lwmf::Line(CubePos.x + 1, CubePos.y, CubePos.x + CubeHalf, CubePos.y - CubeHalf + 1, CubeYellow);
-		lwmf::Line(CubePos.x + 2, CubePos.y, CubePos.x + CubeHalf, CubePos.y - CubeHalf + 2, CubeRed);
+		lwmf::Line(CubePos.X, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
+		lwmf::Line(CubePos.X + 1, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 1, CubeYellow);
+		lwmf::Line(CubePos.X + 2, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 2, CubeRed);
 
-		lwmf::Line(CubePos.x, CubePos.y + CubeSize, CubePos.x + CubeHalf, CubePos.y + CubeHalf, CubeRed);
-		lwmf::Line(CubePos.x + 1, CubePos.y + CubeSize, CubePos.x + CubeHalf + 1, CubePos.y + CubeHalf, CubeYellow);
-		lwmf::Line(CubePos.x + 2, CubePos.y + CubeSize, CubePos.x + CubeHalf + 2, CubePos.y + CubeHalf, CubeRed);
+		lwmf::Line(CubePos.X, CubePos.Y + CubeSize, CubePos.X + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(CubePos.X + 1, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 1, CubePos.Y + CubeHalf, CubeYellow);
+		lwmf::Line(CubePos.X + 2, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 2, CubePos.Y + CubeHalf, CubeRed);
 
-		lwmf::Line(CubePos.x + CubeSize, CubePos.y, CubePos.x + CubeSize + CubeHalf, CubePos.y - CubeHalf, CubeRed);
-		lwmf::Line(CubePos.x + CubeSize - 1, CubePos.y, CubePos.x + CubeSize + CubeHalf - 1, CubePos.y - CubeHalf, CubeYellow);
-		lwmf::Line(CubePos.x + CubeSize - 2, CubePos.y, CubePos.x + CubeSize + CubeHalf - 2, CubePos.y - CubeHalf, CubeRed);
+		lwmf::Line(CubePos.X + CubeSize, CubePos.Y, CubePos.X + CubeSize + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
+		lwmf::Line(CubePos.X + CubeSize - 1, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y - CubeHalf, CubeYellow);
+		lwmf::Line(CubePos.X + CubeSize - 2, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y - CubeHalf, CubeRed);
 
-		lwmf::Line(CubePos.x + CubeSize, CubePos.y + CubeSize, CubePos.x + CubeSize + CubeHalf, CubePos.y + CubeHalf, CubeRed);
-		lwmf::Line(CubePos.x + CubeSize - 1, CubePos.y + CubeSize, CubePos.x + CubeSize + CubeHalf - 1, CubePos.y + CubeHalf, CubeYellow);
-		lwmf::Line(CubePos.x + CubeSize - 2, CubePos.y + CubeSize, CubePos.x + CubeSize + CubeHalf - 2, CubePos.y + CubeHalf, CubeRed);
+		lwmf::Line(CubePos.X + CubeSize, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(CubePos.X + CubeSize - 1, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y + CubeHalf, CubeYellow);
+		lwmf::Line(CubePos.X + CubeSize - 2, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y + CubeHalf, CubeRed);
 
-		lwmf::Rectangle(CubePos.x + CubeHalf, CubePos.y - CubeHalf, CubeSize, CubeSize, CubeRed);
-		lwmf::Rectangle(CubePos.x + CubeHalf + 1, CubePos.y - CubeHalf + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
-		lwmf::Rectangle(CubePos.x + CubeHalf + 2, CubePos.y - CubeHalf + 2, CubeSize - 4, CubeSize - 4, CubeRed);
+		lwmf::Rectangle(CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeSize, CubeSize, CubeRed);
+		lwmf::Rectangle(CubePos.X + CubeHalf + 1, CubePos.Y - CubeHalf + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
+		lwmf::Rectangle(CubePos.X + CubeHalf + 2, CubePos.Y - CubeHalf + 2, CubeSize - 4, CubeSize - 4, CubeRed);
 
-		lwmf::Rectangle(CubePos.x, CubePos.y, CubeSize, CubeSize, CubeRed);
-		lwmf::Rectangle(CubePos.x + 1, CubePos.y + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
-		lwmf::Rectangle(CubePos.x + 2, CubePos.y + 2, CubeSize - 4, CubeSize - 4, CubeRed);
+		lwmf::Rectangle(CubePos.X, CubePos.Y, CubeSize, CubeSize, CubeRed);
+		lwmf::Rectangle(CubePos.X + 1, CubePos.Y + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
+		lwmf::Rectangle(CubePos.X + 2, CubePos.Y + 2, CubeSize - 4, CubeSize - 4, CubeRed);
 
 		// Apply fire
 		for (std::int_fast32_t y{ 1 }; y < lwmf::ViewportHeight; ++y)

@@ -114,11 +114,11 @@ namespace GouraudShade
 
 		for (std::int_fast32_t Count{ 1 }; Count < 3; ++Count)
 		{
-			if (VertexPoints[Count].y < VertexPoints[MinY].y)
+			if (VertexPoints[Count].Y < VertexPoints[MinY].Y)
 			{
 				MinY = Count;
 			}
-			else if (VertexPoints[Count].y > VertexPoints[MaxY].y)
+			else if (VertexPoints[Count].Y > VertexPoints[MaxY].Y)
 			{
 				MaxY = Count;
 			}
@@ -139,10 +139,10 @@ namespace GouraudShade
 			EndVertex2 -= 3;
 		}
 
-		std::int_fast32_t XDiff1{ VertexPoints[EndVertex1].x - VertexPoints[StartVertex1].x };
-		std::int_fast32_t YDiff1{ VertexPoints[EndVertex1].y - VertexPoints[StartVertex1].y };
-		std::int_fast32_t XDiff2{ VertexPoints[EndVertex2].x - VertexPoints[StartVertex1].x };
-		std::int_fast32_t YDiff2{ VertexPoints[EndVertex2].y - VertexPoints[StartVertex1].y };
+		std::int_fast32_t XDiff1{ VertexPoints[EndVertex1].X - VertexPoints[StartVertex1].X };
+		std::int_fast32_t YDiff1{ VertexPoints[EndVertex1].Y - VertexPoints[StartVertex1].Y };
+		std::int_fast32_t XDiff2{ VertexPoints[EndVertex2].X - VertexPoints[StartVertex1].X };
+		std::int_fast32_t YDiff2{ VertexPoints[EndVertex2].Y - VertexPoints[StartVertex1].Y };
 		std::int_fast32_t ColourDiff1{ Color[EndVertex1] - Color[StartVertex1] };
 		std::int_fast32_t ColourDiff2{ Color[EndVertex2] - Color[StartVertex2] };
 
@@ -156,11 +156,11 @@ namespace GouraudShade
 			YDiff2 = 1;
 		}
 
-		for (std::int_fast32_t Y{ VertexPoints[MinY].y }; Y <= VertexPoints[MaxY].y; ++Y)
+		for (std::int_fast32_t Y{ VertexPoints[MinY].Y }; Y <= VertexPoints[MaxY].Y; ++Y)
 		{
-			std::int_fast32_t X2{ VertexPoints[StartVertex1].x + XCalc1 / YDiff1 };
+			std::int_fast32_t X2{ VertexPoints[StartVertex1].X + XCalc1 / YDiff1 };
 			XCalc1 += XDiff1;
-			std::int_fast32_t X1{ VertexPoints[StartVertex2].x + XCalc2 / YDiff2 };
+			std::int_fast32_t X1{ VertexPoints[StartVertex2].X + XCalc2 / YDiff2 };
 			XCalc2 += XDiff2;
 			std::int_fast32_t EndColour{ Color[StartVertex1] + ColourCalc1 / YDiff1 };
 			ColourCalc1 += ColourDiff1;
@@ -185,12 +185,12 @@ namespace GouraudShade
 				ColourIncCount += ColourDiff;
 			}
 
-			if (Y == VertexPoints[EndVertex1].y)
+			if (Y == VertexPoints[EndVertex1].Y)
 			{
 				StartVertex1 = EndVertex1;
 				EndVertex1 = EndVertex2; //-V537
-				XDiff1 = VertexPoints[EndVertex1].x - VertexPoints[StartVertex1].x;
-				YDiff1 = VertexPoints[EndVertex1].y - VertexPoints[StartVertex1].y;
+				XDiff1 = VertexPoints[EndVertex1].X - VertexPoints[StartVertex1].X;
+				YDiff1 = VertexPoints[EndVertex1].Y - VertexPoints[StartVertex1].Y;
 				ColourDiff1 = Color[EndVertex1] - Color[StartVertex1];
 
 				if (YDiff1 == 0)
@@ -202,12 +202,12 @@ namespace GouraudShade
 				ColourCalc1 = ColourDiff1;
 			}
 
-			if (Y == VertexPoints[EndVertex2].y)
+			if (Y == VertexPoints[EndVertex2].Y)
 			{
 				StartVertex2 = EndVertex2;
 				EndVertex2 = EndVertex1;
-				XDiff2 = VertexPoints[EndVertex2].x - VertexPoints[StartVertex2].x;
-				YDiff2 = VertexPoints[EndVertex2].y - VertexPoints[StartVertex2].y;
+				XDiff2 = VertexPoints[EndVertex2].X - VertexPoints[StartVertex2].X;
+				YDiff2 = VertexPoints[EndVertex2].Y - VertexPoints[StartVertex2].Y;
 				ColourDiff2 = Color[EndVertex2] - Color[StartVertex2];
 
 				if (YDiff2 == 0)
@@ -252,12 +252,12 @@ namespace GouraudShade
 		static std::vector<lwmf::IntPointStruct> Face2D(3);
 		static std::vector<std::int_fast32_t> Colors(3);
 
-		Face2D[0].x = Shape2D[Index1].x;
-		Face2D[0].y = Shape2D[Index1].y;
-		Face2D[1].x = Shape2D[Index2].x;
-		Face2D[1].y = Shape2D[Index2].y;
-		Face2D[2].x = Shape2D[Index3].x;
-		Face2D[2].y = Shape2D[Index3].y;
+		Face2D[0].X = Shape2D[Index1].X;
+		Face2D[0].Y = Shape2D[Index1].Y;
+		Face2D[1].X = Shape2D[Index2].X;
+		Face2D[1].Y = Shape2D[Index2].Y;
+		Face2D[2].X = Shape2D[Index3].X;
+		Face2D[2].Y = Shape2D[Index3].Y;
 
 		Colors[0] = 30 + 127 * (RotatedShape[Index1].z + MaxZ) / MaxZ; //-V525
 		Colors[1] = 50 + 127 * (RotatedShape[Index2].z + MaxZ) / MaxZ;
@@ -282,8 +282,8 @@ namespace GouraudShade
 		{
 			const std::int_fast32_t ZValue{ (450 + RotatedShape[VertexCount].z) >> 2 };
 
-			Shape2D[VertexCount].x = lwmf::ViewportWidthMid + ((RotatedShape[VertexCount].x) << 7) / ZValue;
-			Shape2D[VertexCount].y = lwmf::ViewportHeightMid + ((RotatedShape[VertexCount].y) << 7) / ZValue;
+			Shape2D[VertexCount].X = lwmf::ViewportWidthMid + ((RotatedShape[VertexCount].x) << 7) / ZValue;
+			Shape2D[VertexCount].Y = lwmf::ViewportHeightMid + ((RotatedShape[VertexCount].y) << 7) / ZValue;
 		}
 
 		for (VertexCount = 0; VertexCount < Vertices; ++VertexCount)

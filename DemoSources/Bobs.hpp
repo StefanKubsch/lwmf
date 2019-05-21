@@ -43,8 +43,8 @@ namespace Bobs
 
 		for (std::int_fast32_t i{}; i <= MaxBobs; ++i)
 		{
-			lwmf::BlitTransBMP(Bob1BMP, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].x) + 80, static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].y) + 50, TransparentColor);
-			lwmf::BlitTransBMP(Bob2BMP, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].x) + 80, static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].y) + 50, TransparentColor);
+			lwmf::BlitTransBMP(Bob1BMP, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].Y) + 50, TransparentColor);
+			lwmf::BlitTransBMP(Bob2BMP, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].Y) + 50, TransparentColor);
 
 			Bob1 += 20;
 			Bob2 += 20;

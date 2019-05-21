@@ -55,7 +55,7 @@ namespace Tunnel
 		{
 			for (std::int_fast32_t x{}; x < TunnelScreenWidth; ++x)
 			{
-				lwmf::SetPixel(x, y, Texture.BitmapData[((Angle[x + Source.x][y + Source.y] + SpeedFactor) & 255) * Texture.Width + ((Distance[x + Source.x][y + Source.y] + SpeedFactor) & 255)]);
+				lwmf::SetPixel(x, y, Texture.BitmapData[((Angle[x + Source.X][y + Source.Y] + SpeedFactor) & 255) * Texture.Width + ((Distance[x + Source.X][y + Source.Y] + SpeedFactor) & 255)]);
 			}
 		}
 

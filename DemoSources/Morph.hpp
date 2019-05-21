@@ -63,7 +63,7 @@ namespace Morph
 			const float ScaleProd{ Scale * Rz + Distance };
 			const lwmf::IntPointStruct Pos{ CenterX + static_cast<std::int_fast32_t>(std::ceilf(Scale * Rx * Distance / ScaleProd * 1.2F)), CenterY + static_cast<std::int_fast32_t>(std::ceilf(Scale * Ry * Distance / ScaleProd)) };
 
-			lwmf::SetPixelSafe(Pos.x, Pos.y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Scale * (Rz / -20.0F) + 128), 0, 255, 255));
+			lwmf::SetPixelSafe(Pos.X, Pos.Y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Scale * (Rz / -20.0F) + 128), 0, 255, 255));
 		}
 
 		if (DotAngle >= lwmf::DoublePI)

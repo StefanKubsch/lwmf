@@ -24,8 +24,8 @@ namespace Swarm
 				static std::mt19937_64 Engine;
 				static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, RAND_MAX);
 
-				Pos.x = 0.0F;
-				Pos.y = 0.0F;
+				Pos.X = 0.0F;
+				Pos.Y = 0.0F;
 
 				Direction = (lwmf::DoublePI * Distrib1(Engine)) / RAND_MAX;
 				Speed = (0.1F * Distrib1(Engine)) / RAND_MAX;
@@ -34,11 +34,11 @@ namespace Swarm
 
 			void Update(const std::int_fast32_t Interval)
 			{
-				Pos.x += (Speed * std::cosf(Direction)) * Interval;
-				Pos.y += (Speed * std::sinf(Direction)) * Interval;
+				Pos.X += (Speed * std::cosf(Direction)) * Interval;
+				Pos.Y += (Speed * std::sinf(Direction)) * Interval;
 				Direction += Interval * 0.0009F;
 
-				if (Pos.x < -1 || Pos.x > 1 || Pos.y < -1 || Pos.y > 1)
+				if (Pos.X < -1 || Pos.X > 1 || Pos.Y < -1 || Pos.Y > 1)
 				{
 					Init();
 				}
@@ -57,7 +57,7 @@ namespace Swarm
 		for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
 		{
 			Particles[i].Update(Interval);
-			lwmf::SetPixelSafe(static_cast<std::int_fast32_t>((Particles[i].Pos.x + 1.0F) * lwmf::ViewportWidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.y * lwmf::ViewportWidthMid + lwmf::ViewportHeightMid), ParticleColor);
+			lwmf::SetPixelSafe(static_cast<std::int_fast32_t>((Particles[i].Pos.X + 1.0F) * lwmf::ViewportWidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.Y * lwmf::ViewportWidthMid + lwmf::ViewportHeightMid), ParticleColor);
 		}
 
 		LastTime = Elapsed;

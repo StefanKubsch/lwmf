@@ -22,8 +22,8 @@ namespace Lens
 		OldViewPortWidth = lwmf::ViewportWidth;
 		OldViewPortHeight = lwmf::ViewportHeight;
 
-		LensPos.x = 16;
-		LensPos.y = 16;
+		LensPos.X = 16;
+		LensPos.Y = 16;
 		XDir = 4;
 		YDir = 4;
 
@@ -59,14 +59,14 @@ namespace Lens
 				if (Temp < LensRadiusPOW)
 				{
 					const float Shift{ LensZoom / std::sqrtf(static_cast<float>(LensZoomPOW - (Temp - LensRadiusPOW))) };
-					TempPos.x = static_cast<std::int_fast32_t>(x * Shift - x);
-					TempPos.y = static_cast<std::int_fast32_t>(y * Shift - y);
+					TempPos.X = static_cast<std::int_fast32_t>(x * Shift - x);
+					TempPos.Y = static_cast<std::int_fast32_t>(y * Shift - y);
 				}
 
-				std::int_fast32_t Offset{ (TempPos.y * lwmf::ViewportWidth + TempPos.x) };
+				std::int_fast32_t Offset{ (TempPos.Y * lwmf::ViewportWidth + TempPos.X) };
 				Lens[LensRadius - y][LensRadius - x] = -Offset;
 				Lens[LensRadius + y][LensRadius + x] = Offset;
-				Offset = (-TempPos.y * lwmf::ViewportWidth + TempPos.x);
+				Offset = (-TempPos.Y * lwmf::ViewportWidth + TempPos.X);
 				Lens[LensRadius + y][LensRadius - x] = -Offset;
 				Lens[LensRadius - y][LensRadius + x] = Offset;
 			}
@@ -84,7 +84,7 @@ namespace Lens
 
 		for (std::int_fast32_t y{}; y < LensWidth; ++y)
 		{
-			const std::int_fast32_t Temp{ (y + LensPos.y) * lwmf::ViewportWidth + LensPos.x };
+			const std::int_fast32_t Temp{ (y + LensPos.Y) * lwmf::ViewportWidth + LensPos.X };
 
 			for (std::int_fast32_t x{}; x < LensWidth; ++x)
 			{
@@ -92,15 +92,15 @@ namespace Lens
 			}
 		}
 
-		LensPos.x += XDir;
-		LensPos.y += YDir;
+		LensPos.X += XDir;
+		LensPos.Y += YDir;
 
-		if (LensPos.x > (Wallpaper.Width - LensWidth - 5) || LensPos.x < 5)
+		if (LensPos.X > (Wallpaper.Width - LensWidth - 5) || LensPos.X < 5)
 		{
 			XDir *= -1;
 		}
 
-		if (LensPos.y > (Wallpaper.Height - LensWidth - 5) || LensPos.y < 5)
+		if (LensPos.Y > (Wallpaper.Height - LensWidth - 5) || LensPos.Y < 5)
 		{
 			YDir *= -1;
 		}

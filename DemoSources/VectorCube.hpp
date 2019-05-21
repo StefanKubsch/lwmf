@@ -56,8 +56,8 @@ namespace VectorCube
 			CubeDef[i].y = CubeDef[i].y * CosA + x * SinA;
 
 			// 2D projection & translate
-			Cube[i].x = lwmf::ViewportWidthMid + static_cast<std::int_fast32_t>(CubeDef[i].x);
-			Cube[i].y = lwmf::ViewportHeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
+			Cube[i].X = lwmf::ViewportWidthMid + static_cast<std::int_fast32_t>(CubeDef[i].x);
+			Cube[i].Y = lwmf::ViewportHeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
 		}
 
 		// Sort faces
@@ -85,10 +85,10 @@ namespace VectorCube
 
 		for (std::int_fast32_t i{}; i < CubeNumFaces; ++i)
 		{
-			Points[0] = { Cube[CubeFaces[Order[i]].p0].x, Cube[CubeFaces[Order[i]].p0].y };
-			Points[1] = { Cube[CubeFaces[Order[i]].p1].x, Cube[CubeFaces[Order[i]].p1].y };
-			Points[2] = { Cube[CubeFaces[Order[i]].p2].x, Cube[CubeFaces[Order[i]].p2].y };
-			Points[3] = { Cube[CubeFaces[Order[i]].p3].x, Cube[CubeFaces[Order[i]].p3].y };
+			Points[0] = { Cube[CubeFaces[Order[i]].p0].X, Cube[CubeFaces[Order[i]].p0].Y };
+			Points[1] = { Cube[CubeFaces[Order[i]].p1].X, Cube[CubeFaces[Order[i]].p1].Y };
+			Points[2] = { Cube[CubeFaces[Order[i]].p2].X, Cube[CubeFaces[Order[i]].p2].Y };
+			Points[3] = { Cube[CubeFaces[Order[i]].p3].X, Cube[CubeFaces[Order[i]].p3].Y };
 
 			lwmf::FilledPolygon(Points, CubeFacesColors[Order[i]], CubeFacesColors[Order[i]]);
 		}

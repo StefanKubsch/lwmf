@@ -15,12 +15,12 @@ namespace Moiree
 
 		for (std::int_fast32_t Offset{}, y{}; y < lwmf::ViewportHeight; ++y)
 		{
-			const float DY1{ (y - C1.y) * (y - C1.y) };
-			const float DY2{ (y - C2.y) * (y - C2.y) };
+			const float DY1{ (y - C1.Y) * (y - C1.Y) };
+			const float DY2{ (y - C2.Y) * (y - C2.Y) };
 
 			for (std::int_fast32_t x{}; x < lwmf::ViewportWidth; ++x)
 			{
-				const std::int_fast32_t Color{ ((static_cast<std::int_fast32_t>(static_cast<std::int_fast32_t>(std::sqrtf(((x - C1.x) * (x - C1.x)) + DY1)) ^ static_cast<std::int_fast32_t>(std::sqrtf(((x - C2.x) * (x - C2.x)) + DY2))) >> 4) & 1) * 255 };
+				const std::int_fast32_t Color{ ((static_cast<std::int_fast32_t>(static_cast<std::int_fast32_t>(std::sqrtf(((x - C1.X) * (x - C1.X)) + DY1)) ^ static_cast<std::int_fast32_t>(std::sqrtf(((x - C2.X) * (x - C2.X)) + DY2))) >> 4) & 1) * 255 };
 				lwmf::PixelBuffer[Offset++] = lwmf::RGBAtoINT(0, Color >> 1, Color, 255);
 			}
 		}
