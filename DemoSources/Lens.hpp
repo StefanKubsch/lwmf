@@ -8,7 +8,7 @@ namespace Lens
 {
 
 
-	inline lwmf::BitmapStruct Wallpaper;
+	inline lwmf::TextureStruct Wallpaper;
 	inline lwmf::IntPointStruct LensPos{};
 	inline std::int_fast32_t LensWidth{ 250 };
 	inline std::vector<std::vector<std::int_fast32_t>> Lens(LensWidth, std::vector<std::int_fast32_t>(LensWidth));
@@ -19,8 +19,8 @@ namespace Lens
 
 	inline void Init()
 	{
-		OldViewPortWidth = lwmf::ViewportWidth;
-		OldViewPortHeight = lwmf::ViewportHeight;
+		OldViewPortWidth = ScreenTexture.Width;
+		OldViewPortHeight = ScreenTexture.Height;
 
 		LensPos.X = 16;
 		LensPos.Y = 16;
@@ -29,10 +29,10 @@ namespace Lens
 
 		lwmf::LoadBMP(Wallpaper, "./DemoGFX/Head.bmp");
 
-		if (lwmf::ViewportWidth != Wallpaper.Width || lwmf::ViewportHeight != Wallpaper.Height)
+		if (ScreenTexture.Width != Wallpaper.Width || ScreenTexture.Height != Wallpaper.Height)
 		{
-			lwmf::ResizeBMP(Wallpaper, lwmf::ViewportWidth, lwmf::ViewportHeight, lwmf::BILINEAR);
-			LensWidth = (lwmf::ViewportWidth * lwmf::ViewportHeight) / 2000;
+			lwmf::ResizeTexture(Wallpaper, ScreenTexture.Width, ScreenTexture.Height, lwmf::BILINEAR);
+			LensWidth = (ScreenTexture.Width * ScreenTexture.Height) / 2000;
 
 			if (LensWidth > 250)
 			{
@@ -63,10 +63,10 @@ namespace Lens
 					TempPos.Y = static_cast<std::int_fast32_t>(y * Shift - y);
 				}
 
-				std::int_fast32_t Offset{ (TempPos.Y * lwmf::ViewportWidth + TempPos.X) };
+				std::int_fast32_t Offset{ (TempPos.Y * ScreenTexture.Width + TempPos.X) };
 				Lens[LensRadius - y][LensRadius - x] = -Offset;
 				Lens[LensRadius + y][LensRadius + x] = Offset;
-				Offset = (-TempPos.Y * lwmf::ViewportWidth + TempPos.X);
+				Offset = (-TempPos.Y * ScreenTexture.Width + TempPos.X);
 				Lens[LensRadius + y][LensRadius - x] = -Offset;
 				Lens[LensRadius - y][LensRadius + x] = Offset;
 			}
@@ -75,20 +75,20 @@ namespace Lens
 
 	inline void Draw()
 	{
-		if (OldViewPortWidth != lwmf::ViewportWidth || OldViewPortHeight != lwmf::ViewportHeight)
+		if (OldViewPortWidth != ScreenTexture.Width || OldViewPortHeight != ScreenTexture.Height)
 		{
 			Init();
 		}
 
-		lwmf::BlitBMP(Wallpaper, 0, 0);
+		lwmf::BlitTexture(Wallpaper, ScreenTexture, 0, 0);
 
 		for (std::int_fast32_t y{}; y < LensWidth; ++y)
 		{
-			const std::int_fast32_t Temp{ (y + LensPos.Y) * lwmf::ViewportWidth + LensPos.X };
+			const std::int_fast32_t Temp{ (y + LensPos.Y) * ScreenTexture.Width + LensPos.X };
 
 			for (std::int_fast32_t x{}; x < LensWidth; ++x)
 			{
-				lwmf::PixelBuffer[Temp + x] = Wallpaper.BitmapData[Temp + x + Lens[y][x]];
+				ScreenTexture.Pixels[Temp + x] = Wallpaper.Pixels[Temp + x + Lens[y][x]];
 			}
 		}
 
@@ -105,7 +105,7 @@ namespace Lens
 			YDir *= -1;
 		}
 
-		lwmf::RenderText("Realtime lens", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Realtime lens", 10, 10, 0xFFFFFFFF);
 	}
 
 

@@ -42,3 +42,6 @@ x64/Release/vc.nativecodeanalysis.all.xml
 .vs/lwmf_demo/v16/ipch/AutoPCH/afb99eb9548c57d/LWMF_OPENGLSHADER.ipch
 .vs/lwmf_demo/v16/ipch/AutoPCH/b8379b0322bbdc58/LWMF_OPENGLWINDOW.ipch
 .vs/lwmf_demo/v16/ipch/AutoPCH/3dfada22bf357129/LWMF_RAWINPUT.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/7b67061ed94202cc/MOIREE.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/882932d494b8cbbc/LWMF_TEXTURE.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/8eabfe5e41430dd4/ROTOZOOM.ipch

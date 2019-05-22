@@ -3,10 +3,10 @@ lightweight media framework - graphics, math, multithreading and more for games 
 
 With lwmf, you can easily:
 
-	- create windowed or fullscreen, OpenGL-accelerated games or demos
-	- use primitives, load and manipulate bitmaps
-	- run everything multithreaded
-	- and more
+  - create windowed or fullscreen, OpenGL-accelerated games or demos
+  - use primitives, load and manipulate bitmaps/textures
+  - run everything multithreaded
+  - and more
 
 Inplemented primitives:
 
@@ -21,6 +21,12 @@ Inplemented primitives:
   - Polygon
   - Filled Polyon
   - Clear PixelBuffer
+
+OpenGL:
+
+  - load OpenGL extensions
+  - set up shaders
+  - render textures to screen
   
 Color handling:
 
@@ -29,8 +35,10 @@ Color handling:
   
 Images:
 
-  - load 24bit BMP (Bitmap)
-  - resize/scale/crop BMP
+  - load 24bit BMP (Bitmap) into texture
+  
+Textures:
+  - resize/scale/crop
   - blit / transparent blit
   
 Text:
@@ -63,3 +71,5 @@ How to use?
 
 Have a look at the example, which draws some nice and smooth animated demo effects like Metaballs, realtime plasma, a dotted tunnel, a particle swarm and more! 
 You can download "Release.zip" and run the included executable!
+
+Also, I´m using lwmf in my own game engine "NARC" - see https://github.com/StefanKubsch/NARC

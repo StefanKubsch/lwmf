@@ -23,6 +23,9 @@
 // Including "lwmf.hpp" is mandatory - this is the main library file!
 #include "./include/lwmf.hpp"
 
+// "ScreenTexture" is the main render target in our demo!
+lwmf::TextureStruct ScreenTexture;
+
 // Include the used demo effects
 #include "./DemoSources/Metaballs.hpp"
 #include "./DemoSources/Plasma.hpp"
@@ -50,13 +53,13 @@ constexpr std::int_fast32_t MaxDemoPart{ 19 };
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	// Create window and OpenGL context
-	lwmf::CreateOpenGLWindow(hInstance, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+	lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 	// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 	lwmf::SetVSync(-1);
 	// Load OpenGL/wgl extensions
 	lwmf::InitOpenGLLoader();
 	// Init the shaders used for rendering
-	lwmf::InitShader();
+	lwmf::InitShader(ScreenTexture);
 
 	// Init raw devices
 	lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_MOUSE);
@@ -72,7 +75,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	RotoZoom::Init();
 	Bobs::Init();
 
-	FillrateTestString = "Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame";
+	FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Height * ScreenTexture.Width) + " pixels per frame";
 
 	bool Quit{};
 
@@ -186,8 +189,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 19:
 			{
-				lwmf::ClearPixelBuffer(rand() % 0XFFFFFFFF);
-				lwmf::RenderText(FillrateTestString, 10, 10, 0xFFFFFFFF);
+				lwmf::ClearTexture(ScreenTexture, rand() % 0XFFFFFFFF);
+				lwmf::RenderText(ScreenTexture, FillrateTestString, 10, 10, 0xFFFFFFFF);
 				break;
 			}
 			default: {}
@@ -195,10 +198,10 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 		// Show FPS counter
 		lwmf::FPSCounter();
-		lwmf::DisplayFPSCounter(10, 20, 0xFFFFFFFF);
+		lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 
 		// Bring the pixelbuffer to screen
-		lwmf::RenderPixelBuffer();
+		lwmf::RenderTexture(ScreenTexture);
 		SwapBuffers(lwmf::WindowHandle);
 	}
 
@@ -214,8 +217,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_SIZE:
 		{
-			lwmf::ResizeOpenGLWindow();
-			FillrateTestString = "Fillrate test, clearing " + std::to_string(lwmf::ViewportHeight * lwmf::ViewportWidth) + " pixels per frame";
+			lwmf::ResizeOpenGLWindow(ScreenTexture);
+			FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Height * ScreenTexture.Width) + " pixels per frame";
 			break;
 		}
 		case WM_INPUT:
@@ -242,14 +245,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						if (RawDev.data.keyboard.VKey == VK_RIGHT)
 						{
 							DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 1;
-							lwmf::ClearPixelBuffer(0);
+							lwmf::ClearTexture(ScreenTexture, 0);
 							break;
 						}
 
 						if (RawDev.data.keyboard.VKey == VK_LEFT)
 						{
 							DemoPart > 1 ? --DemoPart : DemoPart = MaxDemoPart;
-							lwmf::ClearPixelBuffer(0);
+							lwmf::ClearTexture(ScreenTexture, 0);
 						}
 					}
 					break;

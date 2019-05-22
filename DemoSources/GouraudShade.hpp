@@ -174,7 +174,7 @@ namespace GouraudShade
 
 			for (std::int_fast32_t Count{ X1 }; Count < X2; ++Count)
 			{
-				lwmf::SetPixelSafe(Count, Y, StartColour);
+				lwmf::SetPixelSafe(ScreenTexture, Count, Y, StartColour);
 
 				while (ColourIncCount >= 0)
 				{
@@ -275,15 +275,15 @@ namespace GouraudShade
 	{
 		RotateShape();
 		std::qsort(DrawOrder.data(), NumberOfVertices, sizeof(DrawOrder[0]), Compare);
-		
-		lwmf::ClearPixelBuffer(0);
+
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (VertexCount = 0; VertexCount < Vertices; ++VertexCount)
 		{
 			const std::int_fast32_t ZValue{ (450 + RotatedShape[VertexCount].z) >> 2 };
 
-			Shape2D[VertexCount].X = lwmf::ViewportWidthMid + ((RotatedShape[VertexCount].x) << 7) / ZValue;
-			Shape2D[VertexCount].Y = lwmf::ViewportHeightMid + ((RotatedShape[VertexCount].y) << 7) / ZValue;
+			Shape2D[VertexCount].X = ScreenTexture.WidthMid + ((RotatedShape[VertexCount].x) << 7) / ZValue;
+			Shape2D[VertexCount].Y = ScreenTexture.HeightMid + ((RotatedShape[VertexCount].y) << 7) / ZValue;
 		}
 
 		for (VertexCount = 0; VertexCount < Vertices; ++VertexCount)
@@ -292,7 +292,7 @@ namespace GouraudShade
 			DrawFace(PolygonCoords[DrawOrder[VertexCount]][0], PolygonCoords[DrawOrder[VertexCount]][2], PolygonCoords[DrawOrder[VertexCount]][3]);
 		}
 
-		lwmf::RenderText("Realtime torus knot with gouraud shading - 24.000 vertices", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Realtime torus knot with gouraud shading - 24.000 vertices", 10, 10, 0xFFFFFFFF);
 	}
 
 

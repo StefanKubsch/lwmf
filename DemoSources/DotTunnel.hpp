@@ -31,7 +31,7 @@ namespace DotTunnel
 			Warp -= DepthAdd * 60.0F;
 		}
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (std::int_fast32_t j{}; j < DotTunnelRings; ++j)
 		{
@@ -41,15 +41,15 @@ namespace DotTunnel
 			{
 				const float Calc{ lwmf::RAD2DEG * (static_cast<float>(i) + DotTunnelAdd) };
 
-				lwmf::SetPixelSafe(static_cast<std::int_fast32_t>(((RadY1 * std::sinf(Calc) + SinA) / Depth)) + lwmf::ViewportWidthMid,
-					static_cast<std::int_fast32_t>(((RadY2 * std::cosf(Calc) + SinA) / Depth)) + lwmf::ViewportHeightMid, lwmf::RGBAtoINT(255 - j, 255 - j, 255, 255 - j));
+				lwmf::SetPixelSafe(ScreenTexture, static_cast<std::int_fast32_t>(((RadY1 * std::sinf(Calc) + SinA) / Depth)) + ScreenTexture.WidthMid,
+					static_cast<std::int_fast32_t>(((RadY2 * std::cosf(Calc) + SinA) / Depth)) + ScreenTexture.HeightMid, lwmf::RGBAtoINT(255 - j, 255 - j, 255, 255 - j));
 			}
 
 			Factor += 6.0F;
 			Depth -= DepthAdd;
 		}
 
-		lwmf::RenderText("Dotted tunnel", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Dotted tunnel", 10, 10, 0xFFFFFFFF);
 	}
 
 

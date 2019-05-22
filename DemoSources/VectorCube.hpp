@@ -38,7 +38,7 @@ namespace VectorCube
 		static const float CosA{ std::cosf(0.03F) };
 		static const float SinA{ std::sinf(0.03F) };
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (std::int_fast32_t i{}; i < CubeNumPoints; ++i)
 		{
@@ -56,8 +56,8 @@ namespace VectorCube
 			CubeDef[i].y = CubeDef[i].y * CosA + x * SinA;
 
 			// 2D projection & translate
-			Cube[i].X = lwmf::ViewportWidthMid + static_cast<std::int_fast32_t>(CubeDef[i].x);
-			Cube[i].Y = lwmf::ViewportHeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
+			Cube[i].X = ScreenTexture.WidthMid + static_cast<std::int_fast32_t>(CubeDef[i].x);
+			Cube[i].Y = ScreenTexture.HeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
 		}
 
 		// Sort faces
@@ -90,10 +90,10 @@ namespace VectorCube
 			Points[2] = { Cube[CubeFaces[Order[i]].p2].X, Cube[CubeFaces[Order[i]].p2].Y };
 			Points[3] = { Cube[CubeFaces[Order[i]].p3].X, Cube[CubeFaces[Order[i]].p3].Y };
 
-			lwmf::FilledPolygon(Points, CubeFacesColors[Order[i]], CubeFacesColors[Order[i]]);
+			lwmf::FilledPolygon(ScreenTexture, Points, CubeFacesColors[Order[i]], CubeFacesColors[Order[i]]);
 		}
 
-		lwmf::RenderText("Vector cube - filled polygons", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Vector cube - filled polygons", 10, 10, 0xFFFFFFFF);
 	}
 
 

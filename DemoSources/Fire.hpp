@@ -20,55 +20,55 @@ namespace Fire
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 
 		// Draw cube
-		lwmf::Line(CubePos.X, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
-		lwmf::Line(CubePos.X + 1, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 1, CubeYellow);
-		lwmf::Line(CubePos.X + 2, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 2, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X + 1, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 1, CubeYellow);
+		lwmf::Line(ScreenTexture, CubePos.X + 2, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 2, CubeRed);
 
-		lwmf::Line(CubePos.X, CubePos.Y + CubeSize, CubePos.X + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
-		lwmf::Line(CubePos.X + 1, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 1, CubePos.Y + CubeHalf, CubeYellow);
-		lwmf::Line(CubePos.X + 2, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 2, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X, CubePos.Y + CubeSize, CubePos.X + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X + 1, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 1, CubePos.Y + CubeHalf, CubeYellow);
+		lwmf::Line(ScreenTexture, CubePos.X + 2, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 2, CubePos.Y + CubeHalf, CubeRed);
 
-		lwmf::Line(CubePos.X + CubeSize, CubePos.Y, CubePos.X + CubeSize + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
-		lwmf::Line(CubePos.X + CubeSize - 1, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y - CubeHalf, CubeYellow);
-		lwmf::Line(CubePos.X + CubeSize - 2, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y - CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X + CubeSize, CubePos.Y, CubePos.X + CubeSize + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 1, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y - CubeHalf, CubeYellow);
+		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 2, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y - CubeHalf, CubeRed);
 
-		lwmf::Line(CubePos.X + CubeSize, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
-		lwmf::Line(CubePos.X + CubeSize - 1, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y + CubeHalf, CubeYellow);
-		lwmf::Line(CubePos.X + CubeSize - 2, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X + CubeSize, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 1, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y + CubeHalf, CubeYellow);
+		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 2, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y + CubeHalf, CubeRed);
 
-		lwmf::Rectangle(CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeSize, CubeSize, CubeRed);
-		lwmf::Rectangle(CubePos.X + CubeHalf + 1, CubePos.Y - CubeHalf + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
-		lwmf::Rectangle(CubePos.X + CubeHalf + 2, CubePos.Y - CubeHalf + 2, CubeSize - 4, CubeSize - 4, CubeRed);
+		lwmf::Rectangle(ScreenTexture, CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeSize, CubeSize, CubeRed);
+		lwmf::Rectangle(ScreenTexture, CubePos.X + CubeHalf + 1, CubePos.Y - CubeHalf + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
+		lwmf::Rectangle(ScreenTexture, CubePos.X + CubeHalf + 2, CubePos.Y - CubeHalf + 2, CubeSize - 4, CubeSize - 4, CubeRed);
 
-		lwmf::Rectangle(CubePos.X, CubePos.Y, CubeSize, CubeSize, CubeRed);
-		lwmf::Rectangle(CubePos.X + 1, CubePos.Y + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
-		lwmf::Rectangle(CubePos.X + 2, CubePos.Y + 2, CubeSize - 4, CubeSize - 4, CubeRed);
+		lwmf::Rectangle(ScreenTexture, CubePos.X, CubePos.Y, CubeSize, CubeSize, CubeRed);
+		lwmf::Rectangle(ScreenTexture, CubePos.X + 1, CubePos.Y + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
+		lwmf::Rectangle(ScreenTexture, CubePos.X + 2, CubePos.Y + 2, CubeSize - 4, CubeSize - 4, CubeRed);
 
 		// Apply fire
-		for (std::int_fast32_t y{ 1 }; y < lwmf::ViewportHeight; ++y)
+		for (std::int_fast32_t y{ 1 }; y < ScreenTexture.Height; ++y)
 		{
-			for (std::int_fast32_t x{}; x < lwmf::ViewportWidth; ++x)
+			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
 				if ((Distrib1(Engine) & 31) == 0)
 				{
-					lwmf::PixelBuffer[y * lwmf::ViewportWidth + x] = 0;
+					ScreenTexture.Pixels[y * ScreenTexture.Width + x] = 0;
 				}
 				else
 				{
-					const lwmf::ColorStruct Point1{ lwmf::INTtoRGBA(lwmf::GetPixel(x, y)) };
-					const lwmf::ColorStruct Point2{ lwmf::INTtoRGBA(lwmf::GetPixel(x, y - 1)) };
-					const lwmf::ColorStruct Point3{ lwmf::INTtoRGBA(lwmf::GetPixel(x - 1, y)) };
-					const lwmf::ColorStruct Point4{ lwmf::INTtoRGBA(lwmf::GetPixel(x + 1, y - 1)) };
+					const lwmf::ColorStruct Point1{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y)) };
+					const lwmf::ColorStruct Point2{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y - 1)) };
+					const lwmf::ColorStruct Point3{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x - 1, y)) };
+					const lwmf::ColorStruct Point4{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x + 1, y - 1)) };
 
-					lwmf::PixelBuffer[(y - 1) * lwmf::ViewportWidth + x] = lwmf::RGBAtoINT((Point1.Red + Point2.Red + Point3.Red + Point4.Red) >> 2,
+					ScreenTexture.Pixels[(y - 1) * ScreenTexture.Width + x] = lwmf::RGBAtoINT((Point1.Red + Point2.Red + Point3.Red + Point4.Red) >> 2,
 						(Point1.Green + Point2.Green + Point3.Green + Point4.Green) >> 2,
 						(Point1.Blue + Point2.Blue + Point3.Blue + Point4.Blue) >> 2, 255);
 				}
 			}
 		}
 
-		lwmf::FilledRectangle(0, 0, 210, 40, 0);
-		lwmf::RenderText("Realtime fullscreen fire", 10, 10, 0xFFFFFFFF);
+		lwmf::FilledRectangle(ScreenTexture, 0, 0, 210, 40, 0);
+		lwmf::RenderText(ScreenTexture, "Realtime fullscreen fire", 10, 10, 0xFFFFFFFF);
 	}
 
 

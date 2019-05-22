@@ -26,7 +26,7 @@ namespace Starfield
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 		static const std::uniform_real<float> Distrib2(1.0F, MaxDepth);
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (std::int_fast32_t i{}; i < MaxStars; ++i)
 		{
@@ -42,12 +42,12 @@ namespace Starfield
 			const float Factor{ 128.0F / Stars[i].z };
 			const std::int_fast32_t ColorPart{ static_cast<std::int_fast32_t>(255.0F - Stars[i].z * 3.0F) };
 
-			lwmf::FilledCircle(static_cast<std::int_fast32_t>(Stars[i].x * Factor) + lwmf::ViewportWidthMid,
-				static_cast<std::int_fast32_t>(Stars[i].y * Factor) + lwmf::ViewportHeightMid,
+			lwmf::FilledCircle(ScreenTexture, static_cast<std::int_fast32_t>(Stars[i].x * Factor) + ScreenTexture.WidthMid,
+				static_cast<std::int_fast32_t>(Stars[i].y * Factor) + ScreenTexture.HeightMid,
 				static_cast<std::int_fast32_t>((1.0F - (Stars[i].z) / MaxDepth) * 6.0F), StarBorderColor, lwmf::RGBAtoINT(ColorPart, ColorPart, ColorPart, ColorPart));
 		}
 
-		lwmf::RenderText("3D starfield - 15.000 stars", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "3D starfield - 15.000 stars", 10, 10, 0xFFFFFFFF);
 	}
 
 

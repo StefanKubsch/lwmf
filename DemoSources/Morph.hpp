@@ -48,7 +48,7 @@ namespace Morph
 	{
 		static constexpr float Distance{ 128.0F };
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{
@@ -63,7 +63,7 @@ namespace Morph
 			const float ScaleProd{ Scale * Rz + Distance };
 			const lwmf::IntPointStruct Pos{ CenterX + static_cast<std::int_fast32_t>(std::ceilf(Scale * Rx * Distance / ScaleProd * 1.2F)), CenterY + static_cast<std::int_fast32_t>(std::ceilf(Scale * Ry * Distance / ScaleProd)) };
 
-			lwmf::SetPixelSafe(Pos.X, Pos.Y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Scale * (Rz / -20.0F) + 128), 0, 255, 255));
+			lwmf::SetPixelSafe(ScreenTexture, Pos.X, Pos.Y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Scale * (Rz / -20.0F) + 128), 0, 255, 255));
 		}
 
 		if (DotAngle >= lwmf::DoublePI)
@@ -90,11 +90,11 @@ namespace Morph
 				Morph[i].z = (Count1 * Sphere[i].z + (256 - Count1) * Torus[i].z) / 256;
 			}
 
-			ShowDots(lwmf::ViewportWidthMid, lwmf::ViewportHeightMid, ScaleFactor, Angle);
+			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
 		}
 		else if (Count1 >= 256 && Count1 <= 512) //-V560
 		{
-			ShowDots(lwmf::ViewportWidthMid, lwmf::ViewportHeightMid, ScaleFactor, Angle);
+			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
 		}
 		else if (Count1 > 512 && Count1 <= 768) //-V560
 		{
@@ -105,13 +105,13 @@ namespace Morph
 				Morph[i].z = (Count2 * Torus[i].z + (256 - Count2) * Sphere[i].z) / 256;
 			}
 
-			ShowDots(lwmf::ViewportWidthMid, lwmf::ViewportHeightMid, ScaleFactor, Angle);
+			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
 
 			Count2 += 2;
 		}
 		else if (Count1 > 768 && Count1 <= 1024) //-V560
 		{
-			ShowDots(lwmf::ViewportWidthMid, lwmf::ViewportHeightMid, ScaleFactor, Angle);
+			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
 		}
 
 		Count1 += 2;
@@ -122,7 +122,7 @@ namespace Morph
 			Count2 = 0;
 		}
 
-		lwmf::RenderText("Realtime morph - 10.000 dots", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Realtime morph - 10.000 dots", 10, 10, 0xFFFFFFFF);
 	}
 
 

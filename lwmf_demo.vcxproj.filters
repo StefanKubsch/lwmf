@@ -105,13 +105,13 @@
     <ClInclude Include="include\lwmf_openglwindow.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="include\lwmf_pixelbuffer.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="include\lwmf_openglshader.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="include\lwmf_rawinput.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\lwmf_texture.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,30 +29,30 @@ namespace PerlinGFX
 		{
 			case Renderpart::TopLeft:
 			{
-				EndX = lwmf::ViewportWidthMid;
-				EndY = lwmf::ViewportHeightMid;
+				EndX = ScreenTexture.WidthMid;
+				EndY = ScreenTexture.HeightMid;
 				break;
 			}
 			case Renderpart::TopRight:
 			{
-				StartX = lwmf::ViewportWidthMid;
-				EndX = lwmf::ViewportWidth;
-				EndY = lwmf::ViewportHeightMid;
+				StartX = ScreenTexture.WidthMid;
+				EndX = ScreenTexture.Width;
+				EndY = ScreenTexture.HeightMid;
 				break;
 			}
 			case Renderpart::DownLeft:
 			{
-				EndX = lwmf::ViewportWidthMid;
-				StartY = lwmf::ViewportHeightMid;
-				EndY = lwmf::ViewportHeight;
+				EndX = ScreenTexture.WidthMid;
+				StartY = ScreenTexture.HeightMid;
+				EndY = ScreenTexture.Height;
 				break;
 			}
 			case Renderpart::DownRight:
 			{
-				StartX = lwmf::ViewportWidthMid;
-				EndX = lwmf::ViewportWidth;
-				StartY = lwmf::ViewportHeightMid;
-				EndY = lwmf::ViewportHeight;
+				StartX = ScreenTexture.WidthMid;
+				EndX = ScreenTexture.Width;
+				StartY = ScreenTexture.HeightMid;
+				EndY = ScreenTexture.Height;
 				break;
 			}
 
@@ -61,14 +61,14 @@ namespace PerlinGFX
 
 		for (std::int_fast32_t y{ StartY }; y < EndY; ++y)
 		{
-			const float PosY{ static_cast<float>(y) / lwmf::ViewportHeight };
+			const float PosY{ static_cast<float>(y) / ScreenTexture.Height };
 
 			for (std::int_fast32_t x{ StartX }; x < EndX; ++x)
 			{
-				const float PosX{ static_cast<float>(x) / lwmf::ViewportWidth };
+				const float PosX{ static_cast<float>(x) / ScreenTexture.Width };
 				const float n{ (15.0F * PGFX.Noise(PosX, PosY, NoiseFactor)) - PGFX.Noise(15.0F * PosX, 15.0F * PosY, NoiseFactor) };
 
-				lwmf::PixelBuffer[y * lwmf::ViewportWidth + x] = lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n));
+				ScreenTexture.Pixels[y * ScreenTexture.Width + x] = lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n));
 			}
 		}
 	}
@@ -85,7 +85,7 @@ namespace PerlinGFX
 
 		NoiseFactor += 0.002F;
 
-		lwmf::RenderText("Multithreaded, Perlin noise generated gfx", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Multithreaded, Perlin noise generated gfx", 10, 10, 0xFFFFFFFF);
 	}
 
 

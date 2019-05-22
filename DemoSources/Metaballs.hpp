@@ -31,22 +31,22 @@ namespace Metaballs
 		{
 			Ball.x += Ball.xvel;
 
-			if (Ball.x > lwmf::ViewportWidth || Ball.x < 0)
+			if (Ball.x > ScreenTexture.Width || Ball.x < 0)
 			{
 				Ball.xvel *= -1;
 			}
 
 			Ball.y += Ball.yvel;
 
-			if (Ball.y > lwmf::ViewportHeight || Ball.y < 0)
+			if (Ball.y > ScreenTexture.Height || Ball.y < 0)
 			{
 				Ball.yvel *= -1;
 			}
 		}
 
-		for (std::int_fast32_t Offset{}, y{}; y < lwmf::ViewportHeight; ++y)
+		for (std::int_fast32_t Offset{}, y{}; y < ScreenTexture.Height; ++y)
 		{
-			for (std::int_fast32_t x{}; x < lwmf::ViewportWidth; ++x)
+			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
 				float BallSum{};
 
@@ -58,11 +58,11 @@ namespace Metaballs
 					BallSum += 3.0F / std::sqrtf(BallXTemp * BallXTemp + BallYTemp * BallYTemp);
 				}
 
-				lwmf::PixelBuffer[Offset++] = BallSum > 0.035F ? MetaballColor : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255);
+				ScreenTexture.Pixels[Offset++] = BallSum > 0.035F ? MetaballColor : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255);
 			}
 		}
 
-		lwmf::RenderText("Realtime metaballs", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Realtime metaballs", 10, 10, 0xFFFFFFFF);
 	}
 
 

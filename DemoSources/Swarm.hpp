@@ -52,16 +52,16 @@ namespace Swarm
 		const std::int_fast32_t Elapsed{ static_cast<std::int_fast32_t>(GetTickCount()) };
 		const std::int_fast32_t Interval{ Elapsed - LastTime };
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
 		{
 			Particles[i].Update(Interval);
-			lwmf::SetPixelSafe(static_cast<std::int_fast32_t>((Particles[i].Pos.X + 1.0F) * lwmf::ViewportWidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.Y * lwmf::ViewportWidthMid + lwmf::ViewportHeightMid), ParticleColor);
+			lwmf::SetPixelSafe(ScreenTexture, static_cast<std::int_fast32_t>((Particles[i].Pos.X + 1.0F) * ScreenTexture.WidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.Y * ScreenTexture.WidthMid + ScreenTexture.HeightMid), ParticleColor);
 		}
 
 		LastTime = Elapsed;
-		lwmf::RenderText("Realtime particle swarm - 30.000 particles", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Realtime particle swarm - 30.000 particles", 10, 10, 0xFFFFFFFF);
 	}
 
 

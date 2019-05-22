@@ -50,26 +50,26 @@ namespace Julia
 
 		std::complex<float> c{};
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
-		for (std::int_fast32_t y{}; y < lwmf::ViewportHeight; ++y)
+		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
-			const std::int_fast32_t Pos{ y * lwmf::ViewportWidth };
+			const std::int_fast32_t Pos{ y * ScreenTexture.Width };
 			c.imag((f.imag() * y) - hFCT);
 
-			for (std::int_fast32_t x{}; x < lwmf::ViewportWidth; ++x)
+			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
 				c.real(f.real() * x - hFCT);
 
 				if (const std::int_fast32_t Result{ Set(c, Param) }; Result != 0)
 				{
 					const std::int_fast32_t NewResult{ Result & 255 };
-					lwmf::PixelBuffer[Pos + x + 100] = Result < (Iterations >> 1) ? lwmf::RGBAtoINT(NewResult << 2, NewResult << 3, NewResult << 4, 255) : lwmf::RGBAtoINT(NewResult << 4, NewResult << 2, NewResult << 5, 255);
+					ScreenTexture.Pixels[Pos + x + 100] = Result < (Iterations >> 1) ? lwmf::RGBAtoINT(NewResult << 2, NewResult << 3, NewResult << 4, 255) : lwmf::RGBAtoINT(NewResult << 4, NewResult << 2, NewResult << 5, 255);
 				}
 			}
 		}
 
-		lwmf::RenderText("Realtime Julia set", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Realtime Julia set", 10, 10, 0xFFFFFFFF);
 	}
 
 

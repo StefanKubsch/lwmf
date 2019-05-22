@@ -32,7 +32,7 @@ namespace Copperbars
 	{
 		for (std::int_fast32_t i{}; i < 15; ++i, ++y)
 		{
-			lwmf::Line(0, y, lwmf::ViewportWidth, y, lwmf::RGBAtoINT(CopperList[i + ColorAdd].Red, CopperList[i + ColorAdd].Green, CopperList[i + ColorAdd].Blue, 255));
+			lwmf::Line(ScreenTexture, 0, y, ScreenTexture.Width, y, lwmf::RGBAtoINT(CopperList[i + ColorAdd].Red, CopperList[i + ColorAdd].Green, CopperList[i + ColorAdd].Blue, 255));
 		}
 	}
 
@@ -43,27 +43,27 @@ namespace Copperbars
 		static std::vector<std::int_fast32_t> GreenBars{ 64, 56, 48, 40 };
 		static std::vector<std::int_fast32_t> BlueBars{ 32, 24, 16, 8 };
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (std::int_fast32_t i{ 3 }; i >= 0; --i)
 		{
-			DrawCopperbar(lwmf::ViewportHeightMid + SinTable[BlueBars[i]], 31);
+			DrawCopperbar(ScreenTexture.HeightMid + SinTable[BlueBars[i]], 31);
 			BlueBars[i] = (BlueBars[i] + Speed) % 360;
 		}
 
 		for (std::int_fast32_t i{ 3 }; i >= 0; --i)
 		{
-			DrawCopperbar(lwmf::ViewportHeightMid + SinTable[GreenBars[i]], 16);
+			DrawCopperbar(ScreenTexture.HeightMid + SinTable[GreenBars[i]], 16);
 			GreenBars[i] = (GreenBars[i] + Speed) % 360;
 		}
 
 		for (std::int_fast32_t i{ 3 }; i >= 0; --i)
 		{
-			DrawCopperbar(lwmf::ViewportHeightMid + SinTable[RedBars[i]], 1);
+			DrawCopperbar(ScreenTexture.HeightMid + SinTable[RedBars[i]], 1);
 			RedBars[i] = (RedBars[i] + Speed) % 360;
 		}
 
-		lwmf::RenderText("Copperbars", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Copperbars", 10, 10, 0xFFFFFFFF);
 	}
 
 

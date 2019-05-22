@@ -8,7 +8,7 @@ namespace Tunnel
 {
 
 
-	inline lwmf::BitmapStruct Texture;
+	inline lwmf::TextureStruct Texture;
 	constexpr std::int_fast32_t TunnelScreenWidth{ 800 };
 	constexpr std::int_fast32_t TunnelScreenHeight{ 600 };
 	constexpr std::int_fast32_t TunnelWidth{ TunnelScreenWidth >> 1 };
@@ -39,11 +39,11 @@ namespace Tunnel
 		static std::int_fast32_t OldViewPortHeight{};
 		static float Anim{};
 
-		if (OldViewPortWidth != lwmf::ViewportWidth || OldViewPortHeight != lwmf::ViewportHeight)
+		if (OldViewPortWidth != ScreenTexture.Width || OldViewPortHeight != ScreenTexture.Height)
 		{
-			OldViewPortWidth = lwmf::ViewportWidth;
-			OldViewPortHeight = lwmf::ViewportHeight;
-			lwmf::ClearPixelBuffer(0);
+			OldViewPortWidth = ScreenTexture.Width;
+			OldViewPortHeight = ScreenTexture.Height;
+			lwmf::ClearTexture(ScreenTexture, 0);
 		}
 
 		Anim += 0.004F;
@@ -55,11 +55,11 @@ namespace Tunnel
 		{
 			for (std::int_fast32_t x{}; x < TunnelScreenWidth; ++x)
 			{
-				lwmf::SetPixel(x, y, Texture.BitmapData[((Angle[x + Source.X][y + Source.Y] + SpeedFactor) & 255) * Texture.Width + ((Distance[x + Source.X][y + Source.Y] + SpeedFactor) & 255)]);
+				lwmf::SetPixel(ScreenTexture, x, y, Texture.Pixels[((Angle[x + Source.X][y + Source.Y] + SpeedFactor) & 255) * Texture.Width + ((Distance[x + Source.X][y + Source.Y] + SpeedFactor) & 255)]);
 			}
 		}
 
-		lwmf::RenderText("Textured tunnel", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Textured tunnel", 10, 10, 0xFFFFFFFF);
 	}
 
 

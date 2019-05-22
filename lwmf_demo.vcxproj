@@ -48,10 +48,10 @@
     <ClInclude Include="include\lwmf_openglloader.hpp" />
     <ClInclude Include="include\lwmf_openglwindow.hpp" />
     <ClInclude Include="include\lwmf_perlinnoise.hpp" />
-    <ClInclude Include="include\lwmf_pixelbuffer.hpp" />
     <ClInclude Include="include\lwmf_primitives.hpp" />
     <ClInclude Include="include\lwmf_rawinput.hpp" />
     <ClInclude Include="include\lwmf_text.hpp" />
+    <ClInclude Include="include\lwmf_texture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp" />

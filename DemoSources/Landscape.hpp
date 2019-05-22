@@ -7,8 +7,8 @@ namespace Landscape
 {
 
 
-	inline lwmf::BitmapStruct LandscapeTextureMap;
-	inline lwmf::BitmapStruct LandscapeTerrainMap;
+	inline lwmf::TextureStruct LandscapeTextureMap;
+	inline lwmf::TextureStruct LandscapeTerrainMap;
 
 	inline void Init()
 	{
@@ -36,22 +36,22 @@ namespace Landscape
 		const std::int_fast32_t CosA{ static_cast<std::int_fast32_t>(std::cosf(Factor * 0.01F) * 128.0F) };
 		const std::int_fast32_t SinA{ static_cast<std::int_fast32_t>(std::sinf(Factor * 0.01F) * 128.0F) };
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		for (std::int_fast32_t x{}; x < LandscapeTextureMap.Width; ++x)
 		{
 			for (std::int_fast32_t z{}; z < LandscapeTextureMap.Width; ++z)
 			{
 				const std::int_fast32_t TempX{ ((x - XPos) * CosA - (z - ZPos) * SinA) };
-				const lwmf::ColorStruct LandScapeTerrainColorRGBA{ lwmf::INTtoRGBA(LandscapeTerrainMap.BitmapData[z * LandscapeTerrainMap.Width + x]) };
+				const lwmf::ColorStruct LandScapeTerrainColorRGBA{ lwmf::INTtoRGBA(LandscapeTerrainMap.Pixels[z * LandscapeTerrainMap.Width + x]) };
 				const std::int_fast32_t TempY{ (LandScapeTerrainColorRGBA.Red >> 1) - YPos };
 				const std::int_fast32_t TempZ{ ((x - XPos) * SinA + (z - ZPos) * CosA) >> 7 };
 
-				lwmf::SetPixel((lwmf::ViewportWidthMid + (TempX << 2) / TempZ), (lwmf::ViewportHeightMid - (TempY << 7) / TempZ), LandscapeTextureMap.BitmapData[z * LandscapeTextureMap.Width + x]);
+				lwmf::SetPixel(ScreenTexture, (ScreenTexture.WidthMid + (TempX << 2) / TempZ), (ScreenTexture.HeightMid - (TempY << 7) / TempZ), LandscapeTextureMap.Pixels[z * LandscapeTextureMap.Width + x]);
 			}
 		}
 
-		lwmf::RenderText("Textured dotted landscape", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Textured dotted landscape", 10, 10, 0xFFFFFFFF);
 	}
 
 

@@ -8,9 +8,9 @@ namespace Bobs
 {
 
 
-	inline lwmf::BitmapStruct Bob1BMP;
-	inline lwmf::BitmapStruct Bob2BMP;
-	inline lwmf::BitmapStruct CharMapBMP;
+	inline lwmf::TextureStruct Bob1BMP;
+	inline lwmf::TextureStruct Bob2BMP;
+	inline lwmf::TextureStruct CharMapBMP;
 
 	inline std::vector<lwmf::FloatPointStruct> Bob1Coord(512);
 	inline std::vector<lwmf::FloatPointStruct> Bob2Coord(512);
@@ -34,7 +34,7 @@ namespace Bobs
 	{
 		static const std::int_fast32_t TransparentColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
 
-		lwmf::ClearPixelBuffer(0);
+		lwmf::ClearTexture(ScreenTexture, 0);
 
 		// Bobs
 		static constexpr std::int_fast32_t MaxBobs{ 24 };
@@ -43,8 +43,8 @@ namespace Bobs
 
 		for (std::int_fast32_t i{}; i <= MaxBobs; ++i)
 		{
-			lwmf::BlitTransBMP(Bob1BMP, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].Y) + 50, TransparentColor);
-			lwmf::BlitTransBMP(Bob2BMP, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].Y) + 50, TransparentColor);
+			lwmf::BlitTransTexture(Bob1BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].Y) + 50, TransparentColor);
+			lwmf::BlitTransTexture(Bob2BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].Y) + 50, TransparentColor);
 
 			Bob1 += 20;
 			Bob2 += 20;
@@ -62,11 +62,11 @@ namespace Bobs
 		static const std::int_fast32_t TextLength{ static_cast<std::int_fast32_t>(Text.length()) };
 		static const std::int_fast32_t CharMapLength{ static_cast<std::int_fast32_t>(CharMap.length()) };
 		static const std::int_fast32_t ScrollLength{ static_cast<std::int_fast32_t>(TextLength) * (CharWidth + 5) };
-		static std::int_fast32_t ScrollX{ lwmf::ViewportWidth };
+		static std::int_fast32_t ScrollX{ ScreenTexture.Width };
 
 		for (std::int_fast32_t XPos{ ScrollX }, i{}; i < TextLength; ++i)
 		{
-			for (std::int_fast32_t YSine{ lwmf::ViewportHeight - 100 + static_cast<std::int_fast32_t>(std::sinf(0.02F * XPos) * 30.0F) }, CharX{}, j{}; j < CharMapLength; ++j)
+			for (std::int_fast32_t YSine{ ScreenTexture.Height - 100 + static_cast<std::int_fast32_t>(std::sinf(0.02F * XPos) * 30.0F) }, CharX{}, j{}; j < CharMapLength; ++j)
 			{
 				if (Text[i] == CharMap[j])
 				{
@@ -74,13 +74,13 @@ namespace Bobs
 					{
 						for (std::int_fast32_t x1{}, x{ CharX }; x < CharX + CharWidth; ++x, ++x1)
 						{
-							if (XPos + x1 >= 0 && XPos + x1 < lwmf::ViewportWidth)
+							if (XPos + x1 >= 0 && XPos + x1 < ScreenTexture.Width)
 							{
-								const std::int_fast32_t Color{ CharMapBMP.BitmapData[y * CharMapBMP.Width + x] };
+								const std::int_fast32_t Color{ CharMapBMP.Pixels[y * CharMapBMP.Width + x] };
 
 								if (Color != TransparentColor)
 								{
-									lwmf::PixelBuffer[YSine * lwmf::ViewportWidth + XPos + x1] = Color;
+									ScreenTexture.Pixels[YSine * ScreenTexture.Width + XPos + x1] = Color;
 								}
 							}
 						}
@@ -99,10 +99,10 @@ namespace Bobs
 
 		if (ScrollX < -ScrollLength)
 		{
-			ScrollX = lwmf::ViewportWidth;
+			ScrollX = ScreenTexture.Width;
 		}
 
-		lwmf::RenderText("SineScroller and Bobs", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "SineScroller and Bobs", 10, 10, 0xFFFFFFFF);
 	}
 
 
