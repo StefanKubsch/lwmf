@@ -236,23 +236,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					if (RawDev.data.keyboard.Message == WM_KEYDOWN || RawDev.data.keyboard.Message == WM_SYSKEYDOWN)
 					{
-						if (RawDev.data.keyboard.VKey == VK_ESCAPE)
+						switch (RawDev.data.keyboard.VKey)
 						{
-							PostQuitMessage(0);
-							break;
-						}
-
-						if (RawDev.data.keyboard.VKey == VK_RIGHT)
-						{
-							DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 1;
-							lwmf::ClearTexture(ScreenTexture, 0);
-							break;
-						}
-
-						if (RawDev.data.keyboard.VKey == VK_LEFT)
-						{
-							DemoPart > 1 ? --DemoPart : DemoPart = MaxDemoPart;
-							lwmf::ClearTexture(ScreenTexture, 0);
+							case VK_ESCAPE:
+							{
+								PostQuitMessage(0);
+								break;
+							}
+							case VK_RIGHT:
+							{
+								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 1;
+								lwmf::ClearTexture(ScreenTexture, 0);
+								break;
+							}
+							case VK_LEFT:
+							{
+								DemoPart > 1 ? --DemoPart : DemoPart = MaxDemoPart;
+								lwmf::ClearTexture(ScreenTexture, 0);
+								break;
+							}
+							default: {}
 						}
 					}
 					break;
