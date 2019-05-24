@@ -36,6 +36,7 @@ Color handling:
 Images:
 
   - load 24bit BMP (Bitmap) into texture
+  - load PNG into textures
   
 Textures:
   - resize/scale/crop
