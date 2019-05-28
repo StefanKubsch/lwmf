@@ -268,7 +268,7 @@ namespace GouraudShade
 
 	inline std::int_fast32_t Compare(const void* Number1, const void *Number2)
 	{
-		return RotatedShape[*static_cast<const std::int_fast32_t*>(Number2)].z - RotatedShape[*static_cast<const std::int_fast32_t*>(Number1)].z;
+		return RotatedShape[*static_cast<const std::int_fast32_t*>(Number2)].z - RotatedShape[*static_cast<const std::int_fast32_t*>(Number1)].z; //-V206
 	}
 
 	inline void Draw()
