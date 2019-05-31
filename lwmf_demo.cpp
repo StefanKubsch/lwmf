@@ -53,9 +53,9 @@ constexpr std::int_fast32_t MaxDemoPart{ 19 };
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	// Create window and OpenGL context
-	lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+	lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
 	// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
-	lwmf::SetVSync(-1);
+	lwmf::SetVSync(0);
 	// Load OpenGL/wgl extensions
 	lwmf::InitOpenGLLoader();
 	// Init the shaders used for rendering

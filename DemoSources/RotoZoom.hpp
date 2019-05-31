@@ -11,7 +11,7 @@ namespace RotoZoom
 
 	inline void Init()
 	{
-		lwmf::LoadBMP(Texture, "./DemoGFX/Head.bmp");
+		lwmf::LoadPNG(Texture, "./DemoGFX/Head.png");
 	}
 
 	inline void Draw()

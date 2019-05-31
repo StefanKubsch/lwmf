@@ -12,8 +12,8 @@ namespace Landscape
 
 	inline void Init()
 	{
-		lwmf::LoadBMP(LandscapeTextureMap, "./DemoGFX/LandscapeTexture.bmp");
-		lwmf::LoadBMP(LandscapeTerrainMap, "./DemoGFX/Landscape.bmp");
+		lwmf::LoadPNG(LandscapeTextureMap, "./DemoGFX/LandscapeTexture.png");
+		lwmf::LoadPNG(LandscapeTerrainMap, "./DemoGFX/Landscape.png");
 	}
 
 	inline void Draw()

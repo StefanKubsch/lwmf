@@ -19,7 +19,7 @@ namespace Bobs
 	{
 		lwmf::LoadBMP(Bob1BMP, "./DemoGFX/Bob1.bmp");
 		lwmf::LoadBMP(Bob2BMP, "./DemoGFX/Bob2.bmp");
-		lwmf::LoadBMP(CharMapBMP, "./DemoGFX/SinusScrollerChars.bmp");
+		lwmf::LoadPNG(CharMapBMP, "./DemoGFX/SinusScrollerChars.png");
 
 		for (std::int_fast32_t i{}; i < 512; ++i)
 		{

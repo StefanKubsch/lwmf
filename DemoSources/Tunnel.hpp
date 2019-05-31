@@ -18,7 +18,7 @@ namespace Tunnel
 
 	inline void Init()
 	{
-		lwmf::LoadBMP(Texture, "./DemoGFX/TunnelTexture.bmp");
+		lwmf::LoadPNG(Texture, "./DemoGFX/TunnelTexture.png");
 
 		for (std::int_fast32_t x{}; x < TunnelScreenWidth << 1; ++x)
 		{
