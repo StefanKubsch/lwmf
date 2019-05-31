@@ -14,8 +14,8 @@ namespace Metaballs
 		{
 			std::int_fast32_t x{};
 			std::int_fast32_t y{};
-			std::int_fast32_t xvel{};
-			std::int_fast32_t yvel{};
+			std::int_fast32_t VelocityX{};
+			std::int_fast32_t VelocityY{};
 		};
 
 		static std::vector<MetaballStruct> Metaballs
@@ -29,18 +29,18 @@ namespace Metaballs
 
 		for (auto& Ball : Metaballs)
 		{
-			Ball.x += Ball.xvel;
+			Ball.x += Ball.VelocityX;
 
 			if (Ball.x > ScreenTexture.Width || Ball.x < 0)
 			{
-				Ball.xvel *= -1;
+				Ball.VelocityX *= -1;
 			}
 
-			Ball.y += Ball.yvel;
+			Ball.y += Ball.VelocityY;
 
 			if (Ball.y > ScreenTexture.Height || Ball.y < 0)
 			{
-				Ball.yvel *= -1;
+				Ball.VelocityY *= -1;
 			}
 		}
 

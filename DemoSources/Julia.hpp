@@ -54,7 +54,7 @@ namespace Julia
 
 		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
-			const std::int_fast32_t Pos{ y * ScreenTexture.Width };
+			const std::int_fast32_t TempY{ y * ScreenTexture.Width };
 			c.imag((f.imag() * y) - hFCT);
 
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
@@ -64,7 +64,7 @@ namespace Julia
 				if (const std::int_fast32_t Result{ Set(c, Param) }; Result != 0)
 				{
 					const std::int_fast32_t NewResult{ Result & 255 };
-					ScreenTexture.Pixels[Pos + x + 100] = Result < (Iterations >> 1) ? lwmf::RGBAtoINT(NewResult << 2, NewResult << 3, NewResult << 4, 255) : lwmf::RGBAtoINT(NewResult << 4, NewResult << 2, NewResult << 5, 255);
+					ScreenTexture.Pixels[TempY + x + 100] = Result < (Iterations >> 1) ? lwmf::RGBAtoINT(NewResult << 2, NewResult << 3, NewResult << 4, 255) : lwmf::RGBAtoINT(NewResult << 4, NewResult << 2, NewResult << 5, 255);
 				}
 			}
 		}

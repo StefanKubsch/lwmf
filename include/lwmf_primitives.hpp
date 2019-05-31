@@ -209,17 +209,7 @@ namespace lwmf
 				for (std::int_fast32_t i{}; x < xe; ++i)
 				{
 					++x;
-
-					if (px < 0)
-					{
-						px += d1.Y << 1;
-					}
-					else
-					{
-						(d.X < 0 && d.Y < 0) || (d.X > 0 && d.Y > 0) ? ++y : --y;
-						px += (d1.Y - d1.X) << 1;
-					}
-
+					px < 0 ? px += d1.Y << 1 : ((d.X < 0 && d.Y < 0) || (d.X > 0 && d.Y > 0) ? ++y : --y, px += (d1.Y - d1.X) << 1);
 					SetPixelSafe(Texture, x, y, Color);
 				}
 			}
@@ -234,17 +224,7 @@ namespace lwmf
 				for (std::int_fast32_t i{}; y < ye; ++i)
 				{
 					++y;
-
-					if (py <= 0)
-					{
-						py += d1.X << 1;
-					}
-					else
-					{
-						(d.X < 0 && d.Y < 0) || (d.X > 0 && d.Y > 0) ? ++x : --x;
-						py += (d1.X - d1.Y) << 1;
-					}
-
+					py <= 0 ? py += d1.X << 1 : ((d.X < 0 && d.Y < 0) || (d.X > 0 && d.Y > 0) ? ++x : --x, py += (d1.X - d1.Y) << 1);
 					SetPixelSafe(Texture, x, y, Color);
 				}
 			}
