@@ -25,6 +25,7 @@ namespace lwmf
 	void ResizeViewportAndRenderTarget(TextureStruct& Texture, std::int_fast32_t Width, std::int_fast32_t Height);
 	void CreateOpenGLWindow(HINSTANCE hInstance, TextureStruct& RenderTarget, std::int_fast32_t Width, std::int_fast32_t Height, LPCSTR WindowName, bool Fullscreen);
 	void ResizeOpenGLWindow(TextureStruct& RenderTarget);
+	void ClearBuffer();
 
 	//
 	// Variables and constants
