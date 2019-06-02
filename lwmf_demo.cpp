@@ -59,7 +59,9 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	// Load OpenGL/wgl extensions
 	lwmf::InitOpenGLLoader();
 	// Init the shaders used for rendering
-	lwmf::InitShader(ScreenTexture);
+	lwmf::ShaderClass ScreenTextureShader;
+	ScreenTextureShader.LoadShader("Default", ScreenTexture);
+	ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);
 
 	// Init raw devices
 	lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_MOUSE);
@@ -201,7 +203,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 
 		// Bring the pixelbuffer to screen
-		lwmf::RenderTexture(ScreenTexture);
+		ScreenTextureShader.RenderLWMFTexture(ScreenTexture);
 		SwapBuffers(lwmf::WindowHandle);
 	}
 
