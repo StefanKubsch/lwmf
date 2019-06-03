@@ -20,7 +20,7 @@
 
 namespace lwmf
 {
-	
+
 
 	std::string GetTimeStamp();
 	void StartLogging(const std::string& Logfilename);
@@ -44,10 +44,10 @@ namespace lwmf
 		const auto CurrentTime{ std::chrono::system_clock::to_time_t(TimePoint) };
 		char TimeString[26];
 		ctime_s(TimeString, sizeof(TimeString), &CurrentTime);
-		
+
 		return std::string(TimeString);
 	}
-	
+
 	inline void StartLogging(const std::string& Logfilename)
 	{
 		Logfile.open(Logfilename);

@@ -55,10 +55,10 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 {
 	lwmf::StartLogging("lwmf_demo.log");
 
-	// Create window and OpenGL context
 	try
 	{
-		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
+		// Create window and OpenGL context
+		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
@@ -66,25 +66,24 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Init the shaders used for rendering
 		ScreenTextureShader.LoadShader("Default", ScreenTexture);
 		ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);
-
 		// Init raw devices
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_MOUSE);
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_KEYBOARD);
+
+		// Init the demoparts if neccessary...
+		Landscape::Init();
+		Lens::Init();
+		Copperbars::Init();
+		Tunnel::Init();
+		Morph::Init();
+		GouraudShade::Init();
+		RotoZoom::Init();
+		Bobs::Init();
 	}
 	catch (const std::runtime_error&)
 	{
 		return EXIT_FAILURE;
 	}
-
-	// Init the demoparts if neccessary...
-	Landscape::Init();
-	Lens::Init();
-	Copperbars::Init();
-	Tunnel::Init();
-	Morph::Init();
-	GouraudShade::Init();
-	RotoZoom::Init();
-	Bobs::Init();
 
 	FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Height * ScreenTexture.Width) + " pixels per frame";
 
@@ -98,6 +97,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		{
 			if (Message.message == WM_QUIT)
 			{
+				lwmf::AddLogEntry("MESSAGE: WM_QUIT received...");
 				Quit = true;
 				break;
 			}
@@ -219,6 +219,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	lwmf::UnregisterRawInputDevice(lwmf::HID_MOUSE);
 	lwmf::UnregisterRawInputDevice(lwmf::HID_KEYBOARD);
 
+	lwmf::AddLogEntry("Exit program...");
 	lwmf::EndLogging();
 
 	return EXIT_SUCCESS;

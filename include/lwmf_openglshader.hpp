@@ -81,7 +81,7 @@ namespace lwmf
 
 		GLuint ElementBufferObject{};
 
-		AddLogEntry("Shader (" + ShaderName + "): Create vertex buffer object...");
+		AddLogEntry("SHADER (" + ShaderName + "): Create vertex buffer object...");
 		glGenBuffers(1, &VertexBufferObject);
 		glCheckError();
 		glBindBuffer(GL_ARRAY_BUFFER, VertexBufferObject);
@@ -91,13 +91,13 @@ namespace lwmf
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertices), Vertices);
 		glCheckError();
 
-		AddLogEntry("Shader (" + ShaderName + "): Create vertex array object...");
+		AddLogEntry("SHADER (" + ShaderName + "): Create vertex array object...");
 		glGenVertexArrays(1, &VertexArrayObject);
 		glCheckError();
 		glBindVertexArray(VertexArrayObject);
 		glCheckError();
 
-		AddLogEntry("Shader (" + ShaderName + "): Create element buffer object...");
+		AddLogEntry("SHADER (" + ShaderName + "): Create element buffer object...");
 		glGenBuffers(1, &ElementBufferObject);
 		glCheckError();
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementBufferObject);
@@ -105,7 +105,7 @@ namespace lwmf
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Elements), Elements, GL_STATIC_DRAW);
 		glCheckError();
 
-		AddLogEntry("Shader (" + ShaderName + "): Create and compile the vertex shader...");
+		AddLogEntry("SHADER (" + ShaderName + "): Create and compile the vertex shader...");
 		const GLchar* VertexShaderSource{ LoadShaderSource("./Shader/Vertex/" + ShaderName + ".vert") };
 		const GLint VertexShader{ glCreateShader(GL_VERTEX_SHADER) };
 		glCheckError();
@@ -115,7 +115,7 @@ namespace lwmf
 		glCheckError();
 		CheckCompileError(VertexShader, Components::Shader);
 
-		AddLogEntry("Shader (" + ShaderName + "): Create and compile the fragment shader...");
+		AddLogEntry("SHADER (" + ShaderName + "): Create and compile the fragment shader...");
 		const GLchar* FragmentShaderSource{ LoadShaderSource("./Shader/Fragment/" + ShaderName + ".frag") };
 		const GLint FragmentShader{ glCreateShader(GL_FRAGMENT_SHADER) };
 		glCheckError();
@@ -125,7 +125,7 @@ namespace lwmf
 		glCheckError();
 		CheckCompileError(FragmentShader, Components::Shader);
 
-		AddLogEntry("Shader (" + ShaderName + "): Link the vertex and fragment shader into a shader program...");
+		AddLogEntry("SHADER (" + ShaderName + "): Link the vertex and fragment shader into a shader program...");
 		const GLint ShaderProgram{ glCreateProgram() };
 		glCheckError();
 		glAttachShader(ShaderProgram, VertexShader);
@@ -139,11 +139,11 @@ namespace lwmf
 
 		CheckCompileError(ShaderProgram, Components::Program);
 
-		AddLogEntry("Shader (" + ShaderName + "): Use shader program...");
+		AddLogEntry("SHADER (" + ShaderName + "): Use shader program...");
 		glUseProgram(ShaderProgram);
 		glCheckError();
 
-		AddLogEntry("Shader (" + ShaderName + "): Specify the layout of the vertex data...");
+		AddLogEntry("SHADER (" + ShaderName + "): Specify the layout of the vertex data...");
 		const GLint PositionAttrib{ glGetAttribLocation(ShaderProgram, "position") };
 		glCheckError();
 		glEnableVertexAttribArray(PositionAttrib);
@@ -158,7 +158,7 @@ namespace lwmf
 		glVertexAttribPointer(TextureAttrib, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(2 * sizeof(GLfloat))); //-V566
 		glCheckError();
 
-		AddLogEntry("Shader (" + ShaderName + "): Create projection matrix...");
+		AddLogEntry("SHADER (" + ShaderName + "): Create projection matrix...");
 		GLfloat ProjectionMatrix[16]{};
 		Ortho2D(ProjectionMatrix, 0.0F, static_cast<GLfloat>(Texture.Width), static_cast<GLfloat>(Texture.Height), 0.0F);
 		glCheckError();
@@ -167,7 +167,7 @@ namespace lwmf
 		glUniformMatrix4fv(Projection, 1, GL_FALSE, ProjectionMatrix);
 		glCheckError();
 
-		AddLogEntry("Shader (" + ShaderName + "): Since the shader program is now loaded into GPU, we can delete the shader program......");
+		AddLogEntry("SHADER (" + ShaderName + "): Since the shader program is now loaded into GPU, we can delete the shader program...");
 		glDetachShader(ShaderProgram, FragmentShader);
 		glCheckError();
 		glDetachShader(ShaderProgram, VertexShader);
