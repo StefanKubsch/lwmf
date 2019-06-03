@@ -18,7 +18,7 @@
 #include <limits>
 #include <sstream>
 
-#include "lwmf_errorhandling.hpp"
+#include "lwmf_logging.hpp"
 #include "lwmf_texture.hpp"
 
 namespace lwmf
@@ -81,7 +81,7 @@ namespace lwmf
 
 		GLuint ElementBufferObject{};
 
-		// Create buffers
+		AddLogEntry("Shader (" + ShaderName + "): Create vertex buffer object...");
 		glGenBuffers(1, &VertexBufferObject);
 		glCheckError();
 		glBindBuffer(GL_ARRAY_BUFFER, VertexBufferObject);
@@ -91,11 +91,13 @@ namespace lwmf
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertices), Vertices);
 		glCheckError();
 
+		AddLogEntry("Shader (" + ShaderName + "): Create vertex array object...");
 		glGenVertexArrays(1, &VertexArrayObject);
 		glCheckError();
 		glBindVertexArray(VertexArrayObject);
 		glCheckError();
 
+		AddLogEntry("Shader (" + ShaderName + "): Create element buffer object...");
 		glGenBuffers(1, &ElementBufferObject);
 		glCheckError();
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementBufferObject);
@@ -103,7 +105,7 @@ namespace lwmf
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Elements), Elements, GL_STATIC_DRAW);
 		glCheckError();
 
-		// Create and compile the vertex shader
+		AddLogEntry("Shader (" + ShaderName + "): Create and compile the vertex shader...");
 		const GLchar* VertexShaderSource{ LoadShaderSource("./Shader/Vertex/" + ShaderName + ".vert") };
 		const GLint VertexShader{ glCreateShader(GL_VERTEX_SHADER) };
 		glCheckError();
@@ -113,7 +115,7 @@ namespace lwmf
 		glCheckError();
 		CheckCompileError(VertexShader, Components::Shader);
 
-		// Create and compile the fragment shader
+		AddLogEntry("Shader (" + ShaderName + "): Create and compile the fragment shader...");
 		const GLchar* FragmentShaderSource{ LoadShaderSource("./Shader/Fragment/" + ShaderName + ".frag") };
 		const GLint FragmentShader{ glCreateShader(GL_FRAGMENT_SHADER) };
 		glCheckError();
@@ -123,7 +125,7 @@ namespace lwmf
 		glCheckError();
 		CheckCompileError(FragmentShader, Components::Shader);
 
-		// Link the vertex and fragment shader into a shader program
+		AddLogEntry("Shader (" + ShaderName + "): Link the vertex and fragment shader into a shader program...");
 		const GLint ShaderProgram{ glCreateProgram() };
 		glCheckError();
 		glAttachShader(ShaderProgram, VertexShader);
@@ -135,14 +137,13 @@ namespace lwmf
 		glLinkProgram(ShaderProgram);
 		glCheckError();
 
-		// Check shader program
 		CheckCompileError(ShaderProgram, Components::Program);
 
-		// Everything´s fine, now we can use the shader program...
+		AddLogEntry("Shader (" + ShaderName + "): Use shader program...");
 		glUseProgram(ShaderProgram);
 		glCheckError();
 
-		// Specify the layout of the vertex data
+		AddLogEntry("Shader (" + ShaderName + "): Specify the layout of the vertex data...");
 		const GLint PositionAttrib{ glGetAttribLocation(ShaderProgram, "position") };
 		glCheckError();
 		glEnableVertexAttribArray(PositionAttrib);
@@ -157,6 +158,7 @@ namespace lwmf
 		glVertexAttribPointer(TextureAttrib, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(2 * sizeof(GLfloat))); //-V566
 		glCheckError();
 
+		AddLogEntry("Shader (" + ShaderName + "): Create projection matrix...");
 		GLfloat ProjectionMatrix[16]{};
 		Ortho2D(ProjectionMatrix, 0.0F, static_cast<GLfloat>(Texture.Width), static_cast<GLfloat>(Texture.Height), 0.0F);
 		glCheckError();
@@ -165,7 +167,7 @@ namespace lwmf
 		glUniformMatrix4fv(Projection, 1, GL_FALSE, ProjectionMatrix);
 		glCheckError();
 
-		// Since the shader program is now loaded into GPU, we can delete the shader program...
+		AddLogEntry("Shader (" + ShaderName + "): Since the shader program is now loaded into GPU, we can delete the shader program......");
 		glDetachShader(ShaderProgram, FragmentShader);
 		glCheckError();
 		glDetachShader(ShaderProgram, VertexShader);
@@ -363,12 +365,10 @@ namespace lwmf
 			case Components::Shader:
 			{
 				glGetShaderiv(Task, GL_COMPILE_STATUS, &ErrorResult);
-				glCheckError();
 
 				if (ErrorResult == GL_FALSE)
 				{
 					glGetShaderInfoLog(Task, 512, nullptr, ErrorLog);
-					glCheckError();
 					LogErrorAndThrowException(std::string(ErrorLog));
 				}
 
@@ -377,12 +377,10 @@ namespace lwmf
 			case Components::Program:
 			{
 				glGetProgramiv(Task, GL_LINK_STATUS, &ErrorResult);
-				glCheckError();
 
 				if (ErrorResult == GL_FALSE)
 				{
 					glGetProgramInfoLog(Task, 512, nullptr, ErrorLog);
-					glCheckError();
 					LogErrorAndThrowException(std::string(ErrorLog));
 				}
 

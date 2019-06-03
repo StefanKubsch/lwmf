@@ -56,6 +56,7 @@ Other stuff:
   - graphics related math functions
   - a multithread class with a threadpool
   - raw input device handling (mouse and keyboard)
+  - logging and error handling
 
 My intention of this library:
 

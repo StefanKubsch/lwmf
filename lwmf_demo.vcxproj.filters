@@ -117,7 +117,7 @@
     <ClInclude Include="include\lwmf_png.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="include\lwmf_errorhandling.hpp">
+    <ClInclude Include="include\lwmf_logging.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
