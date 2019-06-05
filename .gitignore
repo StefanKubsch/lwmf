@@ -48,3 +48,10 @@ x64/Release/vc.nativecodeanalysis.all.xml
 .vs/lwmf_demo/v16/ipch/AutoPCH/a684e0acceaf0ee4/LWMF_ERRORHANDLING.ipch
 .vs/lwmf_demo/v16/ipch/AutoPCH/9ce828f15ed1f09e/LWM_LOGGING.ipch
 lwmf_demo.log
+x64/Release/DemoGFX/Head.png
+x64/Release/DemoGFX/Landscape.png
+x64/Release/DemoGFX/LandscapeTexture.png
+x64/Release/DemoGFX/SinusScrollerChars.png
+x64/Release/DemoGFX/TunnelTexture.png
+x64/Release/Shader/Fragment/Default.frag
+x64/Release/Shader/Vertex/Default.vert
