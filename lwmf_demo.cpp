@@ -53,7 +53,7 @@ constexpr std::int_fast32_t MaxDemoPart{ 19 };
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
-	lwmf::StartLogging("lwmf_demo.log");
+	lwmf::Logging DemoLog("lwmf_demo.log");
 
 	try
 	{
@@ -97,7 +97,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		{
 			if (Message.message == WM_QUIT)
 			{
-				lwmf::AddLogEntry("MESSAGE: WM_QUIT received...");
+				DemoLog.AddEntry("MESSAGE: WM_QUIT received...");
 				Quit = true;
 				break;
 			}
@@ -219,8 +219,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	lwmf::UnregisterRawInputDevice(lwmf::HID_MOUSE);
 	lwmf::UnregisterRawInputDevice(lwmf::HID_KEYBOARD);
 
-	lwmf::AddLogEntry("Exit program...");
-	lwmf::EndLogging();
+	DemoLog.AddEntry("Exit program...");
 
 	return EXIT_SUCCESS;
 }
