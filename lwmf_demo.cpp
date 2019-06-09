@@ -60,7 +60,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Create window and OpenGL context
 		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
-		lwmf::SetVSync(-1);
+		lwmf::SetVSync(0);
 		// Load OpenGL/wgl extensions
 		lwmf::InitOpenGLLoader();
 		// Init the shaders used for rendering
@@ -218,9 +218,9 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 	lwmf::UnregisterRawInputDevice(lwmf::HID_MOUSE);
 	lwmf::UnregisterRawInputDevice(lwmf::HID_KEYBOARD);
+	lwmf::DeleteOpenGLContext();
 
 	DemoLog.AddEntry("Exit program...");
-
 	return EXIT_SUCCESS;
 }
 
@@ -236,7 +236,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		case WM_INPUT:
 		{
-			// RawInputBuffer will be max. 40bytes on 32bit, and 48bytes on 64bit applications
 			static RAWINPUT RawDev;
 			static UINT DataSize{ sizeof(RawDev) };
 			static UINT HeaderSize{ sizeof(RAWINPUTHEADER) };
