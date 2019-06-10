@@ -60,7 +60,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Create window and OpenGL context
 		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
-		lwmf::SetVSync(0);
+		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
 		lwmf::InitOpenGLLoader();
 		// Init the shaders used for rendering
@@ -102,7 +102,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 				break;
 			}
 
-			TranslateMessage(&Message);
 			DispatchMessage(&Message);
 		}
 
@@ -213,7 +212,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 		// Bring the pixelbuffer to screen
 		ScreenTextureShader.RenderLWMFTexture(ScreenTexture);
-		SwapBuffers(lwmf::WindowHandle);
+		lwmf::SwapBuffer();
 	}
 
 	lwmf::UnregisterRawInputDevice(lwmf::HID_MOUSE);
