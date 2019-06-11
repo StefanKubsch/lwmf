@@ -63,6 +63,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
 		lwmf::InitOpenGLLoader();
+		// Check for SSE
+		lwmf::CheckForSSESupport();
 		// Init the shaders used for rendering
 		ScreenTextureShader.LoadShader("Default", ScreenTexture);
 		ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);

@@ -1,64 +1,78 @@
 # lwmf
-lightweight media framework - graphics, math, multithreading and more for games and gfx
+lightweight media framework - graphics, math, multithreading, logging and much more for games, demos, engines etc.
 
-With lwmf, you can easily:
+Windows, C++ 17, Visual Studio 2019, OpenGL 4.5, SSE 4.2
 
-  - create windowed or fullscreen, OpenGL-accelerated games or demos
-  - use primitives, load and manipulate bitmaps/textures
-  - run everything multithreaded
-  - and more
+Features:
 
-Inplemented primitives:
-
-  - SetPixel / GetPixel
-  - SetPixelSafe (with boundary checks)
-  - Flood/Boundary Fill (stack-implementation)
-  - Line
-  - Rectangle
-  - Filled Rectangle
-  - Circle 
-  - Filled Circle
-  - Polygon
-  - Filled Polyon
-  - Clear PixelBuffer
-
-OpenGL:
-
-  - load OpenGL extensions
-  - set up shaders
-  - render textures to screen
+	- OpenGL
+		- window creation
+		- wgl extension loader
+		- shader class
+		- load textures into GPU
+		- render to screen
+	
+	- Primitives
+		- SetPixel / GetPixel
+		- SetPixelSafe (with boundary checks)
+		- Flood/Boundary Fill (stack-implementation)
+		- Line
+		- Rectangle
+		- Filled Rectangle
+		- Circle 
+		- Filled Circle
+		- Polygon
+		- Filled Polyon
+		- Clear PixelBuffer
+		
+	- Color handling
+		- RGBA to INT
+		- INT to RGBA
+		- color blending (SSE/SIMD-accelerated)
+		- color shading (SSE/SIMD-accelerated)
   
-Color handling:
-
-  - RGBA to INT
-  - INT to RGBA
+	- Images
+		- load 24bit BMP (Bitmap) to texture
+		- load PNG to texture
   
-Images:
-
-  - load 24bit BMP (Bitmap) into texture
-  - load PNG into textures
+	- Textures
+		- resize
+		- scale
+		- crop
+		- blitting
+		- transparent blitting
   
-Textures:
-  - resize/scale/crop
-  - blit / transparent blit
+	- Math
+		- Lerp (linear interpolation)
+		- Euclidian Distance
+		- Chebyshev Distance
+		- Manhattan Distance
   
-Text:
-
-  - simple 8x8 hardcoded bitmap font, standard ASCII
+	- Text
+		- simple 8x8 hardcoded bitmap font, standard ASCII
   
-Procedural:
-
-  - Perlin noise generator
+	- Procedural
+		- Perlin noise generator
   
-Other stuff:
+	- Multithreading
+		- dynamic threadpool
+	
+	- Raw Input Devices
+		- register/unregister mouse and keyboard
+		- catch mouse in current window
 
-  - fps counter
-  - graphics related math functions
-  - a multithread class with a threadpool
-  - raw input device handling (mouse and keyboard)
-  - logging and error handling
+	- Logging and error handling
+		- create logfile via class (one is hardcoded in lwmf itself)
+		- error/exception handling
 
-My intention of this library:
+	- INI files
+		- read and write values to standard INI files
+
+	- Other stuff
+		- fps (frames per second) counter
+
+
+** My intention of this library **
 
   - lightweight/small/minimal
   - modern (C++ 17 and OpenGL shader)
@@ -67,7 +81,7 @@ My intention of this library:
   - robust
   
 
-How to use?
+** How to use? **
 
 **Just #include "lwmf.hpp" in your code an go! No external libraries, no DLL, no bullshit.**
 

@@ -56,3 +56,5 @@ x64/Release/DemoGFX/TunnelTexture.png
 x64/Release/Shader/Fragment/Default.frag
 x64/Release/Shader/Vertex/Default.vert
 lwmf_systemlog.log
+.vs/lwmf_demo/v16/ipch/AutoPCH/1c6648f420d465f0/LWMF_SIMD.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/2b864926f3fbb1cb/LWMF_INIFILE.ipch
