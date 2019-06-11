@@ -71,17 +71,15 @@ Features:
 	- Other stuff
 		- fps (frames per second) counter
 
-
-** My intention of this library **
+**My intention of this library**
 
   - lightweight/small/minimal
   - modern (C++ 17 and OpenGL shader)
   - really easy to use
   - fast
   - robust
-  
-
-** How to use? **
+ 
+**How to use?**
 
 **Just #include "lwmf.hpp" in your code an go! No external libraries, no DLL, no bullshit.**
 
