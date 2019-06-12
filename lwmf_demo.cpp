@@ -19,13 +19,14 @@
 #include <Windows.h>
 #include <cstdint>
 #include <string>
+#include <random>
 
 // Including "lwmf.hpp" is mandatory - this is the main library file!
 #include "./include/lwmf.hpp"
 
 // "ScreenTexture" is the main render target in our demo!
-lwmf::TextureStruct ScreenTexture;
-lwmf::ShaderClass ScreenTextureShader;
+inline lwmf::TextureStruct ScreenTexture;
+inline lwmf::ShaderClass ScreenTextureShader;
 
 // Include the used demo effects
 #include "./DemoSources/Metaballs.hpp"
@@ -48,8 +49,8 @@ lwmf::ShaderClass ScreenTextureShader;
 #include "./DemoSources/PerlinGFX.hpp"
 
 inline std::string FillrateTestString;
-inline std::int_fast32_t DemoPart{ 1 };
-constexpr std::int_fast32_t MaxDemoPart{ 19 };
+inline std::int_fast32_t DemoPart{};
+constexpr std::int_fast32_t MaxDemoPart{ 18 };
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -87,7 +88,10 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		return EXIT_FAILURE;
 	}
 
-	FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Height * ScreenTexture.Width) + " pixels per frame";
+	FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Size) + " pixels per frame";
+
+	static std::mt19937 Engine;
+	static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, 0XFFFFFF);
 
 	bool Quit{};
 
@@ -109,99 +113,99 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 		switch (DemoPart)
 		{
-			case 1:
+			case 0:
 			{
 				Metaballs::Draw();
 				break;
 			}
-			case 2:
+			case 1:
 			{
 				Plasma::Draw();
 				break;
 			}
-			case 3:
+			case 2:
 			{
 				DotTunnel::Draw();
 				break;
 			}
-			case 4:
+			case 3:
 			{
 				Fire::Draw();
 				break;
 			}
-			case 5:
+			case 4:
 			{
 				Swarm::Draw();
 				break;
 			}
-			case 6:
+			case 5:
 			{
 				Landscape::Draw();
 				break;
 			}
-			case 7:
+			case 6:
 			{
 				Starfield::Draw();
 				break;
 			}
-			case 8:
+			case 7:
 			{
 				VectorCube::Draw();
 				break;
 			}
-			case 9:
+			case 8:
 			{
 				Lens::Draw();
 				break;
 			}
-			case 10:
+			case 9:
 			{
 				Copperbars::Draw();
 				break;
 			}
-			case 11:
+			case 10:
 			{
 				Tunnel::Draw();
 				break;
 			}
-			case 12:
+			case 11:
 			{
 				Morph::Draw();
 				break;
 			}
-			case 13:
+			case 12:
 			{
 				GouraudShade::Draw();
 				break;
 			}
-			case 14:
+			case 13:
 			{
 				RotoZoom::Draw();
 				break;
 			}
-			case 15:
+			case 14:
 			{
 				Moiree::Draw();
 				break;
 			}
-			case 16:
+			case 15:
 			{
 				Julia::Draw();
 				break;
 			}
-			case 17:
+			case 16:
 			{
 				Bobs::Draw();
 				break;
 			}
-			case 18:
+			case 17:
 			{
 				PerlinGFX::DrawParts();
 				break;
 			}
-			case 19:
+			case 18:
 			{
-				lwmf::ClearTexture(ScreenTexture, rand() % 0XFFFFFFFF);
+				lwmf::ClearTexture(ScreenTexture, Distrib1(Engine));
 				lwmf::RenderText(ScreenTexture, FillrateTestString, 10, 10, 0xFFFFFFFF);
 				break;
 			}
@@ -232,7 +236,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_SIZE:
 		{
 			lwmf::ResizeOpenGLWindow(ScreenTexture);
-			FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Height * ScreenTexture.Width) + " pixels per frame";
+			FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Size) + " pixels per frame";
 			break;
 		}
 		case WM_INPUT:
@@ -258,13 +262,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							}
 							case VK_RIGHT:
 							{
-								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 1;
+								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0);
 								break;
 							}
 							case VK_LEFT:
 							{
-								DemoPart > 1 ? --DemoPart : DemoPart = MaxDemoPart;
+								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0);
 								break;
 							}

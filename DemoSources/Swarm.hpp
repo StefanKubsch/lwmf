@@ -21,7 +21,7 @@ namespace Swarm
 
 			void Init()
 			{
-				static std::mt19937_64 Engine;
+				static std::mt19937 Engine;
 				static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, RAND_MAX);
 
 				Pos.X = 0.0F;

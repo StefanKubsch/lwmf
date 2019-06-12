@@ -23,7 +23,7 @@ namespace Morph
 
 	inline void Init()
 	{
-		static std::mt19937_64 Engine;
+		static std::mt19937 Engine;
 		static const std::uniform_real<float> Distrib(0.0F, RAND_MAX);
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
