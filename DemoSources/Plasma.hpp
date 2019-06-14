@@ -35,16 +35,17 @@ namespace Plasma
 		PlasmaCount2 -= PlasmaSpeed2;
 		PlasmaCount3 += PlasmaSpeed3;
 
-		for (std::int_fast32_t Offset{}, y{}; y < ScreenTexture.Height; ++y)
+		#pragma omp parallel for
+		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
 				const std::int_fast32_t Color{ static_cast<std::int_fast32_t>((128.0F * std::sinf(x / 64.0F)) + (64.0F * std::cosf(y / 64.0F))) };
-				ScreenTexture.Pixels[Offset++] = lwmf::RGBAtoINT((Color + PlasmaCount3) & 255, (Color + PlasmaCount1) & 255, (Color + PlasmaCount2) & 255, 255);
+				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT((Color + PlasmaCount3) & 255, (Color + PlasmaCount1) & 255, (Color + PlasmaCount2) & 255, 255));
 			}
 		}
 
-		lwmf::RenderText(ScreenTexture, "Realtime plasma", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "OpenMP accelerated realtime plasma", 10, 10, 0xFFFFFFFF);
 	}
 
 

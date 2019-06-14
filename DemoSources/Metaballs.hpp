@@ -20,9 +20,10 @@ namespace Metaballs
 
 		static std::vector<MetaballStruct> Metaballs
 		{
-			{ 600, 600, -8, -8 },
+			{ 800, 600, -8, -8 },
 			{ 490, 40, 4, 2 },
-			{ 10, 10, 5, 6 }
+			{ 10, 10, 5, 6 },
+			{ 30, 500, -5, -6 }
 		};
 
 		static const std::int_fast32_t MetaballColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
@@ -44,7 +45,8 @@ namespace Metaballs
 			}
 		}
 
-		for (std::int_fast32_t Offset{}, y{}; y < ScreenTexture.Height; ++y)
+		#pragma omp parallel for
+		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
@@ -58,11 +60,11 @@ namespace Metaballs
 					BallSum += 3.0F / std::sqrtf(BallXTemp * BallXTemp + BallYTemp * BallYTemp);
 				}
 
-				ScreenTexture.Pixels[Offset++] = BallSum > 0.035F ? MetaballColor : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255);
+				lwmf::SetPixel(ScreenTexture, x, y, BallSum > 0.035F ? MetaballColor : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));
 			}
 		}
 
-		lwmf::RenderText(ScreenTexture, "Realtime metaballs", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "OpenMP accelerated realtime metaballs", 10, 10, 0xFFFFFFFF);
 	}
 
 

@@ -32,6 +32,7 @@
     <ClInclude Include="DemoSources\Morph.hpp" />
     <ClInclude Include="DemoSources\PerlinGFX.hpp" />
     <ClInclude Include="DemoSources\Plasma.hpp" />
+    <ClInclude Include="DemoSources\Raytracer.hpp" />
     <ClInclude Include="DemoSources\RotoZoom.hpp" />
     <ClInclude Include="DemoSources\Starfield.hpp" />
     <ClInclude Include="DemoSources\Swarm.hpp" />
@@ -161,6 +162,8 @@
       <FloatingPointExceptions>false</FloatingPointExceptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

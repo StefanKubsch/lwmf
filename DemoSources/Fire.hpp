@@ -10,11 +10,11 @@ namespace Fire
 
 	inline void Draw()
 	{
-		static constexpr lwmf::IntPointStruct CubePos{ 200, 250 };
 		static constexpr std::int_fast32_t CubeSize{ 250 };
 		static constexpr std::int_fast32_t CubeHalf{ CubeSize >> 1 };
 		static const std::int_fast32_t CubeRed{ lwmf::RGBAtoINT(255, 0, 0, 255) };
 		static const std::int_fast32_t CubeYellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
+		static const lwmf::IntPointStruct CubePos{ ScreenTexture.WidthMid - CubeSize + (CubeHalf >> 1), ScreenTexture.HeightMid - (CubeHalf >> 1) };
 
 		static std::mt19937 Engine;
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
@@ -45,6 +45,7 @@ namespace Fire
 		lwmf::Rectangle(ScreenTexture, CubePos.X + 2, CubePos.Y + 2, CubeSize - 4, CubeSize - 4, CubeRed);
 
 		// Apply fire
+		#pragma omp parallel for
 		for (std::int_fast32_t y{ 1 }; y < ScreenTexture.Height; ++y)
 		{
 			const std::int_fast32_t TempY{ (y - 1) * ScreenTexture.Width };
@@ -56,7 +57,7 @@ namespace Fire
 				{
 					ScreenTexture.Pixels[TempY1 + x] = 0;
 				}
-				else
+				else if (lwmf::GetPixel(ScreenTexture, x, y) != 0)
 				{
 					const lwmf::ColorStruct Point1{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y)) };
 					const lwmf::ColorStruct Point2{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y - 1)) };
@@ -70,8 +71,8 @@ namespace Fire
 			}
 		}
 
-		lwmf::FilledRectangle(ScreenTexture, 0, 0, 210, 40, 0);
-		lwmf::RenderText(ScreenTexture, "Realtime fullscreen fire", 10, 10, 0xFFFFFFFF);
+		lwmf::FilledRectangle(ScreenTexture, 0, 0, 400, 40, 0);
+		lwmf::RenderText(ScreenTexture, "OpenMP accelerated realtime fullscreen fire", 10, 10, 0xFFFFFFFF);
 	}
 
 

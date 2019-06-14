@@ -1,7 +1,7 @@
 # lwmf
 lightweight media framework - graphics, math, multithreading, logging and much more for games, demos, engines etc.
 
-Windows, C++ 17, Visual Studio 2019, OpenGL 4.5, SSE 4.2
+Windows 64bit, C++ 17, Visual Studio 2019, OpenGL 4.5, SSE 4.2
 
 Features:
 
@@ -83,7 +83,7 @@ Features:
 
 **Just #include "lwmf.hpp" in your code an go! No external libraries, no DLL, no bullshit.**
 
-Have a look at the example, which draws some nice and smooth animated demo effects like Metaballs, realtime plasma, a dotted tunnel, a particle swarm and more! 
+Have a look at the example, which draws some nice and smooth animated demo effects like Metaballs, raytracing, realtime plasma, a dotted tunnel, a particle swarm and much more! 
 You can download "Release.zip" and run the included executable!
 
 Also, I´m using lwmf in my own game engine "NARC" - see https://github.com/StefanKubsch/NARC

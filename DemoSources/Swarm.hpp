@@ -54,6 +54,7 @@ namespace Swarm
 
 		lwmf::ClearTexture(ScreenTexture, 0);
 
+		#pragma omp parallel for
 		for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
 		{
 			Particles[i].Update(Interval);

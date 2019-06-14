@@ -68,7 +68,7 @@ namespace PerlinGFX
 				const float PosX{ static_cast<float>(x) / ScreenTexture.Width };
 				const float n{ (15.0F * PGFX.Noise(PosX, PosY, NoiseFactor)) - PGFX.Noise(15.0F * PosX, 15.0F * PosY, NoiseFactor) };
 
-				ScreenTexture.Pixels[y * ScreenTexture.Width + x] = lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n));
+				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n)));
 			}
 		}
 	}

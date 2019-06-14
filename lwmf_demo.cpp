@@ -47,10 +47,11 @@ inline lwmf::ShaderClass ScreenTextureShader;
 #include "./DemoSources/Julia.hpp"
 #include "./DemoSources/Bobs.hpp"
 #include "./DemoSources/PerlinGFX.hpp"
+#include "./DemoSources/Raytracer.hpp"
 
 inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 18 };
+constexpr std::int_fast32_t MaxDemoPart{ 19 };
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -59,7 +60,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 800, 600, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
@@ -82,6 +83,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		GouraudShade::Init();
 		RotoZoom::Init();
 		Bobs::Init();
+		Raytracer::Init();
 	}
 	catch (const std::runtime_error&)
 	{
@@ -207,6 +209,11 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			{
 				lwmf::ClearTexture(ScreenTexture, Distrib1(Engine));
 				lwmf::RenderText(ScreenTexture, FillrateTestString, 10, 10, 0xFFFFFFFF);
+				break;
+			}
+			case 19:
+			{
+				Raytracer::Draw();
 				break;
 			}
 			default: {}

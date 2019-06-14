@@ -15,6 +15,9 @@ namespace Bobs
 	inline std::vector<lwmf::FloatPointStruct> Bob1Coord(512);
 	inline std::vector<lwmf::FloatPointStruct> Bob2Coord(512);
 
+	constexpr std::int_fast32_t PatternWidth{ 600 >> 1};
+	constexpr std::int_fast32_t PatternHeight{ 300 >> 1 };
+
 	inline void Init()
 	{
 		lwmf::LoadBMP(Bob1BMP, "./DemoGFX/Bob1.bmp");
@@ -25,8 +28,8 @@ namespace Bobs
 		{
 			const float Temp{ (i * 0.703125F) * 0.0174532F };
 
-			Bob1Coord[i] = { std::sinf(Temp) * (600 >> 1) + (600 >> 1), std::cosf(Temp) * (300 >> 1) + (300 >> 1) };
-			Bob2Coord[i] = { std::cosf(Temp) * (600 >> 1) + (600 >> 1), std::sinf(Temp) * (300 >> 1) + (300 >> 1) };
+			Bob1Coord[i] = { std::sinf(Temp) * PatternWidth + PatternWidth, std::cosf(Temp) * PatternHeight + PatternHeight };
+			Bob2Coord[i] = { std::cosf(Temp) * PatternWidth + PatternWidth, std::sinf(Temp) * PatternHeight + PatternHeight };
 		}
 	}
 
@@ -43,8 +46,8 @@ namespace Bobs
 
 		for (std::int_fast32_t i{}; i <= MaxBobs; ++i)
 		{
-			lwmf::BlitTransTexture(Bob1BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].Y) + 50, TransparentColor);
-			lwmf::BlitTransTexture(Bob2BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].X) + 80, static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].Y) + 50, TransparentColor);
+			lwmf::BlitTransTexture(Bob1BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].X) + (ScreenTexture.WidthMid - PatternWidth), static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].Y) + ((ScreenTexture.HeightMid - PatternHeight) >> 1), TransparentColor);
+			lwmf::BlitTransTexture(Bob2BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].X) + (ScreenTexture.WidthMid - PatternWidth), static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].Y) + ((ScreenTexture.HeightMid - PatternHeight) >> 1), TransparentColor);
 
 			Bob1 += 20;
 			Bob2 += 20;

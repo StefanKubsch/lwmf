@@ -28,6 +28,7 @@ namespace Starfield
 
 		lwmf::ClearTexture(ScreenTexture, 0);
 
+		#pragma omp parallel for
 		for (std::int_fast32_t i{}; i < MaxStars; ++i)
 		{
 			Stars[i].z -= 0.19F;
@@ -47,7 +48,7 @@ namespace Starfield
 				static_cast<std::int_fast32_t>((1.0F - (Stars[i].z) / MaxDepth) * 6.0F), StarBorderColor, lwmf::RGBAtoINT(ColorPart, ColorPart, ColorPart, ColorPart));
 		}
 
-		lwmf::RenderText(ScreenTexture, "3D starfield - 15.000 stars", 10, 10, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "OpenMP accelerated 3D starfield - 15.000 stars", 10, 10, 0xFFFFFFFF);
 	}
 
 
