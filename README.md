@@ -3,6 +3,8 @@ lightweight media framework - graphics, math, multithreading, logging and much m
 
 Windows 64bit, C++ 17, Visual Studio 2019, OpenGL 4.5, SSE 4.2
 
+This framework is "Public Domain" - do whatever you want with it!
+
 Features:
 
 	- OpenGL
