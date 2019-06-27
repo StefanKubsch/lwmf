@@ -50,7 +50,7 @@ namespace lwmf
 
 	inline void SetPixelSafe(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, const std::int_fast32_t Color)
 	{
-		if (x >= 0 && x <= Texture.Width && y >= 0 && y < Texture.Height)
+		if ((x >= 0 && x <= Texture.Width) && (y >= 0 && y < Texture.Height))
 		{
 			Texture.Pixels[y * Texture.Width + x] = Color;
 		}
@@ -262,7 +262,7 @@ namespace lwmf
 		std::int_fast32_t Error{};
 
 		// if complete circle is within screen boundaries, there is no reason to use SetPixelSafe...
-		if (CenterX - Radius >= 0 && CenterX + Radius <= Texture.Width && CenterY - Radius >= 0 && CenterY + Radius < Texture.Height)
+		if ((CenterX - Radius >= 0 && CenterX + Radius <= Texture.Width) && (CenterY - Radius >= 0 && CenterY + Radius < Texture.Height))
 		{
 			while (Radius >= y)
 			{
