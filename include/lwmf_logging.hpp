@@ -25,10 +25,18 @@ namespace lwmf
 	class Logging final
 	{
 	public:
+		enum class LogLevels : std::int_fast32_t
+		{
+			Info,
+			Debug,
+			Warn,
+			Error,
+			Critical
+		};
+
 		Logging(const std::string& Logfilename);
 		~Logging();
-		void AddEntry(const std::string& Text);
-		void LogErrorAndThrowException(const std::string& ErrorMessage);
+		void AddEntry(LogLevels Level, const std::string& Message);
 
 	private:
 		std::string GetTimeStamp();
@@ -42,7 +50,7 @@ namespace lwmf
 
 		if (Logfile.fail())
 		{
-			throw std::runtime_error("Error creating logfile!");
+			throw std::runtime_error("lwmf_logging: Error creating logfile!");
 		}
 
 		Logfile << "lwmf logging / (c) Stefan Kubsch\n";
@@ -59,23 +67,57 @@ namespace lwmf
 		}
 	}
 
-	inline void Logging::AddEntry(const std::string& Text)
+	inline void Logging::AddEntry(const LogLevels Level, const std::string& Message)
 	{
+		std::string LogLevelString;
+		bool IsError{};
+
+		switch (Level)
+		{
+			case LogLevels::Info:
+			{
+				LogLevelString = "** Info: ";
+				break;
+			}
+			case LogLevels::Debug:
+			{
+				LogLevelString = "** Debug: ";
+				break;
+			}
+			case LogLevels::Warn:
+			{
+				LogLevelString = "** Warning: ";
+				break;
+			}
+			case LogLevels::Error:
+			{
+				LogLevelString = "** Error: ";
+				IsError = true;
+				break;
+			}
+			case LogLevels::Critical:
+			{
+				LogLevelString = "** Critical error: ";
+				IsError = true;
+				break;
+			}
+			default: {}
+		}
+
 		if (Logfile.is_open())
 		{
-			Logfile << "** " << Text << std::endl;
-		}
-	}
+			if (!IsError)
+			{
+				Logfile << LogLevelString << Message << std::endl;
+			}
+			else
+			{
+				Logfile << "\n" << GetTimeStamp() << LogLevelString << Message << std::endl;
+				Logfile.close();
 
-	inline void Logging::LogErrorAndThrowException(const std::string& ErrorMessage)
-	{
-		if (Logfile.is_open())
-		{
-			Logfile << GetTimeStamp() << " - " << ErrorMessage << std::endl;
-			Logfile.close();
+				throw std::runtime_error(Message);
+			}
 		}
-
-		throw std::runtime_error(ErrorMessage);
 	}
 
 	inline std::string Logging::GetTimeStamp()

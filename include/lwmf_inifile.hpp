@@ -31,7 +31,7 @@ namespace lwmf
 
 	template<typename T>T ReadINIValue(const std::string& INIFileName, const std::string& Section, const std::string& Key)
 	{
-		LWMFSystemLog.AddEntry("Reading value from INI file " + INIFileName + ": [" + Section + "] / " + Key + "...");
+		LWMFSystemLog.AddEntry(lwmf::Logging::LogLevels::Info, "Reading value from INI file " + INIFileName + ": [" + Section + "] / " + Key + "...");
 
 		static const std::regex SectionTest(R"(\[(.*?)\])", std::regex::optimize | std::regex::icase);
 		static const std::regex ValueTest(R"((\w+)=([^\#]+(?!\+{3})))", std::regex::optimize | std::regex::icase);
@@ -56,7 +56,7 @@ namespace lwmf
 				}
 				else if (std::regex_search(Line, Match, ValueTest) && (CurrentSection == Section && Match[1] == Key))
 				{
-					LWMFSystemLog.AddEntry("   Value : " + std::string(Match[2]));
+					LWMFSystemLog.AddEntry(lwmf::Logging::LogLevels::Info, "   Value : " + std::string(Match[2]));
 
 					// Convert Value to proper type
 					std::istringstream Stream(Match[2]);
@@ -69,7 +69,7 @@ namespace lwmf
 
 		if (!ValueFound)
 		{
-			LWMFSystemLog.LogErrorAndThrowException("Value [" + Section + "] / " + Key + " not found!");
+			LWMFSystemLog.AddEntry(lwmf::Logging::LogLevels::Error, "Value [" + Section + "] / " + Key + " not found!");
 		}
 
 		return OutputVar;
@@ -123,9 +123,9 @@ namespace lwmf
 
 	inline std::int_fast32_t ReadINIValueRGBA(const std::string& INIFileName, const std::string& Section)
 	{
-		return RGBAtoINT(ReadINIValue<std::int_fast32_t>(INIFileName, Section, "Red"), 
-			ReadINIValue<std::int_fast32_t>(INIFileName, Section, "Green"), 
-			ReadINIValue<std::int_fast32_t>(INIFileName, Section, "Blue"), 
+		return RGBAtoINT(ReadINIValue<std::int_fast32_t>(INIFileName, Section, "Red"),
+			ReadINIValue<std::int_fast32_t>(INIFileName, Section, "Green"),
+			ReadINIValue<std::int_fast32_t>(INIFileName, Section, "Blue"),
 			ReadINIValue<std::int_fast32_t>(INIFileName, Section, "Alpha"));
 	}
 

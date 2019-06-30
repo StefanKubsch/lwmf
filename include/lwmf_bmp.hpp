@@ -31,13 +31,13 @@ namespace lwmf
 
 	inline void LoadBMP(TextureStruct& Texture, const std::string& Filename)
 	{
-		LWMFSystemLog.AddEntry("lwmf_bmp: Load file " + Filename + "...");
+		LWMFSystemLog.AddEntry(lwmf::Logging::LogLevels::Info, "lwmf_bmp: Load file " + Filename + "...");
 
 		std::ifstream File(Filename, std::ios::binary);
 
 		if (File.fail())
 		{
-			LWMFSystemLog.LogErrorAndThrowException("Error loading " + Filename + "!");
+			LWMFSystemLog.AddEntry(lwmf::Logging::LogLevels::Error, "lwmf_bmp: Error loading " + Filename + "!");
 		}
 		else
 		{

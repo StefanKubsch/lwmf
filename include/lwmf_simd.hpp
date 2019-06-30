@@ -25,14 +25,14 @@ namespace lwmf
 
 	inline void CheckForSSESupport()
 	{
-		LWMFSystemLog.AddEntry("Checking for SSE 4.2 Extensions...");
+		LWMFSystemLog.AddEntry(lwmf::Logging::LogLevels::Info, "lwmf_simd: Checking for SSE 4.2 Extensions...");
 
 		std::int_fast32_t CPUInfo[4];
 		__cpuid(CPUInfo, 1);
 
 		if ((CPUInfo[2] & (1 << 20)) == 0)
 		{
-			LWMFSystemLog.LogErrorAndThrowException("SSE 4.2 is not supported on this computer!");
+			LWMFSystemLog.AddEntry(lwmf::Logging::LogLevels::Critical, "lwmf_simd: SSE 4.2 is not supported on this computer!");
 		}
 	}
 

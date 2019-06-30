@@ -50,7 +50,7 @@ namespace lwmf
 
 	inline void SetPixelSafe(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, const std::int_fast32_t Color)
 	{
-		if (static_cast<std::uint_fast32_t>(x) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y) <= static_cast<std::uint_fast32_t>(Texture.Height - 1))
+		if (static_cast<std::uint_fast32_t>(x) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y) < static_cast<std::uint_fast32_t>(Texture.Height))
 		{
 			Texture.Pixels[y * Texture.Width + x] = Color;
 		}
@@ -130,8 +130,8 @@ namespace lwmf
 			std::fill(Texture.Pixels.begin() + y1 * Texture.Width + x1, Texture.Pixels.begin() + y1 * Texture.Width + x2, Color);
 		}
 		// Case 2: Line is within screen boundaries, so no further checking if pixel can be set
-		else if (static_cast<std::uint_fast32_t>(x1) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y1) <= static_cast<std::uint_fast32_t>(Texture.Height - 1) 
-			&& static_cast<std::uint_fast32_t>(x2) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y2) <= static_cast<std::uint_fast32_t>(Texture.Height - 1))
+		else if (static_cast<std::uint_fast32_t>(x1) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y1) < static_cast<std::uint_fast32_t>(Texture.Height) 
+			&& static_cast<std::uint_fast32_t>(x2) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y2) < static_cast<std::uint_fast32_t>(Texture.Height))
 		{
 			bool LongerY{};
 			std::int_fast32_t ShortLength{ y2 - y1 };
