@@ -60,7 +60,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+		lwmf::CreateOpenGLWindow(hInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
@@ -105,7 +105,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		{
 			if (Message.message == WM_QUIT)
 			{
-				DemoLog.AddEntry(lwmf::Logging::LogLevels::Info, "MESSAGE: WM_QUIT received...");
+				DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, "MESSAGE: WM_QUIT received...");
 				Quit = true;
 				break;
 			}
@@ -232,7 +232,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	lwmf::UnregisterRawInputDevice(lwmf::HID_KEYBOARD);
 	lwmf::DeleteOpenGLContext();
 
-	DemoLog.AddEntry(lwmf::Logging::LogLevels::Info, "Exit program...");
+	DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, "Exit program...");
 	return EXIT_SUCCESS;
 }
 

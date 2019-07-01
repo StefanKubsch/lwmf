@@ -10,6 +10,10 @@
 
 #pragma once
 
+// This macro will return the current filename without any path information
+#define __FILENAME__ (std::strrchr(__FILE__, '\\') ? std::strrchr(__FILE__, '\\') + 1 : __FILE__)
+
+#include <cstring>
 #include <string>
 #include <exception>
 #include <stdexcept>
@@ -21,22 +25,21 @@
 namespace lwmf
 {
 
+	enum class LogLevel : std::int_fast32_t
+	{
+		Info,
+		Debug,
+		Warn,
+		Error,
+		Critical
+	};
 
 	class Logging final
 	{
 	public:
-		enum class LogLevels : std::int_fast32_t
-		{
-			Info,
-			Debug,
-			Warn,
-			Error,
-			Critical
-		};
-
 		Logging(const std::string& Logfilename);
 		~Logging();
-		void AddEntry(LogLevels Level, const std::string& Message);
+		void AddEntry(LogLevel Level, const char* Filename, const std::string& Message);
 
 	private:
 		std::string GetTimeStamp();
@@ -50,7 +53,7 @@ namespace lwmf
 
 		if (Logfile.fail())
 		{
-			throw std::runtime_error("lwmf_logging: Error creating logfile!");
+			std::_Exit(EXIT_FAILURE);
 		}
 
 		Logfile << "lwmf logging / (c) Stefan Kubsch\n";
@@ -67,37 +70,37 @@ namespace lwmf
 		}
 	}
 
-	inline void Logging::AddEntry(const LogLevels Level, const std::string& Message)
+	inline void Logging::AddEntry(const LogLevel Level, const char* Filename, const std::string& Message)
 	{
 		std::string LogLevelString;
 		bool IsError{};
 
 		switch (Level)
 		{
-			case LogLevels::Info:
+			case LogLevel::Info:
 			{
-				LogLevelString = "** Info: ";
+				LogLevelString = "** INFO ** ";
 				break;
 			}
-			case LogLevels::Debug:
+			case LogLevel::Debug:
 			{
-				LogLevelString = "** Debug: ";
+				LogLevelString = "** DEBUG ** ";
 				break;
 			}
-			case LogLevels::Warn:
+			case LogLevel::Warn:
 			{
-				LogLevelString = "** Warning: ";
+				LogLevelString = "** WARNING ** ";
 				break;
 			}
-			case LogLevels::Error:
+			case LogLevel::Error:
 			{
-				LogLevelString = "** Error: ";
+				LogLevelString = "** ERROR ** ";
 				IsError = true;
 				break;
 			}
-			case LogLevels::Critical:
+			case LogLevel::Critical:
 			{
-				LogLevelString = "** Critical error: ";
+				LogLevelString = "** CRITICAL ERROR ** ";
 				IsError = true;
 				break;
 			}
@@ -108,11 +111,11 @@ namespace lwmf
 		{
 			if (!IsError)
 			{
-				Logfile << LogLevelString << Message << std::endl;
+				Logfile << LogLevelString << std::string(Filename) << ": "<< Message << std::endl;
 			}
 			else
 			{
-				Logfile << "\n" << GetTimeStamp() << LogLevelString << Message << std::endl;
+				Logfile << "\n" << GetTimeStamp() << LogLevelString << std::string(Filename) << ": " << Message << std::endl;
 				Logfile.close();
 
 				throw std::runtime_error(Message);
