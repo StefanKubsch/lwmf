@@ -51,6 +51,8 @@ namespace lwmf
 	{
 		if (LoggingEnabled)
 		{
+			std::ios_base::sync_with_stdio(false);
+
 			Logfile.open(Logfilename, std::ios::out | std::ios::trunc);
 
 			if (Logfile.fail())
@@ -58,7 +60,7 @@ namespace lwmf
 				std::_Exit(EXIT_FAILURE);
 			}
 
-			Logfile << "lwmf logging\nlogging started at: " << GetTimeStamp() << std::string(150,'-') << std::endl;
+			Logfile << "lwmf logging\nlogging started at: " << GetTimeStamp() << std::string(150,'-') << "\n";
 		}
 	}
 
@@ -68,7 +70,7 @@ namespace lwmf
 		{
 			if (Logfile.is_open())
 			{
-				Logfile << std::string(150, '-') << "\nlogging ended at: " << GetTimeStamp() << std::endl;
+				Logfile << std::string(150, '-') << "\nlogging ended at: " << GetTimeStamp() << "\n";
 			}
 		}
 	}
@@ -116,11 +118,11 @@ namespace lwmf
 			{
 				if (!IsError)
 				{
-					Logfile << LogLevelString << std::string(Filename) << ": " << Message << std::endl;
+					Logfile << LogLevelString << std::string(Filename) << ": " << Message << "\n";
 				}
 				else
 				{
-					Logfile << "\n" << GetTimeStamp() << LogLevelString << std::string(Filename) << ": " << Message << std::endl;
+					Logfile << "\n" << GetTimeStamp() << LogLevelString << std::string(Filename) << ": " << Message << "\n";
 					Logfile.close();
 
 					throw std::runtime_error(Message);
