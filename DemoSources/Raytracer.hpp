@@ -46,26 +46,44 @@ namespace Raytracer
 	template<size_t DIM, typename T> T operator*(const vec<DIM, T>& lhs, const vec<DIM, T>& rhs)
 	{
 		T ReturnValue{ T() };
-		for (size_t i{ DIM }; i--; ReturnValue += lhs[i] * rhs[i]);
+
+		for (size_t i{ DIM }; i--;)
+		{
+			ReturnValue += lhs[i] * rhs[i];
+		}
+
 		return ReturnValue;
 	}
 
 	template<size_t DIM, typename T>vec<DIM, T> operator+(vec<DIM, T> lhs, const vec<DIM, T>& rhs)
 	{
-		for (size_t i{ DIM }; i--; lhs[i] += rhs[i]);
+		for (size_t i{ DIM }; i--;)
+		{
+			lhs[i] += rhs[i];
+		}
+
 		return lhs;
 	}
 
 	template<size_t DIM, typename T>vec<DIM, T> operator-(vec<DIM, T> lhs, const vec<DIM, T>& rhs)
 	{
-		for (size_t i{ DIM }; i--; lhs[i] -= rhs[i]);
+		for (size_t i{ DIM }; i--;)
+		{
+			lhs[i] -= rhs[i];
+		}
+
 		return lhs;
 	}
 
 	template<size_t DIM, typename T, typename U> vec<DIM, T> operator*(const vec<DIM, T>& lhs, const U& rhs)
 	{
 		vec<DIM, T> ReturnValue;
-		for (size_t i{ DIM }; i--; ReturnValue[i] = lhs[i] * rhs);
+
+		for (size_t i{ DIM }; i--;)
+		{
+			ReturnValue[i] = lhs[i] * rhs;
+		}
+
 		return ReturnValue;
 	}
 
@@ -115,12 +133,12 @@ namespace Raytracer
 
 			t0 = tca - thc;
 
-			if (t0 < 0)
+			if (t0 < 0.0F)
 			{
 				t0 = t1;
 			}
 
-			if (t0 < 0)
+			if (t0 < 0.0F)
 			{
 				return false;
 			}
