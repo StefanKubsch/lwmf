@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <vector>
 #include <algorithm>
-#include <cassert>
 
 namespace Raytracer
 {
@@ -14,8 +13,8 @@ namespace Raytracer
 	template <size_t DIM, typename T> struct vec
 	{
 		vec() { for (size_t i{ DIM }; i--; data_[i] = T()); }
-		T& operator[](const size_t i) { assert(i < DIM); return data_[i]; }
-		const T& operator[](const size_t i) const { assert(i < DIM); return data_[i]; }
+		T& operator[](const size_t i) { return data_[i]; }
+		const T& operator[](const size_t i) const { return data_[i]; }
 	private:
 		T data_[DIM];
 	};
@@ -27,8 +26,8 @@ namespace Raytracer
 	{
 		vec() : x(T()), y(T()), z(T()) {}
 		vec(T X, T Y, T Z) : x(X), y(Y), z(Z) {}
-		T& operator[](const size_t i) { assert(i < 3); return i <= 0 ? x : (1 == i ? y : z); }
-		const T& operator[](const size_t i) const { assert(i < 3); return i <= 0 ? x : (1 == i ? y : z); }
+		T& operator[](const size_t i) { return i <= 0 ? x : (1 == i ? y : z); }
+		const T& operator[](const size_t i) const { return i <= 0 ? x : (1 == i ? y : z); }
 		float norm() { return std::sqrt(x * x + y * y + z * z); }
 		vec<3, T>& normalize(T l = 1) { *this = (*this) * (l / norm()); return *this; }
 		T x, y, z;
@@ -38,8 +37,8 @@ namespace Raytracer
 	{
 		vec() : x(T()), y(T()), z(T()), w(T()) {}
 		vec(T X, T Y, T Z, T W) : x(X), y(Y), z(Z), w(W) {}
-		T& operator[](const size_t i) { assert(i < 4); return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
-		const T& operator[](const size_t i) const { assert(i < 4); return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
+		T& operator[](const size_t i) { return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
+		const T& operator[](const size_t i) const { return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
 		T x, y, z, w;
 	};
 
