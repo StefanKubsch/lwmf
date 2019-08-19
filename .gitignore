@@ -60,3 +60,5 @@ lwmf_systemlog.log
 .vs/lwmf_demo/v16/ipch/AutoPCH/2b864926f3fbb1cb/LWMF_INIFILE.ipch
 .vs/lwmf_demo/v16/ipch/AutoPCH/eb8668616a2f48f4/RAYTRACER.ipch
 x64/Release/DemoGFX/Spherical.png
+x64/Debug/lwmf_demo.Build.CppClean.log
+x64/Debug/lwmf_demo.vcxproj.FileListAbsolute.txt

@@ -44,6 +44,12 @@ Features:
 		- blitting
 		- transparent blitting
   
+	- Audio
+		- load MP3 or WAV files
+		- play audio with various parameters
+		- delete audio
+		- get length of audio
+		
 	- Math
 		- Lerp (linear interpolation)
 		- Euclidian Distance

@@ -39,6 +39,7 @@
     <ClInclude Include="DemoSources\Tunnel.hpp" />
     <ClInclude Include="DemoSources\VectorCube.hpp" />
     <ClInclude Include="include\lwmf.hpp" />
+    <ClInclude Include="include\lwmf_audio.hpp" />
     <ClInclude Include="include\lwmf_bmp.hpp" />
     <ClInclude Include="include\lwmf_color.hpp" />
     <ClInclude Include="include\lwmf_inifile.hpp" />
