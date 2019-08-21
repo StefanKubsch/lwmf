@@ -129,9 +129,6 @@
     <ClInclude Include="DemoSources\Raytracer.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="include\lwmf_wav.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="include\lwmf_mp3.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>

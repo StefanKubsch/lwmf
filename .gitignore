@@ -63,3 +63,4 @@ x64/Release/DemoGFX/Spherical.png
 x64/Debug/lwmf_demo.Build.CppClean.log
 x64/Debug/lwmf_demo.vcxproj.FileListAbsolute.txt
 .vs/lwmf_demo/v16/ipch/AutoPCH/a940fdf5116ccf6b/LWMF_WAV.ipch
+.vs/lwmf_demo/v16/ipch/AutoPCH/a889dc7f6dea9ed/LWMF_MP3.ipch

@@ -39,7 +39,6 @@
     <ClInclude Include="DemoSources\Tunnel.hpp" />
     <ClInclude Include="DemoSources\VectorCube.hpp" />
     <ClInclude Include="include\lwmf.hpp" />
-    <ClInclude Include="include\lwmf_mp3.hpp" />
     <ClInclude Include="include\lwmf_bmp.hpp" />
     <ClInclude Include="include\lwmf_color.hpp" />
     <ClInclude Include="include\lwmf_inifile.hpp" />
@@ -58,7 +57,7 @@
     <ClInclude Include="include\lwmf_simd.hpp" />
     <ClInclude Include="include\lwmf_text.hpp" />
     <ClInclude Include="include\lwmf_texture.hpp" />
-    <ClInclude Include="include\lwmf_wav.hpp" />
+    <ClInclude Include="include\lwmf_mp3.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp" />
