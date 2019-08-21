@@ -45,7 +45,7 @@ Features:
 		- transparent blitting
   
 	- Audio
-		- load MP3 or WAV files
+		- load MP3 files
 		- play audio with various parameters
 		- delete audio
 		- get length of audio
