@@ -16,7 +16,6 @@ namespace Fire
 		static const std::int_fast32_t CubeYellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
 		static const lwmf::IntPointStruct CubePos{ ScreenTexture.WidthMid - CubeSize + (CubeHalf >> 1), ScreenTexture.HeightMid - (CubeHalf >> 1) };
 
-		static std::mt19937 Engine;
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 
 		// Draw cube

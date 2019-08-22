@@ -28,6 +28,10 @@
 inline lwmf::TextureStruct ScreenTexture;
 inline lwmf::ShaderClass ScreenTextureShader;
 
+// Init & seed random engine
+inline static std::random_device Seed;
+inline static std::mt19937 Engine(Seed());
+
 // Include the used demo effects
 #include "./DemoSources/Metaballs.hpp"
 #include "./DemoSources/Plasma.hpp"
@@ -53,6 +57,8 @@ inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 19 };
 
+lwmf::MP3 Music;
+
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	lwmf::Logging DemoLog("lwmf_demo.log");
@@ -62,9 +68,9 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
-		lwmf::SetVSync(-1);
+		lwmf::SetVSync(0);
 		// Load OpenGL/wgl extensions
 		lwmf::InitOpenGLLoader();
 		// Check for SSE
@@ -75,6 +81,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Init raw devices
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_MOUSE);
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_KEYBOARD);
+		// Init audio
+		Music.Load("./DemoSFX/Audio1.mp3");
 
 		// Init the demoparts if neccessary...
 		Landscape::Init();
@@ -94,10 +102,11 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 	FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Size) + " pixels per frame";
 
-	static std::mt19937 Engine;
 	static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, 0XFFFFFF);
 
 	bool Quit{};
+
+	Music.Play(lwmf::MP3::PlayModes::NOTIFY);
 
 	while (!Quit)
 	{
@@ -230,6 +239,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::SwapBuffer();
 	}
 
+	Music.Close();
 	lwmf::UnregisterRawInputDevice(lwmf::HID_MOUSE);
 	lwmf::UnregisterRawInputDevice(lwmf::HID_KEYBOARD);
 	lwmf::DeleteOpenGLContext();
@@ -293,6 +303,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
+			break;
+		}
+		case MM_MCINOTIFY:
+		{
+			switch (wParam)
+			{
+				case MCI_NOTIFY_SUCCESSFUL:
+				{
+					if (lParam == Music.GetDeviceID())
+					{
+						Music.RewindToStart();
+						Music.Play(lwmf::MP3::PlayModes::NOTIFY);
+					}
+					break;
+				}
+				default: {}
+			}
 			break;
 		}
 		default: {}

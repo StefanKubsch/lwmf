@@ -22,7 +22,6 @@ namespace Starfield
 		static const std::int_fast32_t StarBorderColor{ lwmf::RGBAtoINT(0, 0, 160, 255) };
 		static std::vector<StarStruct> Stars(MaxStars);
 
-		static std::mt19937 Engine;
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 		static const std::uniform_real<float> Distrib2(1.0F, MaxDepth);
 
