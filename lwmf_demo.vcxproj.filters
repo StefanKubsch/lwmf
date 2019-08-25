@@ -132,6 +132,9 @@
     <ClInclude Include="include\lwmf_mp3.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="include\lwmf_gamepad.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp">

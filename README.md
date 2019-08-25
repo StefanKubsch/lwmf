@@ -45,10 +45,10 @@ Features:
 		- transparent blitting
   
 	- Audio
-		- load MP3 files
-		- play audio with various parameters
-		- delete audio
-		- get length of audio
+		- load MP3 files with constant bit rate (CBR)
+		- play MP3 with various parameters
+		- delete MP§
+		- get length of MP3
 		
 	- Math
 		- Lerp (linear interpolation)

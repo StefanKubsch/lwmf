@@ -41,6 +41,7 @@
     <ClInclude Include="include\lwmf.hpp" />
     <ClInclude Include="include\lwmf_bmp.hpp" />
     <ClInclude Include="include\lwmf_color.hpp" />
+    <ClInclude Include="include\lwmf_gamepad.hpp" />
     <ClInclude Include="include\lwmf_inifile.hpp" />
     <ClInclude Include="include\lwmf_logging.hpp" />
     <ClInclude Include="include\lwmf_fpscounter.hpp" />
@@ -172,6 +173,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
