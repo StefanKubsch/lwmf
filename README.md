@@ -50,6 +50,9 @@ Features:
 		- delete MP§
 		- get length of MP3
 		
+	- Gamepad
+		- support for XBOX controllers via Microsoft XInput
+		
 	- Math
 		- Lerp (linear interpolation)
 		- Euclidian Distance
