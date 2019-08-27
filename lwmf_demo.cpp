@@ -79,8 +79,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		ScreenTextureShader.LoadShader("Default", ScreenTexture);
 		ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);
 		// Init raw devices
-		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_MOUSE);
-		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::HID_KEYBOARD);
+		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_MOUSE);
+		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
 		// Init audio
 		Music.Load("./DemoSFX/Audio.mp3");
 
@@ -240,8 +240,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	}
 
 	Music.Close();
-	lwmf::UnregisterRawInputDevice(lwmf::HID_MOUSE);
-	lwmf::UnregisterRawInputDevice(lwmf::HID_KEYBOARD);
+	lwmf::UnregisterRawInputDevice(lwmf::DeviceIdentifier::HID_MOUSE);
+	lwmf::UnregisterRawInputDevice(lwmf::DeviceIdentifier::HID_KEYBOARD);
 	lwmf::DeleteOpenGLContext();
 
 	DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, "Exit program...");
@@ -311,7 +311,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				case MCI_NOTIFY_SUCCESSFUL:
 				{
-					if (lParam == Music.GetDeviceID())
+					if (lParam == static_cast<LPARAM>(Music.GetDeviceID()))
 					{
 						Music.RewindToStart();
 						Music.Play(lwmf::MP3::PlayModes::NOTIFY);
