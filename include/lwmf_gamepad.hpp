@@ -48,6 +48,8 @@ namespace lwmf
 			float Threshold{};
 		};
 
+		Gamepad();
+		~Gamepad();
 		void SetButtons();
 		void SetDeadzone(float x, float y);
 		bool CheckConnection();
@@ -91,6 +93,13 @@ namespace lwmf
 		float PreviousLeftTrigger{};
 		float PreviousRightTrigger{};
 	};
+
+	inline Gamepad::Gamepad()
+	{
+		SetButtons();
+	}
+
+	inline Gamepad::~Gamepad() = default;
 
 	inline void Gamepad::SetButtons()
 	{
