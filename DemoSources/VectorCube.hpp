@@ -35,8 +35,8 @@ namespace VectorCube
 		static std::vector<lwmf::IntPointStruct> Points(4);
 		static std::vector<std::int_fast32_t> Order(CubeNumFaces);
 		static std::vector<float> AverageZ(CubeNumFaces);
-		static const float CosA{ std::cosf(0.03) };
-		static const float SinA{ std::sinf(0.03) };
+		static const float CosA{ std::cosf(0.03F) };
+		static const float SinA{ std::sinf(0.03F) };
 
 		lwmf::ClearTexture(ScreenTexture, 0);
 
