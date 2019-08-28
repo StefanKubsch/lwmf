@@ -21,6 +21,15 @@
 #include <string>
 #include <random>
 
+// Uncomment to find memory leaks in debug mode
+//
+// Have a look here:
+// https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2013/x98tx3cf(v=vs.120)
+//
+// #define _CRTDBG_MAP_ALLOC
+// #include <stdlib.h>
+// #include <crtdbg.h>
+
 // Including "lwmf.hpp" is mandatory - this is the main library file!
 #include "./include/lwmf.hpp"
 
@@ -70,7 +79,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Create window and OpenGL context
 		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
-		lwmf::SetVSync(-1);
+		lwmf::SetVSync(0);
 		// Load OpenGL/wgl extensions
 		lwmf::InitOpenGLLoader();
 		// Check for SSE
@@ -245,6 +254,15 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	lwmf::DeleteOpenGLContext();
 
 	DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, "Exit program...");
+
+	// Uncomment to find memory leaks in debug mode
+	//
+	// Have a look here:
+	// https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2013/x98tx3cf(v=vs.120)
+	//
+	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	// _CrtDumpMemoryLeaks();
+
 	return EXIT_SUCCESS;
 }
 
