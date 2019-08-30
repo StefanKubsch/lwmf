@@ -81,3 +81,5 @@ x64/Debug/lwmf_demo.tlog/lwmf_demo.lastbuildstate
 x64/Debug/vc142.idb
 x64/Debug/vc142.pdb
 .vs/lwmf_demo/v16/ipch/AutoPCH/f91299ab8231e4bd/MORPH.ipch
+x64/Release/Shader/Default.frag
+x64/Release/Shader/Default.vert

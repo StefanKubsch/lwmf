@@ -244,7 +244,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 
 		// Bring the pixelbuffer to screen
-		ScreenTextureShader.RenderLWMFTexture(ScreenTexture);
+		ScreenTextureShader.RenderLWMFTexture(ScreenTexture, 1.0F);
 		lwmf::SwapBuffer();
 	}
 
