@@ -269,6 +269,7 @@ namespace Raytracer
 		static float ZoomSpeed{ 10.0F };
 
 		UsedSpheres.clear();
+		UsedSpheres.shrink_to_fit();
 		UsedSpheres.emplace_back(Sphere(Vec3f(SpherePos.x, SpherePos.y, SpherePos.z), 4.0F, Glass));
 
 		#pragma omp parallel for
