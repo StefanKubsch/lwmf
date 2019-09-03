@@ -31,7 +31,7 @@ namespace Lens
 
 		if (ScreenTexture.Width != Wallpaper.Width || ScreenTexture.Height != Wallpaper.Height)
 		{
-			lwmf::ResizeTexture(Wallpaper, ScreenTexture.Width, ScreenTexture.Height, lwmf::BILINEAR);
+			lwmf::ResizeTexture(Wallpaper, ScreenTexture.Width, ScreenTexture.Height, lwmf::FilterModes::BILINEAR);
 			LensWidth = (ScreenTexture.Size) / 2000;
 
 			if (LensWidth > 250)

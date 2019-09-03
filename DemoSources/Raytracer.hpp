@@ -100,8 +100,8 @@ namespace Raytracer
 
 	struct Material
 	{
-		Material(const float r, const Vec4f& a, const Vec3f& color, const float spec) : RefractiveIndex(r), Albedo(a), DiffuseColor(color), SpecularExponent(spec) {}
-		Material() : RefractiveIndex(1), Albedo(1.0F, 0.0F, 0.0F, 0.0F) {}
+		Material(const float r, const Vec4f& a, const Vec3f& color, const float spec) : Albedo(a), DiffuseColor(color), SpecularExponent(spec), RefractiveIndex(r) {}
+		Material() : Albedo(1.0F, 0.0F, 0.0F, 0.0F), RefractiveIndex(1) {}
 		Vec4f Albedo;
 		Vec3f DiffuseColor;
 		float SpecularExponent{};
@@ -114,7 +114,7 @@ namespace Raytracer
 		Material material;
 		float Radius{};
 
-		Sphere(const Vec3f& c, const float r, const Material& m) : Center(c), Radius(r), material(m) {}
+		Sphere(const Vec3f& c, const float r, const Material& m) : Center(c), material(m), Radius(r)  {}
 
 		inline bool RayIntersect(const Vec3f& Origin, const Vec3f& Direction, float& t0) const
 		{

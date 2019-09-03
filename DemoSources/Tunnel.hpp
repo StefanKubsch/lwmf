@@ -54,6 +54,7 @@ namespace Tunnel
 		{
 			OldViewPortWidth = ScreenTexture.Width;
 			OldViewPortHeight = ScreenTexture.Height;
+			Init();
 			lwmf::ClearTexture(ScreenTexture, 0);
 		}
 
