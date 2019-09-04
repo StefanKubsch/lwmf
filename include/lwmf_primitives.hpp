@@ -211,12 +211,11 @@ namespace lwmf
 		Line(Texture, PosX + Width, PosY, PosX + Width, PosY + Height, Color);
 	}
 
-	inline void FilledRectangle(TextureStruct& Texture, const std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, const std::int_fast32_t Color)
+	inline void FilledRectangle(TextureStruct& Texture, const std::int_fast32_t PosX, const std::int_fast32_t PosY, const std::int_fast32_t Width, const std::int_fast32_t Height, const std::int_fast32_t Color)
 	{
 		for (std::int_fast32_t y{ PosY }; y <= PosY + Height; ++y)
 		{
-			const std::int_fast32_t TempWidth{ y * Texture.Width + PosX };
-			std::fill(Texture.Pixels.begin() + TempWidth, Texture.Pixels.begin() + TempWidth + Width, Color);
+			Line(Texture, PosX, y, PosX + Width, y, Color);
 		}
 	}
 

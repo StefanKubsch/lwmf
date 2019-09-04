@@ -75,6 +75,7 @@ Features:
 	- Logging and error handling
 		- create logfile via class (one is hardcoded in lwmf itself)
 		- error/exception handling
+		- switchable exception throwing
 
 	- INI files
 		- read and write values to standard INI files
@@ -89,6 +90,8 @@ Features:
   - really easy to use
   - fast
   - robust
+  
+  Though minimal and lightweight, there is extensive error checking, logging, exception handling and boundary checks.
  
 **How to use?**
 
