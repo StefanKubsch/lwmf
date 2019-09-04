@@ -63,10 +63,11 @@ inline static std::mt19937 Engine(Seed());
 #include "./DemoSources/Bobs.hpp"
 #include "./DemoSources/PerlinGFX.hpp"
 #include "./DemoSources/Raytracer.hpp"
+#include ".//DemoSources/PrimitivesTest.hpp"
 
 inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 19 };
+constexpr std::int_fast32_t MaxDemoPart{ 20 };
 
 lwmf::MP3 Music;
 
@@ -229,13 +230,18 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 18:
 			{
-				lwmf::ClearTexture(ScreenTexture, Distrib1(Engine));
-				lwmf::RenderText(ScreenTexture, FillrateTestString, 10, 10, 0xFFFFFFFF);
+				Raytracer::Draw();
 				break;
 			}
 			case 19:
 			{
-				Raytracer::Draw();
+				lwmf::ClearTexture(ScreenTexture, Distrib1(Engine));
+				lwmf::RenderText(ScreenTexture, FillrateTestString, 10, 10, 0xFFFFFFFF);
+				break;
+			}
+			case 20:
+			{
+				PrimitivesTest::Draw();
 				break;
 			}
 			default: {}
@@ -307,12 +313,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0);
+								(DemoPart == 19 || DemoPart == 20) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0);
+								(DemoPart == 19 || DemoPart == 20) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}

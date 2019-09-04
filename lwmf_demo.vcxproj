@@ -32,6 +32,7 @@
     <ClInclude Include="DemoSources\Morph.hpp" />
     <ClInclude Include="DemoSources\PerlinGFX.hpp" />
     <ClInclude Include="DemoSources\Plasma.hpp" />
+    <ClInclude Include="DemoSources\PrimitivesTest.hpp" />
     <ClInclude Include="DemoSources\Raytracer.hpp" />
     <ClInclude Include="DemoSources\RotoZoom.hpp" />
     <ClInclude Include="DemoSources\Starfield.hpp" />
