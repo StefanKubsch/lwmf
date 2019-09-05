@@ -75,18 +75,13 @@ namespace Bobs
 				{
 					for (std::int_fast32_t y{}; y < CharHeight; ++y, ++YSine)
 					{
-						const std::int_fast32_t TempY{ YSine * ScreenTexture.Width };
-						const std::int_fast32_t SrcOffset{ y * CharMapBMP.Width };
-
 						for (std::int_fast32_t x1{}, x{ CharX }; x < CharX + CharWidth; ++x, ++x1)
 						{
 							if (XPos + x1 >= 0 && XPos + x1 < ScreenTexture.Width)
 							{
-								const std::int_fast32_t Color{ CharMapBMP.Pixels[SrcOffset + x] };
-
-								if (Color != TransparentColor)
+								if (const std::int_fast32_t Color{ lwmf::GetPixel(CharMapBMP, x, y) }; Color != TransparentColor)
 								{
-									ScreenTexture.Pixels[TempY + XPos + x1] = Color;
+									lwmf::SetPixel(ScreenTexture, XPos + x1, YSine, Color);
 								}
 							}
 						}

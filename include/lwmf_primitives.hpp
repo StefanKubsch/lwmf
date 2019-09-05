@@ -50,7 +50,7 @@ namespace lwmf
 
 	inline void SetPixelSafe(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, const std::int_fast32_t Color)
 	{
-		if (x >= 0 && x <= Texture.Width && y >= 0 && y < Texture.Height)
+		if (static_cast<std::uint_fast32_t>(x) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y) < static_cast<std::uint_fast32_t>(Texture.Height))
 		{
 			Texture.Pixels[y * Texture.Width + x] = Color;
 		}
@@ -126,7 +126,7 @@ namespace lwmf
 	inline void Line(TextureStruct& Texture, std::int_fast32_t x1, std::int_fast32_t y1, const std::int_fast32_t x2, const std::int_fast32_t y2, const std::int_fast32_t Color)
 	{
 		// Case 1: Straight horizontal line within screen boundaries
-		if ((y1 == y2) && (x2 > x1) && (x1 >= 0 && x2 <= Texture.Width && y1 >= 0 && y1 < Texture.Height))
+		if ((y1 == y2) && (x2 > x1) && (x1 >= 0 && x2 < Texture.Width && y1 >= 0 && y1 < Texture.Height))
 		{
 			std::fill(Texture.Pixels.begin() + y1 * Texture.Width + x1, Texture.Pixels.begin() + y1 * Texture.Width + x2 + 1, Color);
 			return;
@@ -148,8 +148,8 @@ namespace lwmf
 		const std::int_fast32_t DecInc{ LongLength == 0 ? 0 : (ShortLength << 16) / LongLength };
 
 		// Case 2: Line is within screen boundaries, so no further checking if pixel can be set
-		if (static_cast<std::uint_fast32_t>(x1) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y1) < static_cast<std::uint_fast32_t>(Texture.Height)
-			&& static_cast<std::uint_fast32_t>(x2) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y2) < static_cast<std::uint_fast32_t>(Texture.Height))
+		if (static_cast<std::uint_fast32_t>(x1) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y1) < static_cast<std::uint_fast32_t>(Texture.Height)
+			&& static_cast<std::uint_fast32_t>(x2) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y2) < static_cast<std::uint_fast32_t>(Texture.Height))
 		{
 			if (YLonger)
 			{
@@ -280,7 +280,7 @@ namespace lwmf
 		std::int_fast32_t Error{};
 
 		// if complete circle is within screen boundaries, there is no reason to use SetPixelSafe...
-		if ((CenterX - Radius >= 0 && CenterX + Radius <= Texture.Width) && (CenterY - Radius >= 0 && CenterY + Radius < Texture.Height))
+		if ((CenterX - Radius >= 0 && CenterX + Radius < Texture.Width) && (CenterY - Radius >= 0 && CenterY + Radius < Texture.Height))
 		{
 			while (Radius >= y)
 			{
@@ -323,7 +323,7 @@ namespace lwmf
 		const std::int_fast32_t PowInnerRadius{ InnerRadius * InnerRadius };
 
 		// if complete circle is within screen boundaries, there is no reason to use SetPixelSafe...
-		if (CenterX - Radius >= 0 && CenterX + Radius <= Texture.Width && CenterY - Radius >= 0 && CenterY + Radius < Texture.Height)
+		if (CenterX - Radius >= 0 && CenterX + Radius < Texture.Width && CenterY - Radius >= 0 && CenterY + Radius < Texture.Height)
 		{
 			for (std::int_fast32_t y{ -InnerRadius }; y <= InnerRadius; ++y)
 			{
