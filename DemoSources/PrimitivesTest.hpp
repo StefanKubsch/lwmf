@@ -45,7 +45,7 @@ namespace PrimitivesTest
 			default: {}
 		}
 
-		lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 60, 0);
+		lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0);
 		lwmf::RenderText(ScreenTexture, "Primitives test", 10, 10, 0xFFFFFFFF);
 		lwmf::RenderText(ScreenTexture, "Number of rectangles: " + std::to_string(RectangleCounter), 10, 30, 0xFFFFFFFF);
 		lwmf::RenderText(ScreenTexture, "Number of circles   : " + std::to_string(CircleCounter), 10, 40, 0xFFFFFFFF);

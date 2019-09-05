@@ -50,7 +50,7 @@ namespace lwmf
 
 	inline void SetPixelSafe(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, const std::int_fast32_t Color)
 	{
-		if (x >= 0 && x < Texture.Width && y >= 0 && y < Texture.Height)
+		if (x >= 0 && x <= Texture.Width && y >= 0 && y < Texture.Height)
 		{
 			Texture.Pixels[y * Texture.Width + x] = Color;
 		}
@@ -129,72 +129,123 @@ namespace lwmf
 		if ((y1 == y2) && (x2 > x1) && (x1 >= 0 && x2 <= Texture.Width && y1 >= 0 && y1 < Texture.Height))
 		{
 			std::fill(Texture.Pixels.begin() + y1 * Texture.Width + x1, Texture.Pixels.begin() + y1 * Texture.Width + x2 + 1, Color);
+			return;
 		}
+
+		// The two other variants use "EFLA" - "Extremely Fast Line Algorithm"
+		// http://www.edepot.com/algorithm.html
+
+		bool YLonger{};
+		std::int_fast32_t ShortLength{ y2 - y1 };
+		std::int_fast32_t LongLength{ x2 - x1 };
+
+		if (std::abs(ShortLength) > std::abs(LongLength))
+		{
+			std::swap(ShortLength, LongLength);
+			YLonger = true;
+		}
+
+		const std::int_fast32_t DecInc{ LongLength == 0 ? 0 : (ShortLength << 16) / LongLength };
+
 		// Case 2: Line is within screen boundaries, so no further checking if pixel can be set
-		else if (static_cast<std::uint_fast32_t>(x1) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y1) < static_cast<std::uint_fast32_t>(Texture.Height)
+		if (static_cast<std::uint_fast32_t>(x1) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y1) < static_cast<std::uint_fast32_t>(Texture.Height)
 			&& static_cast<std::uint_fast32_t>(x2) <= static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y2) < static_cast<std::uint_fast32_t>(Texture.Height))
 		{
-			const std::int_fast32_t dx{ std::abs(x2 - x1) };
-			const std::int_fast32_t sx{ x1 < x2 ? 1 : -1 };
-			const std::int_fast32_t dy{ -std::abs(y2 - y1) };
-			const std::int_fast32_t sy{ y1 < y2 ? 1 : -1 };
-			std::int_fast32_t Error{ dx + dy };
-
-			while (true)
+			if (YLonger)
 			{
-				SetPixel(Texture, x1, y1, Color);
-
-				if (x1 == x2 && y1 == y2)
+				if (LongLength > 0)
 				{
-					break;
+					LongLength += y1;
+
+					for (int j{ 0x8000 + (x1 << 16) }; y1 <= LongLength; ++y1)
+					{
+						Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
+						j += DecInc;
+					}
+
+					return;
 				}
 
-				std::int_fast32_t Error2{ Error << 1 };
+				LongLength += y1;
 
-				if (Error2 >= dy)
+				for (int j{ 0x8000 + (x1 << 16) }; y1 >= LongLength; --y1)
 				{
-					Error += dy;
-					x1 += sx;
+					Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
+					j -= DecInc;
 				}
 
-				if (Error2 <= dx)
+				return;
+			}
+
+			if (LongLength > 0)
+			{
+				LongLength += x1;
+
+				for (int j{ 0x8000 + (y1 << 16) }; x1 <= LongLength; ++x1)
 				{
-					Error += dx;
-					y1 += sy;
+					Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
+					j += DecInc;
 				}
+
+				return;
+			}
+
+			LongLength += x1;
+
+			for (int j{ 0x8000 + (y1 << 16) }; x1 >= LongLength; --x1)
+			{
+				Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
+				j -= DecInc;
 			}
 		}
 		// Case 3: Check each pixel if it´s within screen boundaries (slowest)
 		else
 		{
-			const std::int_fast32_t dx{ std::abs(x2 - x1) };
-			const std::int_fast32_t sx{ x1 < x2 ? 1 : -1 };
-			const std::int_fast32_t dy{ -std::abs(y2 - y1) };
-			const std::int_fast32_t sy{ y1 < y2 ? 1 : -1 };
-			std::int_fast32_t Error{ dx + dy };
-
-			while (true)
+			if (YLonger)
 			{
-				SetPixelSafe(Texture, x1, y1, Color);
-
-				if (x1 == x2 && y1 == y2)
+				if (LongLength > 0)
 				{
-					break;
+					LongLength += y1;
+
+					for (int j{ 0x8000 + (x1 << 16) }; y1 <= LongLength; ++y1)
+					{
+						SetPixelSafe(Texture, j >> 16, y1, Color);
+						j += DecInc;
+					}
+
+					return;
 				}
 
-				std::int_fast32_t Error2{ Error << 1 };
+				LongLength += y1;
 
-				if (Error2 >= dy)
+				for (int j{ 0x8000 + (x1 << 16) }; y1 >= LongLength; --y1)
 				{
-					Error += dy;
-					x1 += sx;
+					SetPixelSafe(Texture, j >> 16, y1, Color);
+					j -= DecInc;
 				}
 
-				if (Error2 <= dx)
+				return;
+			}
+
+			if (LongLength > 0)
+			{
+				LongLength += x1;
+
+				for (int j{ 0x8000 + (y1 << 16) }; x1 <= LongLength; ++x1)
 				{
-					Error += dx;
-					y1 += sy;
+					SetPixelSafe(Texture, x1, j >> 16, Color);
+					j += DecInc;
 				}
+
+				return;
+			}
+
+			LongLength += x1;
+
+			for (int j{ 0x8000 + (y1 << 16) }; x1 >= LongLength; --x1)
+			{
+				SetPixelSafe(Texture, x1, j >> 16, Color);
+				j -= DecInc;
 			}
 		}
 	}
@@ -213,9 +264,9 @@ namespace lwmf
 
 	inline void FilledRectangle(TextureStruct& Texture, const std::int_fast32_t PosX, const std::int_fast32_t PosY, const std::int_fast32_t Width, const std::int_fast32_t Height, const std::int_fast32_t Color)
 	{
-		for (std::int_fast32_t y{ PosY }; y < PosY + Height; ++y)
+		for (std::int_fast32_t y{ PosY }; y <= PosY + Height; ++y)
 		{
-			Line(Texture, PosX, y, PosX + Width - 1, y, Color);
+			Line(Texture, PosX, y, PosX + Width, y, Color);
 		}
 	}
 
@@ -229,7 +280,7 @@ namespace lwmf
 		std::int_fast32_t Error{};
 
 		// if complete circle is within screen boundaries, there is no reason to use SetPixelSafe...
-		if ((CenterX - Radius >= 0 && CenterX + Radius < Texture.Width) && (CenterY - Radius >= 0 && CenterY + Radius < Texture.Height))
+		if ((CenterX - Radius >= 0 && CenterX + Radius <= Texture.Width) && (CenterY - Radius >= 0 && CenterY + Radius < Texture.Height))
 		{
 			while (Radius >= y)
 			{
@@ -272,7 +323,7 @@ namespace lwmf
 		const std::int_fast32_t PowInnerRadius{ InnerRadius * InnerRadius };
 
 		// if complete circle is within screen boundaries, there is no reason to use SetPixelSafe...
-		if (CenterX - Radius >= 0 && CenterX + Radius < Texture.Width && CenterY - Radius >= 0 && CenterY + Radius < Texture.Height)
+		if (CenterX - Radius >= 0 && CenterX + Radius <= Texture.Width && CenterY - Radius >= 0 && CenterY + Radius < Texture.Height)
 		{
 			for (std::int_fast32_t y{ -InnerRadius }; y <= InnerRadius; ++y)
 			{

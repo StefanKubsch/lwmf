@@ -32,7 +32,7 @@ namespace Copperbars
 	{
 		for (std::int_fast32_t i{}; i < 15; ++i, ++y)
 		{
-			lwmf::Line(ScreenTexture, 0, y, ScreenTexture.Width, y, lwmf::RGBAtoINT(CopperList[i + ColorAdd].Red, CopperList[i + ColorAdd].Green, CopperList[i + ColorAdd].Blue, 255));
+			lwmf::Line(ScreenTexture, 0, y, ScreenTexture.Width - 1, y, lwmf::RGBAtoINT(CopperList[i + ColorAdd].Red, CopperList[i + ColorAdd].Green, CopperList[i + ColorAdd].Blue, 255));
 		}
 	}
 
