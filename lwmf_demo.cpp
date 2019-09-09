@@ -20,6 +20,7 @@
 #include <cstdint>
 #include <string>
 #include <random>
+#include <charconv>
 
 // Uncomment to find memory leaks in debug mode
 //
@@ -63,11 +64,12 @@ inline static std::mt19937 Engine(Seed());
 #include "./DemoSources/Bobs.hpp"
 #include "./DemoSources/PerlinGFX.hpp"
 #include "./DemoSources/Raytracer.hpp"
-#include ".//DemoSources/PrimitivesTest.hpp"
+#include "./DemoSources/PrimitivesTest.hpp"
+#include "./DemoSources/BitmapTest.hpp"
 
 inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 20 };
+constexpr std::int_fast32_t MaxDemoPart{ 21 };
 
 lwmf::MP3 Music;
 
@@ -106,6 +108,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		RotoZoom::Init();
 		Bobs::Init();
 		Raytracer::Init();
+		BitmapTest::Init();
 	}
 	catch (const std::runtime_error&)
 	{
@@ -244,6 +247,11 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 				PrimitivesTest::Draw();
 				break;
 			}
+			case 21:
+			{
+				BitmapTest::Draw();
+				break;
+			}
 			default: {}
 		}
 
@@ -313,14 +321,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0);
-								(DemoPart == 19 || DemoPart == 20) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0);
-								(DemoPart == 19 || DemoPart == 20) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}
