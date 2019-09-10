@@ -58,7 +58,15 @@ namespace lwmf
 
 	inline std::int_fast32_t GetPixel(const TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y)
 	{
-		return Texture.Pixels[y * Texture.Width + x];
+		if (static_cast<std::uint_fast32_t>(x) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y) < static_cast<std::uint_fast32_t>(Texture.Height))
+		{
+			return Texture.Pixels[y * Texture.Width + x];
+		}
+		// If out of boundaries, return 0 (=black)
+		else
+		{
+			return 0x00000000;
+		}
 	}
 
 	//
@@ -130,7 +138,7 @@ namespace lwmf
 		{
 			return;
 		}
-		
+
 		// Case 1: Straight horizontal line within screen boundaries
 		if ((y1 == y2) && (x2 > x1) && (x1 >= 0 && x2 < Texture.Width && y1 >= 0 && y1 < Texture.Height))
 		{
@@ -163,7 +171,7 @@ namespace lwmf
 				{
 					LongLength += y1;
 
-					for (int j{ 0x8000 + (x1 << 16) }; y1 <= LongLength; ++y1)
+					for (std::int_fast32_t j{ 0x8000 + (x1 << 16) }; y1 <= LongLength; ++y1)
 					{
 						Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
 						j += DecInc;
@@ -174,7 +182,7 @@ namespace lwmf
 
 				LongLength += y1;
 
-				for (int j{ 0x8000 + (x1 << 16) }; y1 >= LongLength; --y1)
+				for (std::int_fast32_t j{ 0x8000 + (x1 << 16) }; y1 >= LongLength; --y1)
 				{
 					Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
 					j -= DecInc;
@@ -187,7 +195,7 @@ namespace lwmf
 			{
 				LongLength += x1;
 
-				for (int j{ 0x8000 + (y1 << 16) }; x1 <= LongLength; ++x1)
+				for (std::int_fast32_t j{ 0x8000 + (y1 << 16) }; x1 <= LongLength; ++x1)
 				{
 					Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
 					j += DecInc;
@@ -198,7 +206,7 @@ namespace lwmf
 
 			LongLength += x1;
 
-			for (int j{ 0x8000 + (y1 << 16) }; x1 >= LongLength; --x1)
+			for (std::int_fast32_t j{ 0x8000 + (y1 << 16) }; x1 >= LongLength; --x1)
 			{
 				Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
 				j -= DecInc;
@@ -213,7 +221,7 @@ namespace lwmf
 				{
 					LongLength += y1;
 
-					for (int j{ 0x8000 + (x1 << 16) }; y1 <= LongLength; ++y1)
+					for (std::int_fast32_t j{ 0x8000 + (x1 << 16) }; y1 <= LongLength; ++y1)
 					{
 						SetPixelSafe(Texture, j >> 16, y1, Color);
 						j += DecInc;
@@ -224,7 +232,7 @@ namespace lwmf
 
 				LongLength += y1;
 
-				for (int j{ 0x8000 + (x1 << 16) }; y1 >= LongLength; --y1)
+				for (std::int_fast32_t j{ 0x8000 + (x1 << 16) }; y1 >= LongLength; --y1)
 				{
 					SetPixelSafe(Texture, j >> 16, y1, Color);
 					j -= DecInc;
@@ -237,7 +245,7 @@ namespace lwmf
 			{
 				LongLength += x1;
 
-				for (int j{ 0x8000 + (y1 << 16) }; x1 <= LongLength; ++x1)
+				for (std::int_fast32_t j{ 0x8000 + (y1 << 16) }; x1 <= LongLength; ++x1)
 				{
 					SetPixelSafe(Texture, x1, j >> 16, Color);
 					j += DecInc;
@@ -248,7 +256,7 @@ namespace lwmf
 
 			LongLength += x1;
 
-			for (int j{ 0x8000 + (y1 << 16) }; x1 >= LongLength; --x1)
+			for (std::int_fast32_t j{ 0x8000 + (y1 << 16) }; x1 >= LongLength; --x1)
 			{
 				SetPixelSafe(Texture, x1, j >> 16, Color);
 				j -= DecInc;
