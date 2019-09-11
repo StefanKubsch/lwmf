@@ -63,19 +63,19 @@ namespace lwmf
 
 	inline void CropTexture(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, std::int_fast32_t Width, std::int_fast32_t Height)
 	{
-		if (Width <= 0 || Height <= 0)
+		if (x < 0 || y < 0 || x > Texture.Width || y > Texture.Height)
 		{
-			LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "Value for texture width or height is zero or negative! Check your parameters in lwmf::CropTexture()!");
-		}
-
-		if (x < 0 || y < 0)
-		{
-			LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "Value for texture x or y is negative! Check your parameters in lwmf::CropTexture()!");
+			LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "Value for texture x or y is out of range! Check your parameters used with lwmf::CropTexture()!");
 		}
 
 		// Make sure that Width and Height are within texture size limits!
-		Width = std::clamp(Width, 0, Texture.Width - 1);
-		Height = std::clamp(Height, 0, Texture.Height - 1);
+		Width = std::clamp(Width, 1, Texture.Width);
+		Height = std::clamp(Height, 1, Texture.Height);
+
+		if (x + Width > Texture.Width || y + Height > Texture.Height)
+		{
+			LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "Value for width or height is out of range! Check your parameters used with lwmf::CropTexture()!");
+		}
 
 		std::vector<std::int_fast32_t>TempBuffer(Width * Height);
 		std::int_fast32_t SourceVerticalOffset{ y * Texture.Width };
@@ -191,7 +191,8 @@ namespace lwmf
 		{
 			for (std::int_fast32_t y{}; y < SourceTexture.Height; ++y, ++PosY)
 			{
-				std::copy(SourceTexture.Pixels.begin() + y * SourceTexture.Width, SourceTexture.Pixels.begin() + y * SourceTexture.Width + SourceTexture.Width, TargetTexture.Pixels.begin() + PosY * TargetTexture.Width + PosX);
+				const auto SourceY{ SourceTexture.Pixels.begin() + y * SourceTexture.Width };
+				std::copy(SourceY, SourceY + SourceTexture.Width, TargetTexture.Pixels.begin() + PosY * TargetTexture.Width + PosX);
 			}
 		}
 		// Case 3: Each pixel has to be checked if within boundaries
