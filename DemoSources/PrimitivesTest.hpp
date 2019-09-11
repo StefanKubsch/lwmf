@@ -22,33 +22,34 @@ namespace PrimitivesTest
 		static std::vector<char> RectangleCounterString(20);
 		static std::vector<char> CircleCounterString(20);
 		static std::vector<char> PolygonCounterString(20);
-		const std::int_fast32_t OutColor{ Color(Engine) };
+		const std::int_fast32_t BorderColor{ Color(Engine) };
+		const std::int_fast32_t FillColor{ Color(Engine) };
 
 		switch (Choice(Engine))
 		{
 			case 0:
 			{
-				lwmf::FilledRectangle(ScreenTexture, PointX(Engine), PointY(Engine), Width(Engine), Width(Engine), OutColor);
+				lwmf::FilledRectangle(ScreenTexture, PointX(Engine), PointY(Engine), Width(Engine), Width(Engine), BorderColor, FillColor);
 				std::to_chars(RectangleCounterString.data(), RectangleCounterString.data() + RectangleCounterString.size(), ++RectangleCounter);
 				break;
 			}
 			case 1:
 			{
-				lwmf::FilledCircle(ScreenTexture, PointX(Engine), PointY(Engine), Width(Engine), OutColor, OutColor);
+				lwmf::FilledCircle(ScreenTexture, PointX(Engine), PointY(Engine), Width(Engine), BorderColor, FillColor);
 				std::to_chars(CircleCounterString.data(), CircleCounterString.data() + CircleCounterString.size(), ++CircleCounter);
 				break;
 			}
 			case 2:
 			{
 				std::vector<lwmf::IntPointStruct> Polygon{ {PointX(Engine), PointY(Engine)}, {PointX(Engine), PointY(Engine) }, {PointX(Engine), PointY(Engine) } };
-				lwmf::Polygon(ScreenTexture, Polygon, OutColor);
+				lwmf::Polygon(ScreenTexture, Polygon, BorderColor);
 				std::to_chars(PolygonCounterString.data(), PolygonCounterString.data() + PolygonCounterString.size(), ++PolygonCounter);
 				break;
 			}
 			default: {}
 		}
 
-		lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0);
+		lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0, 0);
 		lwmf::RenderText(ScreenTexture, "Primitives test", 10, 10, 0xFFFFFFFF);
 		lwmf::RenderText(ScreenTexture, "Number of rectangles: " + std::string(RectangleCounterString.data()), 10, 30, 0xFFFFFFFF);
 		lwmf::RenderText(ScreenTexture, "Number of circles   : " + std::string(CircleCounterString.data()), 10, 40, 0xFFFFFFFF);

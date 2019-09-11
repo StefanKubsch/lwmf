@@ -30,7 +30,7 @@ namespace BitmapTest
 
 		std::to_chars(CounterString.data(), CounterString.data() + CounterString.size(), ++BlitCounter);
 
-		lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 45, 0);
+		lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 45, 0, 0);
 		lwmf::RenderText(ScreenTexture, "Bitmap resize & blitting test", 10, 10, 0xFFFFFFFF);
 		lwmf::RenderText(ScreenTexture, "Number of bitmap blits (resize by nearest neighbour): " + std::string(CounterString.data()), 10, 30, 0xFFFFFFFF);
 	}
