@@ -78,10 +78,8 @@ namespace GouraudShade
 
 			for (std::int_fast32_t Count2{}; Count2 < ScaleFactor1; ++Count2)
 			{
-				Index2 = (ScaleFactor1 + Count2 + Rotation) % ScaleFactor1;
-
 				PolygonCoords[Index1 + Count2][0] = Index1 + Count2;
-				Index2 = Count2 + 1; //-V519
+				Index2 = Count2 + 1;
 				Index2 %= ScaleFactor1;
 
 				PolygonCoords[Index1 + Count2][1] = Index1 + Index2;
