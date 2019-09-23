@@ -1,1 +1,0 @@
-(gci -include *.cpp,*.hpp -recurse | select-string .).Count

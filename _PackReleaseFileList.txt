@@ -1,4 +1,0 @@
-x64\Release\*.exe
-x64\Release\DemoGFX\*
-x64\Release\DemoSFX\*
-x64\Release\Shader\*
