@@ -112,3 +112,5 @@ example/x64/Release/lwmf_demo.tlog/lwmf_demo.lastbuildstate
 example/x64/Release/lwmf_demo.tlog/lwmf_demo.write.1u.tlog
 example/x64/Release/Shader/Default.frag
 example/x64/Release/Shader/Default.vert
+example/x64/Release/lwmf_demo.Build.CppClean.log
+example/x64/Release/lwmf_demo.vcxproj.FileListAbsolute.txt
