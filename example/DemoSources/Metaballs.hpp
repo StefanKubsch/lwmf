@@ -12,10 +12,8 @@ namespace Metaballs
 	{
 		struct MetaballStruct final
 		{
-			std::int_fast32_t x{};
-			std::int_fast32_t y{};
-			std::int_fast32_t VelocityX{};
-			std::int_fast32_t VelocityY{};
+			lwmf::IntPointStruct Pos;
+			lwmf::IntPointStruct Velocity;
 		};
 
 		static std::vector<MetaballStruct> Metaballs
@@ -30,18 +28,18 @@ namespace Metaballs
 
 		for (auto& Ball : Metaballs)
 		{
-			Ball.x += Ball.VelocityX;
+			Ball.Pos.X += Ball.Velocity.X;
 
-			if (Ball.x > ScreenTexture.Width || Ball.x < 0)
+			if (Ball.Pos.X > ScreenTexture.Width || Ball.Pos.X < 0)
 			{
-				Ball.VelocityX *= -1;
+				Ball.Velocity.X *= -1;
 			}
 
-			Ball.y += Ball.VelocityY;
+			Ball.Pos.Y += Ball.Velocity.Y;
 
-			if (Ball.y > ScreenTexture.Height || Ball.y < 0)
+			if (Ball.Pos.Y > ScreenTexture.Height || Ball.Pos.Y < 0)
 			{
-				Ball.VelocityY *= -1;
+				Ball.Velocity.Y *= -1;
 			}
 		}
 
@@ -54,10 +52,8 @@ namespace Metaballs
 
 				for (auto& Ball : Metaballs)
 				{
-					const float BallXTemp{ static_cast<float>(x - Ball.x) };
-					const float BallYTemp{ static_cast<float>(y - Ball.y) };
-
-					BallSum += 3.0F / std::sqrtf(BallXTemp * BallXTemp + BallYTemp * BallYTemp);
+					const lwmf::FloatPointStruct BallTemp{ static_cast<float>(x - Ball.Pos.X), static_cast<float>(y - Ball.Pos.Y) };
+					BallSum += 3.0F / std::sqrtf(BallTemp.X * BallTemp.X + BallTemp.Y * BallTemp.Y);
 				}
 
 				lwmf::SetPixel(ScreenTexture, x, y, BallSum > 0.035F ? MetaballColor : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));

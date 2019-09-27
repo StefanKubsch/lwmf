@@ -10,10 +10,9 @@ namespace Lens
 
 	inline lwmf::TextureStruct Wallpaper;
 	inline lwmf::IntPointStruct LensPos{};
+	inline lwmf::IntPointStruct Dir{};
 	inline std::int_fast32_t LensWidth{ 250 };
 	inline std::vector<std::vector<std::int_fast32_t>> Lens(LensWidth, std::vector<std::int_fast32_t>(static_cast<size_t>(LensWidth)));
-	inline std::int_fast32_t XDir{};
-	inline std::int_fast32_t YDir{};
 	inline std::int_fast32_t OldViewPortWidth{};
 	inline std::int_fast32_t OldViewPortHeight{};
 
@@ -22,10 +21,8 @@ namespace Lens
 		OldViewPortWidth = ScreenTexture.Width;
 		OldViewPortHeight = ScreenTexture.Height;
 
-		LensPos.X = 16;
-		LensPos.Y = 16;
-		XDir = 4;
-		YDir = 4;
+		LensPos = { 16, 16 };
+		Dir = { 4, 4 };
 
 		lwmf::LoadPNG(Wallpaper, "./DemoGFX/Head.png");
 
@@ -59,8 +56,7 @@ namespace Lens
 				if (Temp < LensRadiusPOW)
 				{
 					const float Shift{ LensZoom / std::sqrtf(static_cast<float>(LensZoomPOW - (Temp - LensRadiusPOW))) };
-					TempPos.X = static_cast<std::int_fast32_t>(x * Shift - x);
-					TempPos.Y = static_cast<std::int_fast32_t>(y * Shift - y);
+					TempPos = { static_cast<std::int_fast32_t>(x * Shift - x), static_cast<std::int_fast32_t>(y * Shift - y) };
 				}
 
 				std::int_fast32_t Offset{ (TempPos.Y * ScreenTexture.Width + TempPos.X) };
@@ -92,17 +88,17 @@ namespace Lens
 			}
 		}
 
-		LensPos.X += XDir;
-		LensPos.Y += YDir;
+		LensPos.X += Dir.X;
+		LensPos.Y += Dir.Y;
 
 		if (LensPos.X > (Wallpaper.Width - LensWidth - 5) || LensPos.X < 5)
 		{
-			XDir *= -1;
+			Dir.X *= -1;
 		}
 
 		if (LensPos.Y > (Wallpaper.Height - LensWidth - 5) || LensPos.Y < 5)
 		{
-			YDir *= -1;
+			Dir.Y *= -1;
 		}
 
 		lwmf::RenderText(ScreenTexture, "Realtime lens", 10, 10, 0xFFFFFFFF);

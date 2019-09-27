@@ -20,50 +20,43 @@ namespace PerlinGFX
 	{
 		static lwmf::PerlinNoise PGFX;
 
-		std::int_fast32_t StartX{};
-		std::int_fast32_t EndX{};
-		std::int_fast32_t StartY{};
-		std::int_fast32_t EndY{};
+		lwmf::IntPointStruct Start;
+		lwmf::IntPointStruct End;
 
 		switch (Part)
 		{
 			case Renderpart::TopLeft:
 			{
-				EndX = ScreenTexture.WidthMid;
-				EndY = ScreenTexture.HeightMid;
+				End = { ScreenTexture.WidthMid, ScreenTexture.HeightMid };
 				break;
 			}
 			case Renderpart::TopRight:
 			{
-				StartX = ScreenTexture.WidthMid;
-				EndX = ScreenTexture.Width;
-				EndY = ScreenTexture.HeightMid;
+				Start.X = ScreenTexture.WidthMid;
+				End = { ScreenTexture.Width, ScreenTexture.HeightMid };
 				break;
 			}
 			case Renderpart::DownLeft:
 			{
-				EndX = ScreenTexture.WidthMid;
-				StartY = ScreenTexture.HeightMid;
-				EndY = ScreenTexture.Height;
+				Start.Y = ScreenTexture.HeightMid;
+				End = { ScreenTexture.WidthMid, ScreenTexture.Height };
 				break;
 			}
 			case Renderpart::DownRight:
 			{
-				StartX = ScreenTexture.WidthMid;
-				EndX = ScreenTexture.Width;
-				StartY = ScreenTexture.HeightMid;
-				EndY = ScreenTexture.Height;
+				Start = { ScreenTexture.WidthMid, ScreenTexture.HeightMid };
+				End = { ScreenTexture.Width, ScreenTexture.Height };
 				break;
 			}
 
 			default: {}
 		}
 
-		for (std::int_fast32_t y{ StartY }; y < EndY; ++y)
+		for (std::int_fast32_t y{ Start.Y }; y < End.Y; ++y)
 		{
 			const float PosY{ static_cast<float>(y) / ScreenTexture.Height };
 
-			for (std::int_fast32_t x{ StartX }; x < EndX; ++x)
+			for (std::int_fast32_t x{ Start.X }; x < End.X; ++x)
 			{
 				const float PosX{ static_cast<float>(x) / ScreenTexture.Width };
 				const float n{ (15.0F * PGFX.Noise(PosX, PosY, NoiseFactor)) - PGFX.Noise(15.0F * PosX, 15.0F * PosY, NoiseFactor) };

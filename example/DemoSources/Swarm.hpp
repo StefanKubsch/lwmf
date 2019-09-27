@@ -23,8 +23,7 @@ namespace Swarm
 			{
 				static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, RAND_MAX);
 
-				Pos.X = 0.0F;
-				Pos.Y = 0.0F;
+				Pos = { 0.0F, 0.0F };
 
 				Direction = (lwmf::DoublePI * Distrib1(Engine)) / RAND_MAX;
 				Speed = (0.1F * Distrib1(Engine)) / RAND_MAX;
