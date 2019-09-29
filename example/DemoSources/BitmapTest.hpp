@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <random>
+#include <vector>
 #include <charconv>
 
 namespace BitmapTest
@@ -17,16 +18,14 @@ namespace BitmapTest
 
 	void Draw()
 	{
-		static const std::uniform_int_distribution<std::int_fast32_t> PointX(-255, ScreenTexture.Width + 255);
-		static const std::uniform_int_distribution<std::int_fast32_t> PointY(-255, ScreenTexture.Height + 255);
-		static const std::uniform_int_distribution<std::int_fast32_t> Width(1, 500);
-		static const std::uniform_int_distribution<std::int_fast32_t> Height(1, 500);
+		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
+		static const std::uniform_int_distribution<std::int_fast32_t> Size(1, 500);
 		static std::int_fast64_t BlitCounter{};
 		static std::vector<char> CounterString(20);
 
 		lwmf::TextureStruct Texture{ SourceTexture };
-		lwmf::ResizeTexture(Texture, Width(Engine), Height(Engine), lwmf::FilterModes::NEAREST);
-		lwmf::BlitTexture(Texture, ScreenTexture, PointX(Engine), PointY(Engine));
+		lwmf::ResizeTexture(Texture, Size(Engine), Size(Engine), lwmf::FilterModes::NEAREST);
+		lwmf::BlitTexture(Texture, ScreenTexture, Point(Engine), Point(Engine));
 
 		std::to_chars(CounterString.data(), CounterString.data() + CounterString.size(), ++BlitCounter);
 

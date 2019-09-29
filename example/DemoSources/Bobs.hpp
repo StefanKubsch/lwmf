@@ -58,7 +58,6 @@ namespace Bobs
 
 		// SineScroller
 		static constexpr std::int_fast32_t CharWidth{ 37 };
-		static constexpr std::int_fast32_t CharHeight{ 39 };
 		static constexpr std::int_fast32_t Speed{ 8 };
 		static const std::string CharMap{ "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!().," };
 		static const std::string Text{ "...HELLO FOLKS, THIS IS JUST A LITTLE SCROLLER...AND SOME BOBS !!!" };
@@ -73,7 +72,7 @@ namespace Bobs
 			{
 				if (Text[i] == CharMap[j])
 				{
-					for (std::int_fast32_t y{}; y < CharHeight; ++y, ++YSine)
+					for (std::int_fast32_t y{}; y < CharMapBMP.Height; ++y, ++YSine)
 					{
 						for (std::int_fast32_t x1{}, x{ CharX }; x < CharX + CharWidth; ++x, ++x1)
 						{

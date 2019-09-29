@@ -2,6 +2,8 @@
 
 #include <cstdint>
 #include <cmath>
+#include <vector>
+#include <utility>
 
 namespace Plasma
 {
@@ -9,39 +11,27 @@ namespace Plasma
 
 	inline void Draw()
 	{
-		static std::int_fast32_t PlasmaCount1{ 5 };
-		static std::int_fast32_t PlasmaCount2{ 125 };
-		static std::int_fast32_t PlasmaCount3{ 250 };
-		static std::int_fast32_t PlasmaSpeed1{ 2 };
-		static std::int_fast32_t PlasmaSpeed2{ 1 };
-		static std::int_fast32_t PlasmaSpeed3{ 3 };
+		static std::vector<std::pair<std::int_fast32_t, std::int_fast32_t>> Plasmas{ {5, 2}, {125, 1}, {250,3} };
 
-		if (PlasmaCount1 > 255 || PlasmaCount1 <= 1)
+		for (auto& Plasma : Plasmas)
 		{
-			PlasmaSpeed1 = -PlasmaSpeed1;
-		}
+			if (Plasma.first > 255 || Plasma.first <= 1)
+			{
+				Plasma.second = -Plasma.second;
+			}
 
-		if (PlasmaCount2 > 255 || PlasmaCount2 <= 1)
-		{
-			PlasmaSpeed2 = -PlasmaSpeed2;
+			Plasma.first += Plasma.second;
 		}
-
-		if (PlasmaCount3 > 255 || PlasmaCount3 <= 1)
-		{
-			PlasmaSpeed3 = -PlasmaSpeed3;
-		}
-
-		PlasmaCount1 += PlasmaSpeed1;
-		PlasmaCount2 -= PlasmaSpeed2;
-		PlasmaCount3 += PlasmaSpeed3;
 
 		#pragma omp parallel for
 		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
+			const float TempY{ 64.0F * std::cosf(y / 64.0F) };
+
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
-				const std::int_fast32_t Color{ static_cast<std::int_fast32_t>((128.0F * std::sinf(x / 64.0F)) + (64.0F * std::cosf(y / 64.0F))) };
-				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT((Color + PlasmaCount3) & 255, (Color + PlasmaCount1) & 255, (Color + PlasmaCount2) & 255, 255));
+				const std::int_fast32_t Color{ static_cast<std::int_fast32_t>((128.0F * std::sinf(x / 64.0F)) + TempY) };
+				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT((Color + Plasmas[2].first) & 255, (Color + Plasmas[0].first) & 255, (Color + Plasmas[1].first) & 255, 255));
 			}
 		}
 

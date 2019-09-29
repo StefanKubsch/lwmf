@@ -40,10 +40,10 @@ namespace Landscape
 
 		for (std::int_fast32_t x{}; x < LandscapeTextureMap.Width; ++x)
 		{
-			for (std::int_fast32_t z{}; z < LandscapeTextureMap.Width; ++z)
+			for (std::int_fast32_t z{}; z < LandscapeTextureMap.Height; ++z)
 			{
-				const std::int_fast32_t TempX{ ((x - XPos) * CosA - (z - ZPos) * SinA) };
 				const lwmf::ColorStruct LandScapeTerrainColorRGBA{ lwmf::INTtoRGBA(LandscapeTerrainMap.Pixels[z * LandscapeTerrainMap.Width + x]) };
+				const std::int_fast32_t TempX{ ((x - XPos) * CosA - (z - ZPos) * SinA) };
 				const std::int_fast32_t TempY{ (LandScapeTerrainColorRGBA.Red >> 1) - YPos };
 				const std::int_fast32_t TempZ{ ((x - XPos) * SinA + (z - ZPos) * CosA) >> 7 };
 
