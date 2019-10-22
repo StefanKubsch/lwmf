@@ -105,9 +105,6 @@
     <ClInclude Include="src\lwmf_math.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\lwmf_mp3.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\lwmf_multithreading.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -139,6 +136,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\lwmf_texture.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lwmf_mp3player.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

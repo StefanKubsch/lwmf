@@ -44,10 +44,9 @@ Features:
 		- blitting
 		- transparent blitting
   
-	- Audio
-		- load MP3 files with constant bit rate (CBR)
-		- play MP3 with various parameters
-		- delete MP§
+	- Audio (still a lot of work!)
+		- load MP3 files with constant bit rate (CBR) 128kBit / Stereo / 44100kHz
+		- delete MP
 		- get length of MP3
 		
 	- Gamepad

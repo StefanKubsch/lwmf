@@ -49,7 +49,7 @@
     <ClInclude Include="src\lwmf_inifile.hpp" />
     <ClInclude Include="src\lwmf_logging.hpp" />
     <ClInclude Include="src\lwmf_math.hpp" />
-    <ClInclude Include="src\lwmf_mp3.hpp" />
+    <ClInclude Include="src\lwmf_mp3player.hpp" />
     <ClInclude Include="src\lwmf_multithreading.hpp" />
     <ClInclude Include="src\lwmf_openglloader.hpp" />
     <ClInclude Include="src\lwmf_openglshader.hpp" />

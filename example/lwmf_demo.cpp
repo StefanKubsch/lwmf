@@ -71,7 +71,7 @@ inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 21 };
 
-lwmf::MP3 Music;
+lwmf::MP3Player Music;
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -121,10 +121,13 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 	bool Quit{};
 
-	Music.Play(lwmf::MP3::PlayModes::NOTIFY);
-
 	while (!Quit)
 	{
+		if (!Music.IsPlaying())
+		{
+			Music.Play();
+		}
+
 		static MSG Message{};
 
 		while (PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
@@ -343,23 +346,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
-			break;
-		}
-		case MM_MCINOTIFY:
-		{
-			switch (wParam)
-			{
-				case MCI_NOTIFY_SUCCESSFUL:
-				{
-					if (lParam == static_cast<LPARAM>(Music.GetDeviceID()))
-					{
-						Music.RewindToStart();
-						Music.Play(lwmf::MP3::PlayModes::NOTIFY);
-					}
-					break;
-				}
-				default: {}
-			}
 			break;
 		}
 		default: {}

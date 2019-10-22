@@ -114,3 +114,4 @@ example/x64/Release/Shader/Default.frag
 example/x64/Release/Shader/Default.vert
 example/x64/Release/lwmf_demo.Build.CppClean.log
 example/x64/Release/lwmf_demo.vcxproj.FileListAbsolute.txt
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/2f84bcf6a5c770b8/LWMF_MP3_NEW.ipch
