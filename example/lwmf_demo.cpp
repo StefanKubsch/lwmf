@@ -71,18 +71,16 @@ inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 21 };
 
-lwmf::MP3Player Music;
-
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	lwmf::Logging DemoLog("lwmf_demo.log");
-
 	lwmf::WindowInstance = hInstance;
+	lwmf::MP3Player Music(2, 44100, 128, 16);
 
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
