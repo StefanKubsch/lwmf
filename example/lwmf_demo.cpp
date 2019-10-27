@@ -75,12 +75,12 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 {
 	lwmf::Logging DemoLog("lwmf_demo.log");
 	lwmf::WindowInstance = hInstance;
-	lwmf::MP3Player Music(2, 44100, 128, 16);
+	lwmf::MP3Player Music{};
 
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
@@ -94,6 +94,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_MOUSE);
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
 		// Init audio
+		// 2 channels, 44100 samples per second, 128kBit, 16 bits per sample...
+		Music.Init(2, 44100, 128, 16);
 		Music.Load("./DemoSFX/Audio.mp3");
 
 		// Init the demoparts if neccessary...
@@ -259,6 +261,9 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Show FPS counter
 		lwmf::FPSCounter();
 		lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
+
+		lwmf::RenderText(ScreenTexture, "Song duration: " + std::to_string(Music.GetDuration()) + " seconds", 10, 40, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Song position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, 0xFFFFFFFF);
 
 		// Bring the pixelbuffer to screen
 		ScreenTextureShader.RenderLWMFTexture(ScreenTexture, false, 1.0F);
