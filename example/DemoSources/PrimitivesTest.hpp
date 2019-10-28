@@ -49,11 +49,10 @@ namespace PrimitivesTest
 			default: {}
 		}
 
-		lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0, 0);
-		lwmf::RenderText(ScreenTexture, "Primitives test", 10, 10, 0xFFFFFFFF);
-		lwmf::RenderText(ScreenTexture, "Number of rectangles: " + std::string(RectangleCounterString.data()), 10, 30, 0xFFFFFFFF);
-		lwmf::RenderText(ScreenTexture, "Number of circles   : " + std::string(CircleCounterString.data()), 10, 40, 0xFFFFFFFF);
-		lwmf::RenderText(ScreenTexture, "Number of polygons  : " + std::string(PolygonCounterString.data()), 10, 50, 0xFFFFFFFF);
+		lwmf::FilledRectangle(ScreenTexture, 0, 65, ScreenTexture.Width - 1, 40, 0, 0);
+		lwmf::RenderText(ScreenTexture, "Number of rectangles: " + std::string(RectangleCounterString.data()), 10, 70, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Number of circles   : " + std::string(CircleCounterString.data()), 10, 80, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Number of polygons  : " + std::string(PolygonCounterString.data()), 10, 90, 0xFFFFFFFF);
 	}
 
 

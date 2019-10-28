@@ -62,8 +62,6 @@ namespace Copperbars
 			DrawCopperbar(ScreenTexture.HeightMid + SinTable[RedBars[i]], 1);
 			RedBars[i] = (RedBars[i] + Speed) % 360;
 		}
-
-		lwmf::RenderText(ScreenTexture, "Copperbars", 10, 10, 0xFFFFFFFF);
 	}
 
 

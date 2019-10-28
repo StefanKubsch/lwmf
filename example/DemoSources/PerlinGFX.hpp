@@ -77,8 +77,6 @@ namespace PerlinGFX
 		Threadpool.WaitForThreads();
 
 		NoiseFactor += 0.002F;
-
-		lwmf::RenderText(ScreenTexture, "Multithreaded, Perlin noise generated gfx", 10, 10, 0xFFFFFFFF);
 	}
 
 

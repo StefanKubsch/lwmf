@@ -68,8 +68,6 @@ namespace Julia
 				}
 			}
 		}
-
-		lwmf::RenderText(ScreenTexture, "Realtime Julia set", 10, 10, 0xFFFFFFFF);
 	}
 
 

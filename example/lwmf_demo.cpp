@@ -70,17 +70,33 @@ inline static std::mt19937 Engine(Seed());
 inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 21 };
+lwmf::MP3Player Music{};
+
+inline void DisplayInfoBox(const std::string& Partname)
+{
+	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0x00000000, 0x00000000);
+
+	// Show partname
+	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
+
+	// Show FPS counter
+	lwmf::FPSCounter();
+	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
+
+	// Show audio information
+	lwmf::RenderText(ScreenTexture, "Music duration: " + std::to_string(Music.GetDuration()) + " seconds", 10, 40, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, 0xFFFFFFFF);
+}
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	lwmf::Logging DemoLog("lwmf_demo.log");
 	lwmf::WindowInstance = hInstance;
-	lwmf::MP3Player Music{};
 
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
@@ -95,7 +111,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
 		// Init audio
 		// 2 channels, 44100 samples per second, 128kBit, 16 bits per sample...
-		Music.Init(2, 44100, 128, 16);
 		Music.Load("./DemoSFX/Audio.mp3");
 
 		// Init the demoparts if neccessary...
@@ -147,123 +162,137 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 0:
 			{
 				Metaballs::Draw();
+				DisplayInfoBox("OpenMP accelerated realtime metaballs");
 				break;
 			}
 			case 1:
 			{
 				Plasma::Draw();
+				DisplayInfoBox("OpenMP accelerated realtime plasma");
 				break;
 			}
 			case 2:
 			{
 				DotTunnel::Draw();
+				DisplayInfoBox("Dotted tunnel");
 				break;
 			}
 			case 3:
 			{
 				Fire::Draw();
+				DisplayInfoBox("OpenMP accelerated realtime fullscreen fire");
 				break;
 			}
 			case 4:
 			{
 				Swarm::Draw();
+				DisplayInfoBox("Realtime particle swarm - 30.000 particles");
 				break;
 			}
 			case 5:
 			{
 				Landscape::Draw();
+				DisplayInfoBox("Textured dotted landscape");
 				break;
 			}
 			case 6:
 			{
 				Starfield::Draw();
+				DisplayInfoBox("OpenMP accelerated 3D starfield - 15.000 stars");
 				break;
 			}
 			case 7:
 			{
 				VectorCube::Draw();
+				DisplayInfoBox("Vector cube - filled polygons");
 				break;
 			}
 			case 8:
 			{
 				Lens::Draw();
+				DisplayInfoBox("Realtime lens");
 				break;
 			}
 			case 9:
 			{
 				Copperbars::Draw();
+				DisplayInfoBox("Copperbars");
 				break;
 			}
 			case 10:
 			{
 				Tunnel::Draw();
+				DisplayInfoBox("OpenMP accelerated textured tunnel");
 				break;
 			}
 			case 11:
 			{
 				Morph::Draw();
+				DisplayInfoBox("Realtime morph - 10.000 dots");
 				break;
 			}
 			case 12:
 			{
 				GouraudShade::Draw();
+				DisplayInfoBox("Realtime torus knot with gouraud shading - 24.000 vertices");
 				break;
 			}
 			case 13:
 			{
 				RotoZoom::Draw();
+				DisplayInfoBox("RotoZoomer");
 				break;
 			}
 			case 14:
 			{
 				Moiree::Draw();
+				DisplayInfoBox("OpenMP accelerated moiree");
 				break;
 			}
 			case 15:
 			{
 				Julia::Draw();
+				DisplayInfoBox("Realtime Julia set");
 				break;
 			}
 			case 16:
 			{
 				Bobs::Draw();
+				DisplayInfoBox("SineScroller and Bobs");
 				break;
 			}
 			case 17:
 			{
 				PerlinGFX::DrawParts();
+				DisplayInfoBox("Multithreaded, Perlin noise generated gfx");
 				break;
 			}
 			case 18:
 			{
 				Raytracer::Draw();
+				DisplayInfoBox("OpenMP accelerated realtime raytracing");
 				break;
 			}
 			case 19:
 			{
 				lwmf::ClearTexture(ScreenTexture, Distrib1(Engine));
-				lwmf::RenderText(ScreenTexture, FillrateTestString, 10, 10, 0xFFFFFFFF);
+				DisplayInfoBox(FillrateTestString);
 				break;
 			}
 			case 20:
 			{
 				PrimitivesTest::Draw();
+				DisplayInfoBox("Primitives test");
 				break;
 			}
 			case 21:
 			{
 				BitmapTest::Draw();
+				DisplayInfoBox("Bitmap resize & blitting test");
 				break;
 			}
 			default: {}
 		}
-
-		// Show FPS counter
-		lwmf::FPSCounter();
-		lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
-
-		lwmf::RenderText(ScreenTexture, "Song duration: " + std::to_string(Music.GetDuration()) + " seconds", 10, 40, 0xFFFFFFFF);
-		lwmf::RenderText(ScreenTexture, "Song position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, 0xFFFFFFFF);
 
 		// Bring the pixelbuffer to screen
 		ScreenTextureShader.RenderLWMFTexture(ScreenTexture, false, 1.0F);

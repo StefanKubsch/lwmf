@@ -48,8 +48,6 @@ namespace DotTunnel
 			Factor += 6.0F;
 			Depth -= DepthAdd;
 		}
-
-		lwmf::RenderText(ScreenTexture, "Dotted tunnel", 10, 10, 0xFFFFFFFF);
 	}
 
 

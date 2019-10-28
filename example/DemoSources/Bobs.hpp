@@ -101,8 +101,6 @@ namespace Bobs
 		{
 			ScrollX = ScreenTexture.Width;
 		}
-
-		lwmf::RenderText(ScreenTexture, "SineScroller and Bobs", 10, 10, 0xFFFFFFFF);
 	}
 
 

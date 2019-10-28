@@ -25,8 +25,6 @@ namespace Moiree
 				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT(0, Color >> 1, Color, 255));
 			}
 		}
-
-		lwmf::RenderText(ScreenTexture, "OpenMP accelerated moiree", 10, 10, 0xFFFFFFFF);
 	}
 
 

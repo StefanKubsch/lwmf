@@ -60,7 +60,6 @@ namespace Swarm
 		}
 
 		LastTime = Elapsed;
-		lwmf::RenderText(ScreenTexture, "Realtime particle swarm - 30.000 particles", 10, 10, 0xFFFFFFFF);
 	}
 
 

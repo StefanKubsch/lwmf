@@ -100,8 +100,6 @@ namespace Lens
 		{
 			Dir.Y *= -1;
 		}
-
-		lwmf::RenderText(ScreenTexture, "Realtime lens", 10, 10, 0xFFFFFFFF);
 	}
 
 

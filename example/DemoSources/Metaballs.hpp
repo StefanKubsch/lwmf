@@ -59,8 +59,6 @@ namespace Metaballs
 				lwmf::SetPixel(ScreenTexture, x, y, BallSum > 0.035F ? MetaballColor : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));
 			}
 		}
-
-		lwmf::RenderText(ScreenTexture, "OpenMP accelerated realtime metaballs", 10, 10, 0xFFFFFFFF);
 	}
 
 

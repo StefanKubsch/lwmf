@@ -69,9 +69,6 @@ namespace Fire
 				}
 			}
 		}
-
-		lwmf::FilledRectangle(ScreenTexture, 0, 0, 400, 40, 0, 0);
-		lwmf::RenderText(ScreenTexture, "OpenMP accelerated realtime fullscreen fire", 10, 10, 0xFFFFFFFF);
 	}
 
 

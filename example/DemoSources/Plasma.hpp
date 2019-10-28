@@ -34,8 +34,6 @@ namespace Plasma
 				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT((Color + Plasmas[2].first) & 255, (Color + Plasmas[0].first) & 255, (Color + Plasmas[1].first) & 255, 255));
 			}
 		}
-
-		lwmf::RenderText(ScreenTexture, "OpenMP accelerated realtime plasma", 10, 10, 0xFFFFFFFF);
 	}
 
 

@@ -317,8 +317,6 @@ namespace Raytracer
 		{
 			ZoomSpeed *= -1.0F;
 		}
-
-		lwmf::RenderText(ScreenTexture, "OpenMP accelerated realtime raytracing", 10, 10, 0xFFFFFFFF);
 	}
 
 

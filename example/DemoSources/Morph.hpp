@@ -120,8 +120,6 @@ namespace Morph
 			Count1 = 0;
 			Count2 = 0;
 		}
-
-		lwmf::RenderText(ScreenTexture, "Realtime morph - 10.000 dots", 10, 10, 0xFFFFFFFF);
 	}
 
 

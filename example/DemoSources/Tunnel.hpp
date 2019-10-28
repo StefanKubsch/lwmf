@@ -71,8 +71,6 @@ namespace Tunnel
 				lwmf::SetPixel(ScreenTexture, x, y, Texture.Pixels[((Angle[x + Source.X][y + Source.Y] + SpeedFactor) & 255) * Texture.Width + ((Distance[x + Source.X][y + Source.Y] + SpeedFactor) & 255)]);
 			}
 		}
-
-		lwmf::RenderText(ScreenTexture, "OpenMP accelerated textured tunnel", 10, 10, 0xFFFFFFFF);
 	}
 
 

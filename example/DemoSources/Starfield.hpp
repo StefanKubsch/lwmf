@@ -44,8 +44,6 @@ namespace Starfield
 				static_cast<std::int_fast32_t>(Stars[i].Pos.Y * Factor) + ScreenTexture.HeightMid,
 				static_cast<std::int_fast32_t>((1.0F - (Stars[i].z) / MaxDepth) * 6.0F), StarBorderColor, lwmf::RGBAtoINT(ColorPart, ColorPart, ColorPart, ColorPart));
 		}
-
-		lwmf::RenderText(ScreenTexture, "OpenMP accelerated 3D starfield - 15.000 stars", 10, 10, 0xFFFFFFFF);
 	}
 
 
