@@ -45,9 +45,8 @@ Features:
 		- transparent blitting
   
 	- Audio (still a lot of work!)
-		- load MP3 files with constant bit rate (CBR) 128kBit / Stereo / 44100kHz
-		- delete MP
-		- get length of MP3
+		- load and play MPEG1 MP3 (Samplerate, Bitrate and Number of Channels will be detected)
+		- get length and current position of MP3
 		
 	- Gamepad
 		- support for XBOX controllers via Microsoft XInput
