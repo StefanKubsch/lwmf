@@ -74,18 +74,21 @@ lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
 {
-	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0x00000000, 0x00000000);
+	static const std::int_fast32_t White{ static_cast<std::int_fast32_t>(0xFFFFFFFF) };
+	static const std::int_fast32_t Black{ static_cast<std::int_fast32_t>(0x00000000) };
+
+	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, Black, Black);
 
 	// Show partname
-	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, Partname, 10, 10, White);
 
 	// Show FPS counter
 	lwmf::FPSCounter();
-	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
+	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, White);
 
 	// Show audio information
-	lwmf::RenderText(ScreenTexture, "Music duration: " + std::to_string(Music.GetDuration()) + " seconds", 10, 40, 0xFFFFFFFF);
-	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, "Music duration: " + std::to_string(Music.GetDuration()) + " seconds", 10, 40, White);
+	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, White);
 }
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
@@ -110,7 +113,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_MOUSE);
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
 		// Init audio
-		// 2 channels, 44100 samples per second, 128kBit, 16 bits per sample...
 		Music.Load("./DemoSFX/Audio.mp3");
 
 		// Init the demoparts if neccessary...
