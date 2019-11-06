@@ -47,6 +47,8 @@ Features:
 	- Audio (still a lot of work!)
 		- load and play MPEG1 MP3 (Samplerate, Bitrate and Number of Channels will be detected)
 		- get length and current position of MP3
+		- pause / restart
+		- set volume
 		
 	- Gamepad
 		- support for XBOX controllers via Microsoft XInput
