@@ -147,12 +147,12 @@ namespace lwmf
 
 			// Get Bitrate
 			StreamChar = File.get();
-			const std::array<std::int_fast32_t, 16> BitrateTable{ 0x000, 0x020, 0x028, 0x030, 0x038, 0x040, 0x050, 0x060, 0x070, 0x080, 0x0A0, 0x0C0, 0x0E0, 0x100, 0x140, 0x000 };
+			static constexpr std::array<std::int_fast32_t, 16> BitrateTable{ 0x000, 0x020, 0x028, 0x030, 0x038, 0x040, 0x050, 0x060, 0x070, 0x080, 0x0A0, 0x0C0, 0x0E0, 0x100, 0x140, 0x000 };
 			Bitrate = BitrateTable[StreamChar >> 4];
 			LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, "Bitrate: " + std::to_string(Bitrate));
 
 			// Get Samplerate
-			const std::array<std::int_fast32_t, 4> SampleRateTable{ 0x0AC44, 0x0BB80, 0x07D00, 0x00000 };
+			static constexpr std::array<std::int_fast32_t, 4> SampleRateTable{ 0x0AC44, 0x0BB80, 0x07D00, 0x00000 };
 			SampleRate = SampleRateTable[(StreamChar & 15) >> 2];
 			LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, "Samplerate: " + std::to_string(SampleRate));
 
@@ -277,7 +277,7 @@ namespace lwmf
 
 		if (!WaveBuffer.empty())
 		{
-			CheckMMRESError(waveOutReset(WaveOut), "waveOutReset", LogLevel::Info);
+			CheckMMRESError(waveOutReset(WaveOut), "waveOutReset", LogLevel::Warn);
 
 			while (waveOutUnprepareHeader(WaveOut, &WaveHDR, sizeof(WAVEHDR)) == WAVERR_STILLPLAYING)
 			{
@@ -287,13 +287,13 @@ namespace lwmf
 			WaveBuffer.clear();
 			WaveBuffer.shrink_to_fit();
 
-			CheckMMRESError(waveOutClose(WaveOut), "waveOutClose", LogLevel::Info);
+			CheckMMRESError(waveOutClose(WaveOut), "waveOutClose", LogLevel::Warn);
 
 			Playstate = State::Stopped;
 		}
 		else
 		{
-			LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, "No audio file was loaded!");
+			LWMFSystemLog.AddEntry(LogLevel::Warn, __FILENAME__, "No audio file was loaded!");
 		}
 	}
 
@@ -309,7 +309,7 @@ namespace lwmf
 		}
 		else
 		{
-			LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, "No audio file was loaded!");
+			LWMFSystemLog.AddEntry(LogLevel::Warn, __FILENAME__, "No audio file was loaded!");
 		}
 	}
 
@@ -455,7 +455,7 @@ namespace lwmf
 		{
 			std::array<char, 200> ErrorText{};
 			waveOutGetErrorText(Error, ErrorText.data(), static_cast<UINT>(ErrorText.size()));
-			LWMFSystemLog.AddEntry(Level, __FILENAME__, Operation + " MMRESULT error: " + std::string(ErrorText.begin(), ErrorText.end()));
+			LWMFSystemLog.AddEntry(Level, __FILENAME__, Operation + " MMRESULT error: " + std::string(ErrorText.data()));
 		}
 	}
 

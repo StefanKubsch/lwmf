@@ -31,7 +31,7 @@ Features:
 		- RGBA to INT
 		- INT to RGBA
 		- color blending (SSE/SIMD-accelerated)
-		- color shading (SSE/SIMD-accelerated)
+		- color shading
   
 	- Images
 		- load 24bit BMP (Bitmap) to texture
