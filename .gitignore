@@ -132,3 +132,4 @@ example/Release/x64/Release/DemoSFX/Audio.mp3
 example/Release/x64/Release/lwmf_demo.exe
 example/Release/x64/Release/Shader/Default.frag
 example/Release/x64/Release/Shader/Default.vert
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/7a1b4a4587e9072a/LWMF_ERRORHANDLING.ipch

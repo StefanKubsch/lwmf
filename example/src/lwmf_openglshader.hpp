@@ -425,7 +425,11 @@ namespace lwmf
 					Error = "GL_CONTEXT_LOST";
 					break;
 				}
-				default: {}
+				default:
+				{
+					Error = "Unknown error code: " + std::to_string(ErrorCode);
+					break;
+				}
 			}
 
 			LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "OpenGL error " + Error + " in line " + std::to_string(Line) + "!");
