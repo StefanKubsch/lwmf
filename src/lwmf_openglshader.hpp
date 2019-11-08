@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <string>
 #include <array>
+#include <map>
 #include <fstream>
 
 #include "lwmf_logging.hpp"
@@ -381,58 +382,28 @@ namespace lwmf
 
 		while ((ErrorCode = glGetError()) != GL_NO_ERROR)
 		{
-			std::string Error;
-
-			switch (ErrorCode)
+			static std::map<GLenum, std::string> ErrorTable
 			{
-				case GL_INVALID_ENUM:
-				{
-					Error = "INVALID_ENUM";
-					break;
-				}
-				case GL_INVALID_VALUE:
-				{
-					Error = "INVALID_VALUE";
-					break;
-				}
-				case GL_INVALID_OPERATION:
-				{
-					Error = "INVALID_OPERATION";
-					break;
-				}
-				case GL_STACK_OVERFLOW:
-				{
-					Error = "STACK_OVERFLOW";
-					break;
-				}
-				case GL_STACK_UNDERFLOW:
-				{
-					Error = "STACK_UNDERFLOW";
-					break;
-				}
-				case GL_OUT_OF_MEMORY:
-				{
-					Error = "OUT_OF_MEMORY";
-					break;
-				}
-				case GL_INVALID_FRAMEBUFFER_OPERATION:
-				{
-					Error = "INVALID_FRAMEBUFFER_OPERATION";
-					break;
-				}
-				case GL_CONTEXT_LOST:
-				{
-					Error = "GL_CONTEXT_LOST";
-					break;
-				}
-				default:
-				{
-					Error = "Unknown error code: " + std::to_string(ErrorCode);
-					break;
-				}
-			}
+				{ GL_INVALID_ENUM, "An unacceptable value is specified for an enumerated argument. The offending command is ignored and has no other side effect than to set the error flag." },
+				{ GL_INVALID_VALUE, "A numeric argument is out of range. The offending command is ignored and has no other side effect than to set the error flag." },
+				{ GL_INVALID_OPERATION, "The specified operation is not allowed in the current state. The offending command is ignored and has no other side effect than to set the error flag." },
+				{ GL_STACK_OVERFLOW, "An attempt has been made to perform an operation that would cause an internal stack to overflow." },
+				{ GL_STACK_UNDERFLOW, "An attempt has been made to perform an operation that would cause an internal stack to underflow." },
+				{ GL_OUT_OF_MEMORY, "There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded." },
+				{ GL_INVALID_FRAMEBUFFER_OPERATION, "The framebuffer object is not complete. The offending command is ignored and has no other side effect than to set the error flag." },
+				{ GL_CONTEXT_LOST, "OpenGL context has been lost, due to a graphics card reset." }
+			};
 
-			LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "OpenGL error " + Error + " in line " + std::to_string(Line) + "!");
+			const std::map<GLenum, std::string>::iterator ItErrorTable{ ErrorTable.find(ErrorCode) };
+
+			if (ItErrorTable == ErrorTable.end())
+			{
+				LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "Unknown OpenGL error in line " + std::to_string(Line) + "!");
+			}
+			else
+			{
+				LWMFSystemLog.AddEntry(LogLevel::Critical, __FILENAME__, "OpenGL error " + ItErrorTable->second + " in line " + std::to_string(Line) + "!");
+			}
 		}
 	}
 

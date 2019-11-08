@@ -65,8 +65,8 @@ namespace lwmf
 		void SetInterval(WORD Button, std::uint_fast32_t Time);
 		void SetAnalogInterval(const AnalogButtons& Button, std::uint_fast32_t Time);
 
-		std::map<WORD, std::string> Buttons;
-		lwmf::IntPointStruct RightStickPos;
+		std::map<WORD, std::string> Buttons{};
+		lwmf::IntPointStruct RightStickPos{};
 		lwmf::FloatPointStruct LeftStick{};
 		lwmf::FloatPointStruct RightStick{};
 		std::int_fast32_t ControllerID{ -1 };
