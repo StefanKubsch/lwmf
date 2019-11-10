@@ -51,8 +51,8 @@ namespace lwmf
 		bool IsFinished();
 
 	private:
-		void CheckHRESError(HRESULT Error, const std::string& Operation, enum LogLevel Level);
-		void CheckMMRESError(MMRESULT Error, const std::string& Operation, enum LogLevel Level);
+		static void CheckHRESError(HRESULT Error, const std::string& Operation, enum LogLevel Level);
+		static void CheckMMRESError(MMRESULT Error, const std::string& Operation, enum LogLevel Level);
 
 		enum class State : std::int_fast32_t
 		{

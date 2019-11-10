@@ -29,7 +29,7 @@ namespace lwmf
 	{
 	public:
 		void LoadShader(const std::string& ShaderName, const TextureStruct& Texture);
-		void LoadTextureInGPU(const TextureStruct& Texture, GLuint* TextureID);
+		static void LoadTextureInGPU(const TextureStruct& Texture, GLuint* TextureID);
 		void RenderTexture(const GLuint* Texture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, bool Blend, float Opacity);
 		void LoadStaticTextureInGPU(const TextureStruct& Texture, GLuint* TextureID, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height);
 		void RenderStaticTexture(const GLuint* TextureID, bool Blend, float Opacity);
@@ -45,11 +45,11 @@ namespace lwmf
 			Program
 		};
 
-		void Ortho2D(std::array<GLfloat, 16>& Matrix, GLfloat Left, GLfloat Right, GLfloat Bottom, GLfloat Top);
+		static void Ortho2D(std::array<GLfloat, 16>& Matrix, GLfloat Left, GLfloat Right, GLfloat Bottom, GLfloat Top);
 		void UpdateVertices(std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height);
-		std::string LoadShaderSource(const std::string& FileName, const std::string& ShaderName);
-		void CheckError(std::int_fast32_t Line);
-		void CheckCompileError(GLuint Task, Components Component);
+		static std::string LoadShaderSource(const std::string& FileName, const std::string& ShaderName);
+		static void CheckError(std::int_fast32_t Line);
+		static void CheckCompileError(GLuint Task, Components Component);
 
 		std::array<GLfloat, 16> Vertices{};
 		GLint OpacityLocation{};

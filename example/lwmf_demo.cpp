@@ -99,7 +99,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions

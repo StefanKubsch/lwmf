@@ -4,6 +4,7 @@
 #include <limits>
 #include <cstdint>
 #include <vector>
+#include <array>
 #include <algorithm>
 
 namespace Raytracer
@@ -16,7 +17,7 @@ namespace Raytracer
 		T& operator[](const size_t i) { return data_[i]; }
 		const T& operator[](const size_t i) const { return data_[i]; }
 	private:
-		T data_[DIM];
+		std::array<T, DIM> data_;
 	};
 
 	using Vec3f = vec<3, float>;
