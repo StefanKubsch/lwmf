@@ -75,6 +75,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 {
 	static const std::int_fast32_t White{ static_cast<std::int_fast32_t>(0xFFFFFFFF) };
 	static const std::int_fast32_t Black{ static_cast<std::int_fast32_t>(0x00000000) };
+	static const std::string MusicDuration{ std::to_string(Music.GetDuration()) };
 
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, Black, Black);
 
@@ -86,7 +87,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, White);
 
 	// Show audio information
-	lwmf::RenderText(ScreenTexture, "Music duration: " + std::to_string(Music.GetDuration()) + " seconds", 10, 40, White);
+	lwmf::RenderText(ScreenTexture, "Music duration: " + MusicDuration + " seconds", 10, 40, White);
 	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, White);
 }
 
@@ -98,7 +99,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions

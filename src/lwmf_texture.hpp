@@ -167,8 +167,8 @@ namespace lwmf
 			}
 		}
 
-		Texture.Pixels = std::move(TempBuffer);
 		SetTextureMetrics(Texture, TargetWidth, TargetHeight);
+		Texture.Pixels = std::move(TempBuffer);
 	}
 
 	inline void BlitTexture(const TextureStruct& SourceTexture, TextureStruct& TargetTexture, const std::int_fast32_t PosX, std::int_fast32_t PosY)
