@@ -95,7 +95,7 @@ namespace Raytracer
 	struct Light
 	{
 		Light(const Vec3f& p, const float i) : Position(p), Intensity(i) {}
-		Vec3f Position;
+		Vec3f Position{};
 		float Intensity{};
 	};
 
@@ -103,16 +103,16 @@ namespace Raytracer
 	{
 		Material(const float r, const Vec4f& a, const Vec3f& color, const float spec) : Albedo(a), DiffuseColor(color), SpecularExponent(spec), RefractiveIndex(r) {}
 		Material() : Albedo(1.0F, 0.0F, 0.0F, 0.0F), RefractiveIndex(1) {}
-		Vec4f Albedo;
-		Vec3f DiffuseColor;
+		Vec4f Albedo{};
+		Vec3f DiffuseColor{};
 		float SpecularExponent{};
 		float RefractiveIndex{};
 	};
 
 	struct Sphere
 	{
-		Vec3f Center;
-		Material material;
+		Vec3f Center{};
+		Material material{};
 		float Radius{};
 
 		Sphere(const Vec3f& c, const float r, const Material& m) : Center(c), material(m), Radius(r)  {}
@@ -187,15 +187,15 @@ namespace Raytracer
 		return SpheresDist < 1000.0F;
 	}
 
-	inline std::vector<Vec3f> SphericalMap;
+	inline std::vector<Vec3f> SphericalMap{};
 	inline std::int_fast32_t SphericalMapWidth{};
 	inline std::int_fast32_t SphericalMapHeight{};
 
 	inline Vec3f CastRay(const Vec3f& Origin, const Vec3f& Direction, const std::vector<Sphere>& spheres, const std::vector<Light>& lights, size_t Depth = 0)
 	{
-		Vec3f Point;
-		Vec3f N;
-		Material material;
+		Vec3f Point{};
+		Vec3f N{};
+		Material material{};
 
 		if (Depth > 4 || !SceneIntersect(Origin, Direction, spheres, Point, N, material))
 		{
@@ -221,9 +221,9 @@ namespace Raytracer
 			const float LightDistance{ (Light.Position - Point).norm() };
 
 			const Vec3f ShadowOrigin{ LightDir * N < 0.0F ? Point - N * 1e-3F : Point + N * 1e-3F };
-			Vec3f ShadowPoint;
-			Vec3f ShadowN;
-			Material TempMaterial;
+			Vec3f ShadowPoint{};
+			Vec3f ShadowN{};
+			Material TempMaterial{};
 
 			if (SceneIntersect(ShadowOrigin, LightDir, spheres, ShadowPoint, ShadowN, TempMaterial) && (ShadowPoint - ShadowOrigin).norm() < LightDistance)
 			{
@@ -237,8 +237,8 @@ namespace Raytracer
 		return material.DiffuseColor * DiffuseLightIntensity * material.Albedo[0] + Vec3f(1.0F, 1.0F, 1.0F) * SpecularLightIntensity * material.Albedo[1] + ReflectColor * material.Albedo[2] + RefractColor * material.Albedo[3];
 	}
 
-	inline std::vector<Sphere> UsedSpheres;
-	inline std::vector<Light> UsedLights;
+	inline std::vector<Sphere> UsedSpheres{};
+	inline std::vector<Light> UsedLights{};
 
 	inline void Init()
 	{
@@ -246,7 +246,7 @@ namespace Raytracer
 		UsedLights.emplace_back(Light(Vec3f(30.0F, 50.0F, -25.0F), 1.8F));
 		UsedLights.emplace_back(Light(Vec3f(30.0F, 20.0F, 30.0F), 1.7F));
 
-		lwmf::TextureStruct SphericalMapPNG;
+		lwmf::TextureStruct SphericalMapPNG{};
 		lwmf::LoadPNG(SphericalMapPNG, "./DemoGFX/Spherical.png");
 
 		SphericalMapWidth = SphericalMapPNG.Width;

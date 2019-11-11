@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <array>
 #include <random>
 #include <charconv>
 
@@ -19,9 +20,9 @@ namespace PrimitivesTest
 		static std::int_fast64_t RectangleCounter{};
 		static std::int_fast64_t CircleCounter{};
 		static std::int_fast64_t PolygonCounter{};
-		static std::vector<char> RectangleCounterString(20);
-		static std::vector<char> CircleCounterString(20);
-		static std::vector<char> PolygonCounterString(20);
+		static std::array<char, 20> RectangleCounterString{};
+		static std::array<char, 20> CircleCounterString{};
+		static std::array<char, 20> PolygonCounterString{};
 		const std::int_fast32_t BorderColor{ Color(Engine) };
 		const std::int_fast32_t FillColor{ Color(Engine) };
 

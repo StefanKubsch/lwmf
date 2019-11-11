@@ -7,8 +7,8 @@ namespace Landscape
 {
 
 
-	inline lwmf::TextureStruct LandscapeTextureMap;
-	inline lwmf::TextureStruct LandscapeTerrainMap;
+	inline lwmf::TextureStruct LandscapeTextureMap{};
+	inline lwmf::TextureStruct LandscapeTerrainMap{};
 
 	inline void Init()
 	{

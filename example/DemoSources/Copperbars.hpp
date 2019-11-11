@@ -1,19 +1,19 @@
 #pragma once
 
 #include <cstdint>
-#include <vector>
+#include <array>
 #include <cmath>
 
 namespace Copperbars
 {
 
 
-	inline std::vector<lwmf::ColorStruct> CopperList(46);
-	inline std::vector<std::int_fast32_t> SinTable(360);
+	inline std::array<lwmf::ColorStruct, 46> CopperList{};
+	inline std::array<std::int_fast32_t, 360> SinTable{};
 
 	inline void Init()
 	{
-		static const std::vector<std::int_fast32_t> Colors{ 34, 68, 102, 136, 170, 204, 238, 255, 238, 204, 170, 136, 102, 68, 34 };
+		static constexpr std::array<std::int_fast32_t, 15> Colors{ 34, 68, 102, 136, 170, 204, 238, 255, 238, 204, 170, 136, 102, 68, 34 };
 
 		for (std::int_fast32_t i{}; i < 360; ++i)
 		{
@@ -39,9 +39,9 @@ namespace Copperbars
 	inline void Draw()
 	{
 		static constexpr std::int_fast32_t Speed{ 3 };
-		static std::vector<std::int_fast32_t> RedBars{ 96, 88, 80, 72 };
-		static std::vector<std::int_fast32_t> GreenBars{ 64, 56, 48, 40 };
-		static std::vector<std::int_fast32_t> BlueBars{ 32, 24, 16, 8 };
+		static std::array<std::int_fast32_t, 4> RedBars{ 96, 88, 80, 72 };
+		static std::array<std::int_fast32_t, 4> GreenBars{ 64, 56, 48, 40 };
+		static std::array<std::int_fast32_t, 4> BlueBars{ 32, 24, 16, 8 };
 
 		lwmf::ClearTexture(ScreenTexture, 0);
 

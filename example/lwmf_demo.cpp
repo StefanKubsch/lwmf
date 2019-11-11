@@ -20,7 +20,6 @@
 #include <cstdint>
 #include <string>
 #include <random>
-#include <charconv>
 
 // Uncomment to find memory leaks in debug mode
 //
@@ -37,11 +36,11 @@
 #include "./src/lwmf.hpp"
 
 // "ScreenTexture" is the main render target in our demo!
-inline lwmf::TextureStruct ScreenTexture;
-inline lwmf::ShaderClass ScreenTextureShader;
+inline lwmf::TextureStruct ScreenTexture{};
+inline lwmf::ShaderClass ScreenTextureShader{};
 
 // Init & seed random engine
-inline static std::random_device Seed;
+inline static std::random_device Seed{};
 inline static std::mt19937 Engine(Seed());
 
 // Include the used demo effects
@@ -99,7 +98,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
@@ -336,8 +335,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		case WM_INPUT:
 		{
-			static RAWINPUT RawDev;
-			static UINT DataSize{ sizeof(RawDev) };
+			static RAWINPUT RawDev{};
+			static UINT DataSize{ sizeof(RAWINPUT) };
 			static UINT HeaderSize{ sizeof(RAWINPUTHEADER) };
 			HRAWINPUT Handle{ reinterpret_cast<HRAWINPUT>(lParam) };
 			GetRawInputData(Handle, RID_INPUT, &RawDev, &DataSize, HeaderSize);

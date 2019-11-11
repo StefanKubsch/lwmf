@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <cmath>
-#include <vector>
+#include <array>
 #include <utility>
 
 namespace Plasma
@@ -11,7 +11,7 @@ namespace Plasma
 
 	inline void Draw()
 	{
-		static std::vector<std::pair<std::int_fast32_t, std::int_fast32_t>> Plasmas{ {5, 2}, {125, 1}, {250,3} };
+		static std::array<std::pair<std::int_fast32_t, std::int_fast32_t>, 3> Plasmas{ { {5, 2}, {125, 1}, {250,3} } };
 
 		for (auto& Plasma : Plasmas)
 		{

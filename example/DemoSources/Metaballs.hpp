@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <array>
 #include <cstdint>
 #include <cmath>
 
@@ -12,17 +12,17 @@ namespace Metaballs
 	{
 		struct MetaballStruct final
 		{
-			lwmf::IntPointStruct Pos;
-			lwmf::IntPointStruct Velocity;
+			lwmf::IntPointStruct Pos{};
+			lwmf::IntPointStruct Velocity{};
 		};
 
-		static std::vector<MetaballStruct> Metaballs
-		{
+		static std::array<MetaballStruct, 4> Metaballs
+		{ {
 			{ {800, 600}, {-8, -8} },
 			{ {490, 40}, {4, 2} },
 			{ {10, 10}, {5, 6} },
 			{ {30, 500}, {-5, -6} }
-		};
+		} };
 
 		static const std::int_fast32_t MetaballColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
 

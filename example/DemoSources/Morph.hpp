@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <vector>
+#include <array>
 #include <cmath>
 #include <random>
 
@@ -17,9 +17,9 @@ namespace Morph
 	};
 
 	constexpr std::int_fast32_t NumberOfPoints{ 10000 };
-	inline std::vector<DotStruct> Sphere(NumberOfPoints);
-	inline std::vector<DotStruct> Torus(NumberOfPoints);
-	inline std::vector<DotStruct> Morph(NumberOfPoints);
+	inline std::array<DotStruct, NumberOfPoints> Sphere{};
+	inline std::array<DotStruct, NumberOfPoints> Torus{};
+	inline std::array<DotStruct, NumberOfPoints> Morph{};
 
 	inline void Init()
 	{

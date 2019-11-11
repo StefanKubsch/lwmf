@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <vector>
+#include <array>
 #include <cmath>
 
 namespace GouraudShade
@@ -20,12 +20,12 @@ namespace GouraudShade
 	constexpr std::int_fast32_t Radius1{ 50 };
 	constexpr std::int_fast32_t Radius2{ 100 };
 	constexpr std::int_fast32_t NumberOfVertices{ ScaleFactor1 * ScaleFactor2 };
-	inline std::vector<Point3D> Shape(NumberOfVertices);
-	inline std::vector<Point3D> RotatedShape(NumberOfVertices);
-	inline std::vector<lwmf::IntPointStruct> Shape2D(NumberOfVertices);
-	inline std::vector<std::int_fast32_t> DrawOrder(NumberOfVertices);
-	inline std::vector<std::vector<std::int_fast32_t>> PolygonCoords(NumberOfVertices, std::vector<std::int_fast32_t>(4));
-	inline std::int_fast32_t Vertices{};;
+	inline std::array<Point3D, NumberOfVertices> Shape{};
+	inline std::array<Point3D, NumberOfVertices> RotatedShape{};
+	inline std::array<lwmf::IntPointStruct, NumberOfVertices> Shape2D{};
+	inline std::array<std::int_fast32_t, NumberOfVertices> DrawOrder{};
+	inline std::array<std::array<std::int_fast32_t, 4>, NumberOfVertices> PolygonCoords{};
+	inline std::int_fast32_t Vertices{};
 	inline std::int_fast32_t VertexCount{};
 
 	inline void Init()
@@ -100,15 +100,10 @@ namespace GouraudShade
 		}
 	}
 
-	inline void Shade(const std::vector<lwmf::IntPointStruct>& VertexPoints, const std::vector<std::int_fast32_t>& Color)
+	inline void Shade(const std::array<lwmf::IntPointStruct, 3>& VertexPoints, const std::array<std::int_fast32_t, 3>& Color)
 	{
 		std::int_fast32_t MinY{};
 		std::int_fast32_t MaxY{};
-		std::int_fast32_t StartVertex2{};
-		std::int_fast32_t XCalc1{};
-		std::int_fast32_t XCalc2{};
-		std::int_fast32_t ColourCalc1{};
-		std::int_fast32_t ColourCalc2{};
 
 		for (std::int_fast32_t Count{ 1 }; Count < 3; ++Count)
 		{
@@ -122,7 +117,6 @@ namespace GouraudShade
 			}
 		}
 
-		std::int_fast32_t StartVertex1{ StartVertex2 = MinY };
 		std::int_fast32_t EndVertex1{ MinY + 2 };
 
 		if (EndVertex1 >= 3)
@@ -137,6 +131,8 @@ namespace GouraudShade
 			EndVertex2 -= 3;
 		}
 
+		std::int_fast32_t StartVertex2{ MinY };
+		std::int_fast32_t StartVertex1{ StartVertex2 };
 		std::int_fast32_t XDiff1{ VertexPoints[EndVertex1].X - VertexPoints[StartVertex1].X };
 		std::int_fast32_t YDiff1{ VertexPoints[EndVertex1].Y - VertexPoints[StartVertex1].Y };
 		std::int_fast32_t XDiff2{ VertexPoints[EndVertex2].X - VertexPoints[StartVertex1].X };
@@ -153,6 +149,11 @@ namespace GouraudShade
 		{
 			YDiff2 = 1;
 		}
+
+		std::int_fast32_t XCalc1{};
+		std::int_fast32_t XCalc2{};
+		std::int_fast32_t ColourCalc1{};
+		std::int_fast32_t ColourCalc2{};
 
 		for (std::int_fast32_t Y{ VertexPoints[MinY].Y }; Y <= VertexPoints[MaxY].Y; ++Y)
 		{
@@ -246,9 +247,8 @@ namespace GouraudShade
 
 	inline void DrawFace(const std::int_fast32_t Index1, const std::int_fast32_t Index2, const std::int_fast32_t Index3)
 	{
-		static constexpr std::int_fast32_t MaxZ{ Radius1 + Radius2 + Radius1 };
-		static std::vector<lwmf::IntPointStruct> Face2D(3);
-		static std::vector<std::int_fast32_t> Colors(3);
+		static std::array<lwmf::IntPointStruct, 3> Face2D{};
+		static std::array<std::int_fast32_t, 3> Colors{};
 
 		Face2D[0].X = Shape2D[Index1].X;
 		Face2D[0].Y = Shape2D[Index1].Y;
@@ -256,6 +256,8 @@ namespace GouraudShade
 		Face2D[1].Y = Shape2D[Index2].Y;
 		Face2D[2].X = Shape2D[Index3].X;
 		Face2D[2].Y = Shape2D[Index3].Y;
+
+		static constexpr std::int_fast32_t MaxZ{ Radius1 + Radius2 + Radius1 };
 
 		Colors[0] = 30 + 127 * (RotatedShape[Index1].z + MaxZ) / MaxZ; //-V525
 		Colors[1] = 50 + 127 * (RotatedShape[Index2].z + MaxZ) / MaxZ;

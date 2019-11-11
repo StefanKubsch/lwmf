@@ -1,19 +1,19 @@
 #pragma once
 
 #include <cstdint>
-#include <vector>
+#include <array>
 #include <cmath>
 
 namespace Bobs
 {
 
 
-	inline lwmf::TextureStruct Bob1BMP;
-	inline lwmf::TextureStruct Bob2BMP;
-	inline lwmf::TextureStruct CharMapBMP;
+	inline lwmf::TextureStruct Bob1BMP{};
+	inline lwmf::TextureStruct Bob2BMP{};
+	inline lwmf::TextureStruct CharMapBMP{};
 
-	inline std::vector<lwmf::FloatPointStruct> Bob1Coord(512);
-	inline std::vector<lwmf::FloatPointStruct> Bob2Coord(512);
+	inline std::array<lwmf::FloatPointStruct, 512> Bob1Coord{};
+	inline std::array<lwmf::FloatPointStruct, 512> Bob2Coord{};
 
 	constexpr std::int_fast32_t PatternWidth{ 600 >> 1};
 	constexpr std::int_fast32_t PatternHeight{ 300 >> 1 };
@@ -60,7 +60,7 @@ namespace Bobs
 		static constexpr std::int_fast32_t CharWidth{ 37 };
 		static constexpr std::int_fast32_t Speed{ 8 };
 		static const std::string CharMap{ "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!().," };
-		static const std::string Text{ "...HELLO FOLKS, THIS IS JUST A LITTLE SCROLLER...AND SOME BOBS !!!" };
+		static const std::string Text{ "...HELLO FOLKS, THIS IS JUST A LITTLE SCROLLER...AND SOME BOBS !!! ENJOY THE DEMO AND USE LWMF..." };
 		static const std::int_fast32_t TextLength{ static_cast<std::int_fast32_t>(Text.length()) };
 		static const std::int_fast32_t CharMapLength{ static_cast<std::int_fast32_t>(CharMap.length()) };
 		static const std::int_fast32_t ScrollLength{ static_cast<std::int_fast32_t>(TextLength) * (CharWidth + 5) };

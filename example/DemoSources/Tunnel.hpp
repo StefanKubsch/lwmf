@@ -8,13 +8,13 @@ namespace Tunnel
 {
 
 
-	inline lwmf::TextureStruct Texture;
+	inline lwmf::TextureStruct Texture{};
 	inline std::int_fast32_t TunnelScreenWidth{};
 	inline std::int_fast32_t TunnelScreenHeight{};
 	inline std::int_fast32_t TunnelWidth{};
 	inline std::int_fast32_t TunnelHeight{};
-	inline std::vector<std::vector<std::int_fast32_t>> Distance;
-	inline std::vector<std::vector<std::int_fast32_t>> Angle;
+	inline std::vector<std::vector<std::int_fast32_t>> Distance{};
+	inline std::vector<std::vector<std::int_fast32_t>> Angle{};
 
 	inline void Init()
 	{

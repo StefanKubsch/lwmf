@@ -1,7 +1,8 @@
 #pragma once
 
+#include <Windows.h>
 #include <cstdint>
-#include <vector>
+#include <array>
 #include <random>
 #include <cmath>
 
@@ -13,7 +14,7 @@ namespace Swarm
 	{
 		struct ParticleStruct final
 		{
-			lwmf::FloatPointStruct Pos;
+			lwmf::FloatPointStruct Pos{};
 			float Speed{};
 			float Direction{};
 
@@ -44,7 +45,7 @@ namespace Swarm
 		};
 
 		static constexpr std::int_fast32_t NumberOfParticles{ 30000 };
-		static std::vector<ParticleStruct> Particles(NumberOfParticles);
+		static std::array<ParticleStruct, NumberOfParticles> Particles{};
 		static const std::int_fast32_t ParticleColor{ lwmf::RGBAtoINT(255, 0, 255, 255) };
 		static std::int_fast32_t LastTime{};
 		const std::int_fast32_t Elapsed{ static_cast<std::int_fast32_t>(GetTickCount()) };

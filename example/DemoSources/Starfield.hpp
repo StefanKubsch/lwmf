@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <vector>
+#include <array>
 #include <random>
 
 namespace Starfield
@@ -12,14 +12,14 @@ namespace Starfield
 	{
 		struct StarStruct final
 		{
-			lwmf::IntPointStruct Pos;
+			lwmf::IntPointStruct Pos{};
 			float z{};
 		};
 
 		static constexpr std::int_fast32_t MaxStars{ 15000 };
 		static constexpr float MaxDepth{ 48.0F };
 		static const std::int_fast32_t StarBorderColor{ lwmf::RGBAtoINT(0, 0, 160, 255) };
-		static std::vector<StarStruct> Stars(MaxStars);
+		static std::array<StarStruct, MaxStars> Stars{};
 
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 		static const std::uniform_real<float> Distrib2(1.0F, MaxDepth);

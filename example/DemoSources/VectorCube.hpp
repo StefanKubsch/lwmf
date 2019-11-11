@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <array>
 #include <cmath>
 #include <utility>
 
@@ -28,13 +29,13 @@ namespace VectorCube
 
 		static constexpr std::int_fast32_t CubeNumFaces{ 6 };
 		static constexpr std::int_fast32_t CubeNumPoints{ 8 };
-		static std::vector<VertexStruct> CubeDef{ { -200.0F, -200.0F, -200.0F }, { -200.0F, -200.0F, 200.0F }, { -200.0F, 200.0F, -200.0F }, { -200.0F, 200.0F, 200.0F }, { 200.0F, -200.0F, -200.0F }, { 200.0F, -200.0F, 200.0F }, { 200.0F, 200.0F, -200.0F }, { 200.0F, 200.0F, 200.0F } };
-		static const std::vector<CubeFaceStruct> CubeFaces{ {0,1,3,2}, {4,0,2,6}, {5,4,6,7}, {1,5,7,3}, {0,1,5,4}, {2,3,7,6} };
-		static const std::vector<std::int_fast32_t> CubeFacesColors{ lwmf::RGBAtoINT(185, 242, 145, 255), lwmf::RGBAtoINT(80, 191, 148, 255), lwmf::RGBAtoINT(94, 89, 89, 255),	lwmf::RGBAtoINT(247, 35, 73, 255), lwmf::RGBAtoINT(255, 132, 94,255), lwmf::RGBAtoINT(246, 220, 133, 255) };
-		static std::vector<lwmf::IntPointStruct> Cube(CubeNumPoints);
+		static constexpr std::array<CubeFaceStruct, 6> CubeFaces{ { {0,1,3,2}, {4,0,2,6}, {5,4,6,7}, {1,5,7,3}, {0,1,5,4}, {2,3,7,6} } };
+		static const std::array<std::int_fast32_t, 6> CubeFacesColors{ lwmf::RGBAtoINT(185, 242, 145, 255), lwmf::RGBAtoINT(80, 191, 148, 255), lwmf::RGBAtoINT(94, 89, 89, 255),	lwmf::RGBAtoINT(247, 35, 73, 255), lwmf::RGBAtoINT(255, 132, 94,255), lwmf::RGBAtoINT(246, 220, 133, 255) };
+		static std::array<VertexStruct, 8> CubeDef{ { { -200.0F, -200.0F, -200.0F }, { -200.0F, -200.0F, 200.0F }, { -200.0F, 200.0F, -200.0F }, { -200.0F, 200.0F, 200.0F }, { 200.0F, -200.0F, -200.0F }, { 200.0F, -200.0F, 200.0F }, { 200.0F, 200.0F, -200.0F }, { 200.0F, 200.0F, 200.0F } } };
+		static std::array<lwmf::IntPointStruct, CubeNumPoints> Cube{};
 		static std::vector<lwmf::IntPointStruct> Points(4);
-		static std::vector<std::int_fast32_t> Order(CubeNumFaces);
-		static std::vector<float> AverageZ(CubeNumFaces);
+		static std::array<std::int_fast32_t, CubeNumFaces> Order{};
+		static std::array<float, CubeNumFaces> AverageZ{};
 		static const float CosA{ std::cosf(0.03F) };
 		static const float SinA{ std::sinf(0.03F) };
 
@@ -85,10 +86,13 @@ namespace VectorCube
 
 		for (std::int_fast32_t i{}; i < CubeNumFaces; ++i)
 		{
-			Points[0] = { Cube[CubeFaces[Order[i]].p0].X, Cube[CubeFaces[Order[i]].p0].Y };
-			Points[1] = { Cube[CubeFaces[Order[i]].p1].X, Cube[CubeFaces[Order[i]].p1].Y };
-			Points[2] = { Cube[CubeFaces[Order[i]].p2].X, Cube[CubeFaces[Order[i]].p2].Y };
-			Points[3] = { Cube[CubeFaces[Order[i]].p3].X, Cube[CubeFaces[Order[i]].p3].Y };
+			Points =
+			{
+				{ Cube[CubeFaces[Order[i]].p0].X, Cube[CubeFaces[Order[i]].p0].Y },
+				{ Cube[CubeFaces[Order[i]].p1].X, Cube[CubeFaces[Order[i]].p1].Y },
+				{ Cube[CubeFaces[Order[i]].p2].X, Cube[CubeFaces[Order[i]].p2].Y },
+				{ Cube[CubeFaces[Order[i]].p3].X, Cube[CubeFaces[Order[i]].p3].Y }
+			};
 
 			lwmf::FilledPolygon(ScreenTexture, Points, CubeFacesColors[Order[i]], CubeFacesColors[Order[i]]);
 		}

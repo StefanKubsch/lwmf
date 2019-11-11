@@ -8,7 +8,7 @@ namespace Lens
 {
 
 
-	inline lwmf::TextureStruct Wallpaper;
+	inline lwmf::TextureStruct Wallpaper{};
 	inline lwmf::IntPointStruct LensPos{};
 	inline lwmf::IntPointStruct Dir{};
 	inline std::int_fast32_t LensWidth{ 250 };

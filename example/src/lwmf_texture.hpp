@@ -22,7 +22,7 @@ namespace lwmf
 
 	struct TextureStruct final
 	{
-		std::vector<std::int_fast32_t> Pixels;
+		std::vector<std::int_fast32_t> Pixels{};
 		std::int_fast32_t Size{};
 		std::int_fast32_t Width{};
 		std::int_fast32_t Height{};
