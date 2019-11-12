@@ -9,7 +9,7 @@ namespace BitmapTest
 {
 
 
-	inline lwmf::TextureStruct SourceTexture{};
+	inline static lwmf::TextureStruct SourceTexture{};
 
 	inline void Init()
 	{

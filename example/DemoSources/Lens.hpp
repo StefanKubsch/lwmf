@@ -8,13 +8,13 @@ namespace Lens
 {
 
 
-	inline lwmf::TextureStruct Wallpaper{};
-	inline lwmf::IntPointStruct LensPos{};
-	inline lwmf::IntPointStruct Dir{};
-	inline std::int_fast32_t LensWidth{ 250 };
-	inline std::vector<std::vector<std::int_fast32_t>> Lens(LensWidth, std::vector<std::int_fast32_t>(static_cast<size_t>(LensWidth)));
-	inline std::int_fast32_t OldViewPortWidth{};
-	inline std::int_fast32_t OldViewPortHeight{};
+	inline static lwmf::TextureStruct Wallpaper{};
+	inline static lwmf::IntPointStruct LensPos{};
+	inline static lwmf::IntPointStruct Dir{};
+	inline static std::int_fast32_t LensWidth{ 250 };
+	inline static std::vector<std::vector<std::int_fast32_t>> Lens(LensWidth, std::vector<std::int_fast32_t>(static_cast<size_t>(LensWidth)));
+	inline static std::int_fast32_t OldViewPortWidth{};
+	inline static std::int_fast32_t OldViewPortHeight{};
 
 	inline void Init()
 	{

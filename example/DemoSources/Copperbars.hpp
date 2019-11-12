@@ -8,12 +8,12 @@ namespace Copperbars
 {
 
 
-	inline std::array<lwmf::ColorStruct, 46> CopperList{};
-	inline std::array<std::int_fast32_t, 360> SinTable{};
+	inline static std::array<lwmf::ColorStruct, 46> CopperList{};
+	inline static std::array<std::int_fast32_t, 360> SinTable{};
 
 	inline void Init()
 	{
-		static constexpr std::array<std::int_fast32_t, 15> Colors{ 34, 68, 102, 136, 170, 204, 238, 255, 238, 204, 170, 136, 102, 68, 34 };
+		constexpr std::array<std::int_fast32_t, 15> Colors{ 34, 68, 102, 136, 170, 204, 238, 255, 238, 204, 170, 136, 102, 68, 34 };
 
 		for (std::int_fast32_t i{}; i < 360; ++i)
 		{

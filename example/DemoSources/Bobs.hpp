@@ -8,15 +8,15 @@ namespace Bobs
 {
 
 
-	inline lwmf::TextureStruct Bob1BMP{};
-	inline lwmf::TextureStruct Bob2BMP{};
-	inline lwmf::TextureStruct CharMapBMP{};
+	inline static lwmf::TextureStruct Bob1BMP{};
+	inline static lwmf::TextureStruct Bob2BMP{};
+	inline static lwmf::TextureStruct CharMapBMP{};
 
-	inline std::array<lwmf::FloatPointStruct, 512> Bob1Coord{};
-	inline std::array<lwmf::FloatPointStruct, 512> Bob2Coord{};
+	inline static std::array<lwmf::FloatPointStruct, 512> Bob1Coord{};
+	inline static std::array<lwmf::FloatPointStruct, 512> Bob2Coord{};
 
-	constexpr std::int_fast32_t PatternWidth{ 600 >> 1};
-	constexpr std::int_fast32_t PatternHeight{ 300 >> 1 };
+	static constexpr std::int_fast32_t PatternWidth{ 600 >> 1};
+	static constexpr std::int_fast32_t PatternHeight{ 300 >> 1 };
 
 	inline void Init()
 	{

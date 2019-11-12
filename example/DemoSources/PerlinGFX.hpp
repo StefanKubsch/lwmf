@@ -14,7 +14,7 @@ namespace PerlinGFX
 		DownRight
 	};
 
-	inline float NoiseFactor{ 0.4F };
+	inline static float NoiseFactor{ 0.4F };
 
 	inline void Draw(const Renderpart Part)
 	{
