@@ -40,8 +40,8 @@ inline lwmf::TextureStruct ScreenTexture{};
 inline lwmf::ShaderClass ScreenTextureShader{};
 
 // Init & seed random engine
-inline static std::random_device Seed{};
-inline static std::mt19937 Engine(Seed());
+inline std::random_device Seed{};
+inline std::mt19937 Engine(Seed());
 
 // Include the used demo effects
 #include "./DemoSources/Metaballs.hpp"
@@ -73,8 +73,8 @@ lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
 {
-	static const std::int_fast32_t White{ static_cast<std::int_fast32_t>(0xFFFFFFFF) };
-	static const std::int_fast32_t Black{ static_cast<std::int_fast32_t>(0x00000000) };
+	constexpr std::int_fast32_t White{ static_cast<std::int_fast32_t>(0xFFFFFFFF) };
+	constexpr std::int_fast32_t Black{ static_cast<std::int_fast32_t>(0x00000000) };
 	static const std::string MusicDuration{ std::to_string(Music.GetDuration()) };
 
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, Black, Black);
@@ -99,7 +99,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
 		// Load OpenGL/wgl extensions
@@ -110,7 +110,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		ScreenTextureShader.LoadShader("Default", ScreenTexture);
 		ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);
 		// Init raw devices
-		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_MOUSE);
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
 		// Init audio
 		Music.Load("./DemoSFX/Audio.mp3");
@@ -134,9 +133,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	}
 
 	FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Size) + " pixels per frame";
-
-	static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, 0XFFFFFF);
-
+	const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, 0XFFFFFF);
 	bool Quit{};
 
 	while (!Quit)
@@ -146,7 +143,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			Music.Play();
 		}
 
-		static MSG Message{};
+		MSG Message{};
 
 		while (PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
 		{
@@ -303,7 +300,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	}
 
 	Music.Close();
-	lwmf::UnregisterRawInputDevice(lwmf::DeviceIdentifier::HID_MOUSE);
 	lwmf::UnregisterRawInputDevice(lwmf::DeviceIdentifier::HID_KEYBOARD);
 	lwmf::DeleteOpenGLContext();
 
@@ -336,9 +332,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		case WM_INPUT:
 		{
-			static RAWINPUT RawDev{};
-			static UINT DataSize{ sizeof(RAWINPUT) };
-			static UINT HeaderSize{ sizeof(RAWINPUTHEADER) };
+			RAWINPUT RawDev{};
+			UINT DataSize{ sizeof(RAWINPUT) };
+			UINT HeaderSize{ sizeof(RAWINPUTHEADER) };
 			HRAWINPUT Handle{ reinterpret_cast<HRAWINPUT>(lParam) };
 			GetRawInputData(Handle, RID_INPUT, &RawDev, &DataSize, HeaderSize);
 

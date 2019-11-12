@@ -18,10 +18,10 @@ namespace BitmapTest
 
 	void Draw()
 	{
-		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
-		static const std::uniform_int_distribution<std::int_fast32_t> Size(1, 500);
+		const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
+		const std::uniform_int_distribution<std::int_fast32_t> Size(1, 500);
 		static std::int_fast64_t BlitCounter{};
-		static std::array<char, 20> CounterString{};
+		std::array<char, 20> CounterString{};
 
 		lwmf::TextureStruct Texture{ SourceTexture };
 		lwmf::ResizeTexture(Texture, Size(Engine), Size(Engine), lwmf::FilterModes::NEAREST);

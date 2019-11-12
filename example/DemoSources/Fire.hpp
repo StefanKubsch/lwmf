@@ -10,13 +10,12 @@ namespace Fire
 
 	inline void Draw()
 	{
-		static constexpr std::int_fast32_t CubeSize{ 250 };
-		static constexpr std::int_fast32_t CubeHalf{ CubeSize >> 1 };
-		static const std::int_fast32_t CubeRed{ lwmf::RGBAtoINT(255, 0, 0, 255) };
-		static const std::int_fast32_t CubeYellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
-		static const lwmf::IntPointStruct CubePos{ ScreenTexture.WidthMid - CubeSize + (CubeHalf >> 1), ScreenTexture.HeightMid - (CubeHalf >> 1) };
-
-		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
+		constexpr std::int_fast32_t CubeSize{ 250 };
+		constexpr std::int_fast32_t CubeHalf{ CubeSize >> 1 };
+		const std::int_fast32_t CubeRed{ lwmf::RGBAtoINT(255, 0, 0, 255) };
+		const std::int_fast32_t CubeYellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
+		const lwmf::IntPointStruct CubePos{ ScreenTexture.WidthMid - CubeSize + (CubeHalf >> 1), ScreenTexture.HeightMid - (CubeHalf >> 1) };
+		const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 
 		// Draw cube
 		lwmf::Line(ScreenTexture, CubePos.X, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeRed);

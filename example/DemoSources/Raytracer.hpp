@@ -262,8 +262,8 @@ namespace Raytracer
 
 	inline void Draw()
 	{
-		static const Material Glass(1.5F, Vec4f(0.0F, 0.5F, 0.1F, 0.8F), Vec3f(0.6F, 0.7F, 0.8F), 125.0F);
-		static const float DirZ{ -ScreenTexture.Height / (2.0F * std::tanf(lwmf::PI / 6.0F)) };
+		const Material Glass(1.5F, Vec4f(0.0F, 0.5F, 0.1F, 0.8F), Vec3f(0.6F, 0.7F, 0.8F), 125.0F);
+		const float DirZ{ -ScreenTexture.Height / (2.0F * std::tanf(lwmf::PI / 6.0F)) };
 		static Vec3f SpherePos{ -5.0F, 0.0F, -20.0F };
 		static Vec3f SphereDir{ 0.5F, 0.5F, 1.5F };
 		static float Zoom{ 50.0F };

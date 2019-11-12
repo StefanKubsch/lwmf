@@ -48,7 +48,6 @@ namespace Tunnel
 	{
 		static std::int_fast32_t OldViewPortWidth{};
 		static std::int_fast32_t OldViewPortHeight{};
-		static float Anim{};
 
 		if (OldViewPortWidth != ScreenTexture.Width || OldViewPortHeight != ScreenTexture.Height)
 		{
@@ -58,6 +57,7 @@ namespace Tunnel
 			lwmf::ClearTexture(ScreenTexture, 0);
 		}
 
+		static float Anim{};
 		Anim += 0.004F;
 
 		const std::int_fast32_t SpeedFactor{ static_cast<std::int_fast32_t>(Texture.Width * 2.15F * Anim) };

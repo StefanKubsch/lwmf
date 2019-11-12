@@ -23,7 +23,7 @@ namespace Morph
 
 	inline void Init()
 	{
-		static const std::uniform_real<float> Distrib(0.0F, RAND_MAX);
+		const std::uniform_real<float> Distrib(0.0F, RAND_MAX);
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{
@@ -45,7 +45,7 @@ namespace Morph
 
 	inline void ShowDots(const std::int_fast32_t CenterX, const std::int_fast32_t CenterY, float const Scale, float& DotAngle)
 	{
-		static constexpr float Distance{ 128.0F };
+		constexpr float Distance{ 128.0F };
 
 		lwmf::ClearTexture(ScreenTexture, 0);
 
@@ -75,7 +75,7 @@ namespace Morph
 
 	inline void Draw()
 	{
-		static constexpr float ScaleFactor{ 95.0F };
+		constexpr float ScaleFactor{ 95.0F };
 		static float Angle{};
 		static std::int_fast32_t Count1{};
 		static std::int_fast32_t Count2{};

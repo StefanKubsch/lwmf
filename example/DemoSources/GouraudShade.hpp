@@ -247,8 +247,8 @@ namespace GouraudShade
 
 	inline void DrawFace(const std::int_fast32_t Index1, const std::int_fast32_t Index2, const std::int_fast32_t Index3)
 	{
-		static std::array<lwmf::IntPointStruct, 3> Face2D{};
-		static std::array<std::int_fast32_t, 3> Colors{};
+		std::array<lwmf::IntPointStruct, 3> Face2D{};
+		std::array<std::int_fast32_t, 3> Colors{};
 
 		Face2D[0].X = Shape2D[Index1].X;
 		Face2D[0].Y = Shape2D[Index1].Y;
@@ -257,7 +257,7 @@ namespace GouraudShade
 		Face2D[2].X = Shape2D[Index3].X;
 		Face2D[2].Y = Shape2D[Index3].Y;
 
-		static constexpr std::int_fast32_t MaxZ{ Radius1 + Radius2 + Radius1 };
+		constexpr std::int_fast32_t MaxZ{ Radius1 + Radius2 + Radius1 };
 
 		Colors[0] = 30 + 127 * (RotatedShape[Index1].z + MaxZ) / MaxZ; //-V525
 		Colors[1] = 50 + 127 * (RotatedShape[Index2].z + MaxZ) / MaxZ;

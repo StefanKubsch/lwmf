@@ -19,25 +19,11 @@ namespace VectorCube
 			float z{};
 		};
 
-		struct CubeFaceStruct final
-		{
-			std::int_fast32_t p0{};
-			std::int_fast32_t p1{};
-			std::int_fast32_t p2{};
-			std::int_fast32_t p3{};
-		};
-
-		static constexpr std::int_fast32_t CubeNumFaces{ 6 };
-		static constexpr std::int_fast32_t CubeNumPoints{ 8 };
-		static constexpr std::array<CubeFaceStruct, 6> CubeFaces{ { {0,1,3,2}, {4,0,2,6}, {5,4,6,7}, {1,5,7,3}, {0,1,5,4}, {2,3,7,6} } };
-		static const std::array<std::int_fast32_t, 6> CubeFacesColors{ lwmf::RGBAtoINT(185, 242, 145, 255), lwmf::RGBAtoINT(80, 191, 148, 255), lwmf::RGBAtoINT(94, 89, 89, 255),	lwmf::RGBAtoINT(247, 35, 73, 255), lwmf::RGBAtoINT(255, 132, 94,255), lwmf::RGBAtoINT(246, 220, 133, 255) };
+		constexpr std::int_fast32_t CubeNumPoints{ 8 };
 		static std::array<VertexStruct, 8> CubeDef{ { { -200.0F, -200.0F, -200.0F }, { -200.0F, -200.0F, 200.0F }, { -200.0F, 200.0F, -200.0F }, { -200.0F, 200.0F, 200.0F }, { 200.0F, -200.0F, -200.0F }, { 200.0F, -200.0F, 200.0F }, { 200.0F, 200.0F, -200.0F }, { 200.0F, 200.0F, 200.0F } } };
-		static std::array<lwmf::IntPointStruct, CubeNumPoints> Cube{};
-		static std::vector<lwmf::IntPointStruct> Points(4);
-		static std::array<std::int_fast32_t, CubeNumFaces> Order{};
-		static std::array<float, CubeNumFaces> AverageZ{};
-		static const float CosA{ std::cosf(0.03F) };
-		static const float SinA{ std::sinf(0.03F) };
+		std::array<lwmf::IntPointStruct, CubeNumPoints> Cube{};
+		const float CosA{ std::cosf(0.03F) };
+		const float SinA{ std::sinf(0.03F) };
 
 		lwmf::ClearTexture(ScreenTexture, 0);
 
@@ -61,6 +47,19 @@ namespace VectorCube
 			Cube[i].Y = ScreenTexture.HeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
 		}
 
+		struct CubeFaceStruct final
+		{
+			std::int_fast32_t p0{};
+			std::int_fast32_t p1{};
+			std::int_fast32_t p2{};
+			std::int_fast32_t p3{};
+		};
+
+		constexpr std::int_fast32_t CubeNumFaces{ 6 };
+		constexpr std::array<CubeFaceStruct, 6> CubeFaces{ { {0,1,3,2}, {4,0,2,6}, {5,4,6,7}, {1,5,7,3}, {0,1,5,4}, {2,3,7,6} } };
+		std::array<std::int_fast32_t, CubeNumFaces> Order{};
+		std::array<float, CubeNumFaces> AverageZ{};
+
 		// Sort faces
 		for (std::int_fast32_t i{}; i < CubeNumFaces; ++i)
 		{
@@ -83,6 +82,9 @@ namespace VectorCube
 			std::swap(AverageZ[Min], AverageZ[i]);
 			std::swap(Order[Min], Order[i]);
 		}
+
+		std::vector<lwmf::IntPointStruct> Points(4);
+		const std::array<std::int_fast32_t, 6> CubeFacesColors{ lwmf::RGBAtoINT(185, 242, 145, 255), lwmf::RGBAtoINT(80, 191, 148, 255), lwmf::RGBAtoINT(94, 89, 89, 255),	lwmf::RGBAtoINT(247, 35, 73, 255), lwmf::RGBAtoINT(255, 132, 94,255), lwmf::RGBAtoINT(246, 220, 133, 255) };
 
 		for (std::int_fast32_t i{}; i < CubeNumFaces; ++i)
 		{
