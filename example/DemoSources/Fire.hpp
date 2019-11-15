@@ -10,39 +10,40 @@ namespace Fire
 
 	inline void Draw()
 	{
-		constexpr std::int_fast32_t CubeSize{ 250 };
-		constexpr std::int_fast32_t CubeHalf{ CubeSize >> 1 };
-		const std::int_fast32_t CubeRed{ lwmf::RGBAtoINT(255, 0, 0, 255) };
-		const std::int_fast32_t CubeYellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
-		const lwmf::IntPointStruct CubePos{ ScreenTexture.WidthMid - CubeSize + (CubeHalf >> 1), ScreenTexture.HeightMid - (CubeHalf >> 1) };
-		const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
-
 		// Draw cube
-		lwmf::Line(ScreenTexture, CubePos.X, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
-		lwmf::Line(ScreenTexture, CubePos.X + 1, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 1, CubeYellow);
-		lwmf::Line(ScreenTexture, CubePos.X + 2, CubePos.Y, CubePos.X + CubeHalf, CubePos.Y - CubeHalf + 2, CubeRed);
+		constexpr std::int_fast32_t Size{ 250 };
+		constexpr std::int_fast32_t Half{ Size >> 1 };
+		const std::int_fast32_t Red{ lwmf::RGBAtoINT(255, 0, 0, 255) };
+		const std::int_fast32_t Yellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
+		const lwmf::IntPointStruct Pos{ ScreenTexture.WidthMid - Size + (Half >> 1), ScreenTexture.HeightMid - (Half >> 1) };
 
-		lwmf::Line(ScreenTexture, CubePos.X, CubePos.Y + CubeSize, CubePos.X + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
-		lwmf::Line(ScreenTexture, CubePos.X + 1, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 1, CubePos.Y + CubeHalf, CubeYellow);
-		lwmf::Line(ScreenTexture, CubePos.X + 2, CubePos.Y + CubeSize, CubePos.X + CubeHalf + 2, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, Pos.X, Pos.Y, Pos.X + Half, Pos.Y - Half, Red);
+		lwmf::Line(ScreenTexture, Pos.X + 1, Pos.Y, Pos.X + Half, Pos.Y - Half + 1, Yellow);
+		lwmf::Line(ScreenTexture, Pos.X + 2, Pos.Y, Pos.X + Half, Pos.Y - Half + 2, Red);
 
-		lwmf::Line(ScreenTexture, CubePos.X + CubeSize, CubePos.Y, CubePos.X + CubeSize + CubeHalf, CubePos.Y - CubeHalf, CubeRed);
-		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 1, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y - CubeHalf, CubeYellow);
-		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 2, CubePos.Y, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y - CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, Pos.X, Pos.Y + Size, Pos.X + Half, Pos.Y + Half, Red);
+		lwmf::Line(ScreenTexture, Pos.X + 1, Pos.Y + Size, Pos.X + Half + 1, Pos.Y + Half, Yellow);
+		lwmf::Line(ScreenTexture, Pos.X + 2, Pos.Y + Size, Pos.X + Half + 2, Pos.Y + Half, Red);
 
-		lwmf::Line(ScreenTexture, CubePos.X + CubeSize, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf, CubePos.Y + CubeHalf, CubeRed);
-		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 1, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 1, CubePos.Y + CubeHalf, CubeYellow);
-		lwmf::Line(ScreenTexture, CubePos.X + CubeSize - 2, CubePos.Y + CubeSize, CubePos.X + CubeSize + CubeHalf - 2, CubePos.Y + CubeHalf, CubeRed);
+		lwmf::Line(ScreenTexture, Pos.X + Size, Pos.Y, Pos.X + Size + Half, Pos.Y - Half, Red);
+		lwmf::Line(ScreenTexture, Pos.X + Size - 1, Pos.Y, Pos.X + Size + Half - 1, Pos.Y - Half, Yellow);
+		lwmf::Line(ScreenTexture, Pos.X + Size - 2, Pos.Y, Pos.X + Size + Half - 2, Pos.Y - Half, Red);
 
-		lwmf::Rectangle(ScreenTexture, CubePos.X + CubeHalf, CubePos.Y - CubeHalf, CubeSize, CubeSize, CubeRed);
-		lwmf::Rectangle(ScreenTexture, CubePos.X + CubeHalf + 1, CubePos.Y - CubeHalf + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
-		lwmf::Rectangle(ScreenTexture, CubePos.X + CubeHalf + 2, CubePos.Y - CubeHalf + 2, CubeSize - 4, CubeSize - 4, CubeRed);
+		lwmf::Line(ScreenTexture, Pos.X + Size, Pos.Y + Size, Pos.X + Size + Half, Pos.Y + Half, Red);
+		lwmf::Line(ScreenTexture, Pos.X + Size - 1, Pos.Y + Size, Pos.X + Size + Half - 1, Pos.Y + Half, Yellow);
+		lwmf::Line(ScreenTexture, Pos.X + Size - 2, Pos.Y + Size, Pos.X + Size + Half - 2, Pos.Y + Half, Red);
 
-		lwmf::Rectangle(ScreenTexture, CubePos.X, CubePos.Y, CubeSize, CubeSize, CubeRed);
-		lwmf::Rectangle(ScreenTexture, CubePos.X + 1, CubePos.Y + 1, CubeSize - 2, CubeSize - 2, CubeYellow);
-		lwmf::Rectangle(ScreenTexture, CubePos.X + 2, CubePos.Y + 2, CubeSize - 4, CubeSize - 4, CubeRed);
+		lwmf::Rectangle(ScreenTexture, Pos.X + Half, Pos.Y - Half, Size, Size, Red);
+		lwmf::Rectangle(ScreenTexture, Pos.X + Half + 1, Pos.Y - Half + 1, Size - 2, Size - 2, Yellow);
+		lwmf::Rectangle(ScreenTexture, Pos.X + Half + 2, Pos.Y - Half + 2, Size - 4, Size - 4, Red);
+
+		lwmf::Rectangle(ScreenTexture, Pos.X, Pos.Y, Size, Size, Red);
+		lwmf::Rectangle(ScreenTexture, Pos.X + 1, Pos.Y + 1, Size - 2, Size - 2, Yellow);
+		lwmf::Rectangle(ScreenTexture, Pos.X + 2, Pos.Y + 2, Size - 4, Size - 4, Red);
 
 		// Apply fire
+		const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
+
 		#pragma omp parallel for
 		for (std::int_fast32_t y{ 1 }; y < ScreenTexture.Height; ++y)
 		{

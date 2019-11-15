@@ -15,8 +15,8 @@ namespace Bobs
 	inline static std::array<lwmf::FloatPointStruct, 512> Bob1Coord{};
 	inline static std::array<lwmf::FloatPointStruct, 512> Bob2Coord{};
 
-	static constexpr std::int_fast32_t PatternWidth{ 600 >> 1};
-	static constexpr std::int_fast32_t PatternHeight{ 300 >> 1 };
+	static constexpr std::int_fast32_t PatternWidth{ 300 };
+	static constexpr std::int_fast32_t PatternHeight{ 150 };
 
 	inline void Init()
 	{
