@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="DemoSources\BitmapTest.hpp" />
     <ClInclude Include="DemoSources\Bobs.hpp" />
+    <ClInclude Include="DemoSources\Circle.hpp" />
     <ClInclude Include="DemoSources\Copperbars.hpp" />
     <ClInclude Include="DemoSources\DotTunnel.hpp" />
     <ClInclude Include="DemoSources\Fire.hpp" />

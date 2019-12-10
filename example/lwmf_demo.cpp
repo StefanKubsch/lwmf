@@ -65,10 +65,11 @@ inline std::mt19937 Engine(Seed());
 #include "./DemoSources/Raytracer.hpp"
 #include "./DemoSources/PrimitivesTest.hpp"
 #include "./DemoSources/BitmapTest.hpp"
+#include "./DemoSources/Circle.hpp"
 
 inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 21 };
+constexpr std::int_fast32_t MaxDemoPart{ 22 };
 lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
@@ -289,6 +290,12 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			{
 				BitmapTest::Draw();
 				DisplayInfoBox("Bitmap resize & blitting test");
+				break;
+			}
+			case 22:
+			{
+				Circle::Draw();
+				DisplayInfoBox("Perlin Noise Circle/Band");
 				break;
 			}
 			default: {}
