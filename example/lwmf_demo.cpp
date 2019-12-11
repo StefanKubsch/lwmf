@@ -74,22 +74,20 @@ lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
 {
-	constexpr std::int_fast32_t White{ static_cast<std::int_fast32_t>(0xFFFFFFFF) };
-	constexpr std::int_fast32_t Black{ static_cast<std::int_fast32_t>(0x00000000) };
 	static const std::string MusicDuration{ std::to_string(Music.GetDuration()) };
 
-	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, Black, Black);
+	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0x00000000, 0x00000000);
 
 	// Show partname
-	lwmf::RenderText(ScreenTexture, Partname, 10, 10, White);
+	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
 
 	// Show FPS counter
 	lwmf::FPSCounter();
-	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, White);
+	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 
 	// Show audio information
-	lwmf::RenderText(ScreenTexture, "Music duration: " + MusicDuration + " seconds", 10, 40, White);
-	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, White);
+	lwmf::RenderText(ScreenTexture, "Music duration: " + MusicDuration + " seconds", 10, 40, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, 0xFFFFFFFF);
 }
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
