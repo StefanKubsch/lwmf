@@ -74,7 +74,7 @@ lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
 {
-	static const std::string MusicDuration{ std::to_string(Music.GetDuration()) };
+	static const std::string MusicDuration{ "Music duration: " + std::to_string(Music.GetDuration()) + " seconds" };
 
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0x00000000, 0x00000000);
 
@@ -86,7 +86,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 
 	// Show audio information
-	lwmf::RenderText(ScreenTexture, "Music duration: " + MusicDuration + " seconds", 10, 40, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, MusicDuration, 10, 40, 0xFFFFFFFF);
 	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, 0xFFFFFFFF);
 }
 
