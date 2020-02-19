@@ -84,9 +84,9 @@ namespace Morph
 		{
 			for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 			{
-				Morph[i].x = (Count1 * Sphere[i].x + (256 - Count1) * Torus[i].x) / 256;
-				Morph[i].y = (Count1 * Sphere[i].y + (256 - Count1) * Torus[i].y) / 256;
-				Morph[i].z = (Count1 * Sphere[i].z + (256 - Count1) * Torus[i].z) / 256;
+				Morph[i].x = (static_cast<std::int_fast32_t>(Count1) * Sphere[i].x + (256.0F - static_cast<std::int_fast32_t>(Count1)) * Torus[i].x) / 256.0F;
+				Morph[i].y = (static_cast<std::int_fast32_t>(Count1) * Sphere[i].y + (256.0F - static_cast<std::int_fast32_t>(Count1)) * Torus[i].y) / 256.0F;
+				Morph[i].z = (static_cast<std::int_fast32_t>(Count1) * Sphere[i].z + (256.0F - static_cast<std::int_fast32_t>(Count1)) * Torus[i].z) / 256.0F;
 			}
 
 			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
@@ -99,9 +99,9 @@ namespace Morph
 		{
 			for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 			{
-				Morph[i].x = (Count2 * Torus[i].x + (256 - Count2) * Sphere[i].x) / 256;
-				Morph[i].y = (Count2 * Torus[i].y + (256 - Count2) * Sphere[i].y) / 256;
-				Morph[i].z = (Count2 * Torus[i].z + (256 - Count2) * Sphere[i].z) / 256;
+				Morph[i].x = (static_cast<std::int_fast32_t>(Count2) * Torus[i].x + (256.0F - static_cast<std::int_fast32_t>(Count2)) * Sphere[i].x) / 256.0F;
+				Morph[i].y = (static_cast<std::int_fast32_t>(Count2) * Torus[i].y + (256.0F - static_cast<std::int_fast32_t>(Count2)) * Sphere[i].y) / 256.0F;
+				Morph[i].z = (static_cast<std::int_fast32_t>(Count2) * Torus[i].z + (256.0F - static_cast<std::int_fast32_t>(Count2)) * Sphere[i].z) / 256.0F;
 			}
 
 			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);

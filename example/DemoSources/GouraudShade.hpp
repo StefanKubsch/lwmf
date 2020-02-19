@@ -48,9 +48,9 @@ namespace GouraudShade
 
 			for (std::int_fast32_t Count1{}; Count1 < ScaleFactor1; ++Count1, Beta += lwmf::DoublePI / ScaleFactor1)
 			{
-				Shape[Vertices].x = static_cast<std::int_fast32_t>(X - Radius1 * (std::cosf(Beta) * dz - std::sinf(Beta) *	dx * dy / Modulus) / Value);
-				Shape[Vertices].y = static_cast<std::int_fast32_t>(Y - Radius1 * std::sinf(Beta) * Value / Modulus);
-				Shape[Vertices].z = static_cast<std::int_fast32_t>(Z + Radius1 * (std::cosf(Beta) * dx + std::sinf(Beta) * dy * dz / Modulus) / Value);
+				Shape[Vertices].x = static_cast<std::int_fast32_t>(X - static_cast<float>(Radius1) * (std::cosf(Beta) * dz - std::sinf(Beta) *	dx * dy / Modulus) / Value);
+				Shape[Vertices].y = static_cast<std::int_fast32_t>(Y - static_cast<float>(Radius1) * std::sinf(Beta) * Value / Modulus);
+				Shape[Vertices].z = static_cast<std::int_fast32_t>(Z + static_cast<float>(Radius1) * (std::cosf(Beta) * dx + std::sinf(Beta) * dy * dz / Modulus) / Value);
 
 				++Vertices;
 			}
@@ -220,10 +220,10 @@ namespace GouraudShade
 		}
 	}
 
-	inline void RotatePoint(const std::int_fast32_t X, const std::int_fast32_t Y, const std::int_fast32_t XCenter, const std::int_fast32_t YCenter, const float SinAngle, const float CosAngle, std::int_fast32_t& EndX, std::int_fast32_t& EndY)
+	inline void RotatePoint(const std::int_fast32_t X, const std::int_fast32_t Y, const float SinAngle, const float CosAngle, std::int_fast32_t& EndX, std::int_fast32_t& EndY)
 	{
-		EndX = static_cast<std::int_fast32_t>((X - XCenter) * CosAngle - (Y - YCenter) * SinAngle + XCenter);
-		EndY = static_cast<std::int_fast32_t>((Y - YCenter) * CosAngle + (X - XCenter) * SinAngle + YCenter);
+		EndX = static_cast<float>(X) * CosAngle - static_cast<float>(Y) * SinAngle;
+		EndY = static_cast<float>(Y) * CosAngle + static_cast<float>(X) * SinAngle;
 	}
 
 	inline void RotateShape()
@@ -237,8 +237,8 @@ namespace GouraudShade
 
 		for (VertexCount = 0; VertexCount < Vertices; ++VertexCount)
 		{
-			RotatePoint(Shape[VertexCount].y, Shape[VertexCount].z, 0, 0, SinePhi, CosinePhi, RotatedShape[VertexCount].y, RotatedShape[VertexCount].z);
-			RotatePoint(Shape[VertexCount].x, RotatedShape[VertexCount].z, 0, 0, SineTheta, CosineTheta, RotatedShape[VertexCount].x, RotatedShape[VertexCount].z);
+			RotatePoint(Shape[VertexCount].y, Shape[VertexCount].z, SinePhi, CosinePhi, RotatedShape[VertexCount].y, RotatedShape[VertexCount].z);
+			RotatePoint(Shape[VertexCount].x, RotatedShape[VertexCount].z, SineTheta, CosineTheta, RotatedShape[VertexCount].x, RotatedShape[VertexCount].z);
 		}
 
 		Phi += 0.04F;
