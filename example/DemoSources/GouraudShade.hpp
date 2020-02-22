@@ -222,8 +222,8 @@ namespace GouraudShade
 
 	inline void RotatePoint(const std::int_fast32_t X, const std::int_fast32_t Y, const float SinAngle, const float CosAngle, std::int_fast32_t& EndX, std::int_fast32_t& EndY)
 	{
-		EndX = static_cast<float>(X) * CosAngle - static_cast<float>(Y) * SinAngle;
-		EndY = static_cast<float>(Y) * CosAngle + static_cast<float>(X) * SinAngle;
+		EndX = static_cast<std::int_fast32_t>(static_cast<float>(X) * CosAngle - static_cast<float>(Y) * SinAngle);
+		EndY = static_cast<std::int_fast32_t>(static_cast<float>(Y) * CosAngle + static_cast<float>(X) * SinAngle);
 	}
 
 	inline void RotateShape()
