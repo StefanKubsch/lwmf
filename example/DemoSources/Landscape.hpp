@@ -18,9 +18,9 @@ namespace Landscape
 
 	inline void Draw()
 	{
-		constexpr std::int_fast32_t YPos{ 40 };
-		constexpr std::int_fast32_t XOrigin{ 64 };
-		constexpr std::int_fast32_t ZOrigin{ 64 };
+		static constexpr std::int_fast32_t YPos{ 40 };
+		static constexpr std::int_fast32_t XOrigin{ 64 };
+		static constexpr std::int_fast32_t ZOrigin{ 64 };
 		static float LandscapeAngle{};
 
 		LandscapeAngle += 10.0F;

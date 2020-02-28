@@ -24,7 +24,7 @@ namespace Metaballs
 			{ {30, 500}, {-5, -6} }
 		} };
 
-		const std::int_fast32_t MetaballColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
+		static const std::int_fast32_t MetaballColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
 
 		for (auto& Ball : Metaballs)
 		{

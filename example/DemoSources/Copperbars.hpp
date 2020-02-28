@@ -38,7 +38,7 @@ namespace Copperbars
 
 	inline void Draw()
 	{
-		constexpr std::int_fast32_t Speed{ 3 };
+		static constexpr std::int_fast32_t Speed{ 3 };
 		static std::array<std::int_fast32_t, 4> RedBars{ 96, 88, 80, 72 };
 		static std::array<std::int_fast32_t, 4> GreenBars{ 64, 56, 48, 40 };
 		static std::array<std::int_fast32_t, 4> BlueBars{ 32, 24, 16, 8 };

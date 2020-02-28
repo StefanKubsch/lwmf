@@ -11,11 +11,11 @@ namespace Fire
 	inline void Draw()
 	{
 		// Draw cube
-		constexpr std::int_fast32_t Size{ 250 };
-		constexpr std::int_fast32_t Half{ Size >> 1 };
-		const std::int_fast32_t Red{ lwmf::RGBAtoINT(255, 0, 0, 255) };
-		const std::int_fast32_t Yellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
-		const lwmf::IntPointStruct Pos{ ScreenTexture.WidthMid - Size + (Half >> 1), ScreenTexture.HeightMid - (Half >> 1) };
+		static constexpr std::int_fast32_t Size{ 250 };
+		static constexpr std::int_fast32_t Half{ Size >> 1 };
+		static const std::int_fast32_t Red{ lwmf::RGBAtoINT(255, 0, 0, 255) };
+		static const std::int_fast32_t Yellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
+		static const lwmf::IntPointStruct Pos{ ScreenTexture.WidthMid - Size + (Half >> 1), ScreenTexture.HeightMid - (Half >> 1) };
 
 		lwmf::Line(ScreenTexture, Pos.X, Pos.Y, Pos.X + Half, Pos.Y - Half, Red);
 		lwmf::Line(ScreenTexture, Pos.X + 1, Pos.Y, Pos.X + Half, Pos.Y - Half + 1, Yellow);
@@ -42,7 +42,7 @@ namespace Fire
 		lwmf::Rectangle(ScreenTexture, Pos.X + 2, Pos.Y + 2, Size - 4, Size - 4, Red);
 
 		// Apply fire
-		const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
+		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 
 		#pragma omp parallel for
 		for (std::int_fast32_t y{ 1 }; y < ScreenTexture.Height; ++y)

@@ -45,7 +45,7 @@ namespace Morph
 
 	inline void ShowDots(const std::int_fast32_t CenterX, const std::int_fast32_t CenterY, float const Scale, float& DotAngle)
 	{
-		constexpr float Distance{ 128.0F };
+		static constexpr float Distance{ 128.0F };
 
 		lwmf::ClearTexture(ScreenTexture, 0);
 
@@ -75,7 +75,7 @@ namespace Morph
 
 	inline void Draw()
 	{
-		constexpr float ScaleFactor{ 95.0F };
+		static constexpr float ScaleFactor{ 95.0F };
 		static float Angle{};
 		static std::int_fast32_t Count1{};
 		static std::int_fast32_t Count2{};
