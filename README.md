@@ -38,6 +38,7 @@ Features:
 		- load PNG to texture
   
 	- Textures
+		- create
 		- resize
 		- scale
 		- crop
