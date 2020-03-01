@@ -29,7 +29,7 @@ namespace BitmapTest
 
 		std::to_chars(CounterString.data(), CounterString.data() + CounterString.size(), ++BlitCounter);
 
-		lwmf::FilledRectangle(ScreenTexture, 0, 65, ScreenTexture.Width - 1, 20, 0, 0);
+		lwmf::FilledRectangle(ScreenTexture, 0, 65, ScreenTexture.Width, 20, 0, 0);
 		lwmf::RenderText(ScreenTexture, "Number of bitmap blits (resize with bilinear filtering): " + std::string(CounterString.data()), 10, 70, 0xFFFFFFFF);
 	}
 

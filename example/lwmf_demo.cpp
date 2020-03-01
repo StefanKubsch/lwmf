@@ -76,7 +76,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 {
 	static const std::string MusicDuration{ "Music duration: " + std::to_string(Music.GetDuration()) + " seconds" };
 
-	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width - 1, 65, 0x00000000, 0x00000000);
+	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 65, 0x00000000, 0x00000000);
 
 	// Show partname
 	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
