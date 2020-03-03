@@ -108,6 +108,10 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		// Init the shaders used for rendering
 		ScreenTextureShader.LoadShader("Default", ScreenTexture);
 		ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);
+		// Initial clearance of window (looks better!)
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearBuffer();
+		lwmf::SwapBuffer();
 		// Init raw devices
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
 		// Init audio

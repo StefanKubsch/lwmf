@@ -43,8 +43,8 @@ namespace Lens
 
 		const std::int_fast32_t LensRadius{ LensWidth >> 1 };
 		const std::int_fast32_t LensRadiusPOW{ LensRadius * LensRadius };
-		constexpr std::int_fast32_t LensZoom{ 40 };
-		constexpr std::int_fast32_t LensZoomPOW{ LensZoom * LensZoom };
+		static constexpr std::int_fast32_t LensZoom{ 40 };
+		static constexpr std::int_fast32_t LensZoomPOW{ LensZoom * LensZoom };
 
 		for (std::int_fast32_t y{}; y < LensRadius; ++y)
 		{
