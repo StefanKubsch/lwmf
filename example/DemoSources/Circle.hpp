@@ -12,7 +12,7 @@ namespace Circle
         static float t{};
         static lwmf::PerlinNoise Ring;
 
-        lwmf::ClearTexture(ScreenTexture, 0);
+        lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
         for (float i{}; i < 1.0F; i += 0.01F) //-V1034
         {

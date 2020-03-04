@@ -92,14 +92,14 @@ namespace Raytracer
 		return lhs * T(-1);
 	}
 
-	struct Light
+	struct Light final
 	{
 		Light(const Vec3f& p, const float i) : Position(p), Intensity(i) {}
 		Vec3f Position{};
 		float Intensity{};
 	};
 
-	struct Material
+	struct Material final
 	{
 		Material(const float r, const Vec4f& a, const Vec3f& color, const float spec) : Albedo(a), DiffuseColor(color), SpecularExponent(spec), RefractiveIndex(r) {}
 		Material() : Albedo(1.0F, 0.0F, 0.0F, 0.0F), RefractiveIndex(1) {}
@@ -109,7 +109,7 @@ namespace Raytracer
 		float RefractiveIndex{};
 	};
 
-	struct Sphere
+	struct Sphere final
 	{
 		Vec3f Center{};
 		Material material{};

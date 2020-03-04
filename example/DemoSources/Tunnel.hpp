@@ -54,7 +54,7 @@ namespace Tunnel
 			OldViewPortWidth = ScreenTexture.Width;
 			OldViewPortHeight = ScreenTexture.Height;
 			Init();
-			lwmf::ClearTexture(ScreenTexture, 0);
+			lwmf::ClearTexture(ScreenTexture, 0x00000000);
 		}
 
 		static float Anim{};

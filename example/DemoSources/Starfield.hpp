@@ -24,7 +24,7 @@ namespace Starfield
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 		static const std::uniform_real<float> Distrib2(1.0F, MaxDepth);
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		#pragma omp parallel for
 		for (std::int_fast32_t i{}; i < MaxStars - 1; ++i)

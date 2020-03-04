@@ -31,7 +31,7 @@ namespace DotTunnel
 			Warp -= DepthAdd * 60.0F;
 		}
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		for (std::int_fast32_t j{}; j < DotTunnelRings; ++j)
 		{

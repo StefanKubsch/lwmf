@@ -43,7 +43,7 @@ namespace Copperbars
 		static std::array<std::int_fast32_t, 4> GreenBars{ 64, 56, 48, 40 };
 		static std::array<std::int_fast32_t, 4> BlueBars{ 32, 24, 16, 8 };
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		for (std::int_fast32_t i{ 3 }; i >= 0; --i)
 		{

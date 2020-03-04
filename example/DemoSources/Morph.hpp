@@ -47,7 +47,7 @@ namespace Morph
 	{
 		static constexpr float Distance{ 128.0F };
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{

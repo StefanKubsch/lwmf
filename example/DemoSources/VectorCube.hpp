@@ -21,11 +21,11 @@ namespace VectorCube
 
 		static constexpr std::int_fast32_t CubeNumPoints{ 8 };
 		static std::array<VertexStruct, 8> CubeDef{ { { -200.0F, -200.0F, -200.0F }, { -200.0F, -200.0F, 200.0F }, { -200.0F, 200.0F, -200.0F }, { -200.0F, 200.0F, 200.0F }, { 200.0F, -200.0F, -200.0F }, { 200.0F, -200.0F, 200.0F }, { 200.0F, 200.0F, -200.0F }, { 200.0F, 200.0F, 200.0F } } };
-		std::array<lwmf::IntPointStruct, CubeNumPoints> Cube{};
+		static std::array<lwmf::IntPointStruct, CubeNumPoints> Cube{};
 		static const float CosA{ std::cosf(0.03F) };
 		static const float SinA{ std::sinf(0.03F) };
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		for (std::int_fast32_t i{}; i < CubeNumPoints; ++i)
 		{
@@ -83,7 +83,7 @@ namespace VectorCube
 			std::swap(Order[Min], Order[i]);
 		}
 
-		std::vector<lwmf::IntPointStruct> Points(4);
+		static std::vector<lwmf::IntPointStruct> Points(4);
 		static const std::array<std::int_fast32_t, 6> CubeFacesColors{ lwmf::RGBAtoINT(185, 242, 145, 255), lwmf::RGBAtoINT(80, 191, 148, 255), lwmf::RGBAtoINT(94, 89, 89, 255),	lwmf::RGBAtoINT(247, 35, 73, 255), lwmf::RGBAtoINT(255, 132, 94,255), lwmf::RGBAtoINT(246, 220, 133, 255) };
 
 		for (std::int_fast32_t i{}; i < CubeNumFaces; ++i)

@@ -48,9 +48,9 @@ namespace Julia
 			Var2 -= 0.003F;
 		}
 
-		std::complex<float> c{};
+		static std::complex<float> c{};
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{

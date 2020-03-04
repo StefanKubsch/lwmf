@@ -36,7 +36,7 @@ namespace Landscape
 		const std::int_fast32_t CosA{ static_cast<std::int_fast32_t>(std::cosf(Factor * 0.01F) * 128.0F) };
 		const std::int_fast32_t SinA{ static_cast<std::int_fast32_t>(std::sinf(Factor * 0.01F) * 128.0F) };
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		for (std::int_fast32_t x{}; x < LandscapeTextureMap.Width; ++x)
 		{

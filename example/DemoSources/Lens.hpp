@@ -29,16 +29,7 @@ namespace Lens
 		if (ScreenTexture.Width != Wallpaper.Width || ScreenTexture.Height != Wallpaper.Height)
 		{
 			lwmf::ResizeTexture(Wallpaper, ScreenTexture.Width, ScreenTexture.Height, lwmf::FilterModes::BILINEAR);
-			LensWidth = (ScreenTexture.Size) / 2000;
-
-			if (LensWidth > 250)
-			{
-				LensWidth = 250;
-			}
-			else if (LensWidth < 2)
-			{
-				LensWidth = 2;
-			}
+			LensWidth = std::clamp((ScreenTexture.Size) / 2000, 2, 250);
 		}
 
 		const std::int_fast32_t LensRadius{ LensWidth >> 1 };

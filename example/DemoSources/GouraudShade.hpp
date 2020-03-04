@@ -276,7 +276,7 @@ namespace GouraudShade
 		RotateShape();
 		std::qsort(DrawOrder.data(), NumberOfVertices, sizeof(DrawOrder[0]), Compare);
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		for (VertexCount = 0; VertexCount < Vertices; ++VertexCount)
 		{

@@ -51,7 +51,7 @@ namespace Swarm
 		const std::int_fast32_t Elapsed{ static_cast<std::int_fast32_t>(GetTickCount()) };
 		const std::int_fast32_t Interval{ Elapsed - LastTime };
 
-		lwmf::ClearTexture(ScreenTexture, 0);
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		#pragma omp parallel for
 		for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)

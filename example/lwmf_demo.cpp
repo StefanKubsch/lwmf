@@ -74,8 +74,6 @@ lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
 {
-	static const std::string MusicDuration{ "Music duration: " + std::to_string(Music.GetDuration()) + " seconds" };
-
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 65, 0x00000000, 0x00000000);
 
 	// Show partname
@@ -86,8 +84,15 @@ inline void DisplayInfoBox(const std::string& Partname)
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 
 	// Show audio information
+	std::string MusicDuration{ "Music duration: " };
+	MusicDuration += std::to_string(Music.GetDuration());
+	MusicDuration += " seconds";
 	lwmf::RenderText(ScreenTexture, MusicDuration, 10, 40, 0xFFFFFFFF);
-	lwmf::RenderText(ScreenTexture, "Music position: " + std::to_string(Music.GetPosition()) + " seconds", 10, 50, 0xFFFFFFFF);
+
+	std::string MusicPosition{ "Music position: " };
+	MusicPosition += std::to_string(Music.GetPosition());
+	MusicPosition += " seconds";
+	lwmf::RenderText(ScreenTexture, MusicPosition, 10, 50, 0xFFFFFFFF);
 }
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
@@ -135,7 +140,10 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		return EXIT_FAILURE;
 	}
 
-	FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Size) + " pixels per frame";
+	FillrateTestString = "Fillrate test, clearing ";
+	FillrateTestString += std::to_string(ScreenTexture.Size);
+	FillrateTestString += " pixels per frame";
+
 	const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, 0XFFFFFF);
 	bool Quit{};
 
@@ -267,7 +275,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 17:
 			{
 				PerlinGFX::DrawParts();
-				DisplayInfoBox("Multithreaded, Perlin noise generated gfx");
+				DisplayInfoBox("Multithreaded Perlin noise generated gfx");
 				break;
 			}
 			case 18:
@@ -336,7 +344,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				lwmf::ResizeOpenGLWindow(ScreenTexture);
 			}
 
-			FillrateTestString = "Fillrate test, clearing " + std::to_string(ScreenTexture.Size) + " pixels per frame";
+			FillrateTestString = "Fillrate test, clearing ";
+			FillrateTestString += std::to_string(ScreenTexture.Size);
+			FillrateTestString += " pixels per frame";
+
 			break;
 		}
 		case WM_INPUT:
@@ -363,14 +374,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							case VK_RIGHT:
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
-								lwmf::ClearTexture(ScreenTexture, 0);
+								lwmf::ClearTexture(ScreenTexture, 0x00000000);
 								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
-								lwmf::ClearTexture(ScreenTexture, 0);
+								lwmf::ClearTexture(ScreenTexture, 0x00000000);
 								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
