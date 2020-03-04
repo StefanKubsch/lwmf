@@ -160,7 +160,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		{
 			if (Message.message == WM_QUIT)
 			{
-				DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, "MESSAGE: WM_QUIT received...");
+				DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, __LINE__, "MESSAGE: WM_QUIT received...");
 				Quit = true;
 				break;
 			}
@@ -320,7 +320,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	lwmf::UnregisterRawInputDevice(lwmf::DeviceIdentifier::HID_KEYBOARD);
 	lwmf::DeleteOpenGLContext();
 
-	DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, "Exit program...");
+	DemoLog.AddEntry(lwmf::LogLevel::Info, __FILENAME__, __LINE__, "Exit program...");
 
 	// Uncomment to find memory leaks in debug mode
 	//
