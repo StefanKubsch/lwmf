@@ -310,6 +310,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		}
 
 		// Bring the pixelbuffer to screen
+		lwmf::ClearBuffer();
 		ScreenTextureShader.RenderLWMFTexture(ScreenTexture, false, 1.0F);
 		lwmf::SwapBuffer();
 	}
