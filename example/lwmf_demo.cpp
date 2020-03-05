@@ -84,9 +84,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 
 	// Show audio information
-	std::string MusicDuration{ "Music duration: " };
-	MusicDuration += std::to_string(Music.GetDuration());
-	MusicDuration += " seconds";
+	static const std::string MusicDuration{ "Music duration: " + std::to_string(Music.GetDuration()) + " seconds" };
 	lwmf::RenderText(ScreenTexture, MusicDuration, 10, 40, 0xFFFFFFFF);
 
 	std::string MusicPosition{ "Music position: " };
