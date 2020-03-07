@@ -66,10 +66,11 @@ inline std::mt19937 Engine(Seed());
 #include "./DemoSources/PrimitivesTest.hpp"
 #include "./DemoSources/BitmapTest.hpp"
 #include "./DemoSources/Circle.hpp"
+#include "./DemoSources/Cubes.hpp"
 
 inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 22 };
+constexpr std::int_fast32_t MaxDemoPart{ 23 };
 lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
@@ -306,6 +307,12 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 				DisplayInfoBox("Perlin Noise Circle/Band");
 				break;
 			}
+			case 23:
+			{
+				Cubes::Draw();
+				DisplayInfoBox("Cubes (filled polygons)");
+				break;
+			}
 			default: {}
 		}
 
@@ -374,14 +381,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}

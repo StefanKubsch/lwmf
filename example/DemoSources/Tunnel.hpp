@@ -26,10 +26,10 @@ namespace Tunnel
 		TunnelHeight = TunnelScreenHeight >> 1;
 		Distance.clear();
 		Distance.shrink_to_fit();
-		Distance.resize(static_cast<size_t>(TunnelScreenWidth) << 1, std::vector<std::int_fast32_t>(static_cast<size_t>(TunnelScreenHeight) << 1));
+		Distance.resize(static_cast<std::size_t>(TunnelScreenWidth) << 1, std::vector<std::int_fast32_t>(static_cast<std::size_t>(TunnelScreenHeight) << 1));
 		Angle.clear();
 		Angle.shrink_to_fit();
-		Angle.resize(static_cast<size_t>(TunnelScreenWidth) << 1, std::vector<std::int_fast32_t>(static_cast<size_t>(TunnelScreenHeight) << 1));
+		Angle.resize(static_cast<std::size_t>(TunnelScreenWidth) << 1, std::vector<std::int_fast32_t>(static_cast<std::size_t>(TunnelScreenHeight) << 1));
 
 		for (std::int_fast32_t x{}; x < TunnelScreenWidth << 1; ++x)
 		{

@@ -144,6 +144,9 @@
     <ClInclude Include="DemoSources\Circle.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="DemoSources\Cubes.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp">

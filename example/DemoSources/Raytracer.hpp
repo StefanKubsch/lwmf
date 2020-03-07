@@ -11,10 +11,10 @@ namespace Raytracer
 {
 
 
-	template <size_t DIM, typename T> struct vec
+	template <std::size_t DIM, typename T> struct vec
 	{
-		vec() { for (size_t i{ DIM }; i--; data_[i] = T()); }
-		T& operator[](const size_t i) { return data_[i]; }
+		vec() { for (std::size_t i{ DIM }; i--; data_[i] = T()); }
+		T& operator[](const std::size_t i) { return data_[i]; }
 		const T& operator[](const size_t i) const { return data_[i]; }
 	private:
 		std::array<T, DIM> data_;
@@ -27,8 +27,8 @@ namespace Raytracer
 	{
 		vec() : x(T()), y(T()), z(T()) {}
 		vec(T X, T Y, T Z) : x(X), y(Y), z(Z) {}
-		T& operator[](const size_t i) { return i <= 0 ? x : (1 == i ? y : z); }
-		const T& operator[](const size_t i) const { return i <= 0 ? x : (1 == i ? y : z); }
+		T& operator[](const std::size_t i) { return i <= 0 ? x : (1 == i ? y : z); }
+		const T& operator[](const std::size_t i) const { return i <= 0 ? x : (1 == i ? y : z); }
 		float norm() { return std::sqrt(x * x + y * y + z * z); }
 		vec<3, T>& normalize(T l = 1) { *this = (*this) * (l / norm()); return *this; }
 		T x, y, z;
@@ -38,16 +38,16 @@ namespace Raytracer
 	{
 		vec() : x(T()), y(T()), z(T()), w(T()) {}
 		vec(T X, T Y, T Z, T W) : x(X), y(Y), z(Z), w(W) {}
-		T& operator[](const size_t i) { return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
-		const T& operator[](const size_t i) const { return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
+		T& operator[](const std::size_t i) { return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
+		const T& operator[](const std::size_t i) const { return i <= 0 ? x : (1 == i ? y : (2 == i ? z : w)); }
 		T x, y, z, w;
 	};
 
-	template<size_t DIM, typename T> T operator*(const vec<DIM, T>& lhs, const vec<DIM, T>& rhs)
+	template<std::size_t DIM, typename T> T operator*(const vec<DIM, T>& lhs, const vec<DIM, T>& rhs)
 	{
 		T ReturnValue{ T() };
 
-		for (size_t i{ DIM }; i--;)
+		for (std::size_t i{ DIM }; i--;)
 		{
 			ReturnValue += lhs[i] * rhs[i];
 		}
@@ -55,9 +55,9 @@ namespace Raytracer
 		return ReturnValue;
 	}
 
-	template<size_t DIM, typename T>vec<DIM, T> operator+(vec<DIM, T> lhs, const vec<DIM, T>& rhs)
+	template<std::size_t DIM, typename T>vec<DIM, T> operator+(vec<DIM, T> lhs, const vec<DIM, T>& rhs)
 	{
-		for (size_t i{ DIM }; i--;)
+		for (std::size_t i{ DIM }; i--;)
 		{
 			lhs[i] += rhs[i];
 		}
@@ -65,9 +65,9 @@ namespace Raytracer
 		return lhs;
 	}
 
-	template<size_t DIM, typename T>vec<DIM, T> operator-(vec<DIM, T> lhs, const vec<DIM, T>& rhs)
+	template<std::size_t DIM, typename T>vec<DIM, T> operator-(vec<DIM, T> lhs, const vec<DIM, T>& rhs)
 	{
-		for (size_t i{ DIM }; i--;)
+		for (std::size_t i{ DIM }; i--;)
 		{
 			lhs[i] -= rhs[i];
 		}
@@ -75,11 +75,11 @@ namespace Raytracer
 		return lhs;
 	}
 
-	template<size_t DIM, typename T, typename U> vec<DIM, T> operator*(const vec<DIM, T>& lhs, const U& rhs)
+	template<std::size_t DIM, typename T, typename U> vec<DIM, T> operator*(const vec<DIM, T>& lhs, const U& rhs)
 	{
 		vec<DIM, T> ReturnValue;
 
-		for (size_t i{ DIM }; i--;)
+		for (std::size_t i{ DIM }; i--;)
 		{
 			ReturnValue[i] = lhs[i] * rhs;
 		}
@@ -87,7 +87,7 @@ namespace Raytracer
 		return ReturnValue;
 	}
 
-	template<size_t DIM, typename T> vec<DIM, T> operator-(const vec<DIM, T>& lhs)
+	template<std::size_t DIM, typename T> vec<DIM, T> operator-(const vec<DIM, T>& lhs)
 	{
 		return lhs * T(-1);
 	}
@@ -191,7 +191,7 @@ namespace Raytracer
 	inline std::int_fast32_t SphericalMapWidth{};
 	inline std::int_fast32_t SphericalMapHeight{};
 
-	inline Vec3f CastRay(const Vec3f& Origin, const Vec3f& Direction, const std::vector<Sphere>& spheres, const std::vector<Light>& lights, size_t Depth = 0)
+	inline Vec3f CastRay(const Vec3f& Origin, const Vec3f& Direction, const std::vector<Sphere>& spheres, const std::vector<Light>& lights, std::size_t Depth = 0)
 	{
 		Vec3f Point{};
 		Vec3f N{};
@@ -251,7 +251,7 @@ namespace Raytracer
 
 		SphericalMapWidth = SphericalMapPNG.Width;
 		SphericalMapHeight = SphericalMapPNG.Height;
-		SphericalMap = std::vector<Vec3f>(static_cast<size_t>(SphericalMapWidth) * static_cast<size_t>(SphericalMapHeight));
+		SphericalMap = std::vector<Vec3f>(static_cast<std::size_t>(SphericalMapWidth) * static_cast<std::size_t>(SphericalMapHeight));
 
 		for (std::int_fast32_t Offset{}; Offset < SphericalMapPNG.Size; ++Offset)
 		{

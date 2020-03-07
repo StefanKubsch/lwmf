@@ -12,7 +12,7 @@ namespace Lens
 	inline static lwmf::IntPointStruct LensPos{};
 	inline static lwmf::IntPointStruct Dir{};
 	inline static std::int_fast32_t LensWidth{ 250 };
-	inline static std::vector<std::vector<std::int_fast32_t>> Lens(LensWidth, std::vector<std::int_fast32_t>(static_cast<size_t>(LensWidth)));
+	inline static std::vector<std::vector<std::int_fast32_t>> Lens(LensWidth, std::vector<std::int_fast32_t>(static_cast<std::size_t>(LensWidth)));
 	inline static std::int_fast32_t OldViewPortWidth{};
 	inline static std::int_fast32_t OldViewPortHeight{};
 

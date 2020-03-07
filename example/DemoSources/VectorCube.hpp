@@ -96,7 +96,7 @@ namespace VectorCube
 				{ Cube[CubeFaces[Order[i]].p3].X, Cube[CubeFaces[Order[i]].p3].Y }
 			};
 
-			lwmf::FilledPolygon(ScreenTexture, Points, CubeFacesColors[Order[i]], CubeFacesColors[Order[i]]);
+			lwmf::FilledPolygon(ScreenTexture, Points, 0xFFFFFFFF, CubeFacesColors[Order[i]]);
 		}
 	}
 
