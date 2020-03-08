@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <vector>
 #include <algorithm>
+#include <queue>
 
 #include "lwmf_general.hpp"
 #include "lwmf_math.hpp"
@@ -24,7 +25,7 @@ namespace lwmf
 	void SetPixel(TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Color);
 	void SetPixelSafe(TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Color);
 	std::int_fast32_t GetPixel(const TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y);
-	void ScanlineFill(TextureStruct& Texture, const IntPointStruct& CenterPoint, std::int_fast32_t BorderColor, std::int_fast32_t FillColor);
+	void ScanlineFill(TextureStruct& Texture, const IntPointStruct& CenterPoint, std::int_fast32_t FillColor);
 	void Line(TextureStruct& Texture, std::int_fast32_t x1, std::int_fast32_t y1, std::int_fast32_t x2, std::int_fast32_t y2, std::int_fast32_t Color);
 	void Rectangle(TextureStruct& Texture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t Color);
 	void FilledRectangle(TextureStruct& Texture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t BorderColor, std::int_fast32_t FillColor);
@@ -71,7 +72,7 @@ namespace lwmf
 	// Fill
 	//
 
-	inline void ScanlineFill(TextureStruct& Texture, const IntPointStruct& CenterPoint, const std::int_fast32_t BorderColor, const std::int_fast32_t FillColor)
+	inline void ScanlineFill(TextureStruct& Texture, const IntPointStruct& CenterPoint, const std::int_fast32_t FillColor)
 	{
 		IntPointStruct Points{ CenterPoint };
 		std::vector<IntPointStruct> Stack{};
@@ -84,7 +85,7 @@ namespace lwmf
 
 			std::int_fast32_t x1{ Points.X };
 
-			while (x1 >= 0 && Texture.Pixels[Points.Y * Texture.Width + x1] != BorderColor)
+			while (x1 >= 0 && Texture.Pixels[Points.Y * Texture.Width + x1] != FillColor)
 			{
 				--x1;
 			}
@@ -96,26 +97,26 @@ namespace lwmf
 
 			const std::int_fast32_t TempY{ Points.Y * Texture.Width };
 
-			while (x1 < Texture.Width && Texture.Pixels[TempY + x1] != BorderColor)
+			while (x1 < Texture.Width && Texture.Pixels[TempY + x1] != FillColor)
 			{
 				Texture.Pixels[TempY + x1] = FillColor;
 
-				if (!Above && Points.Y > 0 && Texture.Pixels[(Points.Y - 1) * Texture.Width + x1] != BorderColor)
+				if (!Above && Points.Y > 0 && Texture.Pixels[(Points.Y - 1) * Texture.Width + x1] != FillColor)
 				{
 					Stack.push_back({ x1, Points.Y - 1 });
 					Above = true;
 				}
-				else if (Above && Points.Y > 0 && Texture.Pixels[(Points.Y - 1) * Texture.Width + x1] != BorderColor)
+				else if (Above && Points.Y > 0 && Texture.Pixels[(Points.Y - 1) * Texture.Width + x1] != FillColor)
 				{
 					Above = false;
 				}
 
-				if (!Below && Points.Y < Texture.Height - 1 && Texture.Pixels[(Points.Y + 1) * Texture.Width + x1] != BorderColor)
+				if (!Below && Points.Y < Texture.Height - 1 && Texture.Pixels[(Points.Y + 1) * Texture.Width + x1] != FillColor)
 				{
 					Stack.push_back({ x1, Points.Y + 1 });
 					Below = true;
 				}
-				else if (Below && Points.Y < Texture.Height - 1 && Texture.Pixels[(Points.Y + 1) * Texture.Width + x1] != BorderColor)
+				else if (Below && Points.Y < Texture.Height - 1 && Texture.Pixels[(Points.Y + 1) * Texture.Width + x1] != FillColor)
 				{
 					Below = false;
 				}
@@ -458,10 +459,13 @@ namespace lwmf
 
 		if (const IntPointStruct CentroidPoint{ GetPolygonCentroid(Points) }; PointInsidePolygon(Points, CentroidPoint))
 		{
-			ScanlineFill(Texture, CentroidPoint, FillColor, FillColor);
+			ScanlineFill(Texture, CentroidPoint, FillColor);
 		}
 
-		Polygon(Texture, Points, BorderColor);
+		if (BorderColor != FillColor)
+		{
+			Polygon(Texture, Points, BorderColor);
+		}
 	}
 
 

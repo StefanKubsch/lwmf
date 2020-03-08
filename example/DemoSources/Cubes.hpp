@@ -33,7 +33,7 @@ namespace Cubes
 			}
 		}
 
-		static std::vector<lwmf::IntPointStruct> Points(4);
+		std::vector<lwmf::IntPointStruct> Points(4);
 		std::int_fast32_t NextIndex{};
 
 		for (std::int_fast32_t y{ 1 }; y >= 0; --y)
@@ -74,12 +74,12 @@ namespace Cubes
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		std::int_fast32_t ShiftX{};
-		static const std::int_fast32_t ScreenWidthMid{ ScreenTexture.Width >> 1 };
-		static const std::int_fast32_t ScreenHeightMid{ ScreenTexture.Height >> 1 };
-		static const std::int_fast32_t CubeSizeTemp1{ static_cast<std::int_fast32_t>(static_cast<float>(CubeSize) * 1.8F) };
-		static const std::int_fast32_t CubeSizeTemp2{ static_cast<std::int_fast32_t>(static_cast<float>(CubeSize) * 2.3F) };
-		static const std::int_fast32_t MaxHeight{ ScreenTexture.Height - (CubeSize << 1) };
-		static const std::int_fast32_t MaxWidth{ ScreenTexture.Width - (CubeSize << 1) };
+		const std::int_fast32_t ScreenWidthMid{ ScreenTexture.Width >> 1 };
+		const std::int_fast32_t ScreenHeightMid{ ScreenTexture.Height >> 1 };
+		const std::int_fast32_t CubeSizeTemp1{ static_cast<std::int_fast32_t>(static_cast<float>(CubeSize) * 1.8F) };
+		const std::int_fast32_t CubeSizeTemp2{ static_cast<std::int_fast32_t>(static_cast<float>(CubeSize) * 2.3F) };
+		const std::int_fast32_t MaxHeight{ ScreenTexture.Height - (CubeSize << 1) };
+		const std::int_fast32_t MaxWidth{ ScreenTexture.Width - (CubeSize << 1) };
 
 		for (std::int_fast32_t j{ 100 }; j < MaxHeight; j += CubeSizeTemp1)
 		{

@@ -15,18 +15,18 @@ namespace GouraudShade
 		std::int_fast32_t z{};
 	};
 
-	static constexpr std::int_fast32_t ScaleFactor1{ 60 };
-	static constexpr std::int_fast32_t ScaleFactor2{ 400 };
-	static constexpr std::int_fast32_t Radius1{ 50 };
-	static constexpr std::int_fast32_t Radius2{ 100 };
-	static constexpr std::int_fast32_t NumberOfVertices{ ScaleFactor1 * ScaleFactor2 };
-	inline static std::array<Point3D, NumberOfVertices> Shape{};
-	inline static std::array<Point3D, NumberOfVertices> RotatedShape{};
-	inline static std::array<lwmf::IntPointStruct, NumberOfVertices> Shape2D{};
-	inline static std::array<std::int_fast32_t, NumberOfVertices> DrawOrder{};
-	inline static std::array<std::array<std::int_fast32_t, 4>, NumberOfVertices> PolygonCoords{};
-	inline static std::int_fast32_t Vertices{};
-	inline static std::int_fast32_t VertexCount{};
+	constexpr std::int_fast32_t ScaleFactor1{ 60 };
+	constexpr std::int_fast32_t ScaleFactor2{ 400 };
+	constexpr std::int_fast32_t Radius1{ 50 };
+	constexpr std::int_fast32_t Radius2{ 100 };
+	constexpr std::int_fast32_t NumberOfVertices{ ScaleFactor1 * ScaleFactor2 };
+	inline std::array<Point3D, NumberOfVertices> Shape{};
+	inline std::array<Point3D, NumberOfVertices> RotatedShape{};
+	inline std::array<lwmf::IntPointStruct, NumberOfVertices> Shape2D{};
+	inline std::array<std::int_fast32_t, NumberOfVertices> DrawOrder{};
+	inline std::array<std::array<std::int_fast32_t, 4>, NumberOfVertices> PolygonCoords{};
+	inline std::int_fast32_t Vertices{};
+	inline std::int_fast32_t VertexCount{};
 
 	inline void Init()
 	{

@@ -8,15 +8,15 @@ namespace Bobs
 {
 
 
-	inline static lwmf::TextureStruct Bob1BMP{};
-	inline static lwmf::TextureStruct Bob2BMP{};
-	inline static lwmf::TextureStruct CharMapBMP{};
+	inline lwmf::TextureStruct Bob1BMP{};
+	inline lwmf::TextureStruct Bob2BMP{};
+	inline lwmf::TextureStruct CharMapBMP{};
 
-	inline static std::array<lwmf::FloatPointStruct, 512> Bob1Coord{};
-	inline static std::array<lwmf::FloatPointStruct, 512> Bob2Coord{};
+	inline std::array<lwmf::FloatPointStruct, 512> Bob1Coord{};
+	inline std::array<lwmf::FloatPointStruct, 512> Bob2Coord{};
 
-	static constexpr std::int_fast32_t PatternWidth{ 300 };
-	static constexpr std::int_fast32_t PatternHeight{ 150 };
+	constexpr std::int_fast32_t PatternWidth{ 300 };
+	constexpr std::int_fast32_t PatternHeight{ 150 };
 
 	inline void Init()
 	{
@@ -42,7 +42,7 @@ namespace Bobs
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		// Bobs
-		static constexpr std::int_fast32_t MaxBobs{ 24 };
+		constexpr std::int_fast32_t MaxBobs{ 24 };
 		static std::int_fast32_t Bob1{ 0 };
 		static std::int_fast32_t Bob2{ 40 };
 
@@ -59,13 +59,13 @@ namespace Bobs
 		Bob2 += 10;
 
 		// SineScroller
-		static constexpr std::int_fast32_t CharWidth{ 37 };
-		static constexpr std::int_fast32_t Speed{ 8 };
-		static const std::string CharMap{ "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!().," };
-		static const std::string Text{ "...HELLO FOLKS, THIS IS JUST A LITTLE SCROLLER...AND SOME BOBS !!! ENJOY THE DEMO AND USE LWMF..." };
-		static const std::int_fast32_t TextLength{ static_cast<std::int_fast32_t>(Text.length()) };
-		static const std::int_fast32_t CharMapLength{ static_cast<std::int_fast32_t>(CharMap.length()) };
-		static const std::int_fast32_t ScrollLength{ static_cast<std::int_fast32_t>(TextLength) * (CharWidth + 5) };
+		constexpr std::int_fast32_t CharWidth{ 37 };
+		constexpr std::int_fast32_t Speed{ 8 };
+		const std::string CharMap{ "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!().," };
+		const std::string Text{ "...HELLO FOLKS, THIS IS JUST A LITTLE SCROLLER...AND SOME BOBS !!! ENJOY THE DEMO AND USE LWMF..." };
+		const std::int_fast32_t TextLength{ static_cast<std::int_fast32_t>(Text.length()) };
+		const std::int_fast32_t CharMapLength{ static_cast<std::int_fast32_t>(CharMap.length()) };
+		const std::int_fast32_t ScrollLength{ static_cast<std::int_fast32_t>(TextLength) * (CharWidth + 5) };
 		static std::int_fast32_t ScrollX{ ScreenTexture.Width };
 
 		for (std::int_fast32_t XPos{ ScrollX }, i{}; i < TextLength; ++i)

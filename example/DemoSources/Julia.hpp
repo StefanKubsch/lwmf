@@ -7,7 +7,7 @@ namespace Julia
 {
 
 
-	static constexpr std::int_fast32_t Iterations{ 256 };
+	constexpr std::int_fast32_t Iterations{ 256 };
 
 	inline std::int_fast32_t Set(std::complex<float> z, const std::complex<float>& c)
 	{
@@ -26,12 +26,12 @@ namespace Julia
 
 	inline void Draw()
 	{
-		static constexpr std::int_fast32_t Size{ 600 };
-		static constexpr float FCT{ 2.85F };
-		static constexpr float hFCT{ FCT * 0.5F };
-		static constexpr float Factor{ FCT / Size };
-		static constexpr std::complex<float> f(Factor, Factor);
-		static std::complex<float> Param{};
+		constexpr std::int_fast32_t Size{ 600 };
+		constexpr float FCT{ 2.85F };
+		constexpr float hFCT{ FCT * 0.5F };
+		constexpr float Factor{ FCT / Size };
+		constexpr std::complex<float> f(Factor, Factor);
+		std::complex<float> Param{};
 		static float Var1{};
 		static float Var2{};
 
@@ -48,7 +48,7 @@ namespace Julia
 			Var2 -= 0.003F;
 		}
 
-		static std::complex<float> c{};
+		std::complex<float> c{};
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 

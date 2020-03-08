@@ -10,7 +10,7 @@ namespace Circle
     inline void Draw()
     {
         static float t{};
-        static lwmf::PerlinNoise Ring;
+        lwmf::PerlinNoise Ring;
 
         lwmf::ClearTexture(ScreenTexture, 0x00000000);
 

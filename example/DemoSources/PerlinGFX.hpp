@@ -14,11 +14,11 @@ namespace PerlinGFX
 		DownRight
 	};
 
-	inline static float NoiseFactor{ 0.4F };
+	inline float NoiseFactor{ 0.4F };
 
 	inline void Draw(const Renderpart Part)
 	{
-		static lwmf::PerlinNoise PGFX;
+		lwmf::PerlinNoise PGFX;
 
 		lwmf::IntPointStruct Start{};
 		lwmf::IntPointStruct End{};

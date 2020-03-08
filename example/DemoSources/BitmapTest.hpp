@@ -9,7 +9,7 @@ namespace BitmapTest
 {
 
 
-	inline static lwmf::TextureStruct SourceTexture{};
+	inline lwmf::TextureStruct SourceTexture{};
 
 	inline void Init()
 	{
@@ -18,8 +18,8 @@ namespace BitmapTest
 
 	inline void Draw()
 	{
-		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
-		static const std::uniform_int_distribution<std::int_fast32_t> Size(1, 500);
+		const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
+		const std::uniform_int_distribution<std::int_fast32_t> Size(1, 500);
 
 		lwmf::TextureStruct Texture{ SourceTexture };
 		lwmf::ResizeTexture(Texture, Size(Engine), Size(Engine), lwmf::FilterModes::BILINEAR);

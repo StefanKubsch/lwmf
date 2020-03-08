@@ -9,12 +9,12 @@ namespace DotTunnel
 
 	inline void Draw()
 	{
-		static constexpr std::int_fast32_t DotTunnelRings{ 120 };
-		static constexpr std::int_fast32_t DotTunnelSpace{ 3 };
-		static constexpr float DotTunnelRadius{ 2500.0F };
-		static constexpr float DotTunnelAdd{ 0.06F };
-		static const float RadY1{ 300.0F * std::sinf(DotTunnelAdd * lwmf::RAD2DEG) + DotTunnelRadius };
-		static const float RadY2{ 300.0F * std::cosf(DotTunnelAdd * lwmf::RAD2DEG) + DotTunnelRadius };
+		constexpr std::int_fast32_t DotTunnelRings{ 120 };
+		constexpr std::int_fast32_t DotTunnelSpace{ 3 };
+		constexpr float DotTunnelRadius{ 2500.0F };
+		constexpr float DotTunnelAdd{ 0.06F };
+		const float RadY1{ 300.0F * std::sinf(DotTunnelAdd * lwmf::RAD2DEG) + DotTunnelRadius };
+		const float RadY2{ 300.0F * std::cosf(DotTunnelAdd * lwmf::RAD2DEG) + DotTunnelRadius };
 		static float DotTunnelMove{};
 		static float Warp{};
 		float Depth{ 35.0F };

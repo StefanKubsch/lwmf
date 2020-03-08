@@ -16,10 +16,10 @@ namespace Morph
 		float z{};
 	};
 
-	static constexpr std::int_fast32_t NumberOfPoints{ 10000 };
-	inline static std::array<DotStruct, NumberOfPoints> Sphere{};
-	inline static std::array<DotStruct, NumberOfPoints> Torus{};
-	inline static std::array<DotStruct, NumberOfPoints> Morph{};
+	constexpr std::int_fast32_t NumberOfPoints{ 10000 };
+	inline std::array<DotStruct, NumberOfPoints> Sphere{};
+	inline std::array<DotStruct, NumberOfPoints> Torus{};
+	inline std::array<DotStruct, NumberOfPoints> Morph{};
 
 	inline void Init()
 	{
@@ -45,7 +45,7 @@ namespace Morph
 
 	inline void ShowDots(const std::int_fast32_t CenterX, const std::int_fast32_t CenterY, float const Scale, float& DotAngle)
 	{
-		static constexpr float Distance{ 128.0F };
+		constexpr float Distance{ 128.0F };
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
@@ -75,7 +75,7 @@ namespace Morph
 
 	inline void Draw()
 	{
-		static constexpr float ScaleFactor{ 95.0F };
+		constexpr float ScaleFactor{ 95.0F };
 		static float Angle{};
 		static std::int_fast32_t Count1{};
 		static std::int_fast32_t Count2{};

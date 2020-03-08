@@ -7,7 +7,7 @@ namespace RotoZoom
 {
 
 
-	inline static lwmf::TextureStruct Texture{};
+	inline lwmf::TextureStruct Texture{};
 
 	inline void Init()
 	{
