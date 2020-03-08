@@ -37,7 +37,7 @@ namespace Bobs
 
 	inline void Draw()
 	{
-		static const std::int_fast32_t TransparentColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
+		const std::int_fast32_t TransparentColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
