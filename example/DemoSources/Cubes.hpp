@@ -98,7 +98,7 @@ namespace Cubes
 
 				if (StepTemp > 0.0F && StepTemp < 314.0F)
 				{
-					Angle += StepTemp / 200.0F;
+					Angle += StepTemp * 0.005F;
 					ShiftY = CubeSizeTemp1 * static_cast<std::int_fast32_t>(StepTemp) / 314;
 				}
 				else if (StepTemp <= 0.0F)
@@ -109,7 +109,7 @@ namespace Cubes
 					ShiftY = CubeSizeTemp1;
 				}
 
-				DrawCube(x, j - ShiftY, Angle, lwmf::RGBAtoINT(255 - i / 8, 0, i / 6, 255));
+				DrawCube(x, j - ShiftY, Angle, lwmf::RGBAtoINT(255 - (i >> 3), 0, i / 6, 255));
 			}
 		}
 	}

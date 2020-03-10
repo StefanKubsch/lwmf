@@ -30,14 +30,14 @@ namespace Metaballs
 		{
 			Ball.Pos.X += Ball.Velocity.X;
 
-			if (Ball.Pos.X > ScreenTexture.Width || Ball.Pos.X < 0)
+			if (static_cast<std::uint_fast32_t>(Ball.Pos.X) > static_cast<std::uint_fast32_t>(ScreenTexture.Width))
 			{
 				Ball.Velocity.X *= -1;
 			}
 
 			Ball.Pos.Y += Ball.Velocity.Y;
 
-			if (Ball.Pos.Y > ScreenTexture.Height || Ball.Pos.Y < 0)
+			if (static_cast<std::uint_fast32_t>(Ball.Pos.Y) > static_cast<std::uint_fast32_t>(ScreenTexture.Height))
 			{
 				Ball.Velocity.Y *= -1;
 			}

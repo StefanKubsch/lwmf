@@ -18,7 +18,7 @@ namespace PerlinGFX
 
 	inline void Draw(const Renderpart Part)
 	{
-		lwmf::PerlinNoise PGFX;
+		static lwmf::PerlinNoise PGFX;
 
 		lwmf::IntPointStruct Start{};
 		lwmf::IntPointStruct End{};

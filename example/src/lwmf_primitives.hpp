@@ -51,21 +51,22 @@ namespace lwmf
 
 	inline void SetPixelSafe(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, const std::int_fast32_t Color)
 	{
-		if (static_cast<std::uint_fast32_t>(x) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y) < static_cast<std::uint_fast32_t>(Texture.Height))
+		if (static_cast<std::uint_fast32_t>(x) >= static_cast<std::uint_fast32_t>(Texture.Width) || static_cast<std::uint_fast32_t>(y) >= static_cast<std::uint_fast32_t>(Texture.Height))
 		{
-			Texture.Pixels[y * Texture.Width + x] = Color;
+			return;
 		}
+
+		Texture.Pixels[y * Texture.Width + x] = Color;
 	}
 
 	inline std::int_fast32_t GetPixel(const TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y)
 	{
-		if (static_cast<std::uint_fast32_t>(x) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(y) < static_cast<std::uint_fast32_t>(Texture.Height))
+		if (static_cast<std::uint_fast32_t>(x) >= static_cast<std::uint_fast32_t>(Texture.Width) || static_cast<std::uint_fast32_t>(y) >= static_cast<std::uint_fast32_t>(Texture.Height))
 		{
-			return Texture.Pixels[y * Texture.Width + x];
+			return 0x00000000;
 		}
 
-		// If out of boundaries, return black
-		return 0x00000000;
+		return Texture.Pixels[y * Texture.Width + x];
 	}
 
 	//
