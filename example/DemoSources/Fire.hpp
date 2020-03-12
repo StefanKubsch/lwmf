@@ -47,14 +47,11 @@ namespace Fire
 		#pragma omp parallel for
 		for (std::int_fast32_t y{ 1 }; y < ScreenTexture.Height; ++y)
 		{
-			const std::int_fast32_t TempY{ (y - 1) * ScreenTexture.Width };
-			const std::int_fast32_t TempY1{ y * ScreenTexture.Width };
-
-			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
+			for (std::int_fast32_t x{ 1 }; x < ScreenTexture.Width - 1; ++x)
 			{
 				if ((Distrib1(Engine) & 31) == 0)
 				{
-					ScreenTexture.Pixels[TempY1 + x] = 0;
+					lwmf::SetPixel(ScreenTexture, x, y, 0x00000000);
 				}
 				else if (lwmf::GetPixel(ScreenTexture, x, y) != 0)
 				{
@@ -63,9 +60,9 @@ namespace Fire
 					const lwmf::ColorStruct Point3{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x - 1, y)) };
 					const lwmf::ColorStruct Point4{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x + 1, y - 1)) };
 
-					ScreenTexture.Pixels[TempY + x] = lwmf::RGBAtoINT((Point1.Red + Point2.Red + Point3.Red + Point4.Red) >> 2,
+					lwmf::SetPixel(ScreenTexture, x, y - 1, lwmf::RGBAtoINT((Point1.Red + Point2.Red + Point3.Red + Point4.Red) >> 2,
 						(Point1.Green + Point2.Green + Point3.Green + Point4.Green) >> 2,
-						(Point1.Blue + Point2.Blue + Point3.Blue + Point4.Blue) >> 2, 255);
+						(Point1.Blue + Point2.Blue + Point3.Blue + Point4.Blue) >> 2, 255));
 				}
 			}
 		}

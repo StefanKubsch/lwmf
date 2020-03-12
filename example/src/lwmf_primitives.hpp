@@ -25,6 +25,7 @@ namespace lwmf
 	void SetPixel(TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Color);
 	void SetPixelSafe(TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Color);
 	std::int_fast32_t GetPixel(const TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y);
+	std::int_fast32_t GetPixelSafe(const TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y);
 	void ScanlineFill(TextureStruct& Texture, const IntPointStruct& CenterPoint, std::int_fast32_t FillColor);
 	void Line(TextureStruct& Texture, std::int_fast32_t x1, std::int_fast32_t y1, std::int_fast32_t x2, std::int_fast32_t y2, std::int_fast32_t Color);
 	void Rectangle(TextureStruct& Texture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t Color);
@@ -60,6 +61,11 @@ namespace lwmf
 	}
 
 	inline std::int_fast32_t GetPixel(const TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y)
+	{
+		return Texture.Pixels[y * Texture.Width + x];
+	}
+
+	inline std::int_fast32_t GetPixelSafe(const TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y)
 	{
 		if (static_cast<std::uint_fast32_t>(x) >= static_cast<std::uint_fast32_t>(Texture.Width) || static_cast<std::uint_fast32_t>(y) >= static_cast<std::uint_fast32_t>(Texture.Height))
 		{

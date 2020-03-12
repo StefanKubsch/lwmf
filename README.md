@@ -16,8 +16,8 @@ Features:
 	
 	- Primitives
 		- SetPixel / GetPixel
-		- SetPixelSafe (with boundary checks)
-		- Flood/Boundary Fill (stack-implementation)
+		- SetPixelSafe / GetPixelSafe (with boundary checks)
+		- Scanline Fill (stack-implementation)
 		- Line
 		- Rectangle
 		- Filled Rectangle

@@ -24,8 +24,6 @@ namespace Metaballs
 			{ {30, 500}, {-5, -6} }
 		} };
 
-		const std::int_fast32_t MetaballColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
-
 		for (auto& Ball : Metaballs)
 		{
 			Ball.Pos.X += Ball.Velocity.X;
@@ -56,7 +54,7 @@ namespace Metaballs
 					BallSum += 3.0F / std::sqrtf(BallTemp.X * BallTemp.X + BallTemp.Y * BallTemp.Y);
 				}
 
-				lwmf::SetPixel(ScreenTexture, x, y, BallSum > 0.035F ? MetaballColor : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));
+				lwmf::SetPixel(ScreenTexture, x, y, BallSum > 0.035F ? 0xFF0000FF : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));
 			}
 		}
 	}
