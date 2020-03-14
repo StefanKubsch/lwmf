@@ -10,7 +10,23 @@ namespace Cubes
 {
 
 
+	inline lwmf::TextureStruct Background{};
 	inline constexpr std::int_fast32_t CubeSize{ 12 };
+	inline std::int_fast32_t OldViewPortWidth{};
+	inline std::int_fast32_t OldViewPortHeight{};
+
+	inline void Init()
+	{
+		OldViewPortWidth = ScreenTexture.Width;
+		OldViewPortHeight = ScreenTexture.Height;
+
+		lwmf::CreateTexture(Background, ScreenTexture.Width, ScreenTexture.Height, 0x00000000);
+
+		for (std::int_fast32_t i{}; i < Background.Width; ++i)
+		{
+			lwmf::Line(Background, Background.Width - i, 0, Background.Width - i, Background.Height, lwmf::RGBAtoINT(255 - (i >> 3), 0, i / 6, 255));
+		}
+	}
 
 	inline void DrawCube(const std::int_fast32_t cx, const std::int_fast32_t cy, const float Angle, const std::int_fast32_t Color)
 	{
@@ -68,10 +84,15 @@ namespace Cubes
 
 	inline void Draw()
 	{
+		if (OldViewPortWidth != ScreenTexture.Width || OldViewPortHeight != ScreenTexture.Height)
+		{
+			Init();
+		}
+
 		static std::int_fast32_t Steps{};
 		Steps = (Steps + 2) % 1570;
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::BlitTexture(Background, ScreenTexture, 0, 0);
 
 		std::int_fast32_t ShiftX{};
 		const std::int_fast32_t ScreenWidthMid{ ScreenTexture.Width >> 1 };

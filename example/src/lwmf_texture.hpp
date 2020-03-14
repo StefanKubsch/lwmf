@@ -66,8 +66,9 @@ namespace lwmf
 	inline void CreateTexture(TextureStruct& Texture, const std::int_fast32_t Width, const std::int_fast32_t Height, const std::int_fast32_t Color)
 	{
 		SetTextureMetrics(Texture, Width, Height);
-		Texture.Pixels.resize(static_cast<std::size_t>(Texture.Size));
-		ClearTexture(Texture, Color);
+		Texture.Pixels.clear();
+		Texture.Pixels.shrink_to_fit();
+		Texture.Pixels.resize(static_cast<std::size_t>(Texture.Size), Color);
 	}
 
 	inline void CropTexture(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, std::int_fast32_t Width, std::int_fast32_t Height)

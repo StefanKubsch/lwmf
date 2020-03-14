@@ -133,6 +133,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		Bobs::Init();
 		Raytracer::Init();
 		BitmapTest::Init();
+		Cubes::Init();
 	}
 	catch (const std::runtime_error&)
 	{
