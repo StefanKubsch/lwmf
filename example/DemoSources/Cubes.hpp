@@ -43,7 +43,7 @@ namespace Cubes
 			for (Index = 0; Index < 4; ++Index)
 			{
 				NextIndex = (Index + 1) & 3;
-				Points[Index + 1] = { PosX[NextIndex], PosY[NextIndex] + y * CubeSize };
+				Points[Index + 1] = { PosX[NextIndex], PosY[NextIndex] + y * CubeSize }; //-V557
 			}
 
 			lwmf::FilledPolygon(ScreenTexture, Points, 0x44444444, Color);

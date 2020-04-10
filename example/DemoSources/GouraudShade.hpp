@@ -66,7 +66,7 @@ namespace GouraudShade
 
 			for (std::int_fast32_t Count2{ 1 }; Count2 < ScaleFactor1; ++Count2)
 			{
-				Index2 = (Count1 == ScaleFactor2 - 1) ? Index2 = Count2 : Count2 + Index1 + ScaleFactor1;
+				Index2 = (Count1 == ScaleFactor2 - 1) ? Count2 : Count2 + Index1 + ScaleFactor1;
 				const float Distance{ static_cast<float>((Shape[Index1].x - Shape[Index2].x) * (Shape[Index1].x - Shape[Index2].x) + (Shape[Index1].y - Shape[Index2].y) * (Shape[Index1].y - Shape[Index2].y) + (Shape[Index1].z - Shape[Index2].z) * (Shape[Index1].z - Shape[Index2].z)) };
 
 				if (Distance < MinDistance)
