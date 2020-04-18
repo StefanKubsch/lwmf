@@ -14,8 +14,8 @@ namespace Cubes
 
 	inline void DrawCube(const std::int_fast32_t cx, const std::int_fast32_t cy, const float Angle, const std::int_fast32_t Color)
 	{
-		std::array<std::int_fast32_t, 4> PosX;
-		std::array<std::int_fast32_t, 4> PosY;
+		std::array<std::int_fast32_t, 4> PosX{};
+		std::array<std::int_fast32_t, 4> PosY{};
 		std::int_fast32_t MinIdx{ -1 };
 		std::int_fast32_t Index{};
 		float Min{ FLT_MAX };
