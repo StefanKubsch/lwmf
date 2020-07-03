@@ -22,7 +22,7 @@ namespace Swarm
 
 			void Init()
 			{
-				const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, RAND_MAX);
+				static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, RAND_MAX);
 
 				Pos = { 0.0F, 0.0F };
 
@@ -35,18 +35,17 @@ namespace Swarm
 			{
 				Pos.X += (Speed * std::cosf(Direction)) * Interval;
 				Pos.Y += (Speed * std::sinf(Direction)) * Interval;
-				Direction += Interval * 0.0009F;
+				Direction += static_cast<float>(Interval) * 0.0009F;
 
-				if (Pos.X < -1 || Pos.X > 1 || Pos.Y < -1 || Pos.Y > 1)
+				if (Pos.X < -1.0F || Pos.X > 1.0F || Pos.Y < -1.0F || Pos.Y > 1.0F)
 				{
 					Init();
 				}
 			}
 		};
 
-		constexpr std::int_fast32_t NumberOfParticles{ 30000 };
+		constexpr std::int_fast32_t NumberOfParticles{ 250000 };
 		static std::array<ParticleStruct, NumberOfParticles> Particles{};
-		const std::int_fast32_t ParticleColor{ lwmf::RGBAtoINT(255, 0, 255, 255) };
 		static std::int_fast32_t LastTime{};
 		const std::int_fast32_t Elapsed{ static_cast<std::int_fast32_t>(GetTickCount()) };
 		const std::int_fast32_t Interval{ Elapsed - LastTime };
@@ -57,7 +56,7 @@ namespace Swarm
 		for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
 		{
 			Particles[i].Update(Interval);
-			lwmf::SetPixelSafe(ScreenTexture, static_cast<std::int_fast32_t>((Particles[i].Pos.X + 1.0F) * ScreenTexture.WidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.Y * ScreenTexture.WidthMid + ScreenTexture.HeightMid), ParticleColor);
+			lwmf::SetPixelSafe(ScreenTexture, static_cast<std::int_fast32_t>((Particles[i].Pos.X + 1.0F) * ScreenTexture.WidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.Y * ScreenTexture.WidthMid + ScreenTexture.HeightMid), i >> 7);
 		}
 
 		LastTime = Elapsed;

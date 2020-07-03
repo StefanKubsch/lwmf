@@ -196,7 +196,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 4:
 			{
 				Swarm::Draw();
-				DisplayInfoBox("Realtime particle swarm - 30.000 particles");
+				DisplayInfoBox("OpenMP accelerated realtime particle swarm - 250.000 particles");
 				break;
 			}
 			case 5:
