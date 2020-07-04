@@ -343,12 +343,11 @@ namespace lwmf
 		}
 
 		// Second case; we can use std::fill here...
-		if (PosX == 0 && PosY >= 0 && PosY < Texture.Height && Width == Texture.Width && Height < Texture.Height)
+		if (PosX == 0 && PosY >= 0 && PosY < Texture.Height && Width == Texture.Width && Height <= Texture.Height)
 		{
 			const auto Begin{ Texture.Pixels.begin() + PosY * Texture.Width };
-			const auto End{ Begin + Texture.Width * Height };
 
-			std::fill(Begin, End, FillColor);
+			std::fill(Begin, Begin + Texture.Width * Height, FillColor);
 
 			if (BorderColor != FillColor)
 			{
