@@ -26,7 +26,6 @@ namespace Starfield
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
-		#pragma omp parallel for
 		for (std::int_fast32_t i{}; i < MaxStars - 1; ++i)
 		{
 			Stars[i].z -= 0.19F;

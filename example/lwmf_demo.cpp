@@ -196,7 +196,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 4:
 			{
 				Swarm::Draw();
-				DisplayInfoBox("OpenMP accelerated realtime particle swarm - 250.000 particles");
+				DisplayInfoBox("Realtime particle swarm - 250.000 particles");
 				break;
 			}
 			case 5:
@@ -208,7 +208,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 6:
 			{
 				Starfield::Draw();
-				DisplayInfoBox("OpenMP accelerated 3D starfield - 15.000 stars");
+				DisplayInfoBox("3D starfield - 15.000 stars");
 				break;
 			}
 			case 7:
@@ -256,7 +256,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 14:
 			{
 				Moiree::Draw();
-				DisplayInfoBox("OpenMP accelerated moiree");
+				DisplayInfoBox("Moiree");
 				break;
 			}
 			case 15:
