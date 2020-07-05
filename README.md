@@ -59,6 +59,7 @@ Features:
 		- Euclidian Distance
 		- Chebyshev Distance
 		- Manhattan Distance
+		- fast atan2 approximation
   
 	- Text
 		- simple 8x8 hardcoded bitmap font, standard ASCII
