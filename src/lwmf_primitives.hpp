@@ -34,6 +34,7 @@ namespace lwmf
 	void FilledRectangle(TextureStruct& Texture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t BorderColor, std::int_fast32_t FillColor);
 	void Circle(TextureStruct& Texture, std::int_fast32_t CenterX, std::int_fast32_t CenterY, std::int_fast32_t Radius, std::int_fast32_t Color);
 	void FilledCircle(TextureStruct& Texture, std::int_fast32_t CenterX, std::int_fast32_t CenterY, std::int_fast32_t Radius, std::int_fast32_t BorderColor, std::int_fast32_t FillColor);
+	void Ellipse(TextureStruct& Texture, std::int_fast32_t CenterX, std::int_fast32_t CenterY, std::int_fast32_t RadiusX, std::int_fast32_t RadiusY, std::int_fast32_t Color);
 	IntPointStruct GetPolygonCentroid(const std::vector<IntPointStruct>& Points);
 	bool PointInsidePolygon(const std::vector<IntPointStruct>& Points, const IntPointStruct& Point);
 	void Polygon(TextureStruct& Texture, const std::vector<IntPointStruct>& Points, std::int_fast32_t BorderColor);
@@ -438,51 +439,43 @@ namespace lwmf
 
 		IntPointStruct Dot{ -Radius, 0 };
 		std::int_fast32_t Error{ 2 - (Radius << 1) };
+		bool SafeFlag{};
 
 		// if complete circle is within screen boundaries, there is no reason to use SetPixelSafe...
 		if ((CenterX - Radius >= 0 && CenterX + Radius < Texture.Width) && (CenterY - Radius >= 0 && CenterY + Radius < Texture.Height))
 		{
-			do
+			SafeFlag = true;
+		}
+
+		do
+		{
+			if (SafeFlag)
 			{
 				Texture.Pixels[((CenterY + Dot.Y) * Texture.Width) + (CenterX - Dot.X)] = Color;
 				Texture.Pixels[((CenterY - Dot.X) * Texture.Width) + (CenterX - Dot.Y)] = Color;
 				Texture.Pixels[((CenterY - Dot.Y) * Texture.Width) + (CenterX + Dot.X)] = Color;
 				Texture.Pixels[((CenterY + Dot.X) * Texture.Width) + (CenterX + Dot.Y)] = Color;
-				Radius = Error;
-
-				if (Radius <= Dot.Y)
-				{
-					Error += (++Dot.Y << 1) + 1;
-				}
-
-				if (Radius > Dot.X || Error > Dot.Y)
-				{
-					Error += (++Dot.X << 1) + 1;
-				}
-			} while (Dot.X < 0);
-		}
-		// ...or use the "safe" version!
-		else
-		{
-			do
+			}
+			else
 			{
 				SetPixelSafe(Texture, CenterX - Dot.X, CenterY + Dot.Y, Color);
 				SetPixelSafe(Texture, CenterX - Dot.Y, CenterY - Dot.X, Color);
 				SetPixelSafe(Texture, CenterX + Dot.X, CenterY - Dot.Y, Color);
 				SetPixelSafe(Texture, CenterX + Dot.Y, CenterY + Dot.X, Color);
-				Radius = Error;
+			}
 
-				if (Radius <= Dot.Y)
-				{
-					Error += (++Dot.Y << 1) + 1;
-				}
+			Radius = Error;
 
-				if (Radius > Dot.X || Error > Dot.Y)
-				{
-					Error += (++Dot.X << 1) + 1;
-				}
-			} while (Dot.X < 0);
-		}
+			if (Radius <= Dot.Y)
+			{
+				Error += (++Dot.Y << 1) + 1;
+			}
+
+			if (Radius > Dot.X || Error > Dot.Y)
+			{
+				Error += (++Dot.X << 1) + 1;
+			}
+		} while (Dot.X < 0);
 	}
 
 	inline void FilledCircle(TextureStruct& Texture, const std::int_fast32_t CenterX, const std::int_fast32_t CenterY, const std::int_fast32_t Radius, const std::int_fast32_t BorderColor, const std::int_fast32_t FillColor)
@@ -515,6 +508,134 @@ namespace lwmf
 		if (BorderColor != FillColor)
 		{
 			Circle(Texture, CenterX, CenterY, Radius, BorderColor);
+		}
+	}
+
+	//
+	// Ellipses
+	//
+
+	inline void Ellipse(TextureStruct& Texture, const std::int_fast32_t CenterX, const std::int_fast32_t CenterY, const std::int_fast32_t RadiusX, const std::int_fast32_t RadiusY, const std::int_fast32_t Color)
+	{
+		// Exit early if coords are out of visual boundaries
+		if (CenterX + RadiusX < 0 || CenterX - RadiusX > Texture.Width || CenterY + RadiusY < 0 || CenterY - RadiusY > Texture.Height)
+		{
+			return;
+		}
+
+		const std::int_fast32_t RadiusYTemp{ RadiusY * RadiusY };
+		const std::int_fast32_t RadiusXTemp{ RadiusX * RadiusX };
+		std::int_fast32_t x{};
+		std::int_fast32_t y{ RadiusY };
+		std::int_fast32_t a{ 2 * RadiusYTemp * x };
+		std::int_fast32_t b{ 2 * RadiusXTemp * y };
+		float p1{ static_cast<float>(RadiusYTemp - (RadiusXTemp * RadiusY) + RadiusXTemp / 4) };
+		bool SafeFlag{};
+
+		// if complete ellipse is within screen boundaries, there is no reason to use SetPixelSafe...
+		if ((CenterX - RadiusX >= 0 && CenterX + RadiusX < Texture.Width) && (CenterY - RadiusY >= 0 && CenterY + RadiusY < Texture.Height))
+		{
+			SafeFlag = true;
+		}
+
+		while (a <= b)
+		{
+			if (SafeFlag)
+			{
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX - x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX - x)] = Color;
+			}
+			else
+			{
+				SetPixelSafe(Texture, CenterX + x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX + x, CenterY - y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY - y, Color);
+			}
+
+			++x;
+
+			if (p1 < 0.0F)
+			{
+				a = 2 * RadiusYTemp * x;
+				p1 = p1 + a + RadiusYTemp;
+			}
+			else
+			{
+				--y;
+				a = 2 * RadiusYTemp * x;
+				b = 2 * RadiusXTemp * y;
+				p1 = p1 + a - b + RadiusYTemp;
+			}
+
+			if (SafeFlag)
+			{
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX - x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX - x)] = Color;
+			}
+			else
+			{
+				SetPixelSafe(Texture, CenterX + x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX + x, CenterY - y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY - y, Color);
+			}
+		}
+
+		float p2{ (RadiusYTemp * (x + 0.5F) * (x + 0.5F)) + (RadiusXTemp * (y - 1) * (y - 1)) - (RadiusXTemp * RadiusYTemp) };
+		a = 0;
+		b = 0;
+
+		while (y >= 0)
+		{
+			if (SafeFlag)
+			{
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX - x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX - x)] = Color;
+			}
+			else
+			{
+				SetPixelSafe(Texture, CenterX + x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX + x, CenterY - y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY - y, Color);
+			}
+
+			--y;
+
+			if (p2 < 0.0F)
+			{
+				++x;
+				a = 2 * RadiusYTemp * x;
+				b = 2 * RadiusXTemp * y;
+				p2 = p2 + a - b + RadiusXTemp;
+			}
+			else
+			{
+				b = 2 * RadiusXTemp * y;
+				p2 = p2 - b + RadiusXTemp;
+			}
+
+			if (SafeFlag)
+			{
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY + y) * Texture.Width) + (CenterX - x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX + x)] = Color;
+				Texture.Pixels[((CenterY - y) * Texture.Width) + (CenterX - x)] = Color;
+			}
+			else
+			{
+				SetPixelSafe(Texture, CenterX + x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY + y, Color);
+				SetPixelSafe(Texture, CenterX + x, CenterY - y, Color);
+				SetPixelSafe(Texture, CenterX - x, CenterY - y, Color);
+			}
 		}
 	}
 

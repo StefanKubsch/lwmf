@@ -23,6 +23,7 @@ Features:
 		- Filled Rectangle
 		- Circle 
 		- Filled Circle
+		- Ellipse
 		- Polygon
 		- Filled Polyon
 		- Clear PixelBuffer
