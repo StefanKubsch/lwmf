@@ -41,7 +41,6 @@ namespace lwmf
 	constexpr float RAD2DEG{ PI / 180.0F };
 	constexpr float ThreeQrtPI{ 3.0F * (PI / 4.0F) };
 	inline const float SQRT1_2{ 1.0F / std::sqrtf(2.0F) };
-	inline std::uint32_t Seed{ 7 };
 
 	//
 	// Functions
@@ -90,7 +89,7 @@ namespace lwmf
 	{
 		constexpr float n1{ 0.97239411F };
 		constexpr float n2{ -0.19194795F };
-		float result{};
+		float Result{};
 
 		if (std::fabsf(x) > FLT_EPSILON)
 		{
@@ -102,29 +101,29 @@ namespace lwmf
 				const union { float flVal; std::uint_fast32_t nVal; } tXSign = { x };
 				tOffset.nVal |= tYSign.nVal & 0x80000000U;
 				tOffset.nVal *= tXSign.nVal >> 31;
-				result = tOffset.flVal;
+				Result = tOffset.flVal;
 				const float z{ y / x };
-				result += (n1 + n2 * z * z) * z;
+				Result += (n1 + n2 * z * z) * z;
 			}
 			else
 			{
 				union { float flVal; std::uint_fast32_t nVal; } tOffset = { lwmf::HalfPI };
 				tOffset.nVal |= tYSign.nVal & 0x80000000U;
-				result = tOffset.flVal;
+				Result = tOffset.flVal;
 				const float z{ x / y };
-				result -= (n1 + n2 * z * z) * z;
+				Result -= (n1 + n2 * z * z) * z;
 			}
 		}
 		else if (y > 0.0F)
 		{
-			result = lwmf::HalfPI;
+			Result = lwmf::HalfPI;
 		}
 		else if (y < 0.0F)
 		{
-			result = -lwmf::HalfPI;
+			Result = -lwmf::HalfPI;
 		}
 
-		return result;
+		return Result;
 	}
 
 	// Simple random number generator based on XorShift
@@ -132,6 +131,8 @@ namespace lwmf
 
 	inline std::uint32_t XorShift32()
 	{
+		static std::uint32_t Seed{ 7 };
+
 		Seed ^= Seed << 13;
 		Seed ^= Seed >> 17;
 		return Seed ^= Seed << 5;

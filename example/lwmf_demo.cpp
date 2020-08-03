@@ -121,7 +121,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
 		// Init audio
 		Music.Load("./DemoSFX/Audio.mp3");
-		Music.SetVolume(100, 100);
 
 		// Init the demoparts if neccessary...
 		Landscape::Init();
