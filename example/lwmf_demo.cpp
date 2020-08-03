@@ -67,10 +67,11 @@ inline std::mt19937 Engine(Seed());
 #include "./DemoSources/BitmapTest.hpp"
 #include "./DemoSources/Circle.hpp"
 #include "./DemoSources/Cubes.hpp"
+#include "./DemoSources/PixelTest.hpp"
 
 inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 23 };
+constexpr std::int_fast32_t MaxDemoPart{ 24 };
 lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string& Partname)
@@ -143,7 +144,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	FillrateTestString += std::to_string(ScreenTexture.Size);
 	FillrateTestString += " pixels per frame";
 
-	const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, 0XFFFFFF);
 	bool Quit{};
 
 	while (!Quit)
@@ -285,7 +285,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 19:
 			{
-				lwmf::ClearTexture(ScreenTexture, Distrib1(Engine));
+				lwmf::ClearTexture(ScreenTexture, lwmf::XorShift32());
 				DisplayInfoBox(FillrateTestString);
 				break;
 			}
@@ -311,6 +311,12 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			{
 				Cubes::Draw();
 				DisplayInfoBox("Cubes (filled polygons)");
+				break;
+			}
+			case 24:
+			{
+				PixelTest::Draw();
+				DisplayInfoBox("Pixel throughput");
 				break;
 			}
 			default: {}
@@ -381,14 +387,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23 || DemoPart == 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23 || DemoPart == 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}

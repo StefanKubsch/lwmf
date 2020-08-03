@@ -61,6 +61,7 @@ Features:
 		- Chebyshev Distance
 		- Manhattan Distance
 		- fast atan2 approximation
+		- XorShift32 (Random Number Generator)
   
 	- Text
 		- simple 8x8 hardcoded bitmap font, standard ASCII

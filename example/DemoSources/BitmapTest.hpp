@@ -21,7 +21,7 @@ namespace BitmapTest
 		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
 		static const std::uniform_int_distribution<std::int_fast32_t> Size(1, 500);
 		static std::int_fast64_t BlitCounter{};
-		static std::array<char, 20> CounterString{};
+		static std::array<char, 25> CounterString{};
 
 		lwmf::TextureStruct Texture{ SourceTexture };
 		lwmf::ResizeTexture(Texture, Size(Engine), Size(Engine), lwmf::FilterModes::BILINEAR);

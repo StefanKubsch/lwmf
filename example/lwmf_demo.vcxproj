@@ -34,6 +34,7 @@
     <ClInclude Include="DemoSources\Moiree.hpp" />
     <ClInclude Include="DemoSources\Morph.hpp" />
     <ClInclude Include="DemoSources\PerlinGFX.hpp" />
+    <ClInclude Include="DemoSources\PixelTest.hpp" />
     <ClInclude Include="DemoSources\Plasma.hpp" />
     <ClInclude Include="DemoSources\PrimitivesTest.hpp" />
     <ClInclude Include="DemoSources\Raytracer.hpp" />

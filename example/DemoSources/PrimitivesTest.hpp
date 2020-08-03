@@ -10,16 +10,14 @@ namespace PrimitivesTest
 {
 
 
-	void Draw()
+	inline void Draw()
 	{
-		static const std::uniform_int_distribution<std::int_fast32_t> PointX(-255, ScreenTexture.Width + 255);
-		static const std::uniform_int_distribution<std::int_fast32_t> PointY(-255, ScreenTexture.Height + 255);
-		static const std::uniform_int_distribution<std::int_fast32_t> Color(0x00000000, 0xFFFFFFFF);
+		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
 		static const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 3);
-		static std::array<char, 20> RectangleCounterString{};
-		static std::array<char, 20> CircleCounterString{};
-		static std::array<char, 20> PolygonCounterString{};
-		static std::array<char, 20> EllipseCounterString{};
+		static std::array<char, 25> RectangleCounterString{};
+		static std::array<char, 25> CircleCounterString{};
+		static std::array<char, 25> PolygonCounterString{};
+		static std::array<char, 25> EllipseCounterString{};
 
 		switch (Choice(Engine))
 		{
@@ -28,7 +26,7 @@ namespace PrimitivesTest
 				static const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				static std::int_fast64_t RectangleCounter{};
 
-				lwmf::FilledRectangle(ScreenTexture, PointX(Engine), PointY(Engine), Width(Engine), Width(Engine), Color(Engine), Color(Engine));
+				lwmf::FilledRectangle(ScreenTexture, Point(Engine), Point(Engine), Width(Engine), Width(Engine), lwmf::XorShift32(), lwmf::XorShift32());
 				std::to_chars(RectangleCounterString.data(), RectangleCounterString.data() + RectangleCounterString.size(), ++RectangleCounter);
 				break;
 			}
@@ -37,26 +35,25 @@ namespace PrimitivesTest
 				static const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				static std::int_fast64_t CircleCounter{};
 
-				lwmf::FilledCircle(ScreenTexture, PointX(Engine), PointY(Engine), Width(Engine), Color(Engine), Color(Engine));
+				lwmf::FilledCircle(ScreenTexture, Point(Engine), Point(Engine), Width(Engine), lwmf::XorShift32(), lwmf::XorShift32());
 				std::to_chars(CircleCounterString.data(), CircleCounterString.data() + CircleCounterString.size(), ++CircleCounter);
 				break;
 			}
 			case 2:
 			{
-				const std::vector<lwmf::IntPointStruct> Polygon{ {PointX(Engine), PointY(Engine)}, {PointX(Engine), PointY(Engine) }, {PointX(Engine), PointY(Engine) } };
+				const std::vector<lwmf::IntPointStruct> Polygon{ {Point(Engine), Point(Engine)}, {Point(Engine), Point(Engine) }, {Point(Engine), Point(Engine) } };
 				static std::int_fast64_t PolygonCounter{};
 
-				lwmf::Polygon(ScreenTexture, Polygon, Color(Engine));
+				lwmf::Polygon(ScreenTexture, Polygon, lwmf::XorShift32());
 				std::to_chars(PolygonCounterString.data(), PolygonCounterString.data() + PolygonCounterString.size(), ++PolygonCounter);
 				break;
 			}
 			case 3:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> RadiusX(0, 200);
-				static const std::uniform_int_distribution<std::int_fast32_t> RadiusY(0, 200);
+				static const std::uniform_int_distribution<std::int_fast32_t> Radius(0, 200);
 				static std::int_fast64_t EllipseCounter{};
 
-				lwmf::Ellipse(ScreenTexture, PointX(Engine), PointY(Engine), RadiusX(Engine), RadiusY(Engine), Color(Engine));
+				lwmf::Ellipse(ScreenTexture, Point(Engine), Point(Engine), Radius(Engine), Radius(Engine), lwmf::XorShift32());
 				std::to_chars(EllipseCounterString.data(), EllipseCounterString.data() + EllipseCounterString.size(), ++EllipseCounter);
 				break;
 			}

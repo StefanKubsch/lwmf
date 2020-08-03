@@ -28,6 +28,7 @@ namespace lwmf
 	template<typename T>T CalcManhattanDistance(T x1, T x2, T y1, T y2);
 	template<typename T>T CalcManhattanDistance(std::int_fast32_t x1, std::int_fast32_t x2, std::int_fast32_t y1, std::int_fast32_t y2);
 	float FastAtan2Approx(float y, float x);
+	std::uint32_t XorShift32();
 
 	//
 	// Variables and constants
@@ -40,6 +41,7 @@ namespace lwmf
 	constexpr float RAD2DEG{ PI / 180.0F };
 	constexpr float ThreeQrtPI{ 3.0F * (PI / 4.0F) };
 	inline const float SQRT1_2{ 1.0F / std::sqrtf(2.0F) };
+	inline std::uint32_t Seed{ 7 };
 
 	//
 	// Functions
@@ -123,6 +125,16 @@ namespace lwmf
 		}
 
 		return result;
+	}
+
+	// Simple random number generator based on XorShift
+	// https://en.wikipedia.org/wiki/Xorshift
+
+	inline std::uint32_t XorShift32()
+	{
+		Seed ^= Seed << 13;
+		Seed ^= Seed >> 17;
+		return Seed ^= Seed << 5;
 	}
 
 
