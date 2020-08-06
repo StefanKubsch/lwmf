@@ -195,10 +195,10 @@ namespace lwmf
 		{
 			if ((State.Gamepad.wButtons & Button.first) != 0)
 			{
-				const WORD Mapping{ (KeyMap.find(Button.first) != KeyMap.end() ? static_cast<WORD>(KeyMap.find(Button.first)->second) : static_cast<WORD>(Button.first)) };
 				const DWORD Now{ GetTickCount() };
 				const DWORD Last{ (LastPress.find(Button.first) != LastPress.end() ? LastPress.find(Button.first)->second : 0) };
 				const std::uint_fast32_t Time{ Repeat.find(Button.first)->second };
+				const WORD Mapping{ (KeyMap.find(Button.first) != KeyMap.end() ? static_cast<WORD>(KeyMap.find(Button.first)->second) : static_cast<WORD>(Button.first)) };
 
 				if ((Now - Last >= Time && Time > 0) || Last == 0 || (Time == 0 && (Previous.Gamepad.wButtons & Button.first) == 0))
 				{
