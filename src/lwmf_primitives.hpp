@@ -300,7 +300,7 @@ namespace lwmf
 		std::int_fast32_t ShortLength{ y2 - y1 };
 		std::int_fast32_t LongLength{ x2 - x1 };
 
-		if ((ShortLength ^ (ShortLength >> 31)) - (ShortLength >> 31) > (LongLength ^ (LongLength >> 31)) - (LongLength >> 31))
+		if (std::abs(ShortLength) > std::abs(LongLength))
 		{
 			std::swap(ShortLength, LongLength);
 			YLonger = true;
