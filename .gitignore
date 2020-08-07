@@ -153,3 +153,4 @@ example/x64/Debug/lwmf_demo.vcxproj.FileListAbsolute.txt
 example/.vs/lwmf_demo/v16/ipch/AutoPCH/59885f20a48afe31/LWMF_DEMO.ipch
 example/.vs/lwmf_demo/v16/ipch/AutoPCH/8c83cc4e1f79a8e3/PIXELTEST.ipch
 example/.vs/lwmf_demo/v16/ipch/AutoPCH/d048b23ff2fa8f3/LWMF_PRIMITIVES.ipch
+example/x64/Release/lwmf_demo.exe.recipe
