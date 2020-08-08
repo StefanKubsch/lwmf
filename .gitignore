@@ -155,3 +155,9 @@ example/.vs/lwmf_demo/v16/ipch/AutoPCH/8c83cc4e1f79a8e3/PIXELTEST.ipch
 example/.vs/lwmf_demo/v16/ipch/AutoPCH/d048b23ff2fa8f3/LWMF_PRIMITIVES.ipch
 example/x64/Release/lwmf_demo.exe.recipe
 example/.vs/lwmf_demo/v16/ipch/AutoPCH/d513f7cf465c329b/THROUGHPUTTEST.ipch
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/1bf9a31b2745d9ff/LWMF_DEMO.ipch
+example/x64/Debug/lwmf_demo.exe.lastcodeanalysissucceeded
+example/x64/Debug/lwmf_demo.exe.recipe
+example/x64/Debug/lwmf_demo.nativecodeanalysis.xml
+example/x64/Debug/NativeCodeAnalysis.read.1.tlog
+example/x64/Debug/vc.nativecodeanalysis.all.xml
