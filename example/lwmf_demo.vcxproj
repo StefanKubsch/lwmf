@@ -41,6 +41,7 @@
     <ClInclude Include="DemoSources\RotoZoom.hpp" />
     <ClInclude Include="DemoSources\Starfield.hpp" />
     <ClInclude Include="DemoSources\Swarm.hpp" />
+    <ClInclude Include="DemoSources\ThroughputTest.hpp" />
     <ClInclude Include="DemoSources\Tunnel.hpp" />
     <ClInclude Include="DemoSources\VectorCube.hpp" />
     <ClInclude Include="src\lwmf.hpp" />

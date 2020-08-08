@@ -10,21 +10,19 @@ namespace PixelTest
 
 	inline void Draw()
 	{
-		static std::array<char, 25> PixelCounterString{};
-		static std::int_fast64_t PixelCounter{};
-
 		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
 				lwmf::SetPixel(ScreenTexture, x, y, lwmf::XorShift32());
-				++PixelCounter;
 			}
 		}
 
-		std::to_chars(PixelCounterString.data(), PixelCounterString.data() + PixelCounterString.size(), PixelCounter);
 		lwmf::FilledRectangle(ScreenTexture, 0, 65, ScreenTexture.Width, 20, 0, 0);
-		lwmf::RenderText(ScreenTexture, "Number of pixels in total: " + std::string(PixelCounterString.data()), 10, 70, 0xFFFFFFFF);
+
+		std::array<char, 15> MPixelsPerSecond{};
+		std::to_chars(MPixelsPerSecond.data(), MPixelsPerSecond.data() + MPixelsPerSecond.size(), static_cast<float>(ScreenTexture.Size * lwmf::FPS) / 1000000.0F );
+		lwmf::RenderText(ScreenTexture, "Throughput in MegaPixels/s: " + std::string(MPixelsPerSecond.data()), 10, 70, 0xFFFFFFFF);
 	}
 
 

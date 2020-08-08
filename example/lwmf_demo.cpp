@@ -65,8 +65,8 @@ inline std::mt19937 Engine(Seed());
 #include "./DemoSources/Circle.hpp"
 #include "./DemoSources/Cubes.hpp"
 #include "./DemoSources/PixelTest.hpp"
+#include "./DemoSources/ThroughputTest.hpp"
 
-inline std::string FillrateTestString;
 inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 24 };
 lwmf::MP3Player Music{};
@@ -139,10 +139,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	{
 		return EXIT_FAILURE;
 	}
-
-	FillrateTestString = "Fillrate test, clearing ";
-	FillrateTestString += std::to_string(ScreenTexture.Size);
-	FillrateTestString += " pixels per frame";
 
 	bool Quit{};
 
@@ -285,14 +281,14 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 19:
 			{
-				lwmf::ClearTexture(ScreenTexture, lwmf::XorShift32());
-				DisplayInfoBox(FillrateTestString);
+				Cubes::Draw();
+				DisplayInfoBox("Cubes (filled polygons)");
 				break;
 			}
 			case 20:
 			{
-				PrimitivesTest::Draw();
-				DisplayInfoBox("Primitives test");
+				Circle::Draw();
+				DisplayInfoBox("Perlin Noise Circle/Band");
 				break;
 			}
 			case 21:
@@ -303,14 +299,14 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 22:
 			{
-				Circle::Draw();
-				DisplayInfoBox("Perlin Noise Circle/Band");
+				PrimitivesTest::Draw();
+				DisplayInfoBox("Primitives test");
 				break;
 			}
 			case 23:
 			{
-				Cubes::Draw();
-				DisplayInfoBox("Cubes (filled polygons)");
+				ThroughputTest::Draw();
+				DisplayInfoBox("Throughput test");
 				break;
 			}
 			case 24:
@@ -356,10 +352,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				lwmf::ResizeOpenGLWindow(ScreenTexture);
 			}
 
-			FillrateTestString = "Fillrate test, clearing ";
-			FillrateTestString += std::to_string(ScreenTexture.Size);
-			FillrateTestString += " pixels per frame";
-
 			break;
 		}
 		case WM_INPUT:
@@ -387,14 +379,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23 || DemoPart == 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 19 && DemoPart <= 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart == 19 || DemoPart == 20 || DemoPart == 21 || DemoPart == 23 || DemoPart == 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 19 && DemoPart <= 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}
