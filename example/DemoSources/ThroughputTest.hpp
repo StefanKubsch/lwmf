@@ -14,10 +14,10 @@ namespace ThroughputTest
 		lwmf::FilledRectangle(ScreenTexture, 0, 65, ScreenTexture.Width, 30, 0, 0);
 
 		std::array<char, 15> ThroughputString{};
-		std::to_chars(ThroughputString.data(), ThroughputString.data() + ThroughputString.size(), static_cast<float>(lwmf::FPS * (ScreenTexture.Size << 2)) / (1024.0F * 1024.0F * 1024.0F));
+		std::to_chars(ThroughputString.data(), ThroughputString.data() + ThroughputString.size(), static_cast<float>(static_cast<std::uint_fast32_t>(lwmf::FPS) * (static_cast<std::uint_fast32_t>(ScreenTexture.Size) * 4)) / (1024.0F * 1024.0F * 1024.0F));
 		lwmf::RenderText(ScreenTexture, "Troughput in GigaByte/s: " + std::string(ThroughputString.data()), 10, 70, 0xFFFFFFFF);
 
-		std::array<char, 15> PixelString{};
+		std::array<char, 10> PixelString{};
 		std::to_chars(PixelString.data(), PixelString.data() + PixelString.size(), ScreenTexture.Size);
 		lwmf::RenderText(ScreenTexture, "Clearing pixels per frame: " + std::string(PixelString.data()), 10, 80, 0xFFFFFFFF);
 	}

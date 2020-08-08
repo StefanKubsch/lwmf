@@ -306,13 +306,13 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 23:
 			{
 				ThroughputTest::Draw();
-				DisplayInfoBox("Throughput test");
+				DisplayInfoBox("Throughput test (std::fill)");
 				break;
 			}
 			case 24:
 			{
 				PixelTest::Draw();
-				DisplayInfoBox("Pixel throughput");
+				DisplayInfoBox("Pixel throughput (lwmf::SetPixel)");
 				break;
 			}
 			default: {}
@@ -379,14 +379,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 19 && DemoPart <= 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 21 && DemoPart <= 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 19 && DemoPart <= 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 21 && DemoPart <= 24) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}
