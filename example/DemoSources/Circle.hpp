@@ -40,6 +40,8 @@ namespace Circle
         }
 
         t = static_cast<float>(static_cast<std::int_fast32_t>(t += 1.0F) % 360);
+
+        DisplayInfoBox("Perlin Noise Circle/Band");
     }
 
 

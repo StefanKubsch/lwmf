@@ -48,6 +48,8 @@ namespace DotTunnel
 			Factor += 6.0F;
 			Depth -= DepthAdd;
 		}
+
+		DisplayInfoBox("Dotted tunnel");
 	}
 
 

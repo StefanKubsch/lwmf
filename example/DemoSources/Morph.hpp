@@ -120,6 +120,8 @@ namespace Morph
 			Count1 = 0;
 			Count2 = 0;
 		}
+
+		DisplayInfoBox("Realtime morph - 10.000 dots");
 	}
 
 

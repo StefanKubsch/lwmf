@@ -40,6 +40,32 @@ inline lwmf::ShaderClass ScreenTextureShader{};
 inline std::random_device Seed{};
 inline std::mt19937 Engine(Seed());
 
+inline std::int_fast32_t DemoPart{};
+constexpr std::int_fast32_t MaxDemoPart{ 24 };
+lwmf::MP3Player Music{};
+
+inline void DisplayInfoBox(const std::string& Partname)
+{
+	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 115, 0x1F1F1F1F, 0x1F1F1F1F);
+
+	// Show partname
+	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
+
+	// Show FPS counter
+	lwmf::FPSCounter();
+	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
+
+	// Show audio information
+	static const std::string MusicDuration{ "Music duration in seconds: " + std::to_string(Music.GetDuration()) };
+	lwmf::RenderText(ScreenTexture, MusicDuration, 10, 40, 0xFFFFFFFF);
+
+	static std::array<char, 10> MusicPosition{};
+	std::to_chars(MusicPosition.data(), MusicPosition.data() + MusicPosition.size(), Music.GetPosition());
+	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + std::string(MusicPosition.data()), 10, 50, 0xFFFFFFFF);
+
+	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, lwmf::RGBAtoINT(255, 255, 255, 255));
+}
+
 // Include the used demo effects
 #include "./DemoSources/Metaballs.hpp"
 #include "./DemoSources/Plasma.hpp"
@@ -66,31 +92,6 @@ inline std::mt19937 Engine(Seed());
 #include "./DemoSources/Cubes.hpp"
 #include "./DemoSources/PixelTest.hpp"
 #include "./DemoSources/ThroughputTest.hpp"
-
-inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 24 };
-lwmf::MP3Player Music{};
-
-inline void DisplayInfoBox(const std::string& Partname)
-{
-	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 65, 0x00000000, 0x00000000);
-
-	// Show partname
-	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
-
-	// Show FPS counter
-	lwmf::FPSCounter();
-	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
-
-	// Show audio information
-	static const std::string MusicDuration{ "Music duration: " + std::to_string(Music.GetDuration()) + " seconds" };
-	lwmf::RenderText(ScreenTexture, MusicDuration, 10, 40, 0xFFFFFFFF);
-
-	std::string MusicPosition{ "Music position: " };
-	MusicPosition += std::to_string(Music.GetPosition());
-	MusicPosition += " seconds";
-	lwmf::RenderText(ScreenTexture, MusicPosition, 10, 50, 0xFFFFFFFF);
-}
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -168,151 +169,126 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 0:
 			{
 				Metaballs::Draw();
-				DisplayInfoBox("OpenMP accelerated realtime metaballs");
 				break;
 			}
 			case 1:
 			{
 				Plasma::Draw();
-				DisplayInfoBox("OpenMP accelerated realtime plasma");
 				break;
 			}
 			case 2:
 			{
 				DotTunnel::Draw();
-				DisplayInfoBox("Dotted tunnel");
 				break;
 			}
 			case 3:
 			{
 				Fire::Draw();
-				DisplayInfoBox("OpenMP accelerated realtime fullscreen fire");
 				break;
 			}
 			case 4:
 			{
 				Swarm::Draw();
-				DisplayInfoBox("Realtime particle swarm - 250.000 particles");
 				break;
 			}
 			case 5:
 			{
 				Landscape::Draw();
-				DisplayInfoBox("Textured dotted landscape");
 				break;
 			}
 			case 6:
 			{
 				Starfield::Draw();
-				DisplayInfoBox("3D starfield - 15.000 stars");
 				break;
 			}
 			case 7:
 			{
 				VectorCube::Draw();
-				DisplayInfoBox("Vector cube - filled polygons");
 				break;
 			}
 			case 8:
 			{
 				Lens::Draw();
-				DisplayInfoBox("Realtime lens");
 				break;
 			}
 			case 9:
 			{
 				Copperbars::Draw();
-				DisplayInfoBox("Copperbars");
 				break;
 			}
 			case 10:
 			{
 				Tunnel::Draw();
-				DisplayInfoBox("OpenMP accelerated textured tunnel");
 				break;
 			}
 			case 11:
 			{
 				Morph::Draw();
-				DisplayInfoBox("Realtime morph - 10.000 dots");
 				break;
 			}
 			case 12:
 			{
 				GouraudShade::Draw();
-				DisplayInfoBox("Realtime torus knot with gouraud shading - 24.000 vertices");
 				break;
 			}
 			case 13:
 			{
 				RotoZoom::Draw();
-				DisplayInfoBox("RotoZoomer");
 				break;
 			}
 			case 14:
 			{
 				Moiree::Draw();
-				DisplayInfoBox("Moiree");
 				break;
 			}
 			case 15:
 			{
 				Julia::Draw();
-				DisplayInfoBox("Realtime Julia set");
 				break;
 			}
 			case 16:
 			{
 				Bobs::Draw();
-				DisplayInfoBox("SineScroller and Bobs");
 				break;
 			}
 			case 17:
 			{
 				PerlinGFX::DrawParts();
-				DisplayInfoBox("Multithreaded Perlin noise generated gfx");
 				break;
 			}
 			case 18:
 			{
 				Raytracer::Draw();
-				DisplayInfoBox("OpenMP accelerated realtime raytracing");
 				break;
 			}
 			case 19:
 			{
 				Cubes::Draw();
-				DisplayInfoBox("Cubes (filled polygons)");
 				break;
 			}
 			case 20:
 			{
 				Circle::Draw();
-				DisplayInfoBox("Perlin Noise Circle/Band");
 				break;
 			}
 			case 21:
 			{
 				BitmapTest::Draw();
-				DisplayInfoBox("Bitmap resize & blitting test");
 				break;
 			}
 			case 22:
 			{
 				PrimitivesTest::Draw();
-				DisplayInfoBox("Primitives test");
 				break;
 			}
 			case 23:
 			{
 				ThroughputTest::Draw();
-				DisplayInfoBox("Throughput test (std::fill)");
 				break;
 			}
 			case 24:
 			{
 				PixelTest::Draw();
-				DisplayInfoBox("Pixel throughput (lwmf::SetPixel)");
 				break;
 			}
 			default: {}

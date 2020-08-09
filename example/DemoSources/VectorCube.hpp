@@ -84,6 +84,8 @@ namespace VectorCube
 
 			lwmf::FilledPolygon(ScreenTexture, Points, CubeFacesColors[Order[i].first], CubeFacesColors[Order[i].first]);
 		}
+
+		DisplayInfoBox("Vector cube - filled polygons");
 	}
 
 

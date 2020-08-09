@@ -291,6 +291,8 @@ namespace GouraudShade
 			DrawFace(PolygonCoords[DrawOrder[VertexCount]][0], PolygonCoords[DrawOrder[VertexCount]][1], PolygonCoords[DrawOrder[VertexCount]][2]);
 			DrawFace(PolygonCoords[DrawOrder[VertexCount]][0], PolygonCoords[DrawOrder[VertexCount]][2], PolygonCoords[DrawOrder[VertexCount]][3]);
 		}
+
+		DisplayInfoBox("Realtime torus knot with gouraud shading - 24.000 vertices");
 	}
 
 

@@ -42,7 +42,7 @@ namespace Metaballs
 		}
 
 		#pragma omp parallel for
-		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
 		{
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
@@ -57,6 +57,8 @@ namespace Metaballs
 				lwmf::SetPixel(ScreenTexture, x, y, BallSum > 0.035F ? 0xFF0000FF : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));
 			}
 		}
+
+		DisplayInfoBox("OpenMP accelerated realtime metaballs");
 	}
 
 

@@ -26,7 +26,7 @@ namespace Starfield
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
-		for (std::int_fast32_t i{}; i < MaxStars - 1; ++i)
+		for (std::int_fast32_t i{}; i < MaxStars; ++i)
 		{
 			Stars[i].z -= 0.19F;
 
@@ -43,6 +43,8 @@ namespace Starfield
 				static_cast<std::int_fast32_t>(Stars[i].Pos.Y * Factor) + ScreenTexture.HeightMid,
 				static_cast<std::int_fast32_t>((1.0F - (Stars[i].z) / MaxDepth) * 6.0F), StarBorderColor, lwmf::RGBAtoINT(ColorPart, ColorPart, ColorPart, ColorPart));
 		}
+
+		DisplayInfoBox("3D starfield - 15.000 stars");
 	}
 
 

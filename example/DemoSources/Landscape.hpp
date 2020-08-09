@@ -50,6 +50,8 @@ namespace Landscape
 				lwmf::SetPixel(ScreenTexture, (ScreenTexture.WidthMid + (TempX << 2) / TempZ), (ScreenTexture.HeightMid - (TempY << 7) / TempZ), LandscapeTextureMap.Pixels[z * LandscapeTextureMap.Width + x]);
 			}
 		}
+
+		DisplayInfoBox("Textured dotted landscape");
 	}
 
 

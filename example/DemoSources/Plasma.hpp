@@ -24,7 +24,7 @@ namespace Plasma
 		}
 
 		#pragma omp parallel for
-		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
 		{
 			const float TempY{ 64.0F * std::cosf(y / 64.0F) };
 
@@ -34,6 +34,8 @@ namespace Plasma
 				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT((Color + Plasmas[2].first) & 255, (Color + Plasmas[0].first) & 255, (Color + Plasmas[1].first) & 255, 255));
 			}
 		}
+
+		DisplayInfoBox("OpenMP accelerated realtime plasma");
 	}
 
 

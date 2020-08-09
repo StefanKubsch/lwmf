@@ -91,6 +91,8 @@ namespace Lens
 		{
 			Dir.Y *= -1;
 		}
+
+		DisplayInfoBox("Realtime lens");
 	}
 
 

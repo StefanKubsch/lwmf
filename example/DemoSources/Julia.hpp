@@ -26,7 +26,7 @@ namespace Julia
 
 	inline void Draw()
 	{
-		constexpr std::int_fast32_t Size{ 600 };
+		constexpr std::int_fast32_t Size{ 1000 };
 		constexpr float FCT{ 2.85F };
 		constexpr float hFCT{ FCT * 0.5F };
 		constexpr float Factor{ FCT / Size };
@@ -68,6 +68,8 @@ namespace Julia
 				}
 			}
 		}
+
+		DisplayInfoBox("Realtime Julia set");
 	}
 
 

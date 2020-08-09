@@ -73,7 +73,7 @@ namespace Cubes
 
 		for (std::int_fast32_t i{}; i < ScreenTexture.Width; ++i)
 		{
-			lwmf::Line(ScreenTexture, i, 0, i, ScreenTexture.Height - 1, lwmf::RGBAtoINT(255 - (i >> 3), 0, i / 6, 255));
+			lwmf::Line(ScreenTexture, i, 115 , i, ScreenTexture.Height - 1, lwmf::RGBAtoINT(255 - (i >> 3), 0, i / 6, 255));
 		}
 
 		std::int_fast32_t ShiftX{};
@@ -84,7 +84,7 @@ namespace Cubes
 		const std::int_fast32_t MaxHeight{ ScreenTexture.Height - (CubeSize << 1) };
 		const std::int_fast32_t MaxWidth{ ScreenTexture.Width - (CubeSize << 1) };
 
-		for (std::int_fast32_t j{ 100 }; j < MaxHeight; j += CubeSizeTemp1)
+		for (std::int_fast32_t j{ 150 }; j < MaxHeight; j += CubeSizeTemp1)
 		{
 			++ShiftX;
 			const std::int_fast32_t ShiftXTemp{ (ShiftX & 1) * CubeSize };
@@ -115,6 +115,8 @@ namespace Cubes
 				DrawCube(x, j - ShiftY, Angle, lwmf::RGBAtoINT(255 - (i >> 3), 0, i / 6, 255));
 			}
 		}
+
+		DisplayInfoBox("Cubes (filled polygons)");
 	}
 
 

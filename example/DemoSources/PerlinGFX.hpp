@@ -20,7 +20,7 @@ namespace PerlinGFX
 	{
 		static lwmf::PerlinNoise PGFX;
 
-		lwmf::IntPointStruct Start{};
+		lwmf::IntPointStruct Start{ 0, 115 };
 		lwmf::IntPointStruct End{};
 
 		switch (Part)
@@ -77,6 +77,8 @@ namespace PerlinGFX
 		Threadpool.WaitForThreads();
 
 		NoiseFactor += 0.002F;
+
+		DisplayInfoBox("Multithreaded Perlin noise generated gfx");
 	}
 
 
