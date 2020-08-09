@@ -27,9 +27,13 @@ namespace PixelTest
 		std::to_chars(MPixelsPerSecond.data(), MPixelsPerSecond.data() + MPixelsPerSecond.size(), static_cast<float>(static_cast<std::uint_fast64_t>(ScreenTexture.Size) * static_cast<std::uint_fast64_t>(lwmf::FPS)) / 1000000.0F );
 		lwmf::RenderText(ScreenTexture, "Throughput in MegaPixel/s: " + std::string(MPixelsPerSecond.data()), 10, 70, 0xFFFFFFFF);
 
+		std::array<char, 15> ThroughputString{};
+		std::to_chars(ThroughputString.data(), ThroughputString.data() + ThroughputString.size(), static_cast<float>(static_cast<std::uint_fast32_t>(lwmf::FPS) * (static_cast<std::uint_fast32_t>(ScreenTexture.Size) * 4)) / (1024.0F * 1024.0F * 1024.0F));
+		lwmf::RenderText(ScreenTexture, "Throughput in GigaByte/s: " + std::string(ThroughputString.data()), 10, 80, 0xFFFFFFFF);
+
 		std::array<char, 10> PixelString{};
 		std::to_chars(PixelString.data(), PixelString.data() + PixelString.size(), ScreenTexture.Size);
-		lwmf::RenderText(ScreenTexture, "Drawn pixels per frame: " + std::string(PixelString.data()), 10, 80, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Drawn pixels per frame: " + std::string(PixelString.data()), 10, 90, 0xFFFFFFFF);
 	}
 
 

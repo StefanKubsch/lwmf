@@ -23,7 +23,7 @@ namespace PrimitivesTest
 		{
 			case 0:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
+				static const std::uniform_int_distribution<std::int_fast32_t> Width(1, 500);
 				lwmf::FilledRectangle(ScreenTexture, Point(Engine), Point(Engine), Width(Engine), Width(Engine), lwmf::XorShift32(), lwmf::XorShift32());
 
 				static std::uint_fast64_t RectangleCounter{};
@@ -32,7 +32,7 @@ namespace PrimitivesTest
 			}
 			case 1:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
+				static const std::uniform_int_distribution<std::int_fast32_t> Width(1, 500);
 				lwmf::FilledCircle(ScreenTexture, Point(Engine), Point(Engine), Width(Engine), lwmf::XorShift32(), lwmf::XorShift32());
 
 				static std::uint_fast64_t CircleCounter{};
@@ -50,7 +50,7 @@ namespace PrimitivesTest
 			}
 			case 3:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> Radius(0, 200);
+				static const std::uniform_int_distribution<std::int_fast32_t> Radius(1, 200);
 				lwmf::Ellipse(ScreenTexture, Point(Engine), Point(Engine), Radius(Engine), Radius(Engine), lwmf::XorShift32());
 
 				static std::uint_fast64_t EllipseCounter{};

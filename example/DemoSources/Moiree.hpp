@@ -14,7 +14,6 @@ namespace Moiree
 		const lwmf::FloatPointStruct C1 { std::sinf(Time / 2.0F) * ScreenTexture.Width / 3.0F + ScreenTexture.WidthMid, std::sinf(Time / 4.0F) * ScreenTexture.Height / 3.0F + ScreenTexture.HeightMid };
 		const lwmf::FloatPointStruct C2 { std::cosf(Time / 3.0F) * ScreenTexture.Width / 3.0F + ScreenTexture.WidthMid, std::cosf(Time) * ScreenTexture.Height / 3.0F + ScreenTexture.HeightMid };
 
-		#pragma omp parallel for
 		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
 		{
 			const float DY1{ (y - C1.Y) * (y - C1.Y) };
@@ -27,7 +26,7 @@ namespace Moiree
 			}
 		}
 
-		DisplayInfoBox("OpenMP accelerated moiree");
+		DisplayInfoBox("Moiree");
 	}
 
 

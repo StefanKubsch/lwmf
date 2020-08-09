@@ -44,26 +44,22 @@ inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 24 };
 lwmf::MP3Player Music{};
 
+inline std::string CutDoubleToString(const double Value)
+{
+	std::string Temp{ std::to_string(static_cast<std::int_fast32_t>((Value * 100.0)) / 100.0) };
+	return Temp.erase(Temp.find_last_not_of('0') + 1, std::string::npos);
+}
+
 inline void DisplayInfoBox(const std::string& Partname)
 {
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 115, 0x1F1F1F1F, 0x1F1F1F1F);
-
-	// Show partname
-	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
-
-	// Show FPS counter
 	lwmf::FPSCounter();
+	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
-
-	// Show audio information
-	static const std::string MusicDuration{ "Music duration in seconds: " + std::to_string(Music.GetDuration()) };
-	lwmf::RenderText(ScreenTexture, MusicDuration, 10, 40, 0xFFFFFFFF);
-
-	static std::array<char, 10> MusicPosition{};
-	std::to_chars(MusicPosition.data(), MusicPosition.data() + MusicPosition.size(), Music.GetPosition());
-	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + std::string(MusicPosition.data()), 10, 50, 0xFFFFFFFF);
-
-	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, lwmf::RGBAtoINT(255, 255, 255, 255));
+	static const std::string DurationString{ "Music duration in seconds: " + CutDoubleToString(Music.GetDuration()) };
+	lwmf::RenderText(ScreenTexture, DurationString, 10, 40, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + CutDoubleToString(Music.GetPosition()), 10, 50, 0xFFFFFFFF);
+	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, 0xFFFFFFFF);
 }
 
 // Include the used demo effects
