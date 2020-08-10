@@ -165,8 +165,6 @@ namespace lwmf
 				LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, "OpenGL vendor: " + std::string(reinterpret_cast<const char*>(glGetString(GL_VENDOR))));
 				LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, "OpenGL renderer: " + std::string(reinterpret_cast<const char*>(glGetString(GL_RENDERER))));
 				LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, "Primary OpenGL shading language version: " + std::string(reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION))));
-				LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, "ATI memory: " + std::to_string(lwmf::GetATIMem()));
-
 			}
 		}
 	}

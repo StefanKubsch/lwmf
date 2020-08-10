@@ -37,9 +37,7 @@
 #define GL_SHADING_LANGUAGE_VERSION			0x8B8C
 #define GL_STATIC_DRAW						0x88E4
 #define GL_TEXTURE0							0x84C0
-#define	GL_TEXTURE_FREE_MEMORY_ATI			0x87FC
 #define GL_VERTEX_SHADER					0x8B31
-#define WGL_GPU_RAM_AMD						0x21A3
 
 using GLchar = char;
 using GLsizeiptr = std::ptrdiff_t;
@@ -76,9 +74,7 @@ using GLintptr = std::ptrdiff_t;
 	OG(void,	glUniform1f,				GLint location, GLfloat v0) \
 	OG(void,	glUniformMatrix4fv,			GLint location, GLsizei count, GLboolean transpose, const GLfloat* value) \
 	OG(void,	glUseProgram,				GLuint program) \
-	OG(void,	glVertexAttribPointer,		GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer) \
-	OG(UINT,	wglGetGPUIDsAMD,			UINT maxCount, UINT* ids) \
-	OG(INT,		wglGetGPUInfoAMD,			UINT id, INT property, GLenum dataType, UINT size, void* data) 
+	OG(void,	glVertexAttribPointer,		GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer)
 #define OG(Return, Name, ...) typedef Return WINAPI Name##proc(__VA_ARGS__); extern Name##proc* Name;
 	OGL
 #undef OG
@@ -125,26 +121,6 @@ namespace lwmf
 		using PFNWGLSWAPINTERVALFARPROC = PROC WINAPI(std::int_fast32_t);
 		PFNWGLSWAPINTERVALFARPROC* wglSwapIntervalEXT{ reinterpret_cast<PFNWGLSWAPINTERVALFARPROC*>(wglGetProcAddress("wglSwapIntervalEXT")) };
 		wglSwapIntervalEXT(Sync);
-	}
-
-	inline GLint GetATIMem()
-	{
-		GLuint uNoOfGPUs = wglGetGPUIDsAMD(0, 0);
-		GLuint* uGPUIDs = new GLuint[uNoOfGPUs];
-		wglGetGPUIDsAMD(uNoOfGPUs, uGPUIDs);
-
-		GLuint uTotalMemoryInMB = 0;
-		wglGetGPUInfoAMD(uGPUIDs[0],
-			WGL_GPU_RAM_AMD,
-			GL_UNSIGNED_INT,
-			sizeof(GLuint),
-			&uTotalMemoryInMB);
-
-		GLint nCurAvailMemoryInKB = 0;
-		glGetIntegerv(GL_TEXTURE_FREE_MEMORY_ATI,
-			&nCurAvailMemoryInKB);
-
-		return nCurAvailMemoryInKB;
 	}
 
 
