@@ -101,7 +101,8 @@ Features:
 
 **Just #include "lwmf.hpp" in your code an go! No external libraries, no DLL, no bullshit.**
 
-Have a look at the example, which draws some nice and smooth animated demo effects like Metaballs, raytracing, realtime plasma, a dotted tunnel, a particle swarm and much more! 
+Have a look at the example, which draws some nice and smooth animated demo effects like Metaballs, raytracing, realtime plasma, a dotted tunnel, a particle swarm and much more!
+There is also a number of throughput tests of various functions.
 You can download "Release.zip" and run the included executable!
 
-Also, I´m using lwmf in my own game engine "NARC" - see https://github.com/StefanKubsch/NARC
+I´m using lwmf in my own game engine "NARC" - see https://github.com/StefanKubsch/NARC
