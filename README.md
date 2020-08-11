@@ -18,7 +18,8 @@ Features:
 		- SetPixel / GetPixel
 		- SetPixelSafe / GetPixelSafe (with boundary checks)
 		- Scanline Fill (stack-implementation)
-		- Line
+		- Line (EFLA)
+		- Anti-aliased line (Xiaolin Wu´s algorithm)
 		- Rectangle
 		- Filled Rectangle
 		- Circle 
