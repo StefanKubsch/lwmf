@@ -33,6 +33,7 @@
     <ClInclude Include="DemoSources\Metaballs.hpp" />
     <ClInclude Include="DemoSources\Moiree.hpp" />
     <ClInclude Include="DemoSources\Morph.hpp" />
+    <ClInclude Include="DemoSources\Particles.hpp" />
     <ClInclude Include="DemoSources\PerlinGFX.hpp" />
     <ClInclude Include="DemoSources\PixelTest.hpp" />
     <ClInclude Include="DemoSources\Plasma.hpp" />

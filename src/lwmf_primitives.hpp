@@ -318,7 +318,9 @@ namespace lwmf
 
 				for (std::int_fast32_t j{ StartY }; y1 <= LongLength; ++y1)
 				{
-					Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
+					//Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
+					SetPixel(Texture, (j >> 16), y1, Color);
+
 					j += DecInc;
 				}
 
@@ -329,7 +331,9 @@ namespace lwmf
 
 			for (std::int_fast32_t j{ StartY }; y1 >= LongLength; --y1)
 			{
-				Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
+				//Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
+				SetPixel(Texture, (j >> 16), y1, Color);
+
 				j -= DecInc;
 			}
 
@@ -344,7 +348,9 @@ namespace lwmf
 
 			for (std::int_fast32_t j{ StartX }; x1 <= LongLength; ++x1)
 			{
-				Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
+				//Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
+				SetPixel(Texture, x1, (j >> 16), Color);
+
 				j += DecInc;
 			}
 
@@ -355,7 +361,8 @@ namespace lwmf
 
 		for (std::int_fast32_t j{ StartX }; x1 >= LongLength; --x1)
 		{
-			Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
+			//Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
+			SetPixel(Texture, x1, (j >> 16), Color);
 			j -= DecInc;
 		}
 	}

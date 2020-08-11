@@ -161,3 +161,5 @@ example/x64/Debug/lwmf_demo.exe.recipe
 example/x64/Debug/lwmf_demo.nativecodeanalysis.xml
 example/x64/Debug/NativeCodeAnalysis.read.1.tlog
 example/x64/Debug/vc.nativecodeanalysis.all.xml
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/cfbbb84ad2dff550/PARTICLES.ipch
+example/x64/Release/DemoGFX/Colors.png

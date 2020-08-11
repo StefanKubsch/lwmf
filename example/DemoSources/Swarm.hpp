@@ -52,7 +52,6 @@ namespace Swarm
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
-		#pragma omp parallel for
 		for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
 		{
 			Particles[i].Update(Interval);
@@ -61,7 +60,7 @@ namespace Swarm
 
 		LastTime = Elapsed;
 
-		DisplayInfoBox("OpenMP accelerated realtime particle swarm - 250.000 particles");
+		DisplayInfoBox("Realtime particle swarm - 250.000 particles");
 	}
 
 

@@ -153,6 +153,9 @@
     <ClInclude Include="DemoSources\ThroughputTest.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="DemoSources\Particles.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp">
