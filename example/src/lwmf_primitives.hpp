@@ -32,7 +32,6 @@ namespace lwmf
 	bool ClipLine(std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t x1, std::int_fast32_t y1, std::int_fast32_t x2, std::int_fast32_t y2, std::int_fast32_t& x3, std::int_fast32_t& y3, std::int_fast32_t& x4, std::int_fast32_t& y4);
 	void Line(TextureStruct& Texture, std::int_fast32_t x1, std::int_fast32_t y1, std::int_fast32_t x2, std::int_fast32_t y2, std::int_fast32_t Color);
 	void DrawPixelAA(TextureStruct& Texture, std::int_fast32_t x, std::int_fast32_t y, std::int_fast32_t Color, float Brightness);
-	std::int_fast32_t IntegralPart(float x);
 	float FracPart(float x);
 	void LineAA(TextureStruct& Texture, std::int_fast32_t x1, std::int_fast32_t y1, std::int_fast32_t x2, std::int_fast32_t y2, std::int_fast32_t Color);
 	void Rectangle(TextureStruct& Texture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t Color);
@@ -298,19 +297,19 @@ namespace lwmf
 			return;
 		}
 
-		bool YLonger{};
 		std::int_fast32_t ShortLength{ y2 - y1 };
 		std::int_fast32_t LongLength{ x2 - x1 };
 
-		if (std::abs(ShortLength) > std::abs(LongLength))
+		const bool Steep{ std::abs(ShortLength) > std::abs(LongLength) };
+
+		if (Steep)
 		{
 			std::swap(ShortLength, LongLength);
-			YLonger = true;
 		}
 
 		const std::int_fast32_t DecInc{ LongLength == 0 ? 0 : (ShortLength << 16) / LongLength };
 
-		if (YLonger)
+		if (Steep)
 		{
 			const std::int_fast32_t StartY{ 0x8000 + (x1 << 16) };
 
@@ -320,9 +319,7 @@ namespace lwmf
 
 				for (std::int_fast32_t j{ StartY }; y1 <= LongLength; ++y1)
 				{
-					//Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
-					SetPixel(Texture, (j >> 16), y1, Color);
-
+					Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
 					j += DecInc;
 				}
 
@@ -333,9 +330,7 @@ namespace lwmf
 
 			for (std::int_fast32_t j{ StartY }; y1 >= LongLength; --y1)
 			{
-				//Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
-				SetPixel(Texture, (j >> 16), y1, Color);
-
+				Texture.Pixels[y1 * Texture.Width + (j >> 16)] = Color;
 				j -= DecInc;
 			}
 
@@ -350,9 +345,7 @@ namespace lwmf
 
 			for (std::int_fast32_t j{ StartX }; x1 <= LongLength; ++x1)
 			{
-				//Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
-				SetPixel(Texture, x1, (j >> 16), Color);
-
+				Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
 				j += DecInc;
 			}
 
@@ -363,8 +356,7 @@ namespace lwmf
 
 		for (std::int_fast32_t j{ StartX }; x1 >= LongLength; --x1)
 		{
-			//Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
-			SetPixel(Texture, x1, (j >> 16), Color);
+			Texture.Pixels[(j >> 16) * Texture.Width + x1] = Color;
 			j -= DecInc;
 		}
 	}
@@ -378,18 +370,12 @@ namespace lwmf
 
 	inline void DrawPixelAA(TextureStruct& Texture, const std::int_fast32_t x, const std::int_fast32_t y, const std::int_fast32_t Color, const float Brightness)
 	{
-		ColorStruct ModColor{ INTtoRGBA(Color) };
+		const ColorStruct ModColor{ INTtoRGBA(Color) };
 
-		ModColor.Red = static_cast<std::int_fast32_t>(static_cast<float>(ModColor.Red) * Brightness);
-		ModColor.Green = static_cast<std::int_fast32_t>(static_cast<float>(ModColor.Green) * Brightness);
-		ModColor.Blue = static_cast<std::int_fast32_t>(static_cast<float>(ModColor.Blue) * Brightness);
-
-		SetPixelSafe(Texture, x, y, RGBAtoINT(ModColor.Red, ModColor.Green, ModColor.Blue, ModColor.Alpha));
-	}
-
-	inline std::int_fast32_t IntegralPart(const float x)
-	{
-		return static_cast<std::int_fast32_t>(std::nearbyintf(x));
+		SetPixelSafe(Texture, x, y, RGBAtoINT(static_cast<std::int_fast32_t>(static_cast<float>(ModColor.Red) * Brightness),
+			static_cast<std::int_fast32_t>(static_cast<float>(ModColor.Green) * Brightness),
+			static_cast<std::int_fast32_t>(static_cast<float>(ModColor.Blue) * Brightness),
+			ModColor.Alpha));
 	}
 
 	inline float FracPart(const float x)
@@ -429,47 +415,51 @@ namespace lwmf
 		const float Gradient{ static_cast<float>((y2 - y1)) / static_cast<float>((x2 - x1)) };
 		float EndY{ static_cast<float>(y1) + Gradient };
 		float GapX{ 1.0F - FracPart(static_cast<float>(x1) + 0.5F) };
-		const std::int_fast32_t ypxl1{ IntegralPart(EndY) };
+		const std::int_fast32_t ypxl1{ static_cast<std::int_fast32_t>(std::nearbyintf(EndY)) };
+		float FracEndY{ FracPart(EndY) };
 
 		if (Steep)
 		{
-			DrawPixelAA(Texture, ypxl1, x1, Color, 1.0F - FracPart(EndY) * GapX);
-			DrawPixelAA(Texture, ypxl1 + 1, x1, Color, FracPart(EndY) * GapX);
+			DrawPixelAA(Texture, ypxl1, x1, Color, 1.0F - FracEndY * GapX);
+			DrawPixelAA(Texture, ypxl1 + 1, x1, Color, FracEndY * GapX);
 		}
 		else
 		{
-			DrawPixelAA(Texture, x1, ypxl1, Color, 1.0F - FracPart(EndY) * GapX);
-			DrawPixelAA(Texture, x1, ypxl1 + 1, Color, FracPart(EndY) * GapX);
+			DrawPixelAA(Texture, x1, ypxl1, Color, 1.0F - FracEndY * GapX);
+			DrawPixelAA(Texture, x1, ypxl1 + 1, Color, FracEndY * GapX);
 		}
 
 		float Intersection{ EndY + Gradient };
-
 		EndY = static_cast<float>(y2) + Gradient;
 		GapX = FracPart(static_cast<float>(x2) + 0.5F);
-		const std::int_fast32_t ypxl2{ IntegralPart(EndY) };
+		const std::int_fast32_t ypxl2{ static_cast<std::int_fast32_t>(std::nearbyintf(EndY)) };
+		FracEndY = FracPart(EndY);
 
 		if (Steep)
 		{
-			DrawPixelAA(Texture, ypxl2, x2, Color, 1.0F - FracPart(EndY) * GapX);
-			DrawPixelAA(Texture, ypxl2 + 1, x2, Color, FracPart(EndY) * GapX);
+			DrawPixelAA(Texture, ypxl2, x2, Color, 1.0F - FracEndY * GapX);
+			DrawPixelAA(Texture, ypxl2 + 1, x2, Color, FracEndY * GapX);
 		}
 		else
 		{
-			DrawPixelAA(Texture, x2, ypxl2, Color, 1.0F - FracPart(EndY) * GapX);
-			DrawPixelAA(Texture, x2, ypxl2 + 1, Color, FracPart(EndY) * GapX);
+			DrawPixelAA(Texture, x2, ypxl2, Color, 1.0F - FracEndY * GapX);
+			DrawPixelAA(Texture, x2, ypxl2 + 1, Color, FracEndY * GapX);
 		}
 
 		for (std::int_fast32_t x{ x1 + 1 }; x < x2; ++x)
 		{
+			const std::int_fast32_t Integral{ static_cast<std::int_fast32_t>(std::nearbyintf(Intersection)) };
+			const float FracInt{ FracPart(Intersection) };
+
 			if (Steep)
 			{
-				DrawPixelAA(Texture, IntegralPart(Intersection), x, Color, 1.0F - FracPart(Intersection));
-				DrawPixelAA(Texture, IntegralPart(Intersection) + 1, x, Color, FracPart(Intersection));
+				DrawPixelAA(Texture, Integral, x, Color, 1.0F - FracInt);
+				DrawPixelAA(Texture, Integral + 1, x, Color, FracInt);
 			}
 			else
 			{
-				DrawPixelAA(Texture, x, IntegralPart(Intersection), Color, 1.0F - FracPart(Intersection));
-				DrawPixelAA(Texture, x, IntegralPart(Intersection) + 1, Color, FracPart(Intersection));
+				DrawPixelAA(Texture, x, Integral, Color, 1.0F - FracInt);
+				DrawPixelAA(Texture, x, Integral + 1, Color, FracInt);
 			}
 
 			Intersection += Gradient;

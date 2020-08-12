@@ -22,7 +22,7 @@ namespace Particles
         std::int_fast32_t DirectionY{};
         std::int_fast32_t Size{};
     };
-#
+
     inline void Particle::Draw()
     {
         const std::int_fast32_t Factor{ 130 + (Size * 40) };
@@ -35,7 +35,7 @@ namespace Particles
     {
         static const std::uniform_int_distribution<std::int_fast32_t> Distrib3(5, 8);
 
-        if (x > ScreenTexture.Width || x < 0)
+        if (static_cast<std::uint_fast32_t>(x) > static_cast<std::uint_fast32_t>(ScreenTexture.Width))
         {
             DirectionX = -DirectionX;
             Size = Distrib3(Engine);
@@ -76,18 +76,18 @@ namespace Particles
 
     inline void Connect()
     {
-        static const float DistComp{ (static_cast<float>(ScreenTexture.Width) / 7.0F) * (static_cast<float>(ScreenTexture.Height) / 7.0F) };
+        const float DistComp{ (static_cast<float>(ScreenTexture.Width) / 7.0F) * (static_cast<float>(ScreenTexture.Height) / 7.0F) };
+        static const std::size_t NumberOfParticles{ ParticlesArray.size() };
 
-        for (std::int_fast32_t a{}; a < ParticlesArray.size(); ++a)
+        for (std::int_fast32_t a{}; a < NumberOfParticles; ++a)
         {
-            for (std::int_fast32_t b{ a }; b < ParticlesArray.size(); ++b)
+            for (std::int_fast32_t b{ a }; b < NumberOfParticles; ++b)
             {
                 const float Distance{ static_cast<float>(((ParticlesArray[a].x - ParticlesArray[b].x) * (ParticlesArray[a].x - ParticlesArray[b].x)) + ((ParticlesArray[a].y - ParticlesArray[b].y) * (ParticlesArray[a].y - ParticlesArray[b].y))) };
 
                 if (Distance < DistComp)
                 {
-                    const std::int_fast32_t Opaque{ static_cast<std::int_fast32_t>(255 - ((Distance / 20000.0F) * 255.0F)) };
-
+                    const std::int_fast32_t Opaque{ static_cast<std::int_fast32_t>(255 - ((Distance / 20000.0F) * 100.0F)) };
                     lwmf::LineAA(ScreenTexture, ParticlesArray[a].x, ParticlesArray[a].y, ParticlesArray[b].x, ParticlesArray[b].y, lwmf::RGBAtoINT(Opaque, 0, 0, Opaque));
                 }
             }
@@ -96,7 +96,6 @@ namespace Particles
 
 	inline void Draw()
 	{
-
         if (ScreenTexture.Width != Wallpaper.Width || ScreenTexture.Height != Wallpaper.Height)
         {
             lwmf::ResizeTexture(Wallpaper, ScreenTexture.Width, ScreenTexture.Height, lwmf::FilterModes::NEAREST);
@@ -104,7 +103,9 @@ namespace Particles
 
         lwmf::BlitTexture(Wallpaper, ScreenTexture, 0, 0);
 
-        for (std::int_fast32_t i{}; i < ParticlesArray.size(); ++i)
+        static const std::size_t NumberOfParticles{ ParticlesArray.size() };
+
+        for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
         {
             ParticlesArray[i].Update();
         }
@@ -116,7 +117,7 @@ namespace Particles
 
         Connect();
 
-        for (std::int_fast32_t i{}; i < ParticlesArray.size(); ++i)
+        for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
         {
             ParticlesArray[i].Draw();
         }

@@ -24,7 +24,7 @@ namespace Lens
 		LensPos = { 16, 16 };
 		Dir = { 4, 4 };
 
-		lwmf::LoadPNG(Wallpaper, "./DemoGFX/Head.png");
+		lwmf::LoadPNG(Wallpaper, "./DemoGFX/Colors.png");
 
 		if (ScreenTexture.Width != Wallpaper.Width || ScreenTexture.Height != Wallpaper.Height)
 		{
