@@ -11,27 +11,27 @@ namespace Fire
 	inline void Draw()
 	{
 		// Draw cube
-		constexpr std::int_fast32_t Size{ 250 };
+		constexpr std::int_fast32_t Size{ 350 };
 		constexpr std::int_fast32_t Half{ Size >> 1 };
 		const std::int_fast32_t Red{ lwmf::RGBAtoINT(255, 0, 0, 255) };
 		const std::int_fast32_t Yellow{ lwmf::RGBAtoINT(255, 255, 0, 255) };
-		const lwmf::IntPointStruct Pos{ ScreenTexture.WidthMid - Size + (Half >> 1), ScreenTexture.HeightMid - (Half >> 1) };
+		const lwmf::IntPointStruct Pos{ ScreenTexture.WidthMid - Size + (Half >> 1), ScreenTexture.HeightMid - (Half >> 1) + 80 };
 
 		lwmf::Line(ScreenTexture, Pos.X, Pos.Y, Pos.X + Half, Pos.Y - Half, Red);
 		lwmf::Line(ScreenTexture, Pos.X + 1, Pos.Y, Pos.X + Half, Pos.Y - Half + 1, Yellow);
 		lwmf::Line(ScreenTexture, Pos.X + 2, Pos.Y, Pos.X + Half, Pos.Y - Half + 2, Red);
 
-		lwmf::Line(ScreenTexture, Pos.X, Pos.Y + Size, Pos.X + Half, Pos.Y + Half, Red);
-		lwmf::Line(ScreenTexture, Pos.X + 1, Pos.Y + Size, Pos.X + Half + 1, Pos.Y + Half, Yellow);
-		lwmf::Line(ScreenTexture, Pos.X + 2, Pos.Y + Size, Pos.X + Half + 2, Pos.Y + Half, Red);
+		lwmf::Line(ScreenTexture, Pos.X, Pos.Y + Size - 1, Pos.X + Half, Pos.Y + Half, Red);
+		lwmf::Line(ScreenTexture, Pos.X + 1, Pos.Y + Size - 1, Pos.X + Half + 1, Pos.Y + Half, Yellow);
+		lwmf::Line(ScreenTexture, Pos.X + 2, Pos.Y + Size - 1, Pos.X + Half + 2, Pos.Y + Half, Red);
 
 		lwmf::Line(ScreenTexture, Pos.X + Size, Pos.Y, Pos.X + Size + Half, Pos.Y - Half, Red);
 		lwmf::Line(ScreenTexture, Pos.X + Size - 1, Pos.Y, Pos.X + Size + Half - 1, Pos.Y - Half, Yellow);
 		lwmf::Line(ScreenTexture, Pos.X + Size - 2, Pos.Y, Pos.X + Size + Half - 2, Pos.Y - Half, Red);
 
-		lwmf::Line(ScreenTexture, Pos.X + Size, Pos.Y + Size, Pos.X + Size + Half, Pos.Y + Half, Red);
-		lwmf::Line(ScreenTexture, Pos.X + Size - 1, Pos.Y + Size, Pos.X + Size + Half - 1, Pos.Y + Half, Yellow);
-		lwmf::Line(ScreenTexture, Pos.X + Size - 2, Pos.Y + Size, Pos.X + Size + Half - 2, Pos.Y + Half, Red);
+		lwmf::Line(ScreenTexture, Pos.X + Size - 1, Pos.Y + Size - 1, Pos.X + Size + Half - 1, Pos.Y + Half - 1, Red);
+		lwmf::Line(ScreenTexture, Pos.X + Size - 2, Pos.Y + Size - 1, Pos.X + Size + Half - 2, Pos.Y + Half - 1, Yellow);
+		lwmf::Line(ScreenTexture, Pos.X + Size - 3, Pos.Y + Size - 1, Pos.X + Size + Half - 3, Pos.Y + Half - 1, Red);
 
 		lwmf::Rectangle(ScreenTexture, Pos.X + Half, Pos.Y - Half, Size, Size, Red);
 		lwmf::Rectangle(ScreenTexture, Pos.X + Half + 1, Pos.Y - Half + 1, Size - 2, Size - 2, Yellow);
@@ -42,7 +42,7 @@ namespace Fire
 		lwmf::Rectangle(ScreenTexture, Pos.X + 2, Pos.Y + 2, Size - 4, Size - 4, Red);
 
 		// Apply fire
-		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
+		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-255, 255);
 
 		#pragma omp parallel for
 		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
