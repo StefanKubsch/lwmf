@@ -106,4 +106,12 @@ Have a look at the example, which draws some nice and smooth animated demo effec
 There is also a number of throughput tests of various functions.
 You can download "Release.zip" and run the included executable!
 
+Here are some screenshots from the demo:
+
+![DEMO_PIC1](https://github.com/StefanKubsch/lwmf/blob/master/Documentation/Screenshots/Demo1.png)
+
+![DEMO_PIC2](https://github.com/StefanKubsch/lwmf/blob/master/Documentation/Screenshots/Demo2.png)
+
+![DEMO_PIC3](https://github.com/StefanKubsch/lwmf/blob/master/Documentation/Screenshots/Demo3.png)
+
 I´m using lwmf in my own game engine "NARC" - see https://github.com/StefanKubsch/NARC
