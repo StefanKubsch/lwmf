@@ -64,7 +64,7 @@ namespace lwmf
 		std::ofstream Logfile;
 	};
 
-	Logging::Logging(const std::string& Logfilename)
+	inline Logging::Logging(const std::string& Logfilename)
 	{
 		if (LoggingEnabled)
 		{
@@ -79,7 +79,7 @@ namespace lwmf
 		}
 	}
 
-	Logging::~Logging()
+	inline Logging::~Logging()
 	{
 		try
 		{

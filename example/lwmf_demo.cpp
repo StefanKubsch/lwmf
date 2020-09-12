@@ -34,6 +34,7 @@
 
 // "ScreenTexture" is the main render target in our demo!
 inline lwmf::TextureStruct ScreenTexture{};
+// ...and this is the shader we use to bringt "ScreenTexture" to the screen!
 inline lwmf::ShaderClass ScreenTextureShader{};
 
 // Init & seed random engine
@@ -42,7 +43,9 @@ inline std::mt19937 Engine(Seed());
 
 inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 25 };
-lwmf::MP3Player Music{};
+
+// Make an instance of lwmf::MP3Player for our background music
+inline lwmf::MP3Player Music{};
 
 inline std::string CutDoubleToString(const double Value)
 {
@@ -96,29 +99,39 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nShowCmd);
 
+	// Here we create our logfile and write it initially to disk
 	lwmf::Logging DemoLog("lwmf_demo.log");
+
+	// Save the program instance for further use with lwmf
 	lwmf::WindowInstance = hInstance;
 
 	try
 	{
 		// Create window and OpenGL context
 		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
+
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
-		// Load OpenGL/wgl extensions
+
+		// Load OpenGL/wgl extensions -> you need to do this AFTER creating the OpenGL context!
 		lwmf::InitOpenGLLoader();
+
 		// Check for SSE
 		lwmf::CheckForSSESupport();
+
 		// Init the shaders used for rendering
 		ScreenTextureShader.LoadShader("Default", ScreenTexture);
 		ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);
+
 		// Initial clearance of window (looks better!)
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 		lwmf::ClearBuffer();
 		lwmf::SwapBuffer();
-		// Init raw devices
+
+		// Init raw devices (we only need keyboard support in our demo!)
 		lwmf::RegisterRawInputDevice(lwmf::MainWindow, lwmf::DeviceIdentifier::HID_KEYBOARD);
-		// Init audio
+
+		// Init audio -> load file from disk
 		Music.Load("./DemoSFX/Audio.mp3");
 
 		// Init the demoparts if neccessary...
@@ -303,6 +316,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::SwapBuffer();
 	}
 
+	// Clean up everything
 	Music.Close();
 	lwmf::UnregisterRawInputDevice(lwmf::DeviceIdentifier::HID_KEYBOARD);
 	lwmf::DeleteOpenGLContext();
