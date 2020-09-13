@@ -29,7 +29,7 @@ namespace BitmapTest
 		DisplayInfoBox("Bitmap resize & blitting test");
 
 		static std::uint_fast64_t BlitCounter{};
-		static std::array<char, 20> CounterString{};
+		std::array<char, 20> CounterString{};
 		std::to_chars(CounterString.data(), CounterString.data() + CounterString.size(), ++BlitCounter);
 		lwmf::RenderText(ScreenTexture, "Number of bitmap blits (resize with bilinear filtering): " + std::string(CounterString.data()), 10, 70, 0xFFFFFFFF);
 	}

@@ -21,10 +21,12 @@ namespace VectorCube
 		};
 
 		constexpr std::int_fast32_t CubeNumPoints{ 8 };
-		static std::array<VertexStruct, 8> CubeDef{ { { -200.0F, -200.0F, -200.0F }, { -200.0F, -200.0F, 200.0F }, { -200.0F, 200.0F, -200.0F }, { -200.0F, 200.0F, 200.0F }, { 200.0F, -200.0F, -200.0F }, { 200.0F, -200.0F, 200.0F }, { 200.0F, 200.0F, -200.0F }, { 200.0F, 200.0F, 200.0F } } };
+		static std::array<VertexStruct, 8> CubeDef{ { { -150.0F, -150.0F, -150.0F }, { -150.0F, -150.0F, 150.0F }, { -150.0F, 150.0F, -150.0F }, { -150.0F, 150.0F, 150.0F }, { 150.0F, -150.0F, -150.0F }, { 150.0F, -150.0F, 150.0F }, { 150.0F, 150.0F, -150.0F }, { 150.0F, 150.0F, 150.0F } } };
 		std::array<lwmf::IntPointStruct, CubeNumPoints> Cube{};
 		const float CosA{ std::cosf(0.03F) };
 		const float SinA{ std::sinf(0.03F) };
+		static float LissajouFactor{};
+		LissajouFactor += 0.02F;
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
@@ -40,10 +42,11 @@ namespace VectorCube
 
 			// z - rotation
 			const float x{ CubeDef[i].x * CosA - z * SinA };
-			CubeDef[i].x = x * CosA - CubeDef[i].y * SinA;
-			CubeDef[i].y = CubeDef[i].y * CosA + x * SinA;
+			CubeDef[i].x = (x * CosA - CubeDef[i].y * SinA) + std::cosf(LissajouFactor) * 4.0F;
+			CubeDef[i].y = (CubeDef[i].y * CosA + x * SinA) + std::sinf(LissajouFactor * 1.5F) * 1.5F;
 
 			// 2D projection & translate
+
 			Cube[i].X = ScreenTexture.WidthMid + static_cast<std::int_fast32_t>(CubeDef[i].x);
 			Cube[i].Y = ScreenTexture.HeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
 		}
@@ -56,12 +59,11 @@ namespace VectorCube
 			std::int_fast32_t p3{};
 		};
 
-		constexpr std::int_fast32_t CubeNumFaces{ 6 };
 		constexpr std::array<CubeFaceStruct, 6> CubeFaces{ { {0,1,3,2}, {4,0,2,6}, {5,4,6,7}, {1,5,7,3}, {0,1,5,4}, {2,3,7,6} } };
 		std::vector<std::pair<std::int_fast32_t, float>> Order(6);
 
 		// Sort faces
-		for (std::int_fast32_t i{}; i < CubeNumFaces; ++i)
+		for (std::int_fast32_t i{}; i < 6; ++i)
 		{
 			Order[i].second = (CubeDef[CubeFaces[i].p0].z + CubeDef[CubeFaces[i].p1].z + CubeDef[CubeFaces[i].p2].z + CubeDef[CubeFaces[i].p3].z) * 0.25F;
 			Order[i].first = i;
@@ -72,7 +74,7 @@ namespace VectorCube
 		std::vector<lwmf::IntPointStruct> Points(4);
 		const std::array<std::int_fast32_t, 6> CubeFacesColors{ lwmf::RGBAtoINT(185, 242, 145, 255), lwmf::RGBAtoINT(80, 191, 148, 255), lwmf::RGBAtoINT(94, 89, 89, 255),	lwmf::RGBAtoINT(247, 35, 73, 255), lwmf::RGBAtoINT(255, 132, 94,255), lwmf::RGBAtoINT(246, 220, 133, 255) };
 
-		for (std::int_fast32_t i{}; i < CubeNumFaces; ++i)
+		for (std::int_fast32_t i{}; i < 6; ++i)
 		{
 			Points =
 			{
@@ -85,7 +87,7 @@ namespace VectorCube
 			lwmf::FilledPolygon(ScreenTexture, Points, CubeFacesColors[Order[i].first], CubeFacesColors[Order[i].first]);
 		}
 
-		DisplayInfoBox("Vector cube - filled polygons");
+		DisplayInfoBox("Simple vector cube - filled polygons");
 	}
 
 

@@ -274,7 +274,7 @@ namespace Raytracer
 		UsedSpheres.emplace_back(Sphere(Vec3f(SpherePos.x, SpherePos.y, SpherePos.z), 4.0F, Glass));
 
 		#pragma omp parallel for
-		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
 			const float DirY{ -(y + 0.5F) + ScreenTexture.HeightMid };
 

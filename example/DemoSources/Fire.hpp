@@ -45,7 +45,7 @@ namespace Fire
 		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-255, 255);
 
 		#pragma omp parallel for
-		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{ 1 }; y < ScreenTexture.Height; ++y)
 		{
 			for (std::int_fast32_t x{ 1 }; x < ScreenTexture.Width - 1; ++x)
 			{

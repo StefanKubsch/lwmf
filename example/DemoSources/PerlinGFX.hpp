@@ -20,7 +20,7 @@ namespace PerlinGFX
 	{
 		static lwmf::PerlinNoise PGFX;
 
-		lwmf::IntPointStruct Start{ 0, 115 };
+		lwmf::IntPointStruct Start{};
 		lwmf::IntPointStruct End{};
 
 		switch (Part)

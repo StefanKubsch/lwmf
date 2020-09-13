@@ -28,6 +28,7 @@
 // #include <crtdbg.h>
 
 // Including "lwmf.hpp" is mandatory - this is the main library file!
+// The #defines are used for logging and errorhandling
 #define LWMF_LOGGINGENABLED
 #define LWMF_THROWEXCEPTIONS
 #include "./src/lwmf.hpp"

@@ -359,7 +359,7 @@ namespace lwmf
 	{
 		if (!WaveBuffer.empty())
 		{
-			static MMTIME MMTime{ TIME_SAMPLES, {} };
+			MMTIME MMTime{ TIME_SAMPLES, {} };
 			waveOutGetPosition(WaveOut, &MMTime, sizeof(MMTIME));
 			// Round Position to 3 decimal places ( = precision of 1ms)
 			return std::round(static_cast<double>(MMTime.u.sample) / static_cast<double>(SampleRate) * 1000.0) / 1000.0;

@@ -35,7 +35,7 @@ namespace Tunnel
 		{
 			const float Temp1{ 0.5F * static_cast<float>(Texture.Width) };
 
-			for (std::int_fast32_t y{ 115 }; y < TunnelScreenHeight << 1; ++y)
+			for (std::int_fast32_t y{}; y < TunnelScreenHeight << 1; ++y)
 			{
 				Distance[x][y] = static_cast<std::int_fast32_t>((32.0F * Texture.Width / std::sqrtf(static_cast<float>((x - TunnelScreenWidth) * (x - TunnelScreenWidth) + (y - TunnelScreenHeight) * (y - TunnelScreenHeight))))) & (Texture.Width - 1);
 				const float AngleTemp{ Temp1 * lwmf::FastAtan2Approx(static_cast<float>(y - TunnelScreenHeight), static_cast<float>(x - TunnelScreenWidth)) / lwmf::PI };

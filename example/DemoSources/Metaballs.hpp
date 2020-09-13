@@ -42,7 +42,7 @@ namespace Metaballs
 		}
 
 		#pragma omp parallel for
-		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{

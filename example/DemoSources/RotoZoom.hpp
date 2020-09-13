@@ -24,7 +24,7 @@ namespace RotoZoom
 		++Angle;
 		Angle %= 360;
 
-		for (std::int_fast32_t y{ 115 }; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
 		{
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
