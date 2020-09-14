@@ -42,8 +42,8 @@ namespace VectorCube
 
 			// z - rotation
 			const float x{ CubeDef[i].x * CosA - z * SinA };
-			CubeDef[i].x = (x * CosA - CubeDef[i].y * SinA) + std::cosf(LissajouFactor) * 4.0F;
-			CubeDef[i].y = (CubeDef[i].y * CosA + x * SinA) + std::sinf(LissajouFactor * 1.5F) * 1.5F;
+			CubeDef[i].x = (x * CosA - CubeDef[i].y * SinA) + std::cosf(LissajouFactor) * 1.5F;
+			CubeDef[i].y = (CubeDef[i].y * CosA + x * SinA) + std::sinf(LissajouFactor * 1.5F) * 7.0F;
 
 			// 2D projection & translate
 
@@ -84,7 +84,7 @@ namespace VectorCube
 				{ Cube[CubeFaces[Order[i].first].p3].X, Cube[CubeFaces[Order[i].first].p3].Y }
 			};
 
-			lwmf::FilledPolygon(ScreenTexture, Points, CubeFacesColors[Order[i].first], CubeFacesColors[Order[i].first]);
+			lwmf::FilledPolygon(ScreenTexture, Points, 0x00000000, CubeFacesColors[Order[i].first]);
 		}
 
 		DisplayInfoBox("Simple vector cube - filled polygons");

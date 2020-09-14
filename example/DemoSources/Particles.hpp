@@ -65,12 +65,7 @@ namespace Particles
 
         for (std::int_fast32_t i{}; i < ScreenTexture.Size / 8000; ++i)
         {
-            ParticlesArray.emplace_back();
-            ParticlesArray[i].x = Distrib1(Engine);
-            ParticlesArray[i].y = Distrib2(Engine);
-            ParticlesArray[i].DirectionX = Distrib4(Engine);
-            ParticlesArray[i].DirectionY = Distrib4(Engine);
-            ParticlesArray[i].Size = Distrib3(Engine);
+            ParticlesArray.push_back({ Distrib1(Engine), Distrib2(Engine), Distrib4(Engine), Distrib4(Engine), Distrib3(Engine) });
         }
     }
 
