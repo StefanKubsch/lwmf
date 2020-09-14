@@ -813,11 +813,12 @@ namespace lwmf
 		// This works better when using floats rather than ints
 		//
 
-		std::vector<FloatPointStruct> FloatPoints{};
+		const std::size_t NumberOfPoints{ Points.size() };
+		std::vector<FloatPointStruct> FloatPoints{ NumberOfPoints };
 
-		for (auto& Point : Points)
+		for (std::size_t i{}; i < NumberOfPoints; ++i)
 		{
-			FloatPoints.push_back({ static_cast<float>(Point.X), static_cast<float>(Point.Y)});
+			FloatPoints[i] = { static_cast<float>(Points[i].X), static_cast<float>(Points[i].Y)};
 		}
 
 		if (const FloatPointStruct CentroidPoint{ GetPolygonCentroid(FloatPoints) }; PointInsidePolygon(FloatPoints, CentroidPoint))
