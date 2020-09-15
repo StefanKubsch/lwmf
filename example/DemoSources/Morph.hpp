@@ -47,8 +47,6 @@ namespace Morph
 	{
 		constexpr float Distance{ 128.0F };
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
-
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{
 			float Ry{ Morph[i].y * std::cosf(0.0F) - Morph[i].z * std::sinf(0.0F) };
@@ -79,6 +77,8 @@ namespace Morph
 		static float Angle{};
 		static std::int_fast32_t Count1{};
 		static std::int_fast32_t Count2{};
+
+		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
 		if (Count1 < 256)
 		{

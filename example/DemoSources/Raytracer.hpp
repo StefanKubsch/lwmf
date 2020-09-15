@@ -237,7 +237,6 @@ namespace Raytracer
 		return material.DiffuseColor * DiffuseLightIntensity * material.Albedo[0] + Vec3f(1.0F, 1.0F, 1.0F) * SpecularLightIntensity * material.Albedo[1] + ReflectColor * material.Albedo[2] + RefractColor * material.Albedo[3];
 	}
 
-	inline std::vector<Sphere> UsedSpheres{};
 	inline std::vector<Light> UsedLights{};
 
 	inline void Init()
@@ -268,6 +267,7 @@ namespace Raytracer
 		static Vec3f SphereDir{ 0.5F, 0.5F, 1.5F };
 		static float Zoom{ 50.0F };
 		static float ZoomSpeed{ 10.0F };
+		std::vector<Sphere> UsedSpheres{};
 
 		UsedSpheres.clear();
 		UsedSpheres.shrink_to_fit();
