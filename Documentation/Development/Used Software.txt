@@ -1,0 +1,44 @@
+Development:
+
+	Microsoft Visual Studio 2019 Community Edition
+		https://visualstudio.microsoft.com/de/vs/community/
+
+	PVS Studio (Static Code Analyzer)
+		https://www.viva64.com/en/pvs-studio/
+
+	LLVM
+		https://llvm.org/
+	
+	CLANG Power Tools (-> Tidy, Static Code Analyzer)
+		https://marketplace.visualstudio.com/items?itemName=caphyon.ClangPowerTools
+
+	Github Desktop
+		https://desktop.github.com/
+
+
+
+Graphics:
+
+	IrfanView
+		https://www.irfanview.com/
+
+	GIMP
+		https://www.gimp.org/
+
+	PNGGauntlet (excellent PNG compression!)
+		https://pnggauntlet.com/
+
+	xnConvert (Image batch processing)
+		https://www.xnview.com/de/xnconvert/
+
+
+Audio:
+
+	Audacity
+		https://www.audacityteam.org/
+
+
+Zip:
+
+	7Zip Standalone
+		https://www.7-zip.org/
