@@ -182,7 +182,7 @@ namespace lwmf
 		//
 		// I modified the algorithm slightly...
 
-		// Clip line coordinates to fit into screen boundaries
+		// Clip line coordinates to fit into texture boundaries
 		if (!ClipLine(Texture.Width, Texture.Height, x1, y1, x2, y2, x1, y1, x2, y2))
 		{
 			return;
@@ -283,7 +283,7 @@ namespace lwmf
 			return;
 		}
 
-		// Clip line coordinates to fit into screen boundaries
+		// Clip line coordinates to fit into texture boundaries
 		if (!ClipLine(Texture.Width, Texture.Height, x1, y1, x2, y2, x1, y1, x2, y2))
 		{
 			return;

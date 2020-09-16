@@ -13,6 +13,9 @@ namespace PrimitivesTest
 	inline void Draw()
 	{
 		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
+		static const std::uniform_int_distribution<std::int_fast32_t> PolygonPointX(0, ScreenTexture.Width);
+		static const std::uniform_int_distribution<std::int_fast32_t> PolygonPointY(0, ScreenTexture.Height);
+
 		static const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 3);
 		static std::array<char, 20> RectangleCounterString{};
 		static std::array<char, 20> CircleCounterString{};
@@ -41,8 +44,8 @@ namespace PrimitivesTest
 			}
 			case 2:
 			{
-				const std::vector<lwmf::IntPointStruct> Polygon{ {Point(Engine), Point(Engine)}, {Point(Engine), Point(Engine) }, {Point(Engine), Point(Engine) } };
-				lwmf::Polygon(ScreenTexture, Polygon, lwmf::XorShift32());
+				const std::vector<lwmf::IntPointStruct> Polygon{ {PolygonPointX(Engine), PolygonPointY(Engine)}, {PolygonPointX(Engine), PolygonPointY(Engine) }, {PolygonPointX(Engine), PolygonPointY(Engine) } };
+				lwmf::FilledPolygon(ScreenTexture, Polygon, lwmf::XorShift32(), lwmf::XorShift32());
 
 				static std::uint_fast64_t PolygonCounter{};
 				std::to_chars(PolygonCounterString.data(), PolygonCounterString.data() + PolygonCounterString.size(), ++PolygonCounter);

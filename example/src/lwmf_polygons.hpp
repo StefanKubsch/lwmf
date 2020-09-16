@@ -71,33 +71,41 @@ namespace lwmf
 
 	inline void Polygon(TextureStruct& Texture, const std::vector<IntPointStruct>& Points, const std::int_fast32_t BorderColor)
 	{
+		const std::size_t NumberOfPoints{ Points.size() };
+
 		// Exit early, if we have less than three points - then it´s not a polygon...
-		if (Points.size() < 3)
+		if (NumberOfPoints < 3)
 		{
 			return;
 		}
 
-		std::size_t Index{};
-		const std::size_t NumberOfPoints{ Points.size() - 1 };
-
-		for (Index; Index < NumberOfPoints; ++Index)
+		for (std::size_t i{}; i < NumberOfPoints - 1; ++i)
 		{
-			Line(Texture, Points[Index].X, Points[Index].Y, Points[Index + 1].X, Points[Index + 1].Y, BorderColor);
+			Line(Texture, Points[i].X, Points[i].Y, Points[i + 1].X, Points[i + 1].Y, BorderColor);
 		}
 
-		Line(Texture, Points[Index].X, Points[Index].Y, Points[0].X, Points[0].Y, BorderColor);
+		// Connect last point with first point
+		Line(Texture, Points[NumberOfPoints - 1].X, Points[NumberOfPoints - 1].Y, Points[0].X, Points[0].Y, BorderColor);
 	}
 
 	inline void FilledPolygon(TextureStruct& Texture, const std::vector<IntPointStruct>& Points, const std::int_fast32_t BorderColor, const std::int_fast32_t FillColor)
 	{
+		const std::size_t NumberOfPoints{ Points.size() };
+
 		// Exit early, if we have less than three points - then it´s not a polygon...
-		if (Points.size() < 3)
+		if (NumberOfPoints < 3)
 		{
 			return;
 		}
 
 		// We need to draw a polygon (lines only) with the fillcolor first, so we get some proper boundaries
-		Polygon(Texture, Points, FillColor);
+		for (std::size_t i{}; i < NumberOfPoints - 1; ++i)
+		{
+			Line(Texture, Points[i].X, Points[i].Y, Points[i + 1].X, Points[i + 1].Y, FillColor);
+		}
+
+		// Connect last point with first point
+		Line(Texture, Points[NumberOfPoints - 1].X, Points[NumberOfPoints - 1].Y, Points[0].X, Points[0].Y, FillColor);
 
 		// From now on, we work with floats to get the polygon centroid
 		// Also we check if the found point is REALLY inside the polygon
@@ -105,7 +113,6 @@ namespace lwmf
 		// This works better when using floats rather than ints
 		//
 
-		const std::size_t NumberOfPoints{ Points.size() };
 		std::vector<FloatPointStruct> FloatPoints{ NumberOfPoints };
 
 		for (std::size_t i{}; i < NumberOfPoints; ++i)
@@ -122,7 +129,13 @@ namespace lwmf
 		// Last step - draw a border if needed
 		if (BorderColor != FillColor)
 		{
-			Polygon(Texture, Points, BorderColor);
+			for (std::size_t i{}; i < NumberOfPoints - 1; ++i)
+			{
+				Line(Texture, Points[i].X, Points[i].Y, Points[i + 1].X, Points[i + 1].Y, BorderColor);
+			}
+
+			// Connect last point with first point
+			Line(Texture, Points[NumberOfPoints - 1].X, Points[NumberOfPoints - 1].Y, Points[0].X, Points[0].Y, BorderColor);
 		}
 	}
 
