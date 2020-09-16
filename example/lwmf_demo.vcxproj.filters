@@ -123,9 +123,6 @@
     <ClInclude Include="src\lwmf_png.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\lwmf_primitives.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\lwmf_rawinput.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -154,6 +151,24 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="DemoSources\Particles.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lwmf_polygons.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lwmf_lines.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lwmf_rectangles.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lwmf_circles.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lwmf_pixel.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lwmf_fill.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

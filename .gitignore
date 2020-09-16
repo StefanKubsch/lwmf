@@ -163,3 +163,9 @@ example/x64/Debug/NativeCodeAnalysis.read.1.tlog
 example/x64/Debug/vc.nativecodeanalysis.all.xml
 example/.vs/lwmf_demo/v16/ipch/AutoPCH/cfbbb84ad2dff550/PARTICLES.ipch
 example/x64/Release/DemoGFX/Colors.png
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/17f64c18ff9177ec/LWMF_LINES.ipch
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/4067ba221e375b42/LWMF_POLYGONS.ipch
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/53a81183691b19f3/LWMF_PIXEL.ipch
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/5da967e0bb64ccaa/LWMF_CIRCLES.ipch
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/cd19b3a661447570/LWMF_FILL.ipch
+example/.vs/lwmf_demo/v16/ipch/AutoPCH/e6725401518b3ddb/LWMF_RECTANGLES.ipch

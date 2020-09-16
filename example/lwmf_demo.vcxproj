@@ -47,11 +47,14 @@
     <ClInclude Include="DemoSources\VectorCube.hpp" />
     <ClInclude Include="src\lwmf.hpp" />
     <ClInclude Include="src\lwmf_bmp.hpp" />
+    <ClInclude Include="src\lwmf_circles.hpp" />
     <ClInclude Include="src\lwmf_color.hpp" />
+    <ClInclude Include="src\lwmf_fill.hpp" />
     <ClInclude Include="src\lwmf_fpscounter.hpp" />
     <ClInclude Include="src\lwmf_gamepad.hpp" />
     <ClInclude Include="src\lwmf_general.hpp" />
     <ClInclude Include="src\lwmf_inifile.hpp" />
+    <ClInclude Include="src\lwmf_lines.hpp" />
     <ClInclude Include="src\lwmf_logging.hpp" />
     <ClInclude Include="src\lwmf_math.hpp" />
     <ClInclude Include="src\lwmf_mp3player.hpp" />
@@ -61,8 +64,10 @@
     <ClInclude Include="src\lwmf_openglwindow.hpp" />
     <ClInclude Include="src\lwmf_perlinnoise.hpp" />
     <ClInclude Include="src\lwmf_png.hpp" />
-    <ClInclude Include="src\lwmf_primitives.hpp" />
+    <ClInclude Include="src\lwmf_polygons.hpp" />
+    <ClInclude Include="src\lwmf_pixel.hpp" />
     <ClInclude Include="src\lwmf_rawinput.hpp" />
+    <ClInclude Include="src\lwmf_rectangles.hpp" />
     <ClInclude Include="src\lwmf_simd.hpp" />
     <ClInclude Include="src\lwmf_text.hpp" />
     <ClInclude Include="src\lwmf_texture.hpp" />
