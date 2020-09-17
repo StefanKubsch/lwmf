@@ -87,13 +87,13 @@ inline void DisplayInfoBox(const std::string& Partname)
 #include "./DemoSources/PerlinGFX.hpp"
 #include "./DemoSources/Raytracer.hpp"
 #include "./DemoSources/PrimitivesTest.hpp"
-#include "./DemoSources/BitmapTest.hpp"
+#include "./DemoSources/TextureTest.hpp"
 #include "./DemoSources/Circle.hpp"
 #include "./DemoSources/Cubes.hpp"
 #include "./DemoSources/PixelTest.hpp"
 #include "./DemoSources/ThroughputTest.hpp"
 #include "./DemoSources/Particles.hpp"
-#include "./DemoSources/BitmapRotationTest.hpp"
+#include "./DemoSources/TextureRotationTest.hpp"
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -146,9 +146,9 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		RotoZoom::Init();
 		Bobs::Init();
 		Raytracer::Init();
-		BitmapTest::Init();
+		TextureTest::Init();
 		Particles::Init();
-		BitmapRotationTest::Init();
+		TextureRotationTest::Init();
 	}
 	catch (const std::runtime_error&)
 	{
@@ -292,12 +292,12 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 22:
 			{
-				BitmapTest::Draw();
+				TextureTest::Draw();
 				break;
 			}
 			case 23:
 			{
-				BitmapRotationTest::Draw();
+				TextureRotationTest::Draw();
 				break;
 			}
 			case 24:

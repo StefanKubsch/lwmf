@@ -4,7 +4,7 @@
 #include <array>
 #include <charconv>
 
-namespace BitmapRotationTest
+namespace TextureRotationTest
 {
 
 
@@ -24,15 +24,15 @@ namespace BitmapRotationTest
 		lwmf::RotateTexture(Texture, Texture.WidthMid, Texture.HeightMid, Angle);
 		lwmf::BlitTexture(Texture, ScreenTexture, ScreenTexture.WidthMid - Texture.WidthMid, ScreenTexture.HeightMid - Texture.HeightMid);
 
-		DisplayInfoBox("Bitmap rotation test (lwmf::RotateTexture())");
+		DisplayInfoBox("Texture rotation test (lwmf::RotateTexture)");
 
 		static std::uint_fast64_t RotateCounter{};
 		std::array<char, 20> CounterString{};
 		std::to_chars(CounterString.data(), CounterString.data() + CounterString.size(), ++RotateCounter);
-		lwmf::RenderText(ScreenTexture, "Number of bitmap rotations: " + std::string(CounterString.data()), 10, 70, 0xFFFFFFFF);
+		lwmf::RenderText(ScreenTexture, "Number of texture rotations: " + std::string(CounterString.data()), 10, 70, 0xFFFFFFFF);
 
-		Angle += 0.03F;
+		Angle += 0.015F;
 	}
 
 
-} // namespace BitmapRotationTest
+} // namespace TextureRotationTest

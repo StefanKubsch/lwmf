@@ -75,9 +75,6 @@
     <ClInclude Include="DemoSources\PrimitivesTest.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="DemoSources\BitmapTest.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\lwmf.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -171,7 +168,10 @@
     <ClInclude Include="src\lwmf_fill.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="DemoSources\BitmapRotationTest.hpp">
+    <ClInclude Include="DemoSources\TextureRotationTest.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoSources\TextureTest.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
