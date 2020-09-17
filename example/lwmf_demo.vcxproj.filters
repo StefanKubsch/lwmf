@@ -171,6 +171,9 @@
     <ClInclude Include="src\lwmf_fill.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="DemoSources\BitmapRotationTest.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp">

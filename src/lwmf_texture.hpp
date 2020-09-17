@@ -44,6 +44,7 @@ namespace lwmf
 	void ResizeTexture(TextureStruct& Texture, std::int_fast32_t TargetWidth, std::int_fast32_t TargetHeight, FilterModes FilterMode);
 	void BlitTexture(const TextureStruct& SourceTexture, TextureStruct& TargetTexture, std::int_fast32_t PosX, std::int_fast32_t PosY);
 	void BlitTransTexture(const TextureStruct& SourceTexture, TextureStruct& TargetTexture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t TransparentColor);
+	void RotateTexture(TextureStruct& Texture, std::int_fast32_t RotCenterX, std::int_fast32_t RotCenterY, float Angle);
 	void ClearTexture(TextureStruct& Texture, std::int_fast32_t Color);
 
 	//
@@ -282,6 +283,37 @@ namespace lwmf
 				}
 			}
 		}
+	}
+
+	inline void RotateTexture(TextureStruct& Texture, const std::int_fast32_t RotCenterX, const std::int_fast32_t RotCenterY, const float Angle)
+	{
+		std::vector<std::int_fast32_t> TempBuffer(Texture.Size);
+
+		const float c{ std::cosf(Angle) };
+		const float s{ std::sinf(Angle) };
+
+		for (std::int_fast32_t y{}; y < Texture.Height; ++y)
+		{
+			const float fy{ static_cast<float>(y - RotCenterY) };
+
+			for (std::int_fast32_t x{}; x < Texture.Width; ++x)
+			{
+				const float fx{ static_cast<float>(x - RotCenterX) };
+				const std::int_fast32_t SrcX{ static_cast<std::int_fast32_t>((+(fx * c) + (fy * s))) + RotCenterX };
+				const std::int_fast32_t SrcY{ static_cast<std::int_fast32_t>((-(fx * s) + (fy * c))) + RotCenterY };
+
+				if ((SrcX >= 0) && (SrcX < Texture.Width) && (SrcY >= 0) && (SrcY < Texture.Height))
+				{
+					TempBuffer[y * Texture.Width + x] = Texture.Pixels[SrcY * Texture.Width + SrcX];
+				}
+				else
+				{
+					TempBuffer[y * Texture.Width + x] = 0x00000000;
+				}
+			}
+		}
+
+		Texture.Pixels = std::move(TempBuffer);
 	}
 
 	inline void ClearTexture(TextureStruct& Texture, const std::int_fast32_t Color)

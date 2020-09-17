@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DemoSources\BitmapRotationTest.hpp" />
     <ClInclude Include="DemoSources\BitmapTest.hpp" />
     <ClInclude Include="DemoSources\Bobs.hpp" />
     <ClInclude Include="DemoSources\Circle.hpp" />

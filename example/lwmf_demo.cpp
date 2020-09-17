@@ -43,7 +43,7 @@ inline std::random_device Seed{};
 inline std::mt19937 Engine(Seed());
 
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 25 };
+constexpr std::int_fast32_t MaxDemoPart{ 26 };
 
 // Make an instance of lwmf::MP3Player for our background music
 inline lwmf::MP3Player Music{};
@@ -93,6 +93,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 #include "./DemoSources/PixelTest.hpp"
 #include "./DemoSources/ThroughputTest.hpp"
 #include "./DemoSources/Particles.hpp"
+#include "./DemoSources/BitmapRotationTest.hpp"
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -147,6 +148,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		Raytracer::Init();
 		BitmapTest::Init();
 		Particles::Init();
+		BitmapRotationTest::Init();
 	}
 	catch (const std::runtime_error&)
 	{
@@ -295,7 +297,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			}
 			case 23:
 			{
-				PrimitivesTest::Draw();
+				BitmapRotationTest::Draw();
 				break;
 			}
 			case 24:
@@ -306,6 +308,11 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			case 25:
 			{
 				PixelTest::Draw();
+				break;
+			}
+			case 26:
+			{
+				PrimitivesTest::Draw();
 				break;
 			}
 			default: {}
@@ -373,14 +380,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 22 && DemoPart <= 25) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 22 && DemoPart <= 26) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 22 && DemoPart <= 25) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 22 && DemoPart <= 26) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}

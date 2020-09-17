@@ -42,6 +42,7 @@ Features:
 	- Textures
 		- create
 		- resize
+		- rotate
 		- scale
 		- crop
 		- blitting
