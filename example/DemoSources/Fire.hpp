@@ -49,7 +49,7 @@ namespace Fire
 		{
 			for (std::int_fast32_t x{ 1 }; x < ScreenTexture.Width - 1; ++x)
 			{
-				if ((Distrib1(Engine) & 31) == 0)
+				if ((Distrib1(RNG) & 31) == 0)
 				{
 					lwmf::SetPixel(ScreenTexture, x, y, 0x00000000);
 				}

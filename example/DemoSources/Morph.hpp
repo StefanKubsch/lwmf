@@ -27,15 +27,15 @@ namespace Morph
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{
-			float Theta{ (Distrib(Engine) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI };
-			float Phi{ (Distrib(Engine) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI };
+			float Theta{ (Distrib(RNG) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI };
+			float Phi{ (Distrib(RNG) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI };
 
 			Sphere[i].x = std::cosf(Phi) * std::sinf(Theta);
 			Sphere[i].y = std::sinf(Phi) * std::sinf(Theta);
 			Sphere[i].z = std::cosf(Theta);
 
-			Theta = (Distrib(Engine) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI;
-			Phi = (Distrib(Engine) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI;
+			Theta = (Distrib(RNG) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI;
+			Phi = (Distrib(RNG) / static_cast<float>(RAND_MAX)) * lwmf::DoublePI;
 
 			Torus[i].x = (0.8F + 0.4F * std::cosf(Theta)) * std::cosf(Phi);
 			Torus[i].y = (0.8F + 0.4F * std::cosf(Theta)) * std::sinf(Phi);

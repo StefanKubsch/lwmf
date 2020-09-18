@@ -38,10 +38,10 @@ inline lwmf::TextureStruct ScreenTexture{};
 // ...and this is the shader we use to bringt "ScreenTexture" to the screen!
 inline lwmf::ShaderClass ScreenTextureShader{};
 
-// Init & seed random engine
-inline std::random_device Seed{};
-inline std::mt19937 Engine(Seed());
+// Init & seed random RNG
+inline std::mt19937 RNG(std::random_device{}());
 
+// Control variables for demo flow
 inline std::int_fast32_t DemoPart{};
 constexpr std::int_fast32_t MaxDemoPart{ 26 };
 

@@ -32,8 +32,8 @@ namespace Starfield
 
 			if (Stars[i].z < 0.0F)
 			{
-				Stars[i].Pos = { Distrib1(Engine), Distrib1(Engine) };
-				Stars[i].z = Distrib2(Engine);
+				Stars[i].Pos = { Distrib1(RNG), Distrib1(RNG) };
+				Stars[i].z = Distrib2(RNG);
 			}
 
 			const float Factor{ 128.0F / Stars[i].z };

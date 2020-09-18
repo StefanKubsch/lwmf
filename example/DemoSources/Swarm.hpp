@@ -26,8 +26,8 @@ namespace Swarm
 
 				Pos = { 0.0F, 0.0F };
 
-				Direction = (lwmf::DoublePI * Distrib1(Engine)) / RAND_MAX;
-				Speed = (0.1F * Distrib1(Engine)) / RAND_MAX;
+				Direction = (lwmf::DoublePI * Distrib1(RNG)) / RAND_MAX;
+				Speed = (0.1F * Distrib1(RNG)) / RAND_MAX;
 				Speed *= Speed;
 			}
 

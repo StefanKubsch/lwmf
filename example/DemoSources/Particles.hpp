@@ -38,13 +38,13 @@ namespace Particles
         if (static_cast<std::uint_fast32_t>(x) > static_cast<std::uint_fast32_t>(ScreenTexture.Width))
         {
             DirectionX = -DirectionX;
-            Size = Distrib3(Engine);
+            Size = Distrib3(RNG);
         }
 
         if (y > ScreenTexture.Height || y < 115)
         {
             DirectionY = -DirectionY;
-            Size = Distrib3(Engine);
+            Size = Distrib3(RNG);
         }
 
         x += DirectionX;
@@ -65,7 +65,7 @@ namespace Particles
 
         for (std::int_fast32_t i{}; i < ScreenTexture.Size / 8000; ++i)
         {
-            ParticlesArray.push_back({ Distrib1(Engine), Distrib2(Engine), Distrib4(Engine), Distrib4(Engine), Distrib3(Engine) });
+            ParticlesArray.push_back({ Distrib1(RNG), Distrib2(RNG), Distrib4(RNG), Distrib4(RNG), Distrib3(RNG) });
         }
     }
 
