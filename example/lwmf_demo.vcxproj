@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DemoSources\DLA.hpp" />
     <ClInclude Include="DemoSources\TextureRotationTest.hpp" />
     <ClInclude Include="DemoSources\TextureTest.hpp" />
     <ClInclude Include="DemoSources\Bobs.hpp" />

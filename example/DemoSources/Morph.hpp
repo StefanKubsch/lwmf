@@ -121,7 +121,7 @@ namespace Morph
 			Count2 = 0;
 		}
 
-		DisplayInfoBox("Realtime morph - 10.000 dots");
+		DisplayInfoBox("Realtime morph - " + std::to_string(NumberOfPoints) + " points");
 	}
 
 

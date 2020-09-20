@@ -60,7 +60,7 @@ namespace Swarm
 
 		LastTime = Elapsed;
 
-		DisplayInfoBox("Realtime particle swarm - 250.000 particles");
+		DisplayInfoBox("Realtime particle swarm - " + std::to_string(NumberOfParticles) + " particles");
 	}
 
 

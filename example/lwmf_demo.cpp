@@ -43,7 +43,7 @@ inline std::mt19937 RNG(std::random_device{}());
 
 // Control variables for demo flow
 inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 26 };
+constexpr std::int_fast32_t MaxDemoPart{ 27 };
 
 // Make an instance of lwmf::MP3Player for our background music
 inline lwmf::MP3Player Music{};
@@ -94,6 +94,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 #include "./DemoSources/ThroughputTest.hpp"
 #include "./DemoSources/Particles.hpp"
 #include "./DemoSources/TextureRotationTest.hpp"
+#include "./DemoSources/DLA.hpp"
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -149,6 +150,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		TextureTest::Init();
 		Particles::Init();
 		TextureRotationTest::Init();
+		DLA::Init();
 	}
 	catch (const std::runtime_error&)
 	{
@@ -315,6 +317,11 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 				PrimitivesTest::Draw();
 				break;
 			}
+			case 27:
+			{
+				DLA::Draw();
+				break;
+			}
 			default: {}
 		}
 
@@ -380,14 +387,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							{
 								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 22 && DemoPart <= 26) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 22 && DemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 22 && DemoPart <= 26) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(DemoPart >= 22 && DemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}
