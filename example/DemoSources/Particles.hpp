@@ -100,9 +100,9 @@ namespace Particles
 
         static const std::size_t NumberOfParticles{ ParticlesArray.size() };
 
-        for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
+        for (auto& Particle : ParticlesArray)
         {
-            ParticlesArray[i].Update();
+            Particle.Update();
         }
 
         std::sort(ParticlesArray.begin(), ParticlesArray.end(), [](const Particle& lhs, const Particle& rhs)
@@ -112,9 +112,9 @@ namespace Particles
 
         Connect();
 
-        for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
+        for (auto& Particle : ParticlesArray)
         {
-            ParticlesArray[i].Draw();
+            Particle.Draw();
         }
 
 		DisplayInfoBox("Particles - connected with anti-aliased lines");

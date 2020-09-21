@@ -48,7 +48,7 @@ namespace Metaballs
 			{
 				float BallSum{};
 
-				for (auto& Ball : Metaballs)
+				for (const auto& Ball : Metaballs)
 				{
 					const lwmf::FloatPointStruct BallTemp{ static_cast<float>(x - Ball.Pos.X), static_cast<float>(y - Ball.Pos.Y) };
 					BallSum += 3.0F / std::sqrtf(BallTemp.X * BallTemp.X + BallTemp.Y * BallTemp.Y);

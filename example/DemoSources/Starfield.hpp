@@ -26,22 +26,22 @@ namespace Starfield
 
 		lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
-		for (std::int_fast32_t i{}; i < MaxStars; ++i)
+		for (auto& Star : Stars)
 		{
-			Stars[i].z -= 0.19F;
+			Star.z -= 0.19F;
 
-			if (Stars[i].z < 0.0F)
+			if (Star.z < 0.0F)
 			{
-				Stars[i].Pos = { Distrib1(RNG), Distrib1(RNG) };
-				Stars[i].z = Distrib2(RNG);
+				Star.Pos = { Distrib1(RNG), Distrib1(RNG) };
+				Star.z = Distrib2(RNG);
 			}
 
-			const float Factor{ 128.0F / Stars[i].z };
-			const std::int_fast32_t ColorPart{ static_cast<std::int_fast32_t>(255.0F - Stars[i].z * 3.0F) };
+			const float Factor{ 128.0F / Star.z };
+			const std::int_fast32_t ColorPart{ static_cast<std::int_fast32_t>(255.0F - Star.z * 3.0F) };
 
-			lwmf::FilledCircle(ScreenTexture, static_cast<std::int_fast32_t>(Stars[i].Pos.X * Factor) + ScreenTexture.WidthMid,
-				static_cast<std::int_fast32_t>(Stars[i].Pos.Y * Factor) + ScreenTexture.HeightMid,
-				static_cast<std::int_fast32_t>((1.0F - (Stars[i].z) / MaxDepth) * 6.0F), StarBorderColor, lwmf::RGBAtoINT(ColorPart, ColorPart, ColorPart, ColorPart));
+			lwmf::FilledCircle(ScreenTexture, static_cast<std::int_fast32_t>(Star.Pos.X * Factor) + ScreenTexture.WidthMid,
+				static_cast<std::int_fast32_t>(Star.Pos.Y * Factor) + ScreenTexture.HeightMid,
+				static_cast<std::int_fast32_t>((1.0F - (Star.z) / MaxDepth) * 6.0F), StarBorderColor, lwmf::RGBAtoINT(ColorPart, ColorPart, ColorPart, ColorPart));
 		}
 
 		DisplayInfoBox("3D starfield - " + std::to_string(MaxStars) + " stars");
