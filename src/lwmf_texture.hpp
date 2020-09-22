@@ -200,30 +200,36 @@ namespace lwmf
 			TargetTexture.Pixels = SourceTexture.Pixels;
 			return;
 		}
-
-		// Case 2: Bitmap fits (= smaller than target texture and within boundaries)
-		if (PosX >= 0 && PosY >= 0 && SourceTexture.Width + PosX <= TargetTexture.Width && SourceTexture.Height + PosY <= TargetTexture.Height)
-		{
-			for (std::int_fast32_t y{}; y < SourceTexture.Height; ++y, ++PosY)
-			{
-				const auto SrcY{ SourceTexture.Pixels.begin() + y * SourceTexture.Width };
-				std::copy(SrcY, SrcY + SourceTexture.Width, TargetTexture.Pixels.begin() + PosY * TargetTexture.Width + PosX);
-			}
-		}
-		// Case 3: Each pixel has to be checked if within boundaries
+		// Case 2: Clip Pos and width/height to fit within boundaries
 		else
 		{
-			for (std::int_fast32_t y{}; y < SourceTexture.Height; ++y, ++PosY)
-			{
-				const std::int_fast32_t DestOffset{ PosY * TargetTexture.Width };
-				const std::int_fast32_t SrcOffset{ y * SourceTexture.Width };
+			std::int_fast32_t StartX{};
 
-				for (std::int_fast32_t x{}; x < SourceTexture.Width; ++x)
+			if (PosX < 0 && (std::abs(0 - PosX) < SourceTexture.Width))
+			{
+				StartX = std::abs(0 - PosX);
+			}
+
+			std::int_fast32_t TargetHeight{ SourceTexture.Height };
+
+			if (PosY + SourceTexture.Height >= TargetTexture.Height)
+			{
+				TargetHeight = TargetTexture.Height - PosY;
+			}
+
+			std::int_fast32_t TargetWidth{ SourceTexture.Width };
+
+			if (PosX + SourceTexture.Width >= TargetTexture.Width)
+			{
+				TargetWidth = TargetTexture.Width - PosX;
+			}
+
+			for (std::int_fast32_t y{}; y < TargetHeight; ++y, ++PosY)
+			{
+				if (PosY > 0 && PosY < TargetTexture.Height)
 				{
-					if (static_cast<std::uint_fast32_t>(PosX + x) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && static_cast<std::uint_fast32_t>(PosY) < static_cast<std::uint_fast32_t>(TargetTexture.Height))
-					{
-						TargetTexture.Pixels[DestOffset + PosX + x] = SourceTexture.Pixels[SrcOffset + x];
-					}
+					const auto SrcY{ SourceTexture.Pixels.begin() + y * SourceTexture.Width + StartX};
+					std::copy(SrcY, SrcY + TargetWidth - StartX, TargetTexture.Pixels.begin() + PosY * TargetTexture.Width + PosX + StartX);
 				}
 			}
 		}
