@@ -200,33 +200,16 @@ namespace lwmf
 			TargetTexture.Pixels = SourceTexture.Pixels;
 			return;
 		}
-		// Case 2: Clip Pos and width/height to fit within boundaries
+		// Case 2: Clip position and width/height to fit within boundaries
 		else
 		{
-			std::int_fast32_t StartX{};
-
-			if (PosX < 0 && (std::abs(0 - PosX) < SourceTexture.Width))
-			{
-				StartX = std::abs(0 - PosX);
-			}
-
-			std::int_fast32_t TargetHeight{ SourceTexture.Height };
-
-			if (PosY + SourceTexture.Height >= TargetTexture.Height)
-			{
-				TargetHeight = TargetTexture.Height - PosY;
-			}
-
-			std::int_fast32_t TargetWidth{ SourceTexture.Width };
-
-			if (PosX + SourceTexture.Width >= TargetTexture.Width)
-			{
-				TargetWidth = TargetTexture.Width - PosX;
-			}
+			const std::int_fast32_t StartX{ (PosX < 0 && (std::abs(0 - PosX) < SourceTexture.Width)) ? std::abs(0 - PosX) : 0 };
+			const std::int_fast32_t TargetHeight{ (PosY + SourceTexture.Height >= TargetTexture.Height) ? TargetTexture.Height - PosY : SourceTexture.Height };
+			const std::int_fast32_t TargetWidth{ (PosX + SourceTexture.Width >= TargetTexture.Width) ? TargetTexture.Width - PosX : SourceTexture.Width };
 
 			for (std::int_fast32_t y{}; y < TargetHeight; ++y, ++PosY)
 			{
-				if (PosY > 0 && PosY < TargetTexture.Height)
+				if (static_cast<std::uint_fast32_t>(PosY) < static_cast<std::uint_fast32_t>(TargetTexture.Height))
 				{
 					const auto SrcY{ SourceTexture.Pixels.begin() + y * SourceTexture.Width + StartX};
 					std::copy(SrcY, SrcY + TargetWidth - StartX, TargetTexture.Pixels.begin() + PosY * TargetTexture.Width + PosX + StartX);
