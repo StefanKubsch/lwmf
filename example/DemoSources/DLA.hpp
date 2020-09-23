@@ -76,6 +76,7 @@ namespace DLA
                 case 7:
                 {
                     --Point.X;
+                    break;
                 }
                 default: {}
             }

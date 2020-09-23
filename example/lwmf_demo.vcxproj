@@ -73,6 +73,7 @@
     <ClInclude Include="src\lwmf_simd.hpp" />
     <ClInclude Include="src\lwmf_text.hpp" />
     <ClInclude Include="src\lwmf_texture.hpp" />
+    <ClInclude Include="src\lwmf_ellipses.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp" />

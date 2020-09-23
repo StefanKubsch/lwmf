@@ -177,6 +177,9 @@
     <ClInclude Include="DemoSources\DLA.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\lwmf_ellipses.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lwmf_demo.cpp">
