@@ -45,7 +45,7 @@ namespace PrimitivesTest
 			case 2:
 			{
 				const std::vector<lwmf::IntPointStruct> Polygon{ {PolygonPointX(RNG), PolygonPointY(RNG)}, {PolygonPointX(RNG), PolygonPointY(RNG) }, {PolygonPointX(RNG), PolygonPointY(RNG) } };
-				lwmf::FilledPolygon(ScreenTexture, Polygon, lwmf::XorShift32(), lwmf::XorShift32());
+				lwmf::Polygon(ScreenTexture, Polygon, lwmf::XorShift32());
 
 				static std::uint_fast64_t PolygonCounter{};
 				std::to_chars(PolygonCounterString.data(), PolygonCounterString.data() + PolygonCounterString.size(), ++PolygonCounter);

@@ -53,16 +53,11 @@ namespace lwmf
 			return;
 		}
 
-		bool SafeFlag{};
-
 		// if complete ellipse is within texture boundaries, there is no reason to use SetPixelSafe...
-		if ((CenterX - RadiusX >= 0 && CenterX + RadiusX < Texture.Width) && (CenterY - RadiusY >= 0 && CenterY + RadiusY < Texture.Height))
-		{
-			SafeFlag = true;
-		}
+		const bool SafeFlag{ ((CenterX - RadiusX >= 0 && CenterX + RadiusX < Texture.Width) && (CenterY - RadiusY >= 0 && CenterY + RadiusY < Texture.Height)) ? true : false };
 
-		IntPointStruct RadiusTemp{ RadiusX * RadiusX , RadiusY * RadiusY };
-		IntPointStruct TwoRadiusTemp{ RadiusTemp.X << 1, RadiusTemp.Y << 1 };
+		const IntPointStruct RadiusTemp{ RadiusX * RadiusX , RadiusY * RadiusY };
+		const IntPointStruct TwoRadiusTemp{ RadiusTemp.X << 1, RadiusTemp.Y << 1 };
 		IntPointStruct Point{ 0, RadiusY };
 		IntPointStruct Temp{ TwoRadiusTemp.Y * Point.X, TwoRadiusTemp.X * Point.Y };
 		float p1{ static_cast<float>(RadiusTemp.Y - (RadiusTemp.X * RadiusY) + (RadiusTemp.X >> 2)) };
