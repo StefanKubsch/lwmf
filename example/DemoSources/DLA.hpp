@@ -179,7 +179,7 @@ namespace DLA
         {
             for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
             {
-                const std::int_fast32_t Color{ static_cast<std::int_fast32_t>((std::min)(0.5F, GetAggregation(x, y)) * 384.0F) };
+                const std::int_fast32_t Color{ static_cast<std::int_fast32_t>(std::min(0.5F, GetAggregation(x, y)) * 384.0F) };
                 lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT(Color, 0, Color, 255));
             }
         }

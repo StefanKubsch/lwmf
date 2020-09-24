@@ -154,7 +154,7 @@ namespace Raytracer
 
 	inline Vec3f Refract(const Vec3f& I, const Vec3f& N, const float eta_t, const float eta_i = 1.0F)
 	{
-		const float CosI{ -(std::max)(-1.0F, (std::min)(1.0F, I * N)) };
+		const float CosI{ -std::max(-1.0F, std::min(1.0F, I * N)) };
 
 		if (CosI < 0)
 		{
@@ -199,8 +199,8 @@ namespace Raytracer
 
 		if (Depth > 4 || !SceneIntersect(Origin, Direction, spheres, Point, N, material))
 		{
-			std::int_fast32_t x{ (std::max)(0, (std::min)(SphericalMapWidth - 1, static_cast<std::int_fast32_t>((lwmf::FastAtan2Approx(Direction.z, Direction.x) / (lwmf::DoublePI) + 0.5F) * SphericalMapWidth))) };
-			std::int_fast32_t y{ (std::max)(0, (std::min)(SphericalMapHeight - 1, static_cast<std::int_fast32_t>(std::acosf(Direction.y) / lwmf::PI * SphericalMapHeight))) };
+			std::int_fast32_t x{ std::max(0, std::min(SphericalMapWidth - 1, static_cast<std::int_fast32_t>((lwmf::FastAtan2Approx(Direction.z, Direction.x) / (lwmf::DoublePI) + 0.5F) * SphericalMapWidth))) };
+			std::int_fast32_t y{ std::max(0, std::min(SphericalMapHeight - 1, static_cast<std::int_fast32_t>(std::acosf(Direction.y) / lwmf::PI * SphericalMapHeight))) };
 
 			return SphericalMap[y * SphericalMapWidth + x];
 		}
@@ -230,8 +230,8 @@ namespace Raytracer
 				continue;
 			}
 
-			DiffuseLightIntensity += Light.Intensity * (std::max)(0.0F, LightDir * N);
-			SpecularLightIntensity += std::powf((std::max)(0.0F, -Reflect(-LightDir, N) * Direction), material.SpecularExponent) * Light.Intensity;
+			DiffuseLightIntensity += Light.Intensity * std::max(0.0F, LightDir * N);
+			SpecularLightIntensity += std::powf(std::max(0.0F, -Reflect(-LightDir, N) * Direction), material.SpecularExponent) * Light.Intensity;
 		}
 
 		return material.DiffuseColor * DiffuseLightIntensity * material.Albedo[0] + Vec3f(1.0F, 1.0F, 1.0F) * SpecularLightIntensity * material.Albedo[1] + ReflectColor * material.Albedo[2] + RefractColor * material.Albedo[3];
@@ -283,7 +283,7 @@ namespace Raytracer
 				const float DirX{ (x + 0.5F) - ScreenTexture.WidthMid };
 
 				Vec3f Result{ CastRay(Vec3f(0.0F, 0.0F, 0.0F), Vec3f(DirX, DirY, DirZ + Zoom).normalize(), UsedSpheres, UsedLights) };
-				const float Max{ (std::max)(Result[0], (std::max)(Result[1], Result[2])) };
+				const float Max{ std::max(Result[0], std::max(Result[1], Result[2])) };
 
 				if (Max > 1.0F)
 				{
