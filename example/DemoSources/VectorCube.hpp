@@ -71,20 +71,18 @@ namespace VectorCube
 
 		std::sort(Order.begin(), Order.end(), [](auto& left, auto& right) {	return left.second < right.second; });
 
-		std::vector<lwmf::IntPointStruct> Points(4);
 		const std::array<std::int_fast32_t, 6> CubeFacesColors{ lwmf::RGBAtoINT(185, 242, 145, 255), lwmf::RGBAtoINT(80, 191, 148, 255), lwmf::RGBAtoINT(94, 89, 89, 255),	lwmf::RGBAtoINT(247, 35, 73, 255), lwmf::RGBAtoINT(255, 132, 94,255), lwmf::RGBAtoINT(246, 220, 133, 255) };
 
 		for (std::int_fast32_t i{}; i < 6; ++i)
 		{
-			Points =
-			{
-				{ Cube[CubeFaces[Order[i].first].p0].X, Cube[CubeFaces[Order[i].first].p0].Y },
-				{ Cube[CubeFaces[Order[i].first].p1].X, Cube[CubeFaces[Order[i].first].p1].Y },
-				{ Cube[CubeFaces[Order[i].first].p2].X, Cube[CubeFaces[Order[i].first].p2].Y },
-				{ Cube[CubeFaces[Order[i].first].p3].X, Cube[CubeFaces[Order[i].first].p3].Y }
-			};
-
-			lwmf::FilledPolygon(ScreenTexture, Points, 0x00000000, CubeFacesColors[Order[i].first]);
+			lwmf::FilledPolygon(ScreenTexture,
+				{
+					{ Cube[CubeFaces[Order[i].first].p0].X, Cube[CubeFaces[Order[i].first].p0].Y },
+					{ Cube[CubeFaces[Order[i].first].p1].X, Cube[CubeFaces[Order[i].first].p1].Y },
+					{ Cube[CubeFaces[Order[i].first].p2].X, Cube[CubeFaces[Order[i].first].p2].Y },
+					{ Cube[CubeFaces[Order[i].first].p3].X, Cube[CubeFaces[Order[i].first].p3].Y }
+				},
+				0x00000000, CubeFacesColors[Order[i].first]);
 		}
 
 		DisplayInfoBox("Simple vector cube - filled polygons");
