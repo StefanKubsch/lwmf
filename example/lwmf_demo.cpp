@@ -17,6 +17,7 @@
 #include <Windows.h>
 #include <cstdint>
 #include <string>
+#include <vector>
 #include <random>
 
 // Uncomment to find memory leaks in debug mode
@@ -43,8 +44,8 @@ inline lwmf::ShaderClass ScreenTextureShader{};
 inline std::mt19937 RNG(std::random_device{}());
 
 // Control variables for demo flow
-inline std::int_fast32_t DemoPart{};
-constexpr std::int_fast32_t MaxDemoPart{ 27 };
+inline std::int_fast32_t ActiveDemoPart{};
+constexpr std::int_fast32_t NumberOfDemoParts{ 27 };
 
 // Make an instance of lwmf::MP3Player for our background music
 inline lwmf::MP3Player Music{};
@@ -61,7 +62,7 @@ inline void DisplayInfoBox(const std::string& Partname)
 	lwmf::FPSCounter();
 	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
-	static const std::string DurationString{ "Music duration in seconds: " + CutDoubleToString(Music.GetDuration()) };
+	const std::string DurationString{ "Music duration in seconds: " + CutDoubleToString(Music.GetDuration()) };
 	lwmf::RenderText(ScreenTexture, DurationString, 10, 40, 0xFFFFFFFF);
 	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + CutDoubleToString(Music.GetPosition()), 10, 50, 0xFFFFFFFF);
 	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, 0xFFFFFFFF);
@@ -112,7 +113,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", true);
 
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
@@ -158,6 +159,14 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		return EXIT_FAILURE;
 	}
 
+	const std::vector<void (*)()> DemoParts
+	{
+		Metaballs::Draw, Plasma::Draw, DotTunnel::Draw, Fire::Draw, Swarm::Draw, Landscape::Draw, Starfield::Draw,
+		VectorCube::Draw, Lens::Draw, Copperbars::Draw, Tunnel::Draw, Morph::Draw,GouraudShade::Draw, RotoZoom::Draw, Moiree::Draw,
+		Julia::Draw, Bobs::Draw, PerlinGFX::DrawParts, Raytracer::Draw, Cubes::Draw, Circle::Draw, Particles::Draw, TextureTest::Draw,
+		TextureRotationTest::Draw, ThroughputTest::Draw, PixelTest::Draw, PrimitivesTest::Draw, DLA::Draw
+	};
+
 	bool Quit{};
 
 	while (!Quit)
@@ -181,150 +190,8 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 			DispatchMessage(&Message);
 		}
 
-		switch (DemoPart)
-		{
-			case 0:
-			{
-				Metaballs::Draw();
-				break;
-			}
-			case 1:
-			{
-				Plasma::Draw();
-				break;
-			}
-			case 2:
-			{
-				DotTunnel::Draw();
-				break;
-			}
-			case 3:
-			{
-				Fire::Draw();
-				break;
-			}
-			case 4:
-			{
-				Swarm::Draw();
-				break;
-			}
-			case 5:
-			{
-				Landscape::Draw();
-				break;
-			}
-			case 6:
-			{
-				Starfield::Draw();
-				break;
-			}
-			case 7:
-			{
-				VectorCube::Draw();
-				break;
-			}
-			case 8:
-			{
-				Lens::Draw();
-				break;
-			}
-			case 9:
-			{
-				Copperbars::Draw();
-				break;
-			}
-			case 10:
-			{
-				Tunnel::Draw();
-				break;
-			}
-			case 11:
-			{
-				Morph::Draw();
-				break;
-			}
-			case 12:
-			{
-				GouraudShade::Draw();
-				break;
-			}
-			case 13:
-			{
-				RotoZoom::Draw();
-				break;
-			}
-			case 14:
-			{
-				Moiree::Draw();
-				break;
-			}
-			case 15:
-			{
-				Julia::Draw();
-				break;
-			}
-			case 16:
-			{
-				Bobs::Draw();
-				break;
-			}
-			case 17:
-			{
-				PerlinGFX::DrawParts();
-				break;
-			}
-			case 18:
-			{
-				Raytracer::Draw();
-				break;
-			}
-			case 19:
-			{
-				Cubes::Draw();
-				break;
-			}
-			case 20:
-			{
-				Circle::Draw();
-				break;
-			}
-			case 21:
-			{
-				Particles::Draw();
-				break;
-			}
-			case 22:
-			{
-				TextureTest::Draw();
-				break;
-			}
-			case 23:
-			{
-				TextureRotationTest::Draw();
-				break;
-			}
-			case 24:
-			{
-				ThroughputTest::Draw();
-				break;
-			}
-			case 25:
-			{
-				PixelTest::Draw();
-				break;
-			}
-			case 26:
-			{
-				PrimitivesTest::Draw();
-				break;
-			}
-			case 27:
-			{
-				DLA::Draw();
-				break;
-			}
-			default: {}
-		}
+		// Call active demo part
+		(*DemoParts[ActiveDemoPart])();;
 
 		// Bring the pixelbuffer to screen
 		lwmf::ClearBuffer();
@@ -386,16 +253,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							}
 							case VK_RIGHT:
 							{
-								DemoPart < MaxDemoPart ? ++DemoPart : DemoPart = 0;
+								ActiveDemoPart < NumberOfDemoParts ? ++ActiveDemoPart : ActiveDemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 22 && DemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(ActiveDemoPart >= 22 && ActiveDemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
-								DemoPart > 0 ? --DemoPart : DemoPart = MaxDemoPart;
+								ActiveDemoPart > 0 ? --ActiveDemoPart : ActiveDemoPart = NumberOfDemoParts;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(DemoPart >= 22 && DemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(ActiveDemoPart >= 22 && ActiveDemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}
