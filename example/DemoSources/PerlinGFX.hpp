@@ -16,7 +16,7 @@ namespace PerlinGFX
 
 	inline float NoiseFactor{ 0.4F };
 
-	inline void Draw(const Renderpart Part)
+	inline void DrawPart(const Renderpart Part)
 	{
 		static lwmf::PerlinNoise PGFX;
 
@@ -66,14 +66,14 @@ namespace PerlinGFX
 		}
 	}
 
-	inline void DrawParts()
+	inline void Draw()
 	{
 		static lwmf::Multithreading Threadpool;
 
-		Threadpool.AddThread(&Draw, Renderpart::TopLeft);
-		Threadpool.AddThread(&Draw, Renderpart::TopRight);
-		Threadpool.AddThread(&Draw, Renderpart::DownLeft);
-		Threadpool.AddThread(&Draw, Renderpart::DownRight);
+		Threadpool.AddThread(&DrawPart, Renderpart::TopLeft);
+		Threadpool.AddThread(&DrawPart, Renderpart::TopRight);
+		Threadpool.AddThread(&DrawPart, Renderpart::DownLeft);
+		Threadpool.AddThread(&DrawPart, Renderpart::DownRight);
 		Threadpool.WaitForThreads();
 
 		NoiseFactor += 0.002F;

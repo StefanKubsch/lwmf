@@ -45,7 +45,6 @@ inline std::mt19937 RNG(std::random_device{}());
 
 // Control variables for demo flow
 inline std::int_fast32_t ActiveDemoPart{};
-constexpr std::int_fast32_t NumberOfDemoParts{ 27 };
 
 // Make an instance of lwmf::MP3Player for our background music
 inline lwmf::MP3Player Music{};
@@ -97,6 +96,14 @@ inline void DisplayInfoBox(const std::string& Partname)
 #include "./DemoSources/Particles.hpp"
 #include "./DemoSources/TextureRotationTest.hpp"
 #include "./DemoSources/DLA.hpp"
+
+const std::vector<void (*)()> DemoParts
+{
+	Metaballs::Draw, Plasma::Draw, DotTunnel::Draw, Fire::Draw, Swarm::Draw, Landscape::Draw, Starfield::Draw,
+	VectorCube::Draw, Lens::Draw, Copperbars::Draw, Tunnel::Draw, Morph::Draw, GouraudShade::Draw, RotoZoom::Draw, Moiree::Draw,
+	Julia::Draw, Bobs::Draw, PerlinGFX::Draw, Raytracer::Draw, Cubes::Draw, Circle::Draw, Particles::Draw, TextureTest::Draw,
+	TextureRotationTest::Draw, ThroughputTest::Draw, PixelTest::Draw, PrimitivesTest::Draw, DLA::Draw
+};
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -158,14 +165,6 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	{
 		return EXIT_FAILURE;
 	}
-
-	const std::vector<void (*)()> DemoParts
-	{
-		Metaballs::Draw, Plasma::Draw, DotTunnel::Draw, Fire::Draw, Swarm::Draw, Landscape::Draw, Starfield::Draw,
-		VectorCube::Draw, Lens::Draw, Copperbars::Draw, Tunnel::Draw, Morph::Draw,GouraudShade::Draw, RotoZoom::Draw, Moiree::Draw,
-		Julia::Draw, Bobs::Draw, PerlinGFX::DrawParts, Raytracer::Draw, Cubes::Draw, Circle::Draw, Particles::Draw, TextureTest::Draw,
-		TextureRotationTest::Draw, ThroughputTest::Draw, PixelTest::Draw, PrimitivesTest::Draw, DLA::Draw
-	};
 
 	bool Quit{};
 
@@ -253,16 +252,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							}
 							case VK_RIGHT:
 							{
-								ActiveDemoPart < NumberOfDemoParts ? ++ActiveDemoPart : ActiveDemoPart = 0;
+								ActiveDemoPart < DemoParts.size() - 1 ? ++ActiveDemoPart : ActiveDemoPart = 0;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(ActiveDemoPart >= 22 && ActiveDemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(ActiveDemoPart >= 22 && ActiveDemoPart < DemoParts.size()) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
-								ActiveDemoPart > 0 ? --ActiveDemoPart : ActiveDemoPart = NumberOfDemoParts;
+								ActiveDemoPart > 0 ? --ActiveDemoPart : ActiveDemoPart = static_cast<std::int_fast32_t>(DemoParts.size()) - 1;
 								lwmf::ClearTexture(ScreenTexture, 0x00000000);
-								(ActiveDemoPart >= 22 && ActiveDemoPart <= 27) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
+								(ActiveDemoPart >= 22 && ActiveDemoPart < DemoParts.size()) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							default: {}
