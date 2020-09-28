@@ -101,8 +101,8 @@ const std::vector<void (*)()> DemoParts
 {
 	Metaballs::Draw, Plasma::Draw, DotTunnel::Draw, Fire::Draw, Swarm::Draw, Landscape::Draw, Starfield::Draw,
 	VectorCube::Draw, Lens::Draw, Copperbars::Draw, Tunnel::Draw, Morph::Draw, GouraudShade::Draw, RotoZoom::Draw, Moiree::Draw,
-	Julia::Draw, Bobs::Draw, PerlinGFX::Draw, Raytracer::Draw, Cubes::Draw, Circle::Draw, Particles::Draw, TextureTest::Draw,
-	TextureRotationTest::Draw, ThroughputTest::Draw, PixelTest::Draw, PrimitivesTest::Draw, DLA::Draw
+	Julia::Draw, Bobs::Draw, PerlinGFX::Draw, Raytracer::Draw, Cubes::Draw, Circle::Draw, Particles::Draw, DLA::Draw,
+	TextureTest::Draw, TextureRotationTest::Draw, PixelTest::Draw, ThroughputTest::Draw, PrimitivesTest::Draw
 };
 
 std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)

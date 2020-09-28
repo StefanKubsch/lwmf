@@ -98,8 +98,6 @@ namespace Particles
 
         lwmf::BlitTexture(Wallpaper, ScreenTexture, 0, 0);
 
-        static const std::size_t NumberOfParticles{ ParticlesArray.size() };
-
         for (auto& Particle : ParticlesArray)
         {
             Particle.Update();
