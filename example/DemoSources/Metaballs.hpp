@@ -58,7 +58,7 @@ namespace Metaballs
 			}
 		}
 
-		DisplayInfoBox("OpenMP accelerated realtime metaballs");
+		DisplayInfoBox("OpenMP accelerated metaballs");
 	}
 
 

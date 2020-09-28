@@ -12,8 +12,8 @@ namespace PrimitivesTest
 
 	inline void Draw()
 	{
-		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
-		static const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 3);
+		const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
+		const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 3);
 
 		static std::array<char, 20> RectangleCounterString{};
 		static std::array<char, 20> CircleCounterString{};
@@ -24,7 +24,7 @@ namespace PrimitivesTest
 		{
 			case 0:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
+				const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				lwmf::FilledRectangle(ScreenTexture, Point(RNG), Point(RNG), Width(RNG), Width(RNG), lwmf::XorShift32(), lwmf::XorShift32());
 
 				static std::uint_fast64_t RectangleCounter{};
@@ -33,7 +33,7 @@ namespace PrimitivesTest
 			}
 			case 1:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
+				const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				lwmf::FilledCircle(ScreenTexture, Point(RNG), Point(RNG), Width(RNG), lwmf::XorShift32(), lwmf::XorShift32());
 
 				static std::uint_fast64_t CircleCounter{};
@@ -42,11 +42,11 @@ namespace PrimitivesTest
 			}
 			case 2:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> PolygonPointX(0, ScreenTexture.Width);
-				static const std::uniform_int_distribution<std::int_fast32_t> PolygonPointY(0, ScreenTexture.Height);
+				const std::uniform_int_distribution<std::int_fast32_t> PolygonPointX(0, ScreenTexture.Width);
+				const std::uniform_int_distribution<std::int_fast32_t> PolygonPointY(0, ScreenTexture.Height);
 
 				const std::vector<lwmf::IntPointStruct> Polygon{ {PolygonPointX(RNG), PolygonPointY(RNG)}, {PolygonPointX(RNG), PolygonPointY(RNG) }, {PolygonPointX(RNG), PolygonPointY(RNG) } };
-				lwmf::FilledPolygon(ScreenTexture, Polygon, lwmf::XorShift32(), lwmf::XorShift32());
+				lwmf::Polygon(ScreenTexture, Polygon, lwmf::XorShift32());
 
 				static std::uint_fast64_t PolygonCounter{};
 				std::to_chars(PolygonCounterString.data(), PolygonCounterString.data() + PolygonCounterString.size(), ++PolygonCounter);
@@ -54,7 +54,7 @@ namespace PrimitivesTest
 			}
 			case 3:
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> Radius(0, 200);
+				const std::uniform_int_distribution<std::int_fast32_t> Radius(0, 200);
 				lwmf::Ellipse(ScreenTexture, Point(RNG), Point(RNG), Radius(RNG), Radius(RNG), lwmf::XorShift32());
 
 				static std::uint_fast64_t EllipseCounter{};

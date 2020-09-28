@@ -319,7 +319,7 @@ namespace Raytracer
 			ZoomSpeed *= -1.0F;
 		}
 
-		DisplayInfoBox("OpenMP accelerated realtime raytracing");
+		DisplayInfoBox("OpenMP accelerated raytracing");
 	}
 
 

@@ -42,7 +42,7 @@ namespace Fire
 		lwmf::Rectangle(ScreenTexture, Pos.X + 2, Pos.Y + 2, Size - 4, Size - 4, Red);
 
 		// Apply fire
-		static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-255, 255);
+		const std::uniform_int_distribution<std::int_fast32_t> Distrib1(-255, 255);
 
 		#pragma omp parallel for
 		for (std::int_fast32_t y{ 1 }; y < ScreenTexture.Height; ++y)
@@ -67,7 +67,7 @@ namespace Fire
 			}
 		}
 
-		DisplayInfoBox("OpenMP accelerated realtime fullscreen fire");
+		DisplayInfoBox("OpenMP accelerated fullscreen fire");
 	}
 
 

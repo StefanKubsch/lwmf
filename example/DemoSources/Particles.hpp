@@ -33,7 +33,7 @@ namespace Particles
 
     inline void Particle::Update()
     {
-        static const std::uniform_int_distribution<std::int_fast32_t> Distrib3(5, 8);
+        const std::uniform_int_distribution<std::int_fast32_t> Distrib3(5, 8);
 
         if (static_cast<std::uint_fast32_t>(x) > static_cast<std::uint_fast32_t>(ScreenTexture.Width))
         {
@@ -72,7 +72,7 @@ namespace Particles
     inline void Connect()
     {
         const float DistComp{ (static_cast<float>(ScreenTexture.Width) / 7.0F) * (static_cast<float>(ScreenTexture.Height) / 7.0F) };
-        static const std::size_t NumberOfParticles{ ParticlesArray.size() };
+        const std::size_t NumberOfParticles{ ParticlesArray.size() };
 
         for (std::int_fast32_t a{}; a < NumberOfParticles; ++a)
         {

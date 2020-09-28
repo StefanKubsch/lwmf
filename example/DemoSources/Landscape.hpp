@@ -23,7 +23,12 @@ namespace Landscape
 		constexpr std::int_fast32_t ZOrigin{ 64 };
 		static float LandscapeAngle{};
 
-		LandscapeAngle += 10.0F;
+		LandscapeAngle += 5.0F;
+
+		if (LandscapeAngle > 627.0F)
+		{
+			LandscapeAngle = 0.0F;
+		}
 
 		const std::int_fast32_t XPos{ 63 + (((static_cast<std::int_fast32_t>(std::cosf(LandscapeAngle * 0.01F) * 128.0F)) << 7) >> 7) };
 		const std::int_fast32_t ZPos{ 63 + (((static_cast<std::int_fast32_t>(std::sinf(LandscapeAngle * 0.01F) * 128.0F)) << 7) >> 7) };

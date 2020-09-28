@@ -4,6 +4,7 @@
 #include <vector>
 #include <cmath>
 #include <random>
+#include <execution>
 
 namespace DLA
 {
@@ -30,7 +31,7 @@ namespace DLA
 
         void Update()
         {
-            static const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 7);
+            const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 7);
 
             switch (Choice(RNG))
             {
@@ -89,8 +90,8 @@ namespace DLA
 
         void RandomPos()
         {
-            static const std::uniform_int_distribution<std::int_fast32_t> DistribX(0, ScreenTexture.Width);
-            static const std::uniform_int_distribution<std::int_fast32_t> DistribY(0, ScreenTexture.Height);
+            const std::uniform_int_distribution<std::int_fast32_t> DistribX(0, ScreenTexture.Width);
+            const std::uniform_int_distribution<std::int_fast32_t> DistribY(0, ScreenTexture.Height);
 
             Point = { DistribX(RNG), DistribY(RNG) };
         }
@@ -170,10 +171,10 @@ namespace DLA
             }
         }
 
-        for (std::int_fast32_t i{}; i < ScreenTexture.Size; ++i)
+        std::for_each(std::execution::par_unseq, Aggregation.begin(), Aggregation.end(),[](auto&& Item)
         {
-            Aggregation[i] *= AggregationDecay;
-        }
+            Item *= AggregationDecay;
+        });
 
         for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
         {

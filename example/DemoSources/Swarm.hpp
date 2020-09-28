@@ -23,7 +23,7 @@ namespace Swarm
 
 			void Init()
 			{
-				static const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, RAND_MAX);
+				const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, RAND_MAX);
 
 				Pos = { 0.0F, 0.0F };
 
@@ -61,7 +61,7 @@ namespace Swarm
 
 		LastTime = Elapsed;
 
-		DisplayInfoBox("Realtime particle swarm - " + std::to_string(NumberOfParticles) + " particles");
+		DisplayInfoBox("Particle swarm - " + std::to_string(NumberOfParticles) + " particles");
 	}
 
 

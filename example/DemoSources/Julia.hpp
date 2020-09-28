@@ -69,7 +69,7 @@ namespace Julia
 			}
 		}
 
-		DisplayInfoBox("Realtime Julia set");
+		DisplayInfoBox("Julia set");
 	}
 
 

@@ -23,7 +23,7 @@ namespace Morph
 
 	inline void Init()
 	{
-		static const std::uniform_real<float> Distrib(0.0F, RAND_MAX);
+		const std::uniform_real<float> Distrib(0.0F, RAND_MAX);
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{
@@ -121,7 +121,7 @@ namespace Morph
 			Count2 = 0;
 		}
 
-		DisplayInfoBox("Realtime morph - " + std::to_string(NumberOfPoints) + " points");
+		DisplayInfoBox("Morph - " + std::to_string(NumberOfPoints) + " points");
 	}
 
 

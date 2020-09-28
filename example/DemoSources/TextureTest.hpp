@@ -20,10 +20,10 @@ namespace TextureTest
 	{
 		lwmf::TextureStruct Texture{ SourceTexture };
 
-		static const std::uniform_int_distribution<std::int_fast32_t> Size(0, 500);
+		const std::uniform_int_distribution<std::int_fast32_t> Size(0, 500);
 		lwmf::ResizeTexture(Texture, Size(RNG), Size(RNG), lwmf::FilterModes::BILINEAR);
 
-		static const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
+		const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
 		lwmf::BlitTexture(Texture, ScreenTexture, Point(RNG), Point(RNG));
 
 		DisplayInfoBox("Texture resize & blitting test (lwmf::ResizeTexture and lwmf::BlitTexture)");
