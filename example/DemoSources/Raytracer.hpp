@@ -254,7 +254,7 @@ namespace Raytracer
 
 		for (std::int_fast32_t Offset{}; Offset < SphericalMapPNG.Size; ++Offset)
 		{
-			const lwmf::ColorStruct Color{ lwmf::INTtoRGBA(SphericalMapPNG.Pixels[Offset]) };
+			const lwmf::ColorStructRGBA Color{ lwmf::INTtoRGBA(SphericalMapPNG.Pixels[Offset]) };
 			SphericalMap[Offset] = Vec3f(Color.Red * (1 / 255.0F), Color.Green * (1 / 255.0F), Color.Blue * (1 / 255.0F));
 		}
 	}

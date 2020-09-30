@@ -55,10 +55,10 @@ namespace Fire
 				}
 				else if (lwmf::GetPixel(ScreenTexture, x, y) != 0)
 				{
-					const lwmf::ColorStruct Point1{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y)) };
-					const lwmf::ColorStruct Point2{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y - 1)) };
-					const lwmf::ColorStruct Point3{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x - 1, y)) };
-					const lwmf::ColorStruct Point4{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x + 1, y - 1)) };
+					const lwmf::ColorStructRGBA Point1{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y)) };
+					const lwmf::ColorStructRGBA Point2{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x, y - 1)) };
+					const lwmf::ColorStructRGBA Point3{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x - 1, y)) };
+					const lwmf::ColorStructRGBA Point4{ lwmf::INTtoRGBA(lwmf::GetPixel(ScreenTexture,x + 1, y - 1)) };
 
 					lwmf::SetPixel(ScreenTexture, x, y - 1, lwmf::RGBAtoINT((Point1.Red + Point2.Red + Point3.Red + Point4.Red) >> 2,
 						(Point1.Green + Point2.Green + Point3.Green + Point4.Green) >> 2,

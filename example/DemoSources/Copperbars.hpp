@@ -8,7 +8,7 @@ namespace Copperbars
 {
 
 
-	inline std::array<lwmf::ColorStruct, 46> CopperList{};
+	inline std::array<lwmf::ColorStructRGBA, 46> CopperList{};
 	inline std::array<std::int_fast32_t, 360> SinTable{};
 
 	inline void Init()
