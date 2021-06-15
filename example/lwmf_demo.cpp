@@ -17,6 +17,7 @@
 #include <Windows.h>
 #include <cstdint>
 #include <string>
+#include <string_view>
 #include <vector>
 #include <random>
 
@@ -55,14 +56,13 @@ inline std::string CutDoubleToString(const double Value)
 	return Temp.erase(Temp.find_last_not_of('0') + 1, std::string::npos);
 }
 
-inline void DisplayInfoBox(const std::string& Partname)
+inline void DisplayInfoBox(const std::string_view& Partname)
 {
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 115, 0x1F1F1F1F, 0x1F1F1F1F);
 	lwmf::FPSCounter();
 	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
-	const std::string DurationString{ "Music duration in seconds: " + CutDoubleToString(Music.GetDuration()) };
-	lwmf::RenderText(ScreenTexture, DurationString, 10, 40, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, "Music duration in seconds: " + CutDoubleToString(Music.GetDuration()), 10, 40, 0xFFFFFFFF);
 	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + CutDoubleToString(Music.GetPosition()), 10, 50, 0xFFFFFFFF);
 	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, 0xFFFFFFFF);
 }
