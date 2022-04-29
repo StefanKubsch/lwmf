@@ -119,7 +119,7 @@ namespace Bobs
 
 				if (TempPosX <= ScreenTexture.Width)
 				{
-					lwmf::BlitTransTexturePart(Font.CharMapBMP, x, 0, ScreenTexture, TempPosX, ScreenTexture.Height - 150 + static_cast<std::int_fast32_t>(std::sinf(0.01F * TempPosX) * 50.0F), 1, Font.CharHeight, TransparentColor);
+					lwmf::BlitTransTexturePart(Font.CharMapBMP, x, 0, ScreenTexture, TempPosX, ScreenTexture.Height - 150 + static_cast<std::int_fast32_t>(std::sinf(0.01F * TempPosX) * 60.0F), 1, Font.CharHeight, TransparentColor);
 				}
 				else
 				{

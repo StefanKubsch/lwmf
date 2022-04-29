@@ -276,31 +276,38 @@ namespace lwmf
 		}
 	}
 
-	inline void BlitTransTexturePart(const TextureStruct& SourceTexture, const std::int_fast32_t SourcePosX, const std::int_fast32_t SourcePosY, TextureStruct& TargetTexture, const std::int_fast32_t DestPosX, std::int_fast32_t DestPosY, const std::int_fast32_t Width, const std::int_fast32_t Height, const std::int_fast32_t TransparentColor)
+	inline void BlitTransTexturePart(const TextureStruct& SourceTexture, const std::int_fast32_t SourcePosX, const std::int_fast32_t SourcePosY, TextureStruct& TargetTexture, const std::int_fast32_t DestPosX, const std::int_fast32_t DestPosY, const std::int_fast32_t Width, const std::int_fast32_t Height, const std::int_fast32_t TransparentColor)
 	{
 		// Exit early if source coords are out of source texture boundaries
-		if (SourcePosX > SourceTexture.Width || SourcePosY > SourceTexture.Height)
+		if (SourcePosX >= SourceTexture.Width || SourcePosY >= SourceTexture.Height || SourcePosX < 0 || SourcePosY < 0)
 		{
 			return;
 		}
 
-		// Exit early if dest coords are out of target texture boundaries
-		if (DestPosX > TargetTexture.Width || DestPosY > TargetTexture.Height)
+		// Exit early if dest coords are of of target texture boundaries
+		if (DestPosX >= TargetTexture.Width || DestPosY >= TargetTexture.Height || DestPosX < 0 || DestPosY < 0)
 		{
 			return;
 		}
 
-		for (std::int_fast32_t y{ SourcePosY }; y < SourcePosY + Height; ++y)
+		const std::int_fast32_t MaxSourceY{ ((SourcePosY + Height) >= SourceTexture.Height) ? SourceTexture.Height : SourcePosY + Height };
+		const std::int_fast32_t MaxSourceX{ ((SourcePosX + Width) >= SourceTexture.Width) ? SourceTexture.Width : SourcePosX + Width };
+
+		for (std::int_fast32_t sy{ SourcePosY }, dy{ DestPosY }; sy < MaxSourceY; ++sy, ++dy)
 		{
-			for (std::int_fast32_t x{ SourcePosX }; x < SourcePosX + Width; ++x)
+			for (std::int_fast32_t sx{ SourcePosX }, dx { DestPosX }; sx < MaxSourceX; ++sx, ++dx)
 			{
-				if (static_cast<std::uint_fast32_t>(DestPosX) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && static_cast<std::uint_fast32_t>(DestPosY) < static_cast<std::uint_fast32_t>(TargetTexture.Height) && SourceTexture.Pixels[y * SourceTexture.Width + x] != TransparentColor)
+				const std::int_fast32_t SourcePoint{ sy * SourceTexture.Width + sx };
+
+				if (static_cast<std::uint_fast32_t>(dx) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && static_cast<std::uint_fast32_t>(dy) < static_cast<std::uint_fast32_t>(TargetTexture.Height) && SourceTexture.Pixels[SourcePoint] != TransparentColor)
 				{
-					TargetTexture.Pixels[DestPosY * TargetTexture.Width + DestPosX] = SourceTexture.Pixels[y * SourceTexture.Width + x];
+					TargetTexture.Pixels[dy * TargetTexture.Width + dx] = SourceTexture.Pixels[SourcePoint];
+				}
+				else
+				{
+					break;
 				}
 			}
-
-			++DestPosY;
 		}
 	}
 
