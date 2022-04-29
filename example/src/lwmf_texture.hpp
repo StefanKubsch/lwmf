@@ -45,6 +45,7 @@ namespace lwmf
 	void ResizeTexture(TextureStruct& Texture, std::int_fast32_t TargetWidth, std::int_fast32_t TargetHeight, FilterModes FilterMode);
 	void BlitTexture(const TextureStruct& SourceTexture, TextureStruct& TargetTexture, std::int_fast32_t PosX, std::int_fast32_t PosY);
 	void BlitTransTexture(const TextureStruct& SourceTexture, TextureStruct& TargetTexture, std::int_fast32_t PosX, std::int_fast32_t PosY, std::int_fast32_t TransparentColor);
+	void BlitTransTexturePart(const TextureStruct& SourceTexture, std::int_fast32_t SourcePosX, std::int_fast32_t SourcePosY, TextureStruct& TargetTexture, std::int_fast32_t DestPosX, std::int_fast32_t DestPosY, std::int_fast32_t Width, std::int_fast32_t Height, std::int_fast32_t TransparentColor);
 	void RotateTexture(TextureStruct& Texture, std::int_fast32_t RotCenterX, std::int_fast32_t RotCenterY, float Angle);
 	void ClearTexture(TextureStruct& Texture, std::int_fast32_t Color);
 
@@ -219,7 +220,7 @@ namespace lwmf
 
 	inline void BlitTransTexture(const TextureStruct& SourceTexture, TextureStruct& TargetTexture, const std::int_fast32_t PosX, const std::int_fast32_t PosY, const std::int_fast32_t TransparentColor)
 	{
-		// Exit early if coords are out of target texture boundaries
+		// Exit early if coords are out of texture boundaries
 		if (PosX + SourceTexture.Width < 0 || PosY + SourceTexture.Height < 0 || PosX > TargetTexture.Width || PosY > TargetTexture.Height)
 		{
 			return;
@@ -272,6 +273,34 @@ namespace lwmf
 					}
 				}
 			}
+		}
+	}
+
+	inline void BlitTransTexturePart(const TextureStruct& SourceTexture, const std::int_fast32_t SourcePosX, const std::int_fast32_t SourcePosY, TextureStruct& TargetTexture, const std::int_fast32_t DestPosX, std::int_fast32_t DestPosY, const std::int_fast32_t Width, const std::int_fast32_t Height, const std::int_fast32_t TransparentColor)
+	{
+		// Exit early if source coords are out of source texture boundaries
+		if (SourcePosX > SourceTexture.Width || SourcePosY > SourceTexture.Height)
+		{
+			return;
+		}
+
+		// Exit early if dest coords are out of target texture boundaries
+		if (DestPosX > TargetTexture.Width || DestPosY > TargetTexture.Height)
+		{
+			return;
+		}
+
+		for (std::int_fast32_t y{ SourcePosY }; y < SourcePosY + Height; ++y)
+		{
+			for (std::int_fast32_t x{ SourcePosX }; x < SourcePosX + Width; ++x)
+			{
+				if (static_cast<std::uint_fast32_t>(DestPosX) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && static_cast<std::uint_fast32_t>(DestPosY) < static_cast<std::uint_fast32_t>(TargetTexture.Height) && SourceTexture.Pixels[y * SourceTexture.Width + x] != TransparentColor)
+				{
+					TargetTexture.Pixels[DestPosY * TargetTexture.Width + DestPosX] = SourceTexture.Pixels[y * SourceTexture.Width + x];
+				}
+			}
+
+			++DestPosY;
 		}
 	}
 
