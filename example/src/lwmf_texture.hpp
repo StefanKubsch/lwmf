@@ -95,21 +95,21 @@ namespace lwmf
 		}
 
 		std::vector<std::int_fast32_t>TempBuffer(Width * Height);
-		std::int_fast32_t SrcVerticalOffset{ y * Texture.Width };
-		std::int_fast32_t DestVerticalOffset{};
+		std::int_fast32_t SourceVerticalOffset{ y * Texture.Width };
+		std::int_fast32_t TargetVerticalOffset{};
 
 		for (std::int_fast32_t i{}; i < Height; ++i)
 		{
-			for (std::int_fast32_t DestHorizontalOffset{}, SourceHorizontalOffset{ x }, j{}; j < Width; ++j)
+			for (std::int_fast32_t TargetHorizontalOffset{}, SourceHorizontalOffset{ x }, j{}; j < Width; ++j)
 			{
-				TempBuffer[static_cast<std::size_t>(DestVerticalOffset) + static_cast<std::size_t>(DestHorizontalOffset)] = Texture.Pixels[static_cast<std::size_t>(SrcVerticalOffset) + static_cast<std::size_t>(SourceHorizontalOffset)];
+				TempBuffer[static_cast<std::size_t>(TargetVerticalOffset) + static_cast<std::size_t>(TargetHorizontalOffset)] = Texture.Pixels[static_cast<std::size_t>(SourceVerticalOffset) + static_cast<std::size_t>(SourceHorizontalOffset)];
 
-				++DestHorizontalOffset;
+				++TargetHorizontalOffset;
 				++SourceHorizontalOffset;
 			}
 
-			DestVerticalOffset += Width;
-			SrcVerticalOffset += Texture.Width;
+			TargetVerticalOffset += Width;
+			SourceVerticalOffset += Texture.Width;
 		}
 
 		Texture.Pixels = std::move(TempBuffer);
@@ -207,12 +207,12 @@ namespace lwmf
 			const std::int_fast32_t TargetHeight{ (PosY + SourceTexture.Height >= TargetTexture.Height) ? TargetTexture.Height - PosY : SourceTexture.Height };
 			const std::int_fast32_t TargetWidth{ (PosX + SourceTexture.Width >= TargetTexture.Width) ? TargetTexture.Width - PosX : SourceTexture.Width };
 
-			for (std::int_fast32_t y{}, TempPosY{ PosY }; y < TargetHeight; ++y, ++TempPosY)
+			for (std::int_fast32_t sy{}, ty{ PosY }; sy < TargetHeight; ++sy, ++ty)
 			{
-				if (static_cast<std::uint_fast32_t>(TempPosY) < static_cast<std::uint_fast32_t>(TargetTexture.Height))
+				if (static_cast<std::uint_fast32_t>(ty) < static_cast<std::uint_fast32_t>(TargetTexture.Height))
 				{
-					const auto SrcY{ SourceTexture.Pixels.begin() + y * SourceTexture.Width + StartX};
-					std::copy(SrcY, SrcY + TargetWidth - StartX, TargetTexture.Pixels.begin() + TempPosY * TargetTexture.Width + PosX + StartX);
+					const auto SourceOffset{ SourceTexture.Pixels.begin() + sy * SourceTexture.Width + StartX};
+					std::copy(SourceOffset, SourceOffset + TargetWidth - StartX, TargetTexture.Pixels.begin() + ty * TargetTexture.Width + PosX + StartX);
 				}
 			}
 		}
@@ -240,16 +240,16 @@ namespace lwmf
 		// Case 2: Bitmap fits (= smaller than target texture and within boundaries)
 		else if (PosX >= 0 && PosY >= 0 && SourceTexture.Width + PosX <= TargetTexture.Width && SourceTexture.Height + PosY <= TargetTexture.Height)
 		{
-			for (std::int_fast32_t y{}, TempPosY{ PosY }; y < SourceTexture.Height; ++y, ++TempPosY)
+			for (std::int_fast32_t sy{}, ty{ PosY }; sy < SourceTexture.Height; ++sy, ++ty)
 			{
-				const std::int_fast32_t DestOffset{ TempPosY * TargetTexture.Width };
-				const std::int_fast32_t SrcOffset{ y * SourceTexture.Width };
+				const std::int_fast32_t SourceOffset{ sy * SourceTexture.Width };
+				const std::int_fast32_t TargetOffset{ ty * TargetTexture.Width + PosX };
 
 				for (std::int_fast32_t x{}; x < SourceTexture.Width; ++x)
 				{
-					if (SourceTexture.Pixels[SrcOffset + x] != TransparentColor)
+					if (SourceTexture.Pixels[SourceOffset + x] != TransparentColor)
 					{
-						TargetTexture.Pixels[DestOffset + PosX + x] = SourceTexture.Pixels[SrcOffset + x];
+						TargetTexture.Pixels[TargetOffset + x] = SourceTexture.Pixels[SourceOffset + x];
 					}
 				}
 			}
@@ -257,18 +257,18 @@ namespace lwmf
 		// Case 3: Each pixel has to be checked if within boundaries
 		else
 		{
-			for (std::int_fast32_t y{}, TempPosY{ PosY }; y < SourceTexture.Height; ++y, ++TempPosY)
+			for (std::int_fast32_t sy{}, ty{ PosY }; sy < SourceTexture.Height; ++sy, ++ty)
 			{
-				const std::int_fast32_t DestOffset{ TempPosY * TargetTexture.Width };
-				const std::int_fast32_t SrcOffset{ y * SourceTexture.Width };
-
-				for (std::int_fast32_t x{}; x < SourceTexture.Width; ++x)
+				if (static_cast<std::uint_fast32_t>(ty) < static_cast<std::uint_fast32_t>(TargetTexture.Height))
 				{
-					if (static_cast<std::uint_fast32_t>(PosX + x) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && static_cast<std::uint_fast32_t>(PosY) < static_cast<std::uint_fast32_t>(TargetTexture.Height))
+					const std::int_fast32_t SourceOffset{ sy * SourceTexture.Width };
+					const std::int_fast32_t TargetOffset{ ty * TargetTexture.Width + PosX };
+
+					for (std::int_fast32_t x{}; x < SourceTexture.Width; ++x)
 					{
-						if (SourceTexture.Pixels[SrcOffset + x] != TransparentColor)
+						if (static_cast<std::uint_fast32_t>(PosX + x) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && SourceTexture.Pixels[SourceOffset + x] != TransparentColor)
 						{
-							TargetTexture.Pixels[DestOffset + PosX + x] = SourceTexture.Pixels[SrcOffset + x];
+							TargetTexture.Pixels[TargetOffset + x] = SourceTexture.Pixels[SourceOffset + x];
 						}
 					}
 				}
@@ -290,22 +290,23 @@ namespace lwmf
 			return;
 		}
 
-		const std::int_fast32_t MaxSourceY{ ((SourcePosY + Height) >= SourceTexture.Height) ? SourceTexture.Height : SourcePosY + Height };
-		const std::int_fast32_t MaxSourceX{ ((SourcePosX + Width) >= SourceTexture.Width) ? SourceTexture.Width : SourcePosX + Width };
+		const std::int_fast32_t SourceYMax{ ((SourcePosY + Height) >= SourceTexture.Height) ? SourceTexture.Height : SourcePosY + Height };
+		const std::int_fast32_t SourceXMax{ ((SourcePosX + Width) >= SourceTexture.Width) ? SourceTexture.Width : SourcePosX + Width };
 
-		for (std::int_fast32_t sy{ SourcePosY }, dy{ DestPosY }; sy < MaxSourceY; ++sy, ++dy)
+		for (std::int_fast32_t sy{ SourcePosY }, ty{ DestPosY }; sy < SourceYMax; ++sy, ++ty)
 		{
-			for (std::int_fast32_t sx{ SourcePosX }, dx { DestPosX }; sx < MaxSourceX; ++sx, ++dx)
+			if (static_cast<std::uint_fast32_t>(ty) < static_cast<std::uint_fast32_t>(TargetTexture.Height))
 			{
-				const std::int_fast32_t SourcePoint{ sy * SourceTexture.Width + sx };
+				const std::int_fast32_t TargetOffset{ ty * TargetTexture.Width };
 
-				if (static_cast<std::uint_fast32_t>(dx) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && static_cast<std::uint_fast32_t>(dy) < static_cast<std::uint_fast32_t>(TargetTexture.Height) && SourceTexture.Pixels[SourcePoint] != TransparentColor)
+				for (std::int_fast32_t sx{ SourcePosX }, tx{ DestPosX }; sx < SourceXMax; ++sx, ++tx)
 				{
-					TargetTexture.Pixels[dy * TargetTexture.Width + dx] = SourceTexture.Pixels[SourcePoint];
-				}
-				else
-				{
-					break;
+					const std::int_fast32_t SourcePoint{ sy * SourceTexture.Width + sx };
+
+					if (static_cast<std::uint_fast32_t>(tx) < static_cast<std::uint_fast32_t>(TargetTexture.Width) && SourceTexture.Pixels[SourcePoint] != TransparentColor)
+					{
+						TargetTexture.Pixels[TargetOffset + tx] = SourceTexture.Pixels[SourcePoint];
+					}
 				}
 			}
 		}
@@ -327,17 +328,17 @@ namespace lwmf
 		for (std::int_fast32_t y{}; y < Texture.Height; ++y)
 		{
 			const float fy{ static_cast<float>(y - RotCenterY) };
-			const std::int_fast32_t DestOffset{ y * Texture.Width };
+			const std::int_fast32_t TargetOffset{ y * Texture.Width };
 
 			for (std::int_fast32_t x{}; x < Texture.Width; ++x)
 			{
 				const float fx{ static_cast<float>(x - RotCenterX) };
-				const std::int_fast32_t SrcX{ static_cast<std::int_fast32_t>((+(fx * c) + (fy * s))) + RotCenterX };
-				const std::int_fast32_t SrcY{ static_cast<std::int_fast32_t>((-(fx * s) + (fy * c))) + RotCenterY };
+				const std::int_fast32_t SourceX{ static_cast<std::int_fast32_t>((+(fx * c) + (fy * s))) + RotCenterX };
+				const std::int_fast32_t SourceY{ static_cast<std::int_fast32_t>((-(fx * s) + (fy * c))) + RotCenterY };
 
-				if (static_cast<std::uint_fast32_t>(SrcX) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(SrcY) < static_cast<std::uint_fast32_t>(Texture.Height))
+				if (static_cast<std::uint_fast32_t>(SourceX) < static_cast<std::uint_fast32_t>(Texture.Width) && static_cast<std::uint_fast32_t>(SourceY) < static_cast<std::uint_fast32_t>(Texture.Height))
 				{
-					TempBuffer[DestOffset + x] = Texture.Pixels[SrcY * Texture.Width + SrcX];
+					TempBuffer[TargetOffset + x] = Texture.Pixels[SourceY * Texture.Width + SourceX];
 				}
 			}
 		}

@@ -46,7 +46,7 @@ Features:
 		- scale
 		- crop
 		- blitting
-		- transparent blitting
+		- transparent blitting of full textures or only parts of it
   
 	- Audio (still a lot of work!)
 		- load and play MPEG1 MP3 (Samplerate, Bitrate and Number of Channels will be detected)

@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <array>
+#include <vector>
 #include <cmath>
 
 namespace Bobs
@@ -17,25 +18,26 @@ namespace Bobs
 	constexpr std::int_fast32_t PatternWidth{ 300 };
 	constexpr std::int_fast32_t PatternHeight{ 150 };
 
-	struct Scrollfont
+	struct Font
 	{
 		lwmf::TextureStruct CharMapBMP{};
 		std::string Text{};
 		std::string CharMap{};
 		std::vector<std::int_fast32_t> Map{};
+		std::int_fast32_t ScrollSpeed{};
 		std::int_fast32_t TextLength{};
 		std::int_fast32_t Length{};
 		std::int_fast32_t CharWidth{};
 		std::int_fast32_t CharHeight{};
 		std::int_fast32_t CharSpacing{};
 		std::int_fast32_t CharOverallWidth{};
-	} Font;
+	} ScrollFont;
 
 	inline void Init()
 	{
+		//Init Bobs
 		lwmf::LoadBMP(Bob1BMP, "./DemoGFX/Bob1.bmp");
 		lwmf::LoadBMP(Bob2BMP, "./DemoGFX/Bob2.bmp");
-		lwmf::LoadPNG(Font.CharMapBMP, "./DemoGFX/SinusScrollerChars.png");
 
 		for (std::int_fast32_t i{}; i < 512; ++i)
 		{
@@ -48,31 +50,30 @@ namespace Bobs
 		}
 
 		// Text & Font settings
-		Font.Text = "...HELLO FOLKS, THIS IS JUST A LITTLE SINESCROLLER...AND SOME BOBS !!! ENJOY THE DEMO AND USE LWMF FOR YOUR OWN PROJECTS...";
-		Font.CharMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!().,";
-		Font.CharWidth = 37;
-		Font.CharHeight = 40;
-		Font.CharSpacing = 1;
-		Font.CharOverallWidth = Font.CharWidth + Font.CharSpacing;
-		Font.TextLength = static_cast<std::int_fast32_t>(Font.Text.length());
-		Font.Length = Font.TextLength * Font.CharOverallWidth;
-		Font.Map.resize(Font.TextLength);
+		lwmf::LoadPNG(ScrollFont.CharMapBMP, "./DemoGFX/SinusScrollerChars.png");
+		ScrollFont.Text = "...HELLO FOLKS, THIS IS JUST A LITTLE SINESCROLLER...AND SOME BOBS !!! ENJOY THE DEMO AND USE LWMF FOR YOUR OWN PROJECTS...";
+		ScrollFont.CharMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!().,";
+		ScrollFont.CharWidth = 37;
+		ScrollFont.CharHeight = 39;
+		ScrollFont.CharSpacing = 1;
+		ScrollFont.ScrollSpeed = 8;
+		ScrollFont.CharOverallWidth = ScrollFont.CharWidth + ScrollFont.CharSpacing;
+		ScrollFont.TextLength = static_cast<std::int_fast32_t>(ScrollFont.Text.length());
+		ScrollFont.Length = ScrollFont.TextLength * ScrollFont.CharOverallWidth;
+		ScrollFont.Map.resize(ScrollFont.TextLength, -1);
 
 		// Pre-calc char positions in map
-		for (std::int_fast32_t i{}; i < Font.TextLength; ++i)
+		for (std::int_fast32_t i{}; i < ScrollFont.TextLength; ++i)
 		{
-			// use -1 if char not found, "space"
-			Font.Map[i] = -1;
-
-			for (std::int_fast32_t j{}, MapPos{}; j < static_cast<std::int_fast32_t>(Font.CharMap.length()); ++j)
+			for (std::int_fast32_t j{}, MapPos{}; j < static_cast<std::int_fast32_t>(ScrollFont.CharMap.length()); ++j)
 			{
-				if (Font.Text[i] == Font.CharMap[j])
+				if (ScrollFont.Text[i] == ScrollFont.CharMap[j])
 				{
-					Font.Map[i] = MapPos;
+					ScrollFont.Map[i] = MapPos;
 					break;
 				}
 
-				MapPos += Font.CharOverallWidth;
+				MapPos += ScrollFont.CharOverallWidth;
 			}
 		}
 	}
@@ -105,21 +106,22 @@ namespace Bobs
 
 		static std::int_fast32_t ScrollX{ ScreenTexture.Width };
 
-		for (std::int_fast32_t i{}, XPos{ ScrollX }; i < Font.TextLength; ++i)
+		for (std::int_fast32_t i{}, XPos{ ScrollX }; i < ScrollFont.TextLength; ++i)
 		{
-			if (Font.Map[i] == -1)
+			// check if actual character is "space" (-1)
+			if (ScrollFont.Map[i] == -1)
 			{
-				XPos += Font.CharOverallWidth;
+				XPos += ScrollFont.CharOverallWidth;
 				continue;
 			}
 
-			for (std::int_fast32_t x1{}, x{ Font.Map[i] }; x < Font.Map[i] + Font.CharWidth; ++x1, ++x)
+			for (std::int_fast32_t x1{}, x{ ScrollFont.Map[i] }; x < ScrollFont.Map[i] + ScrollFont.CharWidth; ++x1, ++x)
 			{
 				const std::int_fast32_t TempPosX{ XPos + x1 };
 
 				if (TempPosX <= ScreenTexture.Width)
 				{
-					lwmf::BlitTransTexturePart(Font.CharMapBMP, x, 0, ScreenTexture, TempPosX, ScreenTexture.Height - 150 + static_cast<std::int_fast32_t>(std::sinf(0.01F * TempPosX) * 60.0F), 1, Font.CharHeight, TransparentColor);
+					lwmf::BlitTransTexturePart(ScrollFont.CharMapBMP, x, 0, ScreenTexture, TempPosX, ScreenTexture.Height - 120 + static_cast<std::int_fast32_t>(std::sinf(0.01F * TempPosX) * 60.0F), 1, ScrollFont.CharHeight, TransparentColor);
 				}
 				else
 				{
@@ -127,12 +129,12 @@ namespace Bobs
 				}
 			}
 
-			XPos += Font.CharOverallWidth;
+			XPos += ScrollFont.CharOverallWidth;
 		}
 
-		ScrollX -= 8;
+		ScrollX -= ScrollFont.ScrollSpeed;
 
-		if (ScrollX < -Font.Length)
+		if (ScrollX < -ScrollFont.Length)
 		{
 			ScrollX = ScreenTexture.Width;
 		}
