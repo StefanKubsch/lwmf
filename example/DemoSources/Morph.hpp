@@ -46,15 +46,17 @@ namespace Morph
 	inline void ShowDots(const std::int_fast32_t CenterX, const std::int_fast32_t CenterY, float const Scale, float& DotAngle)
 	{
 		constexpr float Distance{ 128.0F };
+		const float cosDotAngle{ std::cosf(DotAngle) };
+		const float sinDotAngle{ std::sinf(DotAngle) };
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{
 			float Ry{ Morph[i].y * std::cosf(0.0F) - Morph[i].z * std::sinf(0.0F) };
 			float Rz{ Morph[i].y * std::sinf(0.0F) + Morph[i].z * std::cosf(0.0F) };
-			float Rx{ Morph[i].x * std::cosf(DotAngle) + Rz * std::sinf(DotAngle) };
-			Rz = -Morph[i].x * std::sinf(DotAngle) + Rz * std::cosf(DotAngle);
-			const float Temp{ Rx * std::cosf(DotAngle) - Ry * std::sinf(DotAngle) };
-			Ry = Rx * std::sinf(DotAngle) + Ry * std::cosf(DotAngle);
+			float Rx{ Morph[i].x * cosDotAngle + Rz * sinDotAngle };
+			Rz = -Morph[i].x * sinDotAngle + Rz * cosDotAngle;
+			const float Temp{ Rx * cosDotAngle - Ry * sinDotAngle };
+			Ry = Rx * sinDotAngle + Ry * cosDotAngle;
 			Rx = Temp;
 
 			const float ScaleProd{ Scale * Rz + Distance };

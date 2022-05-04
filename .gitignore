@@ -184,3 +184,4 @@ example/.vs/lwmf_demo/v17/ipch/AutoPCH/59885f20a48afe31/LWMF_DEMO.ipch
 example/x64/Debug/vc143.idb
 example/x64/Debug/vc143.pdb
 example/.clang-tidy
+example/x64/Release/CodeAnalysisResultManifest.txt

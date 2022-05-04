@@ -31,10 +31,10 @@ namespace Tunnel
 		Angle.shrink_to_fit();
 		Angle.resize(static_cast<std::size_t>(TunnelScreenWidth) << 1, std::vector<std::int_fast32_t>(static_cast<std::size_t>(TunnelScreenHeight) << 1));
 
+		const float Temp1{ 0.5F * static_cast<float>(Texture.Width) };
+
 		for (std::int_fast32_t x{}; x < TunnelScreenWidth << 1; ++x)
 		{
-			const float Temp1{ 0.5F * static_cast<float>(Texture.Width) };
-
 			for (std::int_fast32_t y{}; y < TunnelScreenHeight << 1; ++y)
 			{
 				Distance[x][y] = static_cast<std::int_fast32_t>((32.0F * Texture.Width / std::sqrtf(static_cast<float>((x - TunnelScreenWidth) * (x - TunnelScreenWidth) + (y - TunnelScreenHeight) * (y - TunnelScreenHeight))))) & (Texture.Width - 1);

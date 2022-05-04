@@ -15,22 +15,27 @@ namespace Circle
 
         lwmf::ClearTexture(ScreenTexture, 0x00000000);
 
-        for (std::int_fast32_t i{}; i < 100; ++i) //-V1034
+        for (std::int_fast32_t i{}; i < 100; ++i)
         {
             const float Time{ t + (j * 16.0F) };
+            const float sinTime{ std::sinf((Time + 270.0F) * lwmf::RAD2DEG) };
             const float TimeFactor{ Time * lwmf::RAD2DEG };
+            const float cosTimeFactor{ std::cosf(TimeFactor) };
+            const float sinTimeFactor{ std::sinf(TimeFactor) };
             const std::int_fast32_t ColorMod{ static_cast<std::int_fast32_t>((j * j) * 100.0F) };
-
             float b{};
 
-            for (std::int_fast32_t a{}; a < 1800; ++a) //-V1034
+            for (std::int_fast32_t a{}; a < 1800; ++a)
             {
                 const float aFactor{ b * lwmf::RAD2DEG };
-                const float RoundNoiseFactor{ 70.0F + Ring.Noise(ScreenTexture.Width + std::cosf(TimeFactor) + std::cosf(aFactor), ScreenTexture.Height + std::sinf(TimeFactor) + std::sinf(aFactor), 0.0F) * 150.0F * (1.0F + std::sinf((Time + 270.0F) * lwmf::RAD2DEG)) };
+                const float cosaFactor{ std::cosf(aFactor) };
+                const float sinaFactor{ std::sinf(aFactor) };
+
+                const float RoundNoiseFactor{ 70.0F + Ring.Noise(ScreenTexture.Width + cosTimeFactor + cosaFactor, ScreenTexture.Height + sinTimeFactor + sinaFactor, 0.0F) * 150.0F * (1.0F + sinTime) };
 
                 lwmf::SetPixelSafe(ScreenTexture,
-                    static_cast<std::int_fast32_t>(ScreenTexture.WidthMid + (std::cosf(aFactor) * RoundNoiseFactor)),
-                    static_cast<std::int_fast32_t>(ScreenTexture.HeightMid + (std::sinf(aFactor) * RoundNoiseFactor)),
+                    static_cast<std::int_fast32_t>(ScreenTexture.WidthMid + (cosaFactor * RoundNoiseFactor)),
+                    static_cast<std::int_fast32_t>(ScreenTexture.HeightMid + (sinaFactor * RoundNoiseFactor)),
                     lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(b + Time) % 360 - (ColorMod << 1), static_cast<std::int_fast32_t>(b + Time) % 100 - ColorMod, static_cast<std::int_fast32_t>(b + Time) % 270, 255));
 
                 b += 0.2F;

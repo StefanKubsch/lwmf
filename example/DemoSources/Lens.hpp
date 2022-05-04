@@ -71,11 +71,11 @@ namespace Lens
 
 		for (std::int_fast32_t y{}; y < LensWidth; ++y)
 		{
-			const std::int_fast32_t TempY{ (y + LensPos.Y) * ScreenTexture.Width + LensPos.X };
+			const std::int_fast32_t Offset{ (y + LensPos.Y) * ScreenTexture.Width + LensPos.X };
 
 			for (std::int_fast32_t x{}; x < LensWidth; ++x)
 			{
-				ScreenTexture.Pixels[TempY + x] = Wallpaper.Pixels[TempY + x + Lens[y][x]];
+				ScreenTexture.Pixels[Offset + x] = Wallpaper.Pixels[Offset + x + Lens[y][x]];
 			}
 		}
 

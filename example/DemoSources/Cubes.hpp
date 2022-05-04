@@ -43,7 +43,7 @@ namespace Cubes
 			for (Index = 0; Index < 4; ++Index)
 			{
 				NextIndex = (Index + 1) & 3;
-				Points[Index + 1] = { PosX[NextIndex], PosY[NextIndex] + y * CubeSize }; //-V557
+				Points[static_cast<std::uint_fast32_t>(Index) + 1] = { PosX[NextIndex], PosY[NextIndex] + y * CubeSize }; //-V557
 			}
 
 			lwmf::FilledPolygon(ScreenTexture, Points, 0x44444444, Color);
@@ -88,12 +88,12 @@ namespace Cubes
 		{
 			++ShiftX;
 			const std::int_fast32_t ShiftXTemp{ (ShiftX & 1) * CubeSize };
+			const float dy{ static_cast<float>(std::abs(ScreenHeightMid - j)) };
 
 			for (std::int_fast32_t i{ CubeSize << 1 }; i < MaxWidth; i += CubeSizeTemp2)
 			{
 				const std::int_fast32_t x{ i + ShiftXTemp };
 				const float dx{ static_cast<float>(std::abs(ScreenWidthMid - x)) };
-				const float dy{ static_cast<float>(std::abs(ScreenHeightMid - j)) };
 				const float Distance{ std::sqrtf(dx * dx + dy * dy) };
 				const float StepTemp{ static_cast<float>(Steps) - Distance };
 				float Angle{ lwmf::HalfPI };

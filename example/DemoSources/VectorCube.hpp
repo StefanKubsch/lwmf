@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstdint>
-#include <vector>
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -60,7 +59,7 @@ namespace VectorCube
 		};
 
 		constexpr std::array<CubeFaceStruct, 6> CubeFaces{ { {0,1,3,2}, {4,0,2,6}, {5,4,6,7}, {1,5,7,3}, {0,1,5,4}, {2,3,7,6} } };
-		std::vector<std::pair<std::int_fast32_t, float>> Order(6);
+		std::array<std::pair<std::int_fast32_t, float>, 6> Order{};
 
 		// Sort faces
 		for (std::int_fast32_t i{}; i < 6; ++i)

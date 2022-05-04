@@ -11,19 +11,19 @@ namespace Plasma
     {
         static float TimeElapsed{};
         TimeElapsed += 0.0166F;
-
-        const float cxTemp{ 10.0F * (std::sinf(TimeElapsed * 0.33F)) };
+        const float cosTimeElapsed{ std::cosf(TimeElapsed * 0.5F) };
+        const float sinTimeElapsed{ 10.0F * (std::sinf(TimeElapsed * 0.33F)) };
 
         #pragma omp parallel for
         for (std::int_fast32_t y{}; y < ScreenTexture.Height; y += 2)
         {
             const float TempY{ (0.5F + y / static_cast<float>(ScreenTexture.Height) - 1.0F) * 20.0F - 10.0F };
-            const float cy{ TempY + 10.0F * (std::cosf(TimeElapsed * 0.5F)) };
+            const float cy{ TempY + 10.0F * cosTimeElapsed };
 
             for (std::int_fast32_t x{}; x < ScreenTexture.Width; x += 2)
             {
                 const float TempX{ (0.5F + x / static_cast<float>(ScreenTexture.Width) - 1.0F) * 20.0F - 10.0F };
-                const float cx{ TempX + cxTemp };
+                const float cx{ TempX + sinTimeElapsed };
                 const float Value{ (std::sinf(TempY + TimeElapsed) + std::sinf((TempX + TimeElapsed) * 0.5F) + std::sinf((TempX + TempY + TimeElapsed) * 0.5F) + ((std::sinf(std::sqrtf(cx * cx + cy * cy + 1.0F) + TimeElapsed)) * 0.5F)) * lwmf::PI };
 
                 lwmf::SetPixel(ScreenTexture, x, y,
