@@ -185,3 +185,5 @@ example/x64/Debug/vc143.idb
 example/x64/Debug/vc143.pdb
 example/.clang-tidy
 example/x64/Release/CodeAnalysisResultManifest.txt
+example/.vs/lwmf_demo/FileContentIndex/c640674e-c696-4e61-a117-e29881158c85.vsidx
+example/.vs/lwmf_demo/FileContentIndex/read.lock
