@@ -28,8 +28,8 @@ namespace PixelTest
 		lwmf::RenderText(ScreenTexture, "Throughput in MegaPixel/s: " + std::string(MPixelsPerSecond.data()), 10, 70, 0xFFFFFFFF);
 
 		// 1.073.741.824 = 1024x1024x1024
-		std::array<char, 15> ThroughputString{};
-		std::to_chars(ThroughputString.data(), ThroughputString.data() + ThroughputString.size(), static_cast<float>(static_cast<std::uint_fast32_t>(lwmf::FPS) * (static_cast<std::uint_fast32_t>(ScreenTexture.Size) * 4)) / 1073741824.0F);
+		std::array<char, 30> ThroughputString{};
+		std::to_chars(ThroughputString.data(), ThroughputString.data() + ThroughputString.size(), static_cast<double>(static_cast<std::uint_fast64_t>(lwmf::FPS) * (static_cast<std::uint_fast64_t>(ScreenTexture.Size) * 4)) / 1073741824.0);
 		lwmf::RenderText(ScreenTexture, "Throughput in GigaByte/s: " + std::string(ThroughputString.data()), 10, 80, 0xFFFFFFFF);
 
 		std::array<char, 10> PixelString{};
