@@ -18,7 +18,7 @@
 #include <cstdint>
 #include <string>
 #include <string_view>
-#include <vector>
+#include <array>
 #include <random>
 
 // Uncomment to find memory leaks in debug mode
@@ -60,8 +60,8 @@ inline void DisplayInfoBox(const std::string_view Partname)
 {
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 115, 0x1F1F1F1F, 0x1F1F1F1F);
 	lwmf::FPSCounter();
-	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
 	lwmf::RenderText(ScreenTexture, "Music duration in seconds: " + CutDoubleToString(Music.GetDuration()), 10, 40, 0xFFFFFFFF);
 	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + CutDoubleToString(Music.GetPosition()), 10, 50, 0xFFFFFFFF);
 	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, 0xFFFFFFFF);
@@ -97,7 +97,7 @@ inline void DisplayInfoBox(const std::string_view Partname)
 #include "./DemoSources/TextureRotationTest.hpp"
 #include "./DemoSources/DLA.hpp"
 
-const std::vector<void (*)()> DemoParts
+const std::array<void (*)(), 28> DemoParts
 {
 	Metaballs::Draw, Plasma::Draw, DotTunnel::Draw, Fire::Draw, Swarm::Draw, Landscape::Draw, Starfield::Draw,
 	VectorCube::Draw, Lens::Draw, Copperbars::Draw, Tunnel::Draw, Morph::Draw, GouraudShade::Draw, RotoZoom::Draw, Moiree::Draw,
@@ -281,5 +281,5 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		default: {}
 	}
 
-	return DefWindowProc(hWnd, message, wParam, lParam);
+	return DefWindowProcA(hWnd, message, wParam, lParam);
 }

@@ -4,6 +4,7 @@
 #include <array>
 #include <vector>
 #include <cmath>
+#include <string_view>
 
 namespace Bobs
 {

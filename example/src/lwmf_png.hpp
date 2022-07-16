@@ -16,7 +16,6 @@
 #include <array>
 #include <iostream>
 #include <fstream>
-#include <cstring>
 
 #include "lwmf_logging.hpp"
 #include "lwmf_texture.hpp"
@@ -981,7 +980,7 @@ namespace lwmf
 		{
 			std::int_fast32_t Result{};
 
-			for (std::int_fast32_t i{ NBits - 1 }; i < NBits; --i)
+			for (std::int_fast32_t i{ NBits - 1}; i < NBits; --i)
 			{
 				Result += ((ReadBitFromReversedStream(BitP, Bits)) << i);
 			}

@@ -14,7 +14,7 @@
 #define __FILENAME__ (std::strrchr(__FILE__, '\\') ? std::strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 #include <cstdlib>
-#include <cstring>
+#include <string>
 #include <string_view>
 #include <array>
 #include <map>
@@ -61,7 +61,7 @@ namespace lwmf
 		Logging& operator = (Logging&&) = delete;
 		~Logging();
 
-		void AddEntry(LogLevel Level, const char* Filename, std::int_fast32_t LineNumber, const std::string_view Message);
+		void AddEntry(LogLevel Level, const char* Filename, std::int_fast32_t LineNumber, std::string_view Message);
 
 	private:
 		static std::string GetTimeStamp();
