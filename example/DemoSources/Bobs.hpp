@@ -21,8 +21,8 @@ namespace Bobs
 	struct Font
 	{
 		lwmf::TextureStruct CharMapBMP{};
-		std::string Text{};
-		std::string CharMap{};
+		std::string_view Text{};
+		std::string_view CharMap{};
 		std::vector<std::int_fast32_t> Map{};
 		std::int_fast32_t ScrollSpeed{};
 		std::int_fast32_t TextLength{};
@@ -60,7 +60,7 @@ namespace Bobs
 		ScrollFont.CharOverallWidth = ScrollFont.CharWidth + ScrollFont.CharSpacing;
 		ScrollFont.TextLength = static_cast<std::int_fast32_t>(ScrollFont.Text.length());
 		ScrollFont.Length = ScrollFont.TextLength * ScrollFont.CharOverallWidth;
-		ScrollFont.Map.resize(ScrollFont.TextLength, -1);
+		ScrollFont.Map.resize(static_cast<std::size_t>(ScrollFont.TextLength), -1);
 
 		// Pre-calc char positions in map
 		for (std::int_fast32_t i{}; i < ScrollFont.TextLength; ++i)
