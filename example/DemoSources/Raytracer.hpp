@@ -123,12 +123,14 @@ namespace Raytracer
 			const float tca{ L * Direction };
 			const float d2{ L * L - tca * tca };
 
-			if (d2 > Radius * Radius)
+			const float POWRadius{ Radius * Radius };
+
+			if (d2 > POWRadius)
 			{
 				return false;
 			}
 
-			const float thc{ std::sqrtf(Radius * Radius - d2) };
+			const float thc{ std::sqrtf(POWRadius - d2) };
 			const float t1{ tca + thc };
 
 			t0 = tca - thc;
@@ -156,7 +158,7 @@ namespace Raytracer
 	{
 		const float CosI{ -std::max(-1.0F, std::min(1.0F, I * N)) };
 
-		if (CosI < 0)
+		if (CosI < 0.0F)
 		{
 			return Refract(I, -N, eta_i, eta_t);
 		}
@@ -207,8 +209,8 @@ namespace Raytracer
 
 		const Vec3f ReflectDir{ Reflect(Direction, N).normalize() };
 		const Vec3f RefractDir{ Refract(Direction, N, material.RefractiveIndex).normalize() };
-		const Vec3f ReflectOrigin{ ReflectDir * N < 0.0F ? Point - N * 1e-3F : Point + N * 1e-3F };
-		const Vec3f RefractOrigin{ RefractDir * N < 0.0F ? Point - N * 1e-3F : Point + N * 1e-3F };
+		const Vec3f ReflectOrigin{ ReflectDir * N < 0.0F ? Point - N * 0.001F : Point + N * 0.001F };
+		const Vec3f RefractOrigin{ RefractDir * N < 0.0F ? Point - N * 0.001F : Point + N * 0.001F };
 		const Vec3f ReflectColor{ CastRay(ReflectOrigin, ReflectDir, spheres, lights, Depth + 1) };
 		const Vec3f RefractColor{ CastRay(RefractOrigin, RefractDir, spheres, lights, Depth + 1) };
 
@@ -220,7 +222,7 @@ namespace Raytracer
 			const Vec3f LightDir{ (Light.Position - Point).normalize() };
 			const float LightDistance{ (Light.Position - Point).norm() };
 
-			const Vec3f ShadowOrigin{ LightDir * N < 0.0F ? Point - N * 1e-3F : Point + N * 1e-3F };
+			const Vec3f ShadowOrigin{ LightDir * N < 0.0F ? Point - N * 0.001F : Point + N * 0.001F };
 			Vec3f ShadowPoint{};
 			Vec3f ShadowN{};
 			Material TempMaterial{};
@@ -262,16 +264,21 @@ namespace Raytracer
 	inline void Draw()
 	{
 		const Material Glass(1.5F, Vec4f(0.0F, 0.5F, 0.1F, 0.8F), Vec3f(0.6F, 0.7F, 0.8F), 125.0F);
-		const float DirZ{ -ScreenTexture.Height / (2.0F * std::tanf(lwmf::PI / 6.0F)) };
-		static Vec3f SpherePos{ -5.0F, 0.0F, -20.0F };
-		static Vec3f SphereDir{ 0.5F, 0.5F, 1.5F };
-		static float Zoom{ 50.0F };
-		static float ZoomSpeed{ 10.0F };
+		const Material Metal(1.5F, Vec4f(0.0F, 0.5F, 1.0F, 0.0F), Vec3f(0.95F, 0.95F, 0.95F), 50.0F);
+
+		static Vec3f SpherePos1{ -5.0F, 0.0F, -20.0F };
+		static Vec3f SphereDir1{ 0.5F, 0.5F, 1.5F };
+		static Vec3f SpherePos2{ 0.0F, -5.0F, -10.0F };
+		static Vec3f SphereDir2{ 1.5F, 0.5F, 1.5F };
+
 		std::vector<Sphere> UsedSpheres{};
 
-		UsedSpheres.clear();
-		UsedSpheres.shrink_to_fit();
-		UsedSpheres.emplace_back(Sphere(Vec3f(SpherePos.x, SpherePos.y, SpherePos.z), 4.0F, Glass));
+		UsedSpheres.emplace_back(Sphere(Vec3f(SpherePos1.x, SpherePos1.y, SpherePos1.z), 4.0F, Glass));
+		UsedSpheres.emplace_back(Sphere(Vec3f(SpherePos2.x, SpherePos2.y, SpherePos2.z), 5.0F, Metal));
+
+		const float DirZ{ -ScreenTexture.Height / (2.0F * std::tanf(lwmf::PI / 6.0F)) };
+		static float Zoom{ 50.0F };
+		static float ZoomSpeed{ 10.0F };
 
 		#pragma omp parallel for
 		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
@@ -280,9 +287,7 @@ namespace Raytracer
 
 			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
 			{
-				const float DirX{ (x + 0.5F) - ScreenTexture.WidthMid };
-
-				Vec3f Result{ CastRay(Vec3f(0.0F, 0.0F, 0.0F), Vec3f(DirX, DirY, DirZ + Zoom).normalize(), UsedSpheres, UsedLights) };
+				Vec3f Result{ CastRay(Vec3f(0.0F, 0.0F, 0.0F), Vec3f(((x + 0.5F) - ScreenTexture.WidthMid), DirY, DirZ + Zoom).normalize(), UsedSpheres, UsedLights) };
 				const float Max{ std::max(Result[0], std::max(Result[1], Result[2])) };
 
 				if (Max > 1.0F)
@@ -294,24 +299,44 @@ namespace Raytracer
 			}
 		}
 
-		SpherePos.x += SphereDir.x;
-		SpherePos.y += SphereDir.y;
-		SpherePos.z += SphereDir.z;
+		SpherePos1.x += SphereDir1.x;
+		SpherePos1.y += SphereDir1.y;
+		SpherePos1.z += SphereDir1.z;
+
+		SpherePos2.x += SphereDir2.x;
+		SpherePos2.y += SphereDir2.y;
+		SpherePos2.z += SphereDir2.z;
+
 		Zoom += ZoomSpeed;
 
-		if (SpherePos.x > 8.0F|| SpherePos.x < -8.0F)
+		if (SpherePos1.x > 8.0F|| SpherePos1.x < -8.0F)
 		{
-			SphereDir.x *= -1.0F;
+			SphereDir1.x *= -1.0F;
 		}
 
-		if (SpherePos.y > 8.0F || SpherePos.y < -8.0F)
+		if (SpherePos1.y > 8.0F || SpherePos1.y < -8.0F)
 		{
-			SphereDir.y *= -1.0F;
+			SphereDir1.y *= -1.0F;
 		}
 
-		if (SpherePos.z > -10.0F || SpherePos.z < -40.0F)
+		if (SpherePos1.z > -10.0F || SpherePos1.z < -40.0F)
 		{
-			SphereDir.z *= -1.0F;
+			SphereDir1.z *= -1.0F;
+		}
+
+		if (SpherePos2.x > 8.0F || SpherePos2.x < -8.0F)
+		{
+			SphereDir2.x *= -1.0F;
+		}
+
+		if (SpherePos2.y > 8.0F || SpherePos2.y < -8.0F)
+		{
+			SphereDir2.y *= -1.0F;
+		}
+
+		if (SpherePos2.z > -10.0F || SpherePos2.z < -40.0F)
+		{
+			SphereDir2.z *= -1.0F;
 		}
 
 		if (Zoom > 200.0F || Zoom < 50.0F)

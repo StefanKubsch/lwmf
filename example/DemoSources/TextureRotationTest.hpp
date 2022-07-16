@@ -31,7 +31,7 @@ namespace TextureRotationTest
 		std::to_chars(CounterString.data(), CounterString.data() + CounterString.size(), ++RotateCounter);
 		lwmf::RenderText(ScreenTexture, "Number of texture rotations: " + std::string(CounterString.data()), 10, 70, 0xFFFFFFFF);
 
-		Angle += 0.015F;
+		(Angle >= 359.0F) ? Angle = 0.0F : Angle += 0.005F;
 	}
 
 
