@@ -7,7 +7,7 @@ namespace Julia
 {
 
 
-	constexpr std::int_fast32_t Iterations{ 256 };
+	inline constexpr std::int_fast32_t Iterations{ 256 };
 
 	inline std::int_fast32_t Set(std::complex<float> z, const std::complex<float>& c)
 	{

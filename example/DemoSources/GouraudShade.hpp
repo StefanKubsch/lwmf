@@ -15,11 +15,11 @@ namespace GouraudShade
 		std::int_fast32_t z{};
 	};
 
-	constexpr std::int_fast32_t ScaleFactor1{ 60 };
-	constexpr std::int_fast32_t ScaleFactor2{ 400 };
-	constexpr std::int_fast32_t Radius1{ 50 };
-	constexpr std::int_fast32_t Radius2{ 100 };
-	constexpr std::int_fast32_t NumberOfVertices{ ScaleFactor1 * ScaleFactor2 };
+	inline constexpr std::int_fast32_t ScaleFactor1{ 60 };
+	inline constexpr std::int_fast32_t ScaleFactor2{ 400 };
+	inline constexpr std::int_fast32_t Radius1{ 50 };
+	inline constexpr std::int_fast32_t Radius2{ 100 };
+	inline constexpr std::int_fast32_t NumberOfVertices{ ScaleFactor1 * ScaleFactor2 };
 	inline std::array<Point3D, NumberOfVertices> Shape{};
 	inline std::array<Point3D, NumberOfVertices> RotatedShape{};
 	inline std::array<lwmf::IntPointStruct, NumberOfVertices> Shape2D{};

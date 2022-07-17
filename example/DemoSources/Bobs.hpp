@@ -16,8 +16,8 @@ namespace Bobs
 	inline std::array<lwmf::FloatPointStruct, 512> Bob1Coord{};
 	inline std::array<lwmf::FloatPointStruct, 512> Bob2Coord{};
 
-	constexpr std::int_fast32_t PatternWidth{ 300 };
-	constexpr std::int_fast32_t PatternHeight{ 150 };
+	inline constexpr std::int_fast32_t PatternWidth{ 300 };
+	inline constexpr std::int_fast32_t PatternHeight{ 150 };
 
 	struct Font
 	{

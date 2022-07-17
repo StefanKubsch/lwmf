@@ -14,10 +14,10 @@ namespace DLA
     // https://en.wikipedia.org/wiki/Diffusion-limited_aggregation
     //
 
-    constexpr std::int_fast32_t NumberOfParticles{ 280000 };
-    constexpr float AggregationThresh{ 0.8F };
-    constexpr float AggregationDecay{ 0.89F };
-    constexpr float AggregationPrevent{ 0.001F };
+    inline constexpr std::int_fast32_t NumberOfParticles{ 280000 };
+    inline constexpr float AggregationThresh{ 0.8F };
+    inline constexpr float AggregationDecay{ 0.89F };
+    inline constexpr float AggregationPrevent{ 0.001F };
 
     class Particle
     {

@@ -34,7 +34,7 @@ namespace lwmf
 	// International Business Machines (public domain VGA fonts)
 	// License: Public Domain
 
-	constexpr std::array<std::array<std::int_fast32_t, 8>, 128> ASCIIFont8x8
+	inline constexpr std::array<std::array<std::int_fast32_t, 8>, 128> ASCIIFont8x8
 	{ {
 		{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},   // U+0000 (nul)
 		{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},   // U+0001

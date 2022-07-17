@@ -16,7 +16,7 @@ namespace Morph
 		float z{};
 	};
 
-	constexpr std::int_fast32_t NumberOfPoints{ 10000 };
+	inline constexpr std::int_fast32_t NumberOfPoints{ 10000 };
 	inline std::array<DotStruct, NumberOfPoints> Sphere{};
 	inline std::array<DotStruct, NumberOfPoints> Torus{};
 	inline std::array<DotStruct, NumberOfPoints> Morph{};
