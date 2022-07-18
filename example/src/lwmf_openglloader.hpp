@@ -25,6 +25,8 @@
 
 // Definitions can be found here:
 // https://www.khronos.org/registry/OpenGL/api/GL/glext.h
+//
+// Please take care: Only things used in lwmf are defined here - of course, there are much more possible definitions!
 
 inline constexpr std::int_fast32_t GL_ARRAY_BUFFER						{ 0x8892 };
 inline constexpr std::int_fast32_t GL_COMPILE_STATUS					{ 0x8B81 };
@@ -45,8 +47,9 @@ using GLchar = char;
 using GLsizeiptr = std::ptrdiff_t;
 using GLintptr = std::ptrdiff_t;
 
-// And all those nice functions definitions can be found here:
+// And all those nice function definitions can be found here:
 // https://www.khronos.org/registry/OpenGL-Refpages/gl4/
+// and also here - please take care: Only functions used in lwmf are defined here - of course, there are much more!
 
 #define OGL \
 	OG(void,	glAttachShader,				GLuint program, GLuint shader) \

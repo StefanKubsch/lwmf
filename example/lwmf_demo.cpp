@@ -97,7 +97,7 @@ inline void DisplayInfoBox(const std::string_view Partname)
 #include "./DemoSources/TextureRotationTest.hpp"
 #include "./DemoSources/DLA.hpp"
 
-const std::array<void (*)(), 28> DemoParts
+constexpr std::array<void (*)(), 28> DemoParts
 {
 	Metaballs::Draw, Plasma::Draw, DotTunnel::Draw, Fire::Draw, Swarm::Draw, Landscape::Draw, Starfield::Draw,
 	VectorCube::Draw, Lens::Draw, Copperbars::Draw, Tunnel::Draw, Morph::Draw, GouraudShade::Draw, RotoZoom::Draw, Moiree::Draw,

@@ -29,7 +29,7 @@ namespace lwmf
 	// Shader source codes
 	//
 
-	inline const std::string_view DefaultFragmentShaderSource
+	inline constexpr std::string_view DefaultFragmentShaderSource
 	{
 		"#version 430 core\n"
 		"in vec2 Texcoord;\n"
@@ -43,7 +43,7 @@ namespace lwmf
 		"}"
 	};
 
-	inline const std::string_view DefaultVertexShaderSource
+	inline constexpr std::string_view DefaultVertexShaderSource
 	{
 		"#version 430 core\n"
 		"in vec2 position;\n"
