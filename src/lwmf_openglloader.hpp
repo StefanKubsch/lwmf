@@ -32,6 +32,7 @@ inline constexpr std::int_fast32_t GL_ARRAY_BUFFER						{ 0x8892 };
 inline constexpr std::int_fast32_t GL_COMPILE_STATUS					{ 0x8B81 };
 inline constexpr std::int_fast32_t GL_CONTEXT_LOST						{ 0x0507 };
 inline constexpr std::int_fast32_t GL_DYNAMIC_DRAW						{ 0x88E8 };
+inline constexpr std::int_fast32_t GL_DYNAMIC_STORAGE_BIT				{ 0x0100 };
 inline constexpr std::int_fast32_t GL_ELEMENT_ARRAY_BUFFER				{ 0x8893 };
 inline constexpr std::int_fast32_t GL_FRAGMENT_SHADER					{ 0x8B30 };
 inline constexpr std::int_fast32_t GL_INVALID_FRAMEBUFFER_OPERATION		{ 0x0506 };
@@ -59,11 +60,14 @@ using GLintptr = std::ptrdiff_t;
 	OG(void,	glBufferData,				GLenum target, GLsizeiptr size, const GLvoid* data, GLenum usage) \
 	OG(void,	glBufferSubData,			GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid* data) \
 	OG(void,	glCompileShader,			GLuint shader) \
+	OG(void,	glCreateBuffers,			GLsizei n, GLuint* buffers) \
 	OG(GLint,	glCreateProgram,			void) \
 	OG(GLint,	glCreateShader,				GLenum type) \
+	OG(void,    glCreateTextures,			GLenum target, GLsizei n, GLuint *textures) \
 	OG(void,	glDeleteProgram,			GLuint program) \
 	OG(void,	glDeleteShader,				GLuint shader) \
 	OG(void,	glDetachShader,				GLuint program, GLuint shader) \
+	OG(void,	glEnableVertexArrayAttrib,	GLuint vaobj, GLuint index) \
 	OG(void,	glEnableVertexAttribArray,	GLuint index) \
 	OG(void,	glGenBuffers,				GLsizei n, GLuint* buffers) \
 	OG(void,	glGenVertexArrays,			GLsizei n, GLuint* arrays) \
@@ -74,11 +78,19 @@ using GLintptr = std::ptrdiff_t;
 	OG(void,	glGetShaderiv,				GLuint shader, GLenum pname, GLint* params) \
 	OG(GLint,	glGetUniformLocation,		GLuint program, const GLchar* name) \
 	OG(void,	glLinkProgram,				GLuint program) \
+	OG(void,	glNamedBufferStorage,		GLuint buffer, GLsizeiptr size, const void* data, GLbitfield flags) \
 	OG(void,	glShaderSource,				GLuint shader, GLsizei count, const GLchar* const* string, const GLint* length) \
 	OG(void,	glTexStorage2D,				GLenum target,GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height) \
+	OG(void,	glTextureParameteri,		GLuint texture, GLenum pname, GLint param) \
+	OG(void,	glTextureStorage2D,			GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height) \
+	OG(void,	glTextureSubImage2D,		GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void* pixels) \
 	OG(void,	glUniform1f,				GLint location, GLfloat v0) \
 	OG(void,	glUniformMatrix4fv,			GLint location, GLsizei count, GLboolean transpose, const GLfloat* value) \
 	OG(void,	glUseProgram,				GLuint program) \
+	OG(void,	glVertexArrayAttribBinding,	GLuint vaobj, GLuint attribindex, GLuint bindingindex) \
+	OG(void,	glVertexArrayAttribFormat,	GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset) \
+	OG(void,	glVertexArrayElementBuffer,	GLuint vaobj, GLuint buffer) \
+	OG(void,	glVertexArrayVertexBuffer,	GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride) \
 	OG(void,	glVertexAttribPointer,		GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer)
 #define OG(Return, Name, ...) typedef Return WINAPI Name##proc(__VA_ARGS__); extern Name##proc* Name;
 	OGL

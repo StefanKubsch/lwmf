@@ -38,6 +38,7 @@
 
 // "ScreenTexture" is the main render target in our demo!
 inline lwmf::TextureStruct ScreenTexture{};
+
 // ...and this is the shader we use to bringt "ScreenTexture" to the screen!
 inline lwmf::ShaderClass ScreenTextureShader{};
 

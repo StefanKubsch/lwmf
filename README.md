@@ -1,7 +1,7 @@
 # lwmf
 lightweight media framework - graphics, math, multithreading, logging and much more for games, demos, engines etc.
 
-Windows 64bit, C++ 17, Visual Studio 2022, OpenGL 4.3 Core, SSE 4.2
+Windows 64bit, C++ 17, Visual Studio 2022, OpenGL 4.5 Core, SSE 4.2
 
 This framework is "Public Domain" - do whatever you want with it!
 
