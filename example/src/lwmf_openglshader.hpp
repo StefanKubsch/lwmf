@@ -23,7 +23,7 @@
 
 namespace lwmf
 {
-	
+
 
 	//
 	// Official OpenGL 4.5 Core Profile documentation:
@@ -163,7 +163,7 @@ namespace lwmf
 		CheckCompileError(FragmentShader, Components::Shader);
 
 		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Link the vertex and fragment shader into a shader program...");
-		ShaderProgram = static_cast<GLuint>(glCreateProgram());
+		ShaderProgram = glCreateProgram();
 		glCheckError();
 		glAttachShader(ShaderProgram, VertexShader);
 		glCheckError();
@@ -173,7 +173,6 @@ namespace lwmf
 		glCheckError();
 		glLinkProgram(ShaderProgram);
 		glCheckError();
-
 		CheckCompileError(ShaderProgram, Components::Program);
 
 		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Use shader program...");
@@ -181,10 +180,10 @@ namespace lwmf
 		glCheckError();
 
 		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Specify the layout of the vertex data...");
-		
+
 		glCreateVertexArrays(1, &VertexArrayObject);
 
-		const GLuint PositionAttrib{ static_cast<GLuint>(glGetAttribLocation(ShaderProgram, "position")) };
+		const auto PositionAttrib{ glGetAttribLocation(ShaderProgram, "position") };
 		glCheckError();
 		glEnableVertexArrayAttrib(VertexArrayObject, PositionAttrib);
 		glCheckError();
@@ -193,7 +192,7 @@ namespace lwmf
 		glVertexArrayAttribBinding(VertexArrayObject, PositionAttrib, 0);
 		glCheckError();
 
-		const GLuint TextureAttrib{ static_cast<GLuint>(glGetAttribLocation(ShaderProgram, "texcoord")) };
+		const auto TextureAttrib{ glGetAttribLocation(ShaderProgram, "texcoord") };
 		glCheckError();
 		glEnableVertexArrayAttrib(VertexArrayObject, TextureAttrib);
 		glCheckError();
@@ -211,7 +210,7 @@ namespace lwmf
 		std::array<GLfloat, 16> ProjectionMatrix{};
 		Ortho2D(ProjectionMatrix, 0.0F, static_cast<GLfloat>(Texture.Width), static_cast<GLfloat>(Texture.Height), 0.0F);
 		glCheckError();
-		const GLint Projection{ glGetUniformLocation(ShaderProgram, "MVP") };
+		const auto Projection{ glGetUniformLocation(ShaderProgram, "MVP") };
 		glCheckError();
 		glUniformMatrix4fv(Projection, 1, GL_FALSE, ProjectionMatrix.data());
 		glCheckError();
