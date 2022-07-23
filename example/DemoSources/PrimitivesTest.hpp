@@ -15,10 +15,10 @@ namespace PrimitivesTest
 		const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
 		const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 3);
 
-		static std::array<char, 20> RectangleCounterString{};
-		static std::array<char, 20> CircleCounterString{};
-		static std::array<char, 20> PolygonCounterString{};
-		static std::array<char, 20> EllipseCounterString{};
+		static std::array<char, 10> RectangleCounterString{};
+		static std::array<char, 10> CircleCounterString{};
+		static std::array<char, 10> PolygonCounterString{};
+		static std::array<char, 10> EllipseCounterString{};
 
 		switch (Choice(RNG))
 		{
@@ -27,7 +27,7 @@ namespace PrimitivesTest
 				const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				lwmf::FilledRectangle(ScreenTexture, Point(RNG), Point(RNG), Width(RNG), Width(RNG), lwmf::XorShift32(), lwmf::XorShift32());
 
-				static std::uint_fast64_t RectangleCounter{};
+				static std::uint_fast32_t RectangleCounter{};
 				std::to_chars(RectangleCounterString.data(), RectangleCounterString.data() + RectangleCounterString.size(), ++RectangleCounter);
 				break;
 			}
@@ -36,7 +36,7 @@ namespace PrimitivesTest
 				const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				lwmf::FilledCircle(ScreenTexture, Point(RNG), Point(RNG), Width(RNG), lwmf::XorShift32(), lwmf::XorShift32());
 
-				static std::uint_fast64_t CircleCounter{};
+				static std::uint_fast32_t CircleCounter{};
 				std::to_chars(CircleCounterString.data(), CircleCounterString.data() + CircleCounterString.size(), ++CircleCounter);
 				break;
 			}
@@ -48,7 +48,7 @@ namespace PrimitivesTest
 				const std::vector<lwmf::IntPointStruct> Polygon{ {PolygonPointX(RNG), PolygonPointY(RNG)}, {PolygonPointX(RNG), PolygonPointY(RNG) }, {PolygonPointX(RNG), PolygonPointY(RNG) } };
 				lwmf::Polygon(ScreenTexture, Polygon, lwmf::XorShift32());
 
-				static std::uint_fast64_t PolygonCounter{};
+				static std::uint_fast32_t PolygonCounter{};
 				std::to_chars(PolygonCounterString.data(), PolygonCounterString.data() + PolygonCounterString.size(), ++PolygonCounter);
 				break;
 			}

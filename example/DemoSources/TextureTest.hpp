@@ -28,8 +28,8 @@ namespace TextureTest
 
 		DisplayInfoBox("Texture resize & blitting test (lwmf::ResizeTexture and lwmf::BlitTexture)");
 
-		static std::uint_fast64_t BlitCounter{};
-		std::array<char, 20> CounterString{};
+		static std::uint_fast32_t BlitCounter{};
+		std::array<char, 10> CounterString{};
 		std::to_chars(CounterString.data(), CounterString.data() + CounterString.size(), ++BlitCounter);
 		lwmf::RenderText(ScreenTexture, "Number of texture blits (resize with bilinear filtering): " + std::string(CounterString.data()), 10, 70, 0xFFFFFFFF);
 	}

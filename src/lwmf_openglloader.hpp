@@ -69,7 +69,6 @@ using GLintptr = std::ptrdiff_t;
 	OG(GLint,	glGetUniformLocation,		GLuint program, const GLchar* name) \
 	OG(void,	glLinkProgram,				GLuint program) \
 	OG(void,	glNamedBufferStorage,		GLuint buffer, GLsizeiptr size, const void* data, GLbitfield flags) \
-	OG(void,	glNamedBufferData,			GLuint buffer, GLsizeiptr size, const void* data, GLenum usage) \
 	OG(void,	glNamedBufferSubData,		GLuint buffer, GLintptr offset, GLsizeiptr size, const void* data) \
 	OG(void,	glShaderSource,				GLuint shader, GLsizei count, const GLchar* const* string, const GLint* length) \
 	OG(void,	glTextureParameteri,		GLuint texture, GLenum pname, GLint param) \
