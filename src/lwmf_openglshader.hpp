@@ -175,11 +175,7 @@ namespace lwmf
 		glCheckError();
 		CheckCompileError(ShaderProgram, Components::Program);
 
-		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Use shader program...");
-		glCheckError();
-
 		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Specify the layout of the vertex data...");
-
 		glCreateVertexArrays(1, &VertexArrayObject);
 		glCheckError();
 
@@ -236,7 +232,7 @@ namespace lwmf
 		glCheckError();
 		glDisable(GL_DITHER);
 		glCheckError();
-		// Enable culling of back-facing facet
+		// Enable culling of back-facing facets
 		// https://registry.khronos.org/OpenGL-Refpages/gl4/html/glCullFace.xhtml
 		glEnable(GL_CULL_FACE);
 		glCheckError();
@@ -290,13 +286,8 @@ namespace lwmf
 		UpdateVertices(PosX, PosY, Texture.Width, Texture.Height);
 		glCreateTextures(GL_TEXTURE_2D, 1, &OGLTextureID);
 		glCheckError();
-
-		if (FullscreenFlag)
-		{
-			glTextureStorage2D(OGLTextureID, 1, GL_RGBA8, Texture.Width, Texture.Height);
-			glCheckError();
-		}
-
+		glTextureStorage2D(OGLTextureID, 1, GL_RGBA8, Texture.Width, Texture.Height);
+		glCheckError();
 		glTextureParameteri(OGLTextureID, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glCheckError();
 		glTextureParameteri(OGLTextureID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -309,14 +300,8 @@ namespace lwmf
 		glUseProgram(ShaderProgram);
 		glProgramUniform1f(ShaderProgram, OpacityLocation, Opacity);
 		glBindVertexArray(VertexArrayObject);
-		glBindTexture(GL_TEXTURE_2D, OGLTextureID);
-
-		if (!FullscreenFlag)
-		{
-			glTextureStorage2D(OGLTextureID, 1, GL_RGBA8, Texture.Width, Texture.Height);
-		}
-
 		glTextureSubImage2D(OGLTextureID, 0, 0, 0, Texture.Width, Texture.Height, GL_RGBA, GL_UNSIGNED_BYTE, Texture.Pixels.data());
+		glBindTexture(GL_TEXTURE_2D, OGLTextureID);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}
 

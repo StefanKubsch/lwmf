@@ -221,15 +221,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-		case WM_SIZE:
-		{
-			if (ScreenTexture.Width > 0 && ScreenTexture.Height > 0)
-			{
-				lwmf::ResizeOpenGLWindow(ScreenTexture);
-			}
-
-			break;
-		}
 		case WM_INPUT:
 		{
 			RAWINPUT RawDev{};
