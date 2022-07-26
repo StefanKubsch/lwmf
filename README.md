@@ -1,18 +1,18 @@
 # lwmf
-lightweight media framework - graphics, math, multithreading, logging and much more for games, demos, engines etc.
+lightweight media framework - graphics, audio, math, multithreading, logging and much more for games, demos, engines etc.
 
-Windows 64bit, C++ 17, Visual Studio 2022, OpenGL 4.5 Core, SSE 4.2
+Windows 64bit, C++ 17, Visual Studio 2022, OpenGL 4.5 Core (Shader & DSA), SSE 4.2
 
 This framework is "Public Domain" - do whatever you want with it!
 
 Features:
 
 	- OpenGL
-		- window creation
+		- window creation / create OpenGL context
 		- wgl extension loader
 		- shader class
 		- load textures into GPU
-		- render to screen
+		- render them to screen
 	
 	- Primitives
 		- SetPixel / GetPixel
@@ -59,14 +59,14 @@ Features:
 		
 	- Math
 		- Lerp (linear interpolation)
-		- Euclidian Distance
-		- Chebyshev Distance
-		- Manhattan Distance
+		- Euclidian distance
+		- Chebyshev distance
+		- Manhattan distance
 		- fast atan2 approximation
 		- XorShift32 (Random Number Generator)
   
 	- Text
-		- simple 8x8 hardcoded bitmap font, standard ASCII
+		- simple 8x8 hardcoded font, standard ASCII
   
 	- Procedural
 		- Perlin noise generator
@@ -89,7 +89,7 @@ Features:
 	- Other stuff
 		- fps (frames per second) counter
 
-**My intention of this library**
+**My intention for this library**
 
   - lightweight/small/minimal
   - modern (C++ 17 and OpenGL shader)
