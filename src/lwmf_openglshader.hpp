@@ -129,8 +129,8 @@ namespace lwmf
 
 		constexpr std::array<GLint, 6> Elements
 		{
-			0, 1, 2,
-			2, 3, 0
+			0, 3, 2,
+			2, 1, 0
 		};
 
 		glCreateBuffers(1, &ElementBufferObject);
@@ -176,12 +176,12 @@ namespace lwmf
 		CheckCompileError(ShaderProgram, Components::Program);
 
 		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Use shader program...");
-		glUseProgram(ShaderProgram);
 		glCheckError();
 
 		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Specify the layout of the vertex data...");
 
 		glCreateVertexArrays(1, &VertexArrayObject);
+		glCheckError();
 
 		const auto PositionAttrib{ glGetAttribLocation(ShaderProgram, "position") };
 		glCheckError();
@@ -212,7 +212,7 @@ namespace lwmf
 		glCheckError();
 		const auto Projection{ glGetUniformLocation(ShaderProgram, "MVP") };
 		glCheckError();
-		glUniformMatrix4fv(Projection, 1, GL_FALSE, ProjectionMatrix.data());
+		glProgramUniformMatrix4fv(ShaderProgram, Projection, 1, GL_FALSE, ProjectionMatrix.data());
 		glCheckError();
 
 		LWMFSystemLog.AddEntry(LogLevel::Info, __FILENAME__, __LINE__, ShaderNameString + "Get opacity uniform location...");
@@ -236,6 +236,12 @@ namespace lwmf
 		glCheckError();
 		glDisable(GL_DITHER);
 		glCheckError();
+		// Enable culling of back-facing facet
+		// https://registry.khronos.org/OpenGL-Refpages/gl4/html/glCullFace.xhtml
+		glEnable(GL_CULL_FACE);
+		glCheckError();
+		glCullFace(GL_BACK);
+		glCheckError();
 	}
 
 	inline void ShaderClass::LoadTextureInGPU(const lwmf::TextureStruct& Texture, GLuint *TextureID)
@@ -255,9 +261,10 @@ namespace lwmf
 	inline void ShaderClass::RenderTexture(const GLuint* TextureID, const std::int_fast32_t PosX, const std::int_fast32_t PosY, const std::int_fast32_t Width, const std::int_fast32_t Height, const bool Blend, const float Opacity)
 	{
 		Blend ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-		glUseProgram(ShaderProgram);
-		glUniform1f(OpacityLocation, Opacity);
 		UpdateVertices(PosX, PosY, Width, Height);
+		glUseProgram(ShaderProgram);
+		glProgramUniform1f(ShaderProgram, OpacityLocation, Opacity);
+		glBindVertexArray(VertexArrayObject);
 		glBindTexture(GL_TEXTURE_2D, *TextureID);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}
@@ -272,7 +279,7 @@ namespace lwmf
 	{
 		Blend ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
 		glUseProgram(ShaderProgram);
-		glUniform1f(OpacityLocation, Opacity);
+		glProgramUniform1f(ShaderProgram, OpacityLocation, Opacity);
 		glBindVertexArray(VertexArrayObject);
 		glBindTexture(GL_TEXTURE_2D, *TextureID);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
@@ -282,8 +289,6 @@ namespace lwmf
 	{
 		UpdateVertices(PosX, PosY, Texture.Width, Texture.Height);
 		glCreateTextures(GL_TEXTURE_2D, 1, &OGLTextureID);
-		glCheckError();
-		glBindTexture(GL_TEXTURE_2D, OGLTextureID);
 		glCheckError();
 
 		if (FullscreenFlag)
@@ -302,7 +307,7 @@ namespace lwmf
 	{
 		Blend ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
 		glUseProgram(ShaderProgram);
-		glUniform1f(OpacityLocation, Opacity);
+		glProgramUniform1f(ShaderProgram, OpacityLocation, Opacity);
 		glBindVertexArray(VertexArrayObject);
 		glBindTexture(GL_TEXTURE_2D, OGLTextureID);
 
@@ -312,7 +317,6 @@ namespace lwmf
 		}
 
 		glTextureSubImage2D(OGLTextureID, 0, 0, 0, Texture.Width, Texture.Height, GL_RGBA, GL_UNSIGNED_BYTE, Texture.Pixels.data());
-
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}
 
@@ -350,7 +354,6 @@ namespace lwmf
 		Vertices[12] = static_cast<GLfloat>(PosX);
 		Vertices[13] = static_cast<GLfloat>(PosY + Height);
 
-		glBindVertexArray(VertexArrayObject);
 		glNamedBufferSubData(VertexBufferObject, 0, Vertices.size() * sizeof(GLfloat), Vertices.data());
 	}
 
