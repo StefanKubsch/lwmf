@@ -31,7 +31,7 @@ namespace DLA
 
         void Update()
         {
-            const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 7);
+            std::uniform_int_distribution<std::int_fast32_t> Choice(0, 7);
 
             switch (Choice(RNG))
             {
@@ -90,8 +90,8 @@ namespace DLA
 
         void RandomPos()
         {
-            const std::uniform_int_distribution<std::int_fast32_t> DistribX(0, ScreenTexture.Width);
-            const std::uniform_int_distribution<std::int_fast32_t> DistribY(0, ScreenTexture.Height);
+            std::uniform_int_distribution<std::int_fast32_t> DistribX(0, ScreenTexture.Width);
+            std::uniform_int_distribution<std::int_fast32_t> DistribY(0, ScreenTexture.Height);
 
             Point = { DistribX(RNG), DistribY(RNG) };
         }

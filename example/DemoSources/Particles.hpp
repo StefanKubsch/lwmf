@@ -33,7 +33,7 @@ namespace Particles
 
     inline void Particle::Update()
     {
-        const std::uniform_int_distribution<std::int_fast32_t> Distrib3(5, 8);
+        std::uniform_int_distribution<std::int_fast32_t> Distrib3(5, 8);
 
         if (static_cast<std::uint_fast32_t>(x) > static_cast<std::uint_fast32_t>(ScreenTexture.Width))
         {
@@ -58,10 +58,10 @@ namespace Particles
     {
         lwmf::LoadPNG(Wallpaper, "./DemoGFX/Colors.png");
 
-        const std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, ScreenTexture.Width);
-        const std::uniform_int_distribution<std::int_fast32_t> Distrib2(120, ScreenTexture.Height);
-        const std::uniform_int_distribution<std::int_fast32_t> Distrib3(5, 8);
-        const std::uniform_int_distribution<std::int_fast32_t> Distrib4(1, 3);
+        std::uniform_int_distribution<std::int_fast32_t> Distrib1(0, ScreenTexture.Width);
+        std::uniform_int_distribution<std::int_fast32_t> Distrib2(120, ScreenTexture.Height);
+        std::uniform_int_distribution<std::int_fast32_t> Distrib3(5, 8);
+        std::uniform_int_distribution<std::int_fast32_t> Distrib4(1, 3);
 
         for (std::int_fast32_t i{}; i < ScreenTexture.Size / 8000; ++i)
         {

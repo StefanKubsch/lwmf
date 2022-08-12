@@ -12,8 +12,8 @@ namespace PrimitivesTest
 
 	inline void Draw()
 	{
-		const std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
-		const std::uniform_int_distribution<std::int_fast32_t> Choice(0, 3);
+		std::uniform_int_distribution<std::int_fast32_t> Point(-255, ScreenTexture.Width + 255);
+		std::uniform_int_distribution<std::int_fast32_t> Choice(0, 3);
 
 		static std::array<char, 10> RectangleCounterString{};
 		static std::array<char, 10> CircleCounterString{};
@@ -24,7 +24,7 @@ namespace PrimitivesTest
 		{
 			case 0:
 			{
-				const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
+				std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				lwmf::FilledRectangle(ScreenTexture, Point(RNG), Point(RNG), Width(RNG), Width(RNG), lwmf::XorShift32(), lwmf::XorShift32());
 
 				static std::uint_fast32_t RectangleCounter{};
@@ -33,7 +33,7 @@ namespace PrimitivesTest
 			}
 			case 1:
 			{
-				const std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
+				std::uniform_int_distribution<std::int_fast32_t> Width(0, 500);
 				lwmf::FilledCircle(ScreenTexture, Point(RNG), Point(RNG), Width(RNG), lwmf::XorShift32(), lwmf::XorShift32());
 
 				static std::uint_fast32_t CircleCounter{};
@@ -42,8 +42,8 @@ namespace PrimitivesTest
 			}
 			case 2:
 			{
-				const std::uniform_int_distribution<std::int_fast32_t> PolygonPointX(0, ScreenTexture.Width);
-				const std::uniform_int_distribution<std::int_fast32_t> PolygonPointY(0, ScreenTexture.Height);
+				std::uniform_int_distribution<std::int_fast32_t> PolygonPointX(0, ScreenTexture.Width);
+				std::uniform_int_distribution<std::int_fast32_t> PolygonPointY(0, ScreenTexture.Height);
 
 				const std::vector<lwmf::IntPointStruct> Polygon{ {PolygonPointX(RNG), PolygonPointY(RNG)}, {PolygonPointX(RNG), PolygonPointY(RNG) }, {PolygonPointX(RNG), PolygonPointY(RNG) } };
 				lwmf::Polygon(ScreenTexture, Polygon, lwmf::XorShift32());
@@ -54,7 +54,7 @@ namespace PrimitivesTest
 			}
 			case 3:
 			{
-				const std::uniform_int_distribution<std::int_fast32_t> Radius(0, 200);
+				std::uniform_int_distribution<std::int_fast32_t> Radius(0, 200);
 				lwmf::Ellipse(ScreenTexture, Point(RNG), Point(RNG), Radius(RNG), Radius(RNG), lwmf::XorShift32());
 
 				static std::uint_fast64_t EllipseCounter{};
