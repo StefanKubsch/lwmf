@@ -11,7 +11,7 @@ namespace Moiree
 
 	inline void Draw()
 	{
-		const float Time{ GetTickCount() / 1000.0F };
+		const float Time{ GetTickCount64() / 1000.0F };
 		const lwmf::FloatPointStruct C1 { std::sinf(Time / 2.0F) * ScreenTexture.Width / 3.0F + ScreenTexture.WidthMid, std::sinf(Time / 4.0F) * ScreenTexture.Height / 3.0F + ScreenTexture.HeightMid };
 		const lwmf::FloatPointStruct C2 { std::cosf(Time / 3.0F) * ScreenTexture.Width / 3.0F + ScreenTexture.WidthMid, std::cosf(Time) * ScreenTexture.Height / 3.0F + ScreenTexture.HeightMid };
 
