@@ -196,3 +196,6 @@ example/.vs/lwmf_demo/FileContentIndex/994d8f3b-4aa3-4c95-b985-5cbb3858fb85.vsid
 *.vsidx
 example/.clang-tidy.cpt_backup
 example/.vs/lwmf_demo/v17/ipch/AutoPCH/1bf9a31b2745d9ff/LWMF_DEMO.ipch
+example/.vs/lwmf_demo/v17/Browse.VC.db-shm
+example/.vs/lwmf_demo/v17/Browse.VC.db-wal
+example/.vs/lwmf_demo/v17/Browse.VC.opendb
