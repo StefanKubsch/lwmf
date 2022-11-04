@@ -19,6 +19,7 @@
 #include <string>
 #include <string_view>
 #include <array>
+#include <format>
 #include <random>
 
 // Uncomment to find memory leaks in debug mode
@@ -51,20 +52,14 @@ inline std::int_fast32_t ActiveDemoPart{};
 // Make an instance of lwmf::MP3Player for our background music
 inline lwmf::MP3Player Music{};
 
-inline std::string CutDoubleToString(const double Value)
-{
-	std::string Temp{ std::to_string(static_cast<std::int_fast32_t>((Value * 100.0)) / 100.0) };
-	return Temp.erase(Temp.find_last_not_of('0') + 1, std::string::npos);
-}
-
 inline void DisplayInfoBox(const std::string_view Partname)
 {
 	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 115, 0x1F1F1F1F, 0x1F1F1F1F);
 	lwmf::FPSCounter();
 	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
 	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
-	lwmf::RenderText(ScreenTexture, "Music duration in seconds: " + CutDoubleToString(Music.GetDuration()), 10, 40, 0xFFFFFFFF);
-	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + CutDoubleToString(Music.GetPosition()), 10, 50, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, "Music duration in seconds: " + std::format("{:.2f}", Music.GetDuration()), 10, 40, 0xFFFFFFFF);
+	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + std::format("{:.2f}", Music.GetPosition()), 10, 50, 0xFFFFFFFF);
 	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, 0xFFFFFFFF);
 }
 
