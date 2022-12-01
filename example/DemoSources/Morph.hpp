@@ -62,7 +62,7 @@ namespace Morph
 			const float ScaleProd{ Scale * Rz + Distance };
 			const lwmf::IntPointStruct Pos{ CenterX + static_cast<std::int_fast32_t>(std::ceilf(Scale * Rx * Distance / ScaleProd * 1.2F)), CenterY + static_cast<std::int_fast32_t>(std::ceilf(Scale * Ry * Distance / ScaleProd)) };
 
-			lwmf::SetPixelSafe(ScreenTexture, Pos.X, Pos.Y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Scale * (Rz / -20.0F) + 128), 0, 255, 255));
+			lwmf::SetPixelSafe(Canvas, Pos.X, Pos.Y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Scale * (Rz / -20.0F) + 128), 0, 255, 255));
 		}
 
 		if (DotAngle >= lwmf::DoublePI)
@@ -80,7 +80,7 @@ namespace Morph
 		static std::int_fast32_t Count1{};
 		static std::int_fast32_t Count2{};
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
 		if (Count1 < 256)
 		{
@@ -91,11 +91,11 @@ namespace Morph
 				Morph[i].z = (static_cast<std::int_fast32_t>(Count1) * Sphere[i].z + (256.0F - static_cast<std::int_fast32_t>(Count1)) * Torus[i].z) / 256.0F;
 			}
 
-			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
+			ShowDots(Canvas.WidthMid, Canvas.HeightMid, ScaleFactor, Angle);
 		}
 		else if (Count1 >= 256 && Count1 <= 512) //-V560
 		{
-			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
+			ShowDots(Canvas.WidthMid, Canvas.HeightMid, ScaleFactor, Angle);
 		}
 		else if (Count1 > 512 && Count1 <= 768) //-V560
 		{
@@ -106,13 +106,13 @@ namespace Morph
 				Morph[i].z = (static_cast<std::int_fast32_t>(Count2) * Torus[i].z + (256.0F - static_cast<std::int_fast32_t>(Count2)) * Sphere[i].z) / 256.0F;
 			}
 
-			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
+			ShowDots(Canvas.WidthMid, Canvas.HeightMid, ScaleFactor, Angle);
 
 			Count2 += 2;
 		}
 		else if (Count1 > 768 && Count1 <= 1024) //-V560
 		{
-			ShowDots(ScreenTexture.WidthMid, ScreenTexture.HeightMid, ScaleFactor, Angle);
+			ShowDots(Canvas.WidthMid, Canvas.HeightMid, ScaleFactor, Angle);
 		}
 
 		Count1 += 2;

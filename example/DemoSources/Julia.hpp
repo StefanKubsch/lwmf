@@ -50,13 +50,13 @@ namespace Julia
 
 		std::complex<float> c{};
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
-		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{}; y < Canvas.Height; ++y)
 		{
 			c.imag((f.imag() * y) - hFCT);
 
-			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
+			for (std::int_fast32_t x{}; x < Canvas.Width; ++x)
 			{
 				c.real(f.real() * x - hFCT);
 
@@ -64,7 +64,7 @@ namespace Julia
 				{
 					const std::int_fast32_t NewResult{ Result & 255 };
 					const std::int_fast32_t Color{ Result < (Iterations >> 1) ? lwmf::RGBAtoINT(NewResult << 2, NewResult << 3, NewResult << 4, 255) : lwmf::RGBAtoINT(NewResult << 4, NewResult << 2, NewResult << 5, 255) };
-					lwmf::SetPixelSafe(ScreenTexture, (x + 100), y, Color);
+					lwmf::SetPixelSafe(Canvas, (x + 100), y, Color);
 				}
 			}
 		}

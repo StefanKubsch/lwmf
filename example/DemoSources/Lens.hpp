@@ -18,18 +18,18 @@ namespace Lens
 
 	inline void Init()
 	{
-		OldViewPortWidth = ScreenTexture.Width;
-		OldViewPortHeight = ScreenTexture.Height;
+		OldViewPortWidth = Canvas.Width;
+		OldViewPortHeight = Canvas.Height;
 
 		LensPos = { 16, 16 };
 		Dir = { 4, 4 };
 
 		lwmf::LoadPNG(Wallpaper, "./DemoGFX/Colors.png");
 
-		if (ScreenTexture.Width != Wallpaper.Width || ScreenTexture.Height != Wallpaper.Height)
+		if (Canvas.Width != Wallpaper.Width || Canvas.Height != Wallpaper.Height)
 		{
-			lwmf::ResizeTexture(Wallpaper, ScreenTexture.Width, ScreenTexture.Height, lwmf::FilterModes::BILINEAR);
-			LensWidth = std::clamp((ScreenTexture.Size) / 2000, 2, 250);
+			lwmf::ResizeTexture(Wallpaper, Canvas.Width, Canvas.Height, lwmf::FilterModes::BILINEAR);
+			LensWidth = std::clamp((Canvas.Size) / 2000, 2, 250);
 		}
 
 		const std::int_fast32_t LensRadius{ LensWidth >> 1 };
@@ -50,10 +50,10 @@ namespace Lens
 					TempPos = { static_cast<std::int_fast32_t>(x * Shift - x), static_cast<std::int_fast32_t>(y * Shift - y) };
 				}
 
-				std::int_fast32_t Offset{ (TempPos.Y * ScreenTexture.Width + TempPos.X) };
+				std::int_fast32_t Offset{ (TempPos.Y * Canvas.Width + TempPos.X) };
 				Lens[LensRadius - y][LensRadius - x] = -Offset;
 				Lens[LensRadius + y][LensRadius + x] = Offset;
-				Offset = (-TempPos.Y * ScreenTexture.Width + TempPos.X);
+				Offset = (-TempPos.Y * Canvas.Width + TempPos.X);
 				Lens[LensRadius + y][LensRadius - x] = -Offset;
 				Lens[LensRadius - y][LensRadius + x] = Offset;
 			}
@@ -62,20 +62,20 @@ namespace Lens
 
 	inline void Draw()
 	{
-		if (OldViewPortWidth != ScreenTexture.Width || OldViewPortHeight != ScreenTexture.Height)
+		if (OldViewPortWidth != Canvas.Width || OldViewPortHeight != Canvas.Height)
 		{
 			Init();
 		}
 
-		lwmf::BlitTexture(Wallpaper, ScreenTexture, 0, 0);
+		lwmf::BlitTexture(Wallpaper, Canvas, 0, 0);
 
 		for (std::int_fast32_t y{}; y < LensWidth; ++y)
 		{
-			const std::int_fast32_t Offset{ (y + LensPos.Y) * ScreenTexture.Width + LensPos.X };
+			const std::int_fast32_t Offset{ (y + LensPos.Y) * Canvas.Width + LensPos.X };
 
 			for (std::int_fast32_t x{}; x < LensWidth; ++x)
 			{
-				ScreenTexture.Pixels[Offset + x] = Wallpaper.Pixels[Offset + x + Lens[y][x]];
+				Canvas.Pixels[Offset + x] = Wallpaper.Pixels[Offset + x + Lens[y][x]];
 			}
 		}
 

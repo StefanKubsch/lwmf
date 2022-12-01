@@ -20,8 +20,8 @@ namespace Tunnel
 	{
 		lwmf::LoadPNG(Texture, "./DemoGFX/TunnelTexture.png");
 
-		TunnelScreenWidth = ScreenTexture.Width;
-		TunnelScreenHeight = ScreenTexture.Height;
+		TunnelScreenWidth = Canvas.Width;
+		TunnelScreenHeight = Canvas.Height;
 		TunnelWidth = TunnelScreenWidth >> 1;
 		TunnelHeight = TunnelScreenHeight >> 1;
 		Distance.clear();
@@ -49,12 +49,12 @@ namespace Tunnel
 		static std::int_fast32_t OldViewPortWidth{};
 		static std::int_fast32_t OldViewPortHeight{};
 
-		if (OldViewPortWidth != ScreenTexture.Width || OldViewPortHeight != ScreenTexture.Height)
+		if (OldViewPortWidth != Canvas.Width || OldViewPortHeight != Canvas.Height)
 		{
-			OldViewPortWidth = ScreenTexture.Width;
-			OldViewPortHeight = ScreenTexture.Height;
+			OldViewPortWidth = Canvas.Width;
+			OldViewPortHeight = Canvas.Height;
 			Init();
-			lwmf::ClearTexture(ScreenTexture, 0x00000000);
+			lwmf::ClearTexture(Canvas, 0x00000000);
 		}
 
 		static float Anim{};
@@ -68,7 +68,7 @@ namespace Tunnel
 		{
 			for (std::int_fast32_t x{}; x < TunnelScreenWidth; ++x)
 			{
-				lwmf::SetPixel(ScreenTexture, x, y, Texture.Pixels[((Angle[x + Source.X][y + Source.Y] + SpeedFactor) & 255) * Texture.Width + ((Distance[x + Source.X][y + Source.Y] + SpeedFactor) & 255)]);
+				lwmf::SetPixel(Canvas, x, y, Texture.Pixels[((Angle[x + Source.X][y + Source.Y] + SpeedFactor) & 255) * Texture.Width + ((Distance[x + Source.X][y + Source.Y] + SpeedFactor) & 255)]);
 			}
 		}
 

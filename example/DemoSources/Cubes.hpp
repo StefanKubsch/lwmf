@@ -46,7 +46,7 @@ namespace Cubes
 				Points[static_cast<std::uint_fast32_t>(Index) + 1] = { PosX[NextIndex], PosY[NextIndex] + y * CubeSize }; //-V557
 			}
 
-			lwmf::FilledPolygon(ScreenTexture, Points, 0x44444444, Color);
+			lwmf::FilledPolygon(Canvas, Points, 0x44444444, Color);
 		}
 
 		Index = (MinIdx + 1) & 3;
@@ -60,7 +60,7 @@ namespace Cubes
 			Points[2] = { PosX[NextIndex], PosY[NextIndex] + CubeSize };
 			Points[3] = { PosX[NextIndex], PosY[NextIndex] };
 
-			lwmf::FilledPolygon(ScreenTexture, Points, 0x44444444, Color >> 1);
+			lwmf::FilledPolygon(Canvas, Points, 0x44444444, Color >> 1);
 
 			Index = NextIndex;
 		}
@@ -71,18 +71,18 @@ namespace Cubes
 		static std::int_fast32_t Steps{};
 		Steps = (Steps + 2) % 1570;
 
-		for (std::int_fast32_t i{}; i < ScreenTexture.Width; ++i)
+		for (std::int_fast32_t i{}; i < Canvas.Width; ++i)
 		{
-			lwmf::Line(ScreenTexture, i, 115 , i, ScreenTexture.Height - 1, lwmf::RGBAtoINT(255 - (i >> 3), 0, i / 6, 255));
+			lwmf::Line(Canvas, i, 115 , i, Canvas.Height - 1, lwmf::RGBAtoINT(255 - (i >> 3), 0, i / 6, 255));
 		}
 
 		std::int_fast32_t ShiftX{};
-		const std::int_fast32_t ScreenWidthMid{ ScreenTexture.Width >> 1 };
-		const std::int_fast32_t ScreenHeightMid{ ScreenTexture.Height >> 1 };
+		const std::int_fast32_t ScreenWidthMid{ Canvas.Width >> 1 };
+		const std::int_fast32_t ScreenHeightMid{ Canvas.Height >> 1 };
 		const std::int_fast32_t CubeSizeTemp1{ static_cast<std::int_fast32_t>(static_cast<float>(CubeSize) * 1.8F) };
 		const std::int_fast32_t CubeSizeTemp2{ static_cast<std::int_fast32_t>(static_cast<float>(CubeSize) * 2.3F) };
-		const std::int_fast32_t MaxHeight{ ScreenTexture.Height - (CubeSize << 1) };
-		const std::int_fast32_t MaxWidth{ ScreenTexture.Width - (CubeSize << 1) };
+		const std::int_fast32_t MaxHeight{ Canvas.Height - (CubeSize << 1) };
+		const std::int_fast32_t MaxWidth{ Canvas.Width - (CubeSize << 1) };
 
 		for (std::int_fast32_t j{ 150 }; j < MaxHeight; j += CubeSizeTemp1)
 		{

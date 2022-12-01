@@ -28,23 +28,23 @@ namespace Metaballs
 		{
 			Ball.Pos.X += Ball.Velocity.X;
 
-			if (static_cast<std::uint_fast32_t>(Ball.Pos.X) > static_cast<std::uint_fast32_t>(ScreenTexture.Width))
+			if (static_cast<std::uint_fast32_t>(Ball.Pos.X) > static_cast<std::uint_fast32_t>(Canvas.Width))
 			{
 				Ball.Velocity.X *= -1;
 			}
 
 			Ball.Pos.Y += Ball.Velocity.Y;
 
-			if (static_cast<std::uint_fast32_t>(Ball.Pos.Y) > static_cast<std::uint_fast32_t>(ScreenTexture.Height))
+			if (static_cast<std::uint_fast32_t>(Ball.Pos.Y) > static_cast<std::uint_fast32_t>(Canvas.Height))
 			{
 				Ball.Velocity.Y *= -1;
 			}
 		}
 
 		#pragma omp parallel for
-		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{}; y < Canvas.Height; ++y)
 		{
-			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
+			for (std::int_fast32_t x{}; x < Canvas.Width; ++x)
 			{
 				float BallSum{};
 
@@ -54,7 +54,7 @@ namespace Metaballs
 					BallSum += 3.0F / std::sqrtf(BallTemp.X * BallTemp.X + BallTemp.Y * BallTemp.Y);
 				}
 
-				lwmf::SetPixel(ScreenTexture, x, y, BallSum > 0.035F ? 0xFF0000FF : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));
+				lwmf::SetPixel(Canvas, x, y, BallSum > 0.035F ? 0xFF0000FF : lwmf::RGBAtoINT(static_cast<std::int_fast32_t>((10000.0F * BallSum) - 100.0F), 0, 0, 255));
 			}
 		}
 

@@ -24,7 +24,7 @@ namespace Starfield
 		std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
 		std::uniform_real<float> Distrib2(1.0F, MaxDepth);
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
 		for (auto& Star : Stars)
 		{
@@ -39,8 +39,8 @@ namespace Starfield
 			const float Factor{ 128.0F / Star.z };
 			const std::int_fast32_t ColorPart{ static_cast<std::int_fast32_t>(255.0F - Star.z * 3.0F) };
 
-			lwmf::FilledCircle(ScreenTexture, static_cast<std::int_fast32_t>(Star.Pos.X * Factor) + ScreenTexture.WidthMid,
-				static_cast<std::int_fast32_t>(Star.Pos.Y * Factor) + ScreenTexture.HeightMid,
+			lwmf::FilledCircle(Canvas, static_cast<std::int_fast32_t>(Star.Pos.X * Factor) + Canvas.WidthMid,
+				static_cast<std::int_fast32_t>(Star.Pos.Y * Factor) + Canvas.HeightMid,
 				static_cast<std::int_fast32_t>((1.0F - (Star.z) / MaxDepth) * 6.0F), StarBorderColor, lwmf::RGBAtoINT(ColorPart, ColorPart, ColorPart, ColorPart));
 		}
 

@@ -37,11 +37,11 @@
 #define LWMF_THROWEXCEPTIONS
 #include "./src/lwmf.hpp"
 
-// "ScreenTexture" is the main render target in our demo!
-inline lwmf::TextureStruct ScreenTexture{};
+// "Canvas" is the main render target in our demo!
+inline lwmf::TextureStruct Canvas{};
 
-// ...and this is the shader we use to bring "ScreenTexture" to the screen!
-inline lwmf::ShaderClass ScreenTextureShader{};
+// ...and this is the shader we use to bring "Canvas" to the screen!
+inline lwmf::ShaderClass CanvasShader{};
 
 // Init & seed random RNG
 inline std::mt19937 RNG(std::random_device{}());
@@ -54,13 +54,13 @@ inline lwmf::MP3Player Music{};
 
 inline void DisplayInfoBox(const std::string_view Partname)
 {
-	lwmf::FilledRectangle(ScreenTexture, 0, 0, ScreenTexture.Width, 115, 0x1F1F1F1F, 0x1F1F1F1F);
+	lwmf::FilledRectangle(Canvas, 0, 0, Canvas.Width, 115, 0x1F1F1F1F, 0x1F1F1F1F);
 	lwmf::FPSCounter();
-	lwmf::DisplayFPSCounter(ScreenTexture, 10, 20, 0xFFFFFFFF);
-	lwmf::RenderText(ScreenTexture, Partname, 10, 10, 0xFFFFFFFF);
-	lwmf::RenderText(ScreenTexture, "Music duration in seconds: " + std::format("{:.2f}", Music.GetDuration()), 10, 40, 0xFFFFFFFF);
-	lwmf::RenderText(ScreenTexture, "Music position in seconds: " + std::format("{:.2f}", Music.GetPosition()), 10, 50, 0xFFFFFFFF);
-	lwmf::Line(ScreenTexture, 0, 115, ScreenTexture.Width, 115, 0xFFFFFFFF);
+	lwmf::DisplayFPSCounter(Canvas, 10, 20, 0xFFFFFFFF);
+	lwmf::RenderText(Canvas, Partname, 10, 10, 0xFFFFFFFF);
+	lwmf::RenderText(Canvas, "Music duration in seconds: " + std::format("{:.2f}", Music.GetDuration()), 10, 40, 0xFFFFFFFF);
+	lwmf::RenderText(Canvas, "Music position in seconds: " + std::format("{:.2f}", Music.GetPosition()), 10, 50, 0xFFFFFFFF);
+	lwmf::Line(Canvas, 0, 115, Canvas.Width, 115, 0xFFFFFFFF);
 }
 
 // Include the used demo effects
@@ -116,7 +116,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 	try
 	{
 		// Create window and OpenGL context
-		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, ScreenTexture, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
+		lwmf::CreateOpenGLWindow(lwmf::WindowInstance, Canvas, 1280, 720, "lwmf demo - switch parts with CURSOR LEFT & RIGHT, ESC to exit!", false);
 
 		// Set VSync: 0 = off, -1 = on (adaptive vsync = smooth as fuck)
 		lwmf::SetVSync(-1);
@@ -128,11 +128,11 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 		lwmf::CheckForSSESupport();
 
 		// Init the shaders used for rendering
-		ScreenTextureShader.LoadShader("Default", ScreenTexture);
-		ScreenTextureShader.PrepareLWMFTexture(ScreenTexture, 0, 0);
+		CanvasShader.LoadShader("Default", Canvas);
+		CanvasShader.PrepareLWMFTexture(Canvas, 0, 0);
 
 		// Initial clearance of window (looks better!)
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 		lwmf::ClearBuffer();
 		lwmf::SwapBuffer();
 
@@ -190,7 +190,7 @@ std::int_fast32_t WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst
 
 		// Bring the pixelbuffer to screen
 		lwmf::ClearBuffer();
-		ScreenTextureShader.RenderLWMFTexture(ScreenTexture, false, 1.0F);
+		CanvasShader.RenderLWMFTexture(Canvas, false, 1.0F);
 		lwmf::SwapBuffer();
 	}
 
@@ -240,14 +240,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							case VK_RIGHT:
 							{
 								ActiveDemoPart < DemoParts.size() - 1 ? ++ActiveDemoPart : ActiveDemoPart = 0;
-								lwmf::ClearTexture(ScreenTexture, 0x00000000);
+								lwmf::ClearTexture(Canvas, 0x00000000);
 								(ActiveDemoPart >= 22 && ActiveDemoPart < DemoParts.size()) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}
 							case VK_LEFT:
 							{
 								ActiveDemoPart > 0 ? --ActiveDemoPart : ActiveDemoPart = static_cast<std::int_fast32_t>(DemoParts.size()) - 1;
-								lwmf::ClearTexture(ScreenTexture, 0x00000000);
+								lwmf::ClearTexture(Canvas, 0x00000000);
 								(ActiveDemoPart >= 22 && ActiveDemoPart < DemoParts.size()) ? lwmf::SetVSync(0) : lwmf::SetVSync(-1);
 								break;
 							}

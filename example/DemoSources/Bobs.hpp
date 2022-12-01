@@ -83,7 +83,7 @@ namespace Bobs
 	{
 		const std::int_fast32_t TransparentColor{ lwmf::RGBAtoINT(255, 0, 0, 255) };
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
 		// Bobs
 
@@ -93,8 +93,8 @@ namespace Bobs
 
 		for (std::int_fast32_t i{}; i <= MaxBobs; ++i)
 		{
-			lwmf::BlitTransTexture(Bob1BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].X) + (ScreenTexture.WidthMid - PatternWidth), static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].Y) + ((ScreenTexture.HeightMid - PatternHeight + 50) >> 1), TransparentColor);
-			lwmf::BlitTransTexture(Bob2BMP, ScreenTexture, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].X) + (ScreenTexture.WidthMid - PatternWidth), static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].Y) + ((ScreenTexture.HeightMid - PatternHeight + 50) >> 1), TransparentColor);
+			lwmf::BlitTransTexture(Bob1BMP, Canvas, static_cast<std::int_fast32_t>(Bob1Coord[Bob1 & 511].X) + (Canvas.WidthMid - PatternWidth), static_cast<std::int_fast32_t>(Bob1Coord[Bob2 & 511].Y) + ((Canvas.HeightMid - PatternHeight + 50) >> 1), TransparentColor);
+			lwmf::BlitTransTexture(Bob2BMP, Canvas, static_cast<std::int_fast32_t>(Bob2Coord[Bob1 + 512 & 511].X) + (Canvas.WidthMid - PatternWidth), static_cast<std::int_fast32_t>(Bob2Coord[Bob2 + 512 & 511].Y) + ((Canvas.HeightMid - PatternHeight + 50) >> 1), TransparentColor);
 
 			Bob1 += 20;
 			Bob2 += 20;
@@ -105,7 +105,7 @@ namespace Bobs
 
 		// SineScroller
 
-		static std::int_fast32_t ScrollX{ ScreenTexture.Width };
+		static std::int_fast32_t ScrollX{ Canvas.Width };
 
 		for (std::int_fast32_t i{}, XPos{ ScrollX }; i < ScrollFont.TextLength; ++i)
 		{
@@ -120,9 +120,9 @@ namespace Bobs
 			{
 				const std::int_fast32_t TempPosX{ XPos + x1 };
 
-				if (TempPosX <= ScreenTexture.Width)
+				if (TempPosX <= Canvas.Width)
 				{
-					lwmf::BlitTransTexturePart(ScrollFont.CharMapBMP, x, 0, ScreenTexture, TempPosX, ScreenTexture.Height - 120 + static_cast<std::int_fast32_t>(std::sinf(0.01F * TempPosX) * 60.0F), 1, ScrollFont.CharHeight, TransparentColor);
+					lwmf::BlitTransTexturePart(ScrollFont.CharMapBMP, x, 0, Canvas, TempPosX, Canvas.Height - 120 + static_cast<std::int_fast32_t>(std::sinf(0.01F * TempPosX) * 60.0F), 1, ScrollFont.CharHeight, TransparentColor);
 				}
 				else
 				{
@@ -137,7 +137,7 @@ namespace Bobs
 
 		if (ScrollX < -ScrollFont.Length)
 		{
-			ScrollX = ScreenTexture.Width;
+			ScrollX = Canvas.Width;
 		}
 
 		DisplayInfoBox("SineScroller and Bobs");

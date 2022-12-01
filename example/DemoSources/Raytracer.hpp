@@ -276,18 +276,18 @@ namespace Raytracer
 		UsedSpheres.emplace_back(Sphere(Vec3f(SpherePos1.x, SpherePos1.y, SpherePos1.z), 4.0F, Glass));
 		UsedSpheres.emplace_back(Sphere(Vec3f(SpherePos2.x, SpherePos2.y, SpherePos2.z), 5.0F, Metal));
 
-		const float DirZ{ -ScreenTexture.Height / (2.0F * std::tanf(lwmf::PI / 6.0F)) };
+		const float DirZ{ -Canvas.Height / (2.0F * std::tanf(lwmf::PI / 6.0F)) };
 		static float Zoom{ 50.0F };
 		static float ZoomSpeed{ 10.0F };
 
 		#pragma omp parallel for
-		for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
+		for (std::int_fast32_t y{}; y < Canvas.Height; ++y)
 		{
-			const float DirY{ -(y + 0.5F) + ScreenTexture.HeightMid };
+			const float DirY{ -(y + 0.5F) + Canvas.HeightMid };
 
-			for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
+			for (std::int_fast32_t x{}; x < Canvas.Width; ++x)
 			{
-				Vec3f Result{ CastRay(Vec3f(0.0F, 0.0F, 0.0F), Vec3f(((x + 0.5F) - ScreenTexture.WidthMid), DirY, DirZ + Zoom).normalize(), UsedSpheres, UsedLights) };
+				Vec3f Result{ CastRay(Vec3f(0.0F, 0.0F, 0.0F), Vec3f(((x + 0.5F) - Canvas.WidthMid), DirY, DirZ + Zoom).normalize(), UsedSpheres, UsedLights) };
 				const float Max{ std::max(Result[0], std::max(Result[1], Result[2])) };
 
 				if (Max > 1.0F)
@@ -295,7 +295,7 @@ namespace Raytracer
 					Result = Result * (1.0F / Max);
 				}
 
-				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Result[0] * 255.0F), static_cast<std::int_fast32_t>(Result[1] * 255.0F), static_cast<std::int_fast32_t>(Result[2] * 255.0F), 255));
+				lwmf::SetPixel(Canvas, x, y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(Result[0] * 255.0F), static_cast<std::int_fast32_t>(Result[1] * 255.0F), static_cast<std::int_fast32_t>(Result[2] * 255.0F), 255));
 			}
 		}
 

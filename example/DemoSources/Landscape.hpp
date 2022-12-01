@@ -36,7 +36,7 @@ namespace Landscape
 		const std::int_fast32_t CosA{ static_cast<std::int_fast32_t>(std::cosf(Factor * 0.01F) * 128.0F) };
 		const std::int_fast32_t SinA{ static_cast<std::int_fast32_t>(std::sinf(Factor * 0.01F) * 128.0F) };
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
 		for (std::int_fast32_t x{}; x < LandscapeTextureMap.Width; ++x)
 		{
@@ -47,7 +47,7 @@ namespace Landscape
 				const std::int_fast32_t TempY{ (LandScapeTerrainColorRGBA.Red >> 1) - YPos };
 				const std::int_fast32_t TempZ{ ((x - XPos) * SinA + (z - ZPos) * CosA) >> 7 };
 
-				lwmf::SetPixel(ScreenTexture, (ScreenTexture.WidthMid + (TempX << 2) / TempZ), (ScreenTexture.HeightMid - (TempY << 7) / TempZ), LandscapeTextureMap.Pixels[z * LandscapeTextureMap.Width + x]);
+				lwmf::SetPixel(Canvas, (Canvas.WidthMid + (TempX << 2) / TempZ), (Canvas.HeightMid - (TempY << 7) / TempZ), LandscapeTextureMap.Pixels[z * LandscapeTextureMap.Width + x]);
 			}
 		}
 

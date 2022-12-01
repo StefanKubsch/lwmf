@@ -27,25 +27,25 @@ namespace PerlinGFX
 		{
 			case Renderpart::TopLeft:
 			{
-				End = { ScreenTexture.WidthMid, ScreenTexture.HeightMid };
+				End = { Canvas.WidthMid, Canvas.HeightMid };
 				break;
 			}
 			case Renderpart::TopRight:
 			{
-				Start.X = ScreenTexture.WidthMid;
-				End = { ScreenTexture.Width, ScreenTexture.HeightMid };
+				Start.X = Canvas.WidthMid;
+				End = { Canvas.Width, Canvas.HeightMid };
 				break;
 			}
 			case Renderpart::DownLeft:
 			{
-				Start.Y = ScreenTexture.HeightMid;
-				End = { ScreenTexture.WidthMid, ScreenTexture.Height };
+				Start.Y = Canvas.HeightMid;
+				End = { Canvas.WidthMid, Canvas.Height };
 				break;
 			}
 			case Renderpart::DownRight:
 			{
-				Start = { ScreenTexture.WidthMid, ScreenTexture.HeightMid };
-				End = { ScreenTexture.Width, ScreenTexture.Height };
+				Start = { Canvas.WidthMid, Canvas.HeightMid };
+				End = { Canvas.Width, Canvas.Height };
 				break;
 			}
 
@@ -54,14 +54,14 @@ namespace PerlinGFX
 
 		for (std::int_fast32_t y{ Start.Y }; y < End.Y; ++y)
 		{
-			const float PosY{ static_cast<float>(y) / ScreenTexture.Height };
+			const float PosY{ static_cast<float>(y) / Canvas.Height };
 
 			for (std::int_fast32_t x{ Start.X }; x < End.X; ++x)
 			{
-				const float PosX{ static_cast<float>(x) / ScreenTexture.Width };
+				const float PosX{ static_cast<float>(x) / Canvas.Width };
 				const float n{ (15.0F * PGFX.Noise(PosX, PosY, NoiseFactor)) - PGFX.Noise(15.0F * PosX, 15.0F * PosY, NoiseFactor) };
 
-				lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n)));
+				lwmf::SetPixel(Canvas, x, y, lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(128.0F * n), static_cast<std::int_fast32_t>(n), static_cast<std::int_fast32_t>(255.0F * n), static_cast<std::int_fast32_t>(255.0F * n)));
 			}
 		}
 	}

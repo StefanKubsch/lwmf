@@ -51,12 +51,12 @@ namespace Swarm
 		const std::int_fast32_t Elapsed{ static_cast<std::int_fast32_t>(GetTickCount()) };
 		const std::int_fast32_t Interval{ Elapsed - LastTime };
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
 		for (std::int_fast32_t i{}; i < NumberOfParticles; ++i)
 		{
 			Particles[i].Update(Interval);
-			lwmf::SetPixelSafe(ScreenTexture, static_cast<std::int_fast32_t>((Particles[i].Pos.X + 1.0F) * ScreenTexture.WidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.Y * ScreenTexture.WidthMid + ScreenTexture.HeightMid), i >> 7);
+			lwmf::SetPixelSafe(Canvas, static_cast<std::int_fast32_t>((Particles[i].Pos.X + 1.0F) * Canvas.WidthMid), static_cast<std::int_fast32_t>(Particles[i].Pos.Y * Canvas.WidthMid + Canvas.HeightMid), i >> 7);
 		}
 
 		LastTime = Elapsed;

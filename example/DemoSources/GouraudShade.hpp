@@ -173,7 +173,7 @@ namespace GouraudShade
 
 			for (std::int_fast32_t Count{ X1 }; Count < X2; ++Count)
 			{
-				lwmf::SetPixelSafe(ScreenTexture, Count, Y, StartColour);
+				lwmf::SetPixelSafe(Canvas, Count, Y, StartColour);
 
 				while (ColourIncCount >= 0)
 				{
@@ -276,14 +276,14 @@ namespace GouraudShade
 		RotateShape();
 		std::qsort(DrawOrder.data(), NumberOfVertices, sizeof(DrawOrder[0]), Compare);
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
 		for (VertexCount = 0; VertexCount < Vertices; ++VertexCount)
 		{
 			const std::int_fast32_t ZValue{ (450 + RotatedShape[VertexCount].z) >> 2 };
 
-			Shape2D[VertexCount].X = ScreenTexture.WidthMid + ((RotatedShape[VertexCount].x) << 7) / ZValue;
-			Shape2D[VertexCount].Y = ScreenTexture.HeightMid + ((RotatedShape[VertexCount].y) << 7) / ZValue;
+			Shape2D[VertexCount].X = Canvas.WidthMid + ((RotatedShape[VertexCount].x) << 7) / ZValue;
+			Shape2D[VertexCount].Y = Canvas.HeightMid + ((RotatedShape[VertexCount].y) << 7) / ZValue;
 		}
 
 		for (VertexCount = 0; VertexCount < Vertices; ++VertexCount)

@@ -82,7 +82,7 @@ namespace DLA
                 default: {}
             }
 
-            if (static_cast<std::uint_fast32_t>(Point.X) >= static_cast<std::uint_fast32_t>(ScreenTexture.Width) || static_cast<std::uint_fast32_t>(Point.Y) >= static_cast<std::uint_fast32_t>(ScreenTexture.Height))
+            if (static_cast<std::uint_fast32_t>(Point.X) >= static_cast<std::uint_fast32_t>(Canvas.Width) || static_cast<std::uint_fast32_t>(Point.Y) >= static_cast<std::uint_fast32_t>(Canvas.Height))
             {
                 RandomPos();
             }
@@ -90,8 +90,8 @@ namespace DLA
 
         void RandomPos()
         {
-            std::uniform_int_distribution<std::int_fast32_t> DistribX(0, ScreenTexture.Width);
-            std::uniform_int_distribution<std::int_fast32_t> DistribY(0, ScreenTexture.Height);
+            std::uniform_int_distribution<std::int_fast32_t> DistribX(0, Canvas.Width);
+            std::uniform_int_distribution<std::int_fast32_t> DistribY(0, Canvas.Height);
 
             Point = { DistribX(RNG), DistribY(RNG) };
         }
@@ -102,33 +102,33 @@ namespace DLA
 
     inline void WriteAggregation(const float v, const std::int_fast32_t x, const std::int_fast32_t y)
     {
-        if (static_cast<std::uint_fast32_t>(x) >= static_cast<std::uint_fast32_t>(ScreenTexture.Width) || static_cast<std::uint_fast32_t>(y) >= static_cast<std::uint_fast32_t>(ScreenTexture.Height))
+        if (static_cast<std::uint_fast32_t>(x) >= static_cast<std::uint_fast32_t>(Canvas.Width) || static_cast<std::uint_fast32_t>(y) >= static_cast<std::uint_fast32_t>(Canvas.Height))
         {
             return;
         }
 
-        Aggregation[y * ScreenTexture.Width + x] = v;
+        Aggregation[y * Canvas.Width + x] = v;
     }
 
     inline float GetAggregation(const std::int_fast32_t x, const std::int_fast32_t y)
     {
-        if (static_cast<std::uint_fast32_t>(x) >= static_cast<std::uint_fast32_t>(ScreenTexture.Width) || static_cast<std::uint_fast32_t>(y) >= static_cast<std::uint_fast32_t>(ScreenTexture.Height))
+        if (static_cast<std::uint_fast32_t>(x) >= static_cast<std::uint_fast32_t>(Canvas.Width) || static_cast<std::uint_fast32_t>(y) >= static_cast<std::uint_fast32_t>(Canvas.Height))
         {
             return 0;
         }
 
-        return Aggregation[y * ScreenTexture.Width + x];
+        return Aggregation[y * Canvas.Width + x];
     }
 
     inline void Init()
     {
-        Aggregation.resize(static_cast<std::size_t>(ScreenTexture.Size));
+        Aggregation.resize(static_cast<std::size_t>(Canvas.Size));
 
-        for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
+        for (std::int_fast32_t y{}; y < Canvas.Height; ++y)
         {
-            const float Value{ y > ScreenTexture.HeightMid - 1 && y < ScreenTexture.HeightMid + 1 ? 1.0F : 0.0F };
+            const float Value{ y > Canvas.HeightMid - 1 && y < Canvas.HeightMid + 1 ? 1.0F : 0.0F };
 
-            for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
+            for (std::int_fast32_t x{}; x < Canvas.Width; ++x)
             {
                 WriteAggregation(Value, x, y);
             }
@@ -162,7 +162,7 @@ namespace DLA
         {
             Particle.Update();
 
-            const float Dist{ std::sqrtf(static_cast<float>((Particle.Point.X - ScreenTexture.WidthMid) * (Particle.Point.X - ScreenTexture.WidthMid) + (Particle.Point.Y - ScreenTexture.HeightMid) * (Particle.Point.Y - ScreenTexture.HeightMid))) };
+            const float Dist{ std::sqrtf(static_cast<float>((Particle.Point.X - Canvas.WidthMid) * (Particle.Point.X - Canvas.WidthMid) + (Particle.Point.Y - Canvas.HeightMid) * (Particle.Point.Y - Canvas.HeightMid))) };
 
             if (SumUpNeighbours(Particle.Point.X, Particle.Point.Y) > AggregationThresh && GetAggregation(Particle.Point.X, Particle.Point.Y) < AggregationPrevent && Dist < 720.0F)
             {
@@ -176,12 +176,12 @@ namespace DLA
             Item *= AggregationDecay;
         });
 
-        for (std::int_fast32_t y{}; y < ScreenTexture.Height; ++y)
+        for (std::int_fast32_t y{}; y < Canvas.Height; ++y)
         {
-            for (std::int_fast32_t x{}; x < ScreenTexture.Width; ++x)
+            for (std::int_fast32_t x{}; x < Canvas.Width; ++x)
             {
                 const std::int_fast32_t Color{ static_cast<std::int_fast32_t>(std::min(0.5F, GetAggregation(x, y)) * 384.0F) };
-                lwmf::SetPixel(ScreenTexture, x, y, lwmf::RGBAtoINT(Color, 0, Color, 255));
+                lwmf::SetPixel(Canvas, x, y, lwmf::RGBAtoINT(Color, 0, Color, 255));
             }
         }
 

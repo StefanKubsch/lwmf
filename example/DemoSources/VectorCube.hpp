@@ -27,7 +27,7 @@ namespace VectorCube
 		static float LissajouFactor{};
 		LissajouFactor += 0.02F;
 
-		lwmf::ClearTexture(ScreenTexture, 0x00000000);
+		lwmf::ClearTexture(Canvas, 0x00000000);
 
 		for (std::int_fast32_t i{}; i < CubeNumPoints; ++i)
 		{
@@ -46,8 +46,8 @@ namespace VectorCube
 
 			// 2D projection & translate
 
-			Cube[i].X = ScreenTexture.WidthMid + static_cast<std::int_fast32_t>(CubeDef[i].x);
-			Cube[i].Y = ScreenTexture.HeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
+			Cube[i].X = Canvas.WidthMid + static_cast<std::int_fast32_t>(CubeDef[i].x);
+			Cube[i].Y = Canvas.HeightMid + static_cast<std::int_fast32_t>(CubeDef[i].y);
 		}
 
 		struct CubeFaceStruct final
@@ -74,7 +74,7 @@ namespace VectorCube
 
 		for (std::int_fast32_t i{}; i < 6; ++i)
 		{
-			lwmf::FilledPolygon(ScreenTexture,
+			lwmf::FilledPolygon(Canvas,
 				{
 					{ Cube[CubeFaces[Order[i].first].p0].X, Cube[CubeFaces[Order[i].first].p0].Y },
 					{ Cube[CubeFaces[Order[i].first].p1].X, Cube[CubeFaces[Order[i].first].p1].Y },

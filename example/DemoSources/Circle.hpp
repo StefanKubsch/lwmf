@@ -13,7 +13,7 @@ namespace Circle
         static lwmf::PerlinNoise Ring;
         float j{};
 
-        lwmf::ClearTexture(ScreenTexture, 0x00000000);
+        lwmf::ClearTexture(Canvas, 0x00000000);
 
         for (std::int_fast32_t i{}; i < 100; ++i)
         {
@@ -31,11 +31,11 @@ namespace Circle
                 const float cosaFactor{ std::cosf(aFactor) };
                 const float sinaFactor{ std::sinf(aFactor) };
 
-                const float RoundNoiseFactor{ 70.0F + Ring.Noise(ScreenTexture.Width + cosTimeFactor + cosaFactor, ScreenTexture.Height + sinTimeFactor + sinaFactor, 0.0F) * 150.0F * (1.0F + sinTime) };
+                const float RoundNoiseFactor{ 70.0F + Ring.Noise(Canvas.Width + cosTimeFactor + cosaFactor, Canvas.Height + sinTimeFactor + sinaFactor, 0.0F) * 150.0F * (1.0F + sinTime) };
 
-                lwmf::SetPixelSafe(ScreenTexture,
-                    static_cast<std::int_fast32_t>(ScreenTexture.WidthMid + (cosaFactor * RoundNoiseFactor)),
-                    static_cast<std::int_fast32_t>(ScreenTexture.HeightMid + (sinaFactor * RoundNoiseFactor)),
+                lwmf::SetPixelSafe(Canvas,
+                    static_cast<std::int_fast32_t>(Canvas.WidthMid + (cosaFactor * RoundNoiseFactor)),
+                    static_cast<std::int_fast32_t>(Canvas.HeightMid + (sinaFactor * RoundNoiseFactor)),
                     lwmf::RGBAtoINT(static_cast<std::int_fast32_t>(b + Time) % 360 - (ColorMod << 1), static_cast<std::int_fast32_t>(b + Time) % 100 - ColorMod, static_cast<std::int_fast32_t>(b + Time) % 270, 255));
 
                 b += 0.2F;
