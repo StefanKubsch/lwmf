@@ -1,7 +1,7 @@
 # lwmf
 lightweight media framework - graphics, audio, math, multithreading, logging and much more for games, demos, engines etc.
 
-Windows 64bit, C++ 17, Visual Studio 2022, OpenGL 4.5 Core (Shader & DSA), SSE 4.2
+Windows 64bit, C++ 17 (and later), Visual Studio 2022, OpenGL 4.5 Core (Shader & Direct State Access), SSE 4.2
 
 This framework is "Public Domain" - do whatever you want with it!
 
@@ -12,7 +12,7 @@ Features:
 		- wgl extension loader
 		- shader class
 		- load textures into GPU
-		- render them to screen
+		- render textures to screen
 	
 	- Primitives
 		- SetPixel / GetPixel
@@ -55,7 +55,7 @@ Features:
 		- set volume
 		
 	- Gamepad
-		- support for XBOX controllers via Microsoft XInput
+		- support for XBOX 360 controllers via Microsoft XInput
 		
 	- Math
 		- Lerp (linear interpolation)
@@ -79,12 +79,12 @@ Features:
 		- catch mouse in current window
 
 	- Logging and error handling
-		- create logfile via class (one is hardcoded in lwmf itself)
+		- create logfile via class (one logfile is hardcoded in lwmf itself)
 		- error/exception handling
 		- switchable exception throwing
 
 	- INI files
-		- read and write values to standard INI files
+		- read and write values from/to standard INI files
 
 	- Other stuff
 		- fps (frames per second) counter
