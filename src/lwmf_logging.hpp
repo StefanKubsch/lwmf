@@ -42,9 +42,11 @@
 namespace lwmf
 {
 
+
 	enum class LogLevel : std::int_fast32_t
 	{
 		Info,
+		Trace,
 		Debug,
 		Warn,
 		Error,
@@ -107,6 +109,7 @@ namespace lwmf
 			std::map<LogLevel, std::string_view> ErrorTable
 			{
 				{ LogLevel::Info, "** INFO ** " },
+				{ LogLevel::Trace, "** TRACE ** " },
 				{ LogLevel::Debug, "** DEBUG ** " },
 				{ LogLevel::Warn, "** WARNING ** " },
 				{ LogLevel::Error, "** ERROR ** " },

@@ -45,6 +45,8 @@ namespace lwmf
 	{
 		CreateTexture(Texture, Width, Height, 0x00000000);
 		glViewport(0, 0, Texture.Width, Texture.Height);
+		LWMFSystemLog.AddEntry(LogLevel::Trace, __FILENAME__, __LINE__, "lwmf::ResizeViewportAndRenderTarget (variable name:Texture.Width, value: " + std::to_string(Texture.Width) + ")");
+		LWMFSystemLog.AddEntry(LogLevel::Trace, __FILENAME__, __LINE__, "lwmf::ResizeViewportAndRenderTarget (variable name:Texture.Height, value: " + std::to_string(Texture.Height) + ")");
 	}
 
 	inline void CreateOpenGLWindow( HINSTANCE hInstance, TextureStruct& RenderTarget, const std::int_fast32_t Width, const std::int_fast32_t Height, const LPCSTR WindowName, const bool Fullscreen)
