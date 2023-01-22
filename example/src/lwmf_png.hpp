@@ -1227,7 +1227,7 @@ namespace lwmf
 			std::array<char, 100> ErrorMessage{};
 			strerror_s(ErrorMessage.data(), 100, errno);
 
-			LWMFSystemLog.AddEntry(LogLevel::Error, __FILENAME__, __LINE__, "Error loading " + Filename + ": " + std::string(ErrorMessage.data()));
+			LWMFSystemLog.AddEntry(LogLevel::Error, __FILENAME__, __LINE__, "lwmf::LoadPNG(): Error loading " + Filename + ": " + std::string(ErrorMessage.data()));
 		}
 		else
 		{
