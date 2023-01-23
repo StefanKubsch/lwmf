@@ -201,8 +201,8 @@ namespace Raytracer
 
 		if (Depth > 4 || !SceneIntersect(Origin, Direction, spheres, Point, N, material))
 		{
-			std::int_fast32_t x{ std::max(0, std::min(SphericalMapWidth - 1, static_cast<std::int_fast32_t>((lwmf::FastAtan2Approx(Direction.z, Direction.x) / (lwmf::DoublePI) + 0.5F) * SphericalMapWidth))) };
-			std::int_fast32_t y{ std::max(0, std::min(SphericalMapHeight - 1, static_cast<std::int_fast32_t>(std::acosf(Direction.y) / lwmf::PI * SphericalMapHeight))) };
+			const std::int_fast32_t x{ std::max(0, std::min(SphericalMapWidth - 1, static_cast<std::int_fast32_t>((lwmf::FastAtan2Approx(Direction.z, Direction.x) / (lwmf::DoublePI) + 0.5F) * SphericalMapWidth))) };
+			const std::int_fast32_t y{ std::max(0, std::min(SphericalMapHeight - 1, static_cast<std::int_fast32_t>(std::acosf(Direction.y) / lwmf::PI * SphericalMapHeight))) };
 
 			return SphericalMap[y * SphericalMapWidth + x];
 		}

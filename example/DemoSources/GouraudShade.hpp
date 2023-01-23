@@ -159,7 +159,7 @@ namespace GouraudShade
 		{
 			const std::int_fast32_t X2{ VertexPoints[StartVertex1].X + XCalc1 / YDiff1 };
 			XCalc1 += XDiff1;
-			std::int_fast32_t X1{ VertexPoints[StartVertex2].X + XCalc2 / YDiff2 };
+			const std::int_fast32_t X1{ VertexPoints[StartVertex2].X + XCalc2 / YDiff2 };
 			XCalc2 += XDiff2;
 			const std::int_fast32_t EndColour{ Color[StartVertex1] + ColourCalc1 / YDiff1 };
 			ColourCalc1 += ColourDiff1;

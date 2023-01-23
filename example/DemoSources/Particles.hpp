@@ -13,7 +13,7 @@ namespace Particles
     {
     public:
 
-        void Draw();
+        void Draw() const;
         void Update();
 
         std::int_fast32_t x{};
@@ -23,7 +23,7 @@ namespace Particles
         std::int_fast32_t Size{};
     };
 
-    inline void Particle::Draw()
+    inline void Particle::Draw() const
     {
         const std::int_fast32_t Factor{ 130 + (Size * 40) };
         const std::int_fast32_t Color = lwmf::RGBAtoINT(Factor, Factor, Factor, Factor);
