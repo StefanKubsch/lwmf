@@ -40,10 +40,10 @@ namespace Cubes
 		{
 			Points[0] = { PosX[0], PosY[0] + y * CubeSize };
 
-			for (Index = 0; Index < 4; ++Index)
+			for (Index = 1; Index < 4; ++Index)
 			{
-				NextIndex = (Index + 1) & 3;
-				Points[static_cast<std::uint_fast32_t>(Index) + 1] = { PosX[NextIndex], PosY[NextIndex] + y * CubeSize }; //-V557
+				NextIndex = Index & 3;
+				Points[Index] = { PosX[NextIndex], PosY[NextIndex] + y * CubeSize };
 			}
 
 			lwmf::FilledPolygon(Canvas, Points, 0x44444444, Color);
