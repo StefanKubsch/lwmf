@@ -202,3 +202,6 @@ example/.vs/lwmf_demo/v17/Browse.VC.opendb
 example/x64/Release/lwmf_demo.tlog/link.write.2u.tlog
 example/.vs/lwmf_demo/v17/fileList.bin
 example/lwmf_demo.vcxproj
+example/x64/Release/lwmf_demo.tlog/Cl.items.tlog
+example/x64/Release/std.compat.ixx.ifc.dt.module.json.command
+example/x64/Release/std.ixx.ifc.dt.module.json.command
