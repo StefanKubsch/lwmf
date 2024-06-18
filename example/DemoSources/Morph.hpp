@@ -23,7 +23,7 @@ namespace Morph
 
 	inline void Init()
 	{
-		std::uniform_real<float> Distrib(0.0F, RAND_MAX);
+		std::uniform_real_distribution<float> Distrib(0.0F, RAND_MAX);
 
 		for (std::int_fast32_t i{}; i < NumberOfPoints; ++i)
 		{

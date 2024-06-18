@@ -22,7 +22,7 @@ namespace Starfield
 		static std::array<StarStruct, MaxStars> Stars{};
 
 		std::uniform_int_distribution<std::int_fast32_t> Distrib1(-128, 128);
-		std::uniform_real<float> Distrib2(1.0F, MaxDepth);
+		std::uniform_real_distribution<float> Distrib2(1.0F, MaxDepth);
 
 		lwmf::ClearTexture(Canvas, 0x00000000);
 
